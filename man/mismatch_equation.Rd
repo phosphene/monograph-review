@@ -17,9 +17,13 @@ mismatch_equation(t, rho_eq0, r_B, k1)
 }
 \description{
 In the exponential cultural regime (β > 1, r_B = ε·β):
-M(t) ≈ ρ_eq(B0) · (exp(r_B·t) - exp(k1·t))
+M(t) = ρ_eq(B0) · (exp(r_B·t) - exp(k1·t))
 }
 \details{
-When r_B >> k1: M(t) ≈ ρ_eq(B(t)) → mismatch approaches full attractor
-When r_B << k1: M(t) ≈ 0 → organism tracks environment
+When r_B > k1: M(t) > 0 and growing (attractor ahead of relaxation)
+When r_B < k1: M(t) < 0 (relaxation has overshot — not physical,
+means mismatch is negligible, organism tracks environment)
+When r_B = k1: M(t) = 0 (matched)
+
+Use abs(M) for magnitude, or check sign for regime.
 }

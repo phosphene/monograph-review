@@ -535,6 +535,42 @@ plot.vi_test_suite <- function(x, ...) {
     class = "vi_cosegregation_result", statistic_key = "depletion_ratio",
     vi_prediction = "function loss co-segregates with adaptive sweeps less than chance"
   )
+  # P-series — a priori integration-depth (two-component metric)
+  register_test(
+    name = "p1_buchnera_two_component", fn = p1_buchnera_two_component,
+    data_required = "scores", discriminating = TRUE,
+    expected_fields = c("beta_B", "p_B", "beta_A", "p_A", "pseudo_r2_AB"),
+    class = "vi_test_result", statistic_key = "beta_B_AB",
+    vi_prediction = "two-component metric (mismatch + integration position) predicts Buchnera retention"
+  )
+  register_test(
+    name = "p2_ltee_niche_fba", fn = p2_ltee_niche_fba,
+    data_required = "scores", discriminating = TRUE,
+    expected_fields = c("median_first_gen_high_mismatch", "median_first_gen_low_mismatch", "p_earlier_high_mismatch"),
+    class = "vi_test_result", statistic_key = "p_earlier_high_mismatch",
+    vi_prediction = "niche-specific mismatch (Component A) predicts earlier LTEE loss"
+  )
+  register_test(
+    name = "p3_plastid_erosion_order", fn = p3_plastid_erosion_order,
+    data_required = "scores", discriminating = TRUE,
+    expected_fields = c("mean_species_rho", "n_species_with_signal", "beta_dependency", "p_dependency"),
+    class = "vi_test_result", statistic_key = "mean_species_rho",
+    vi_prediction = "a priori functional position orders plastid erosion with parasitism"
+  )
+  register_test(
+    name = "p4_echolocation_centrality", fn = p4_echolocation_centrality,
+    data_required = "centralities", discriminating = TRUE,
+    expected_fields = c("deg", "ev", "cl"),
+    class = "vi_test_result", statistic_key = "deg",
+    vi_prediction = "convergent genes less integrated than conserved in same domain"
+  )
+  register_test(
+    name = "p5_c4_integration_depth", fn = p5_c4_integration_depth,
+    data_required = "syndrome", discriminating = TRUE,
+    expected_fields = c("p_invariant_higher", "rho_depth_invariance", "binom_p_upper_half"),
+    class = "vi_test_result", statistic_key = "rho_depth_invariance",
+    vi_prediction = "invariant (function-converges) elements sit high in integration hierarchy; varying (mechanism-diverges) sit low"
+  )
   # L3 — cross-kingdom transfer
   register_test(
     name = "transfer_test", fn = transfer_test,

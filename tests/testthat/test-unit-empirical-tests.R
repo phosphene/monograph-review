@@ -98,6 +98,53 @@ test_that("ltee_cosegregation depletion ratio < 1 (depletion, not enrichment)", 
   expect_lt(result$values[["depletion_ratio"]], c(depletion_ratio = 1.0))
 })
 
+# === T7-v2: ltee_dependency_ordering — dependency predicts loss timing ===
+
+test_that("ltee_dependency_ordering returns positive rho for positive ordering", {
+  # High dependency -> lost LATER (positive ordering, VI-consistent)
+  timing <- c(b1 = 100, b2 = 500, b3 = 3000, b4 = 10000, b5 = 50000)
+  dependency <- c(b1 = 0, b2 = 0, b3 = 0.5, b4 = 0.9, b5 = 1.0)
+  result <- ltee_dependency_ordering(timing, dependency, seed = 42)
+  expect_true(validate_result(result))
+  expect_gt(result$values[["timing_rho"]], 0.8)
+  expect_lt(result$values[["timing_p"]], 0.05)
+})
+
+test_that("ltee_dependency_ordering returns negative rho for reverse ordering", {
+  # High dependency -> lost EARLIER (negative ordering, observed in LTEE)
+  # b1 has HIGH dep but EARLY loss; b5 has LOW dep but LATE loss
+  timing <- c(b1 = 100, b2 = 500, b3 = 3000, b4 = 10000, b5 = 50000)
+  dependency <- c(b1 = 1.0, b2 = 0.8, b3 = 0.5, b4 = 0.1, b5 = 0.0)
+  result <- ltee_dependency_ordering(timing, dependency, seed = 42)
+  expect_lt(result$values[["timing_rho"]], -0.5)
+})
+
+test_that("ltee_dependency_ordering returns ~zero rho for random ordering", {
+  set.seed(7)
+  genes <- paste0("b", 1:20)
+  timing <- sample(c(100, 500, 1000, 5000, 20000, 50000), 20, replace = TRUE)
+  names(timing) <- genes
+  dependency <- runif(20)
+  names(dependency) <- genes
+  result <- ltee_dependency_ordering(timing, dependency, seed = 42)
+  expect_lt(abs(result$values[["timing_rho"]]), 0.5)
+})
+
+test_that("ltee_dependency_ordering is deterministic with same seed (A2)", {
+  timing <- c(b1 = 100, b2 = 500, b3 = 3000, b4 = 10000, b5 = 50000)
+  dependency <- c(b1 = 0, b2 = 0, b3 = 0.5, b4 = 0.9, b5 = 1.0)
+  r1 <- ltee_dependency_ordering(timing, dependency, seed = 42)
+  r2 <- ltee_dependency_ordering(timing, dependency, seed = 42)
+  expect_equal(r1$values, r2$values)
+})
+
+test_that("ltee_dependency_ordering errors on < 3 shared genes", {
+  expect_error(
+    ltee_dependency_ordering(c(b1 = 100), c(b1 = 0, b2 = 1), seed = 42),
+    "Need >= 3"
+  )
+})
+
 # === T1: pgls_orobanchaceae — requires ape, caper (skip if not available) ===
 
 test_that("pgls_orobanchaceae returns expected values on real data", {

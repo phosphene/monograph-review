@@ -280,7 +280,7 @@ test_that("Simulacrum: independent slopes null control robust across 50 simulati
       bird_p = unname(result$values[["bird_p"]]),
       null_bird_rho = null_rho,
       n_plant = 6,
-      n_bird = 8,
+      n_bird = 15,
       all_tests_passed = TRUE
     )
   )

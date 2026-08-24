@@ -1,9 +1,16 @@
 "structure","dependency_score","observed_rank"
-"Wing proportions",0,1
-"Pectoral muscle",0.5,3
-"Sternal keel",1,2
-"Feather asymmetry",1,7
-"Wing bones",1.5,4
-"Pelvic girdle",3,6
-"Hindlimb",4,5
-"Feather structure",5,8
+"mass",0,1
+"rostrum.width",1,2
+"rostrum.depth",1,3
+"keel.depth",1.5,4
+"rostrum.length",1,5
+"femur",3,6
+"keel.length",1.5,7
+"carpometacarpus",2,8
+"tarsometatarsus",3.5,9
+"humerus",1.5,10
+"coracoid",2,11
+"tibiotarsus",3,12
+"ulna",1.5,13
+"sternum.length",4,14
+"cranium.length",5,15

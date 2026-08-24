@@ -1,0 +1,37 @@
+{
+  "p1": {
+    "beta_B": 1.8945,
+    "p_B": 2.0126e-29,
+    "beta_A": "NA",
+    "p_A": 1.142e-26,
+    "beta_B_AB": 7.7073,
+    "p_B_AB": 0,
+    "p_A_AB": 0.0015,
+    "pseudo_r2_B": 0.1112,
+    "pseudo_r2_AB": 0.1274,
+    "rho_componentB_lowmismatch": 0.1613,
+    "p_rho_componentB_lowmismatch": 0.0164,
+    "n": 1367,
+    "n_low_mismatch": 221
+  },
+  "p2": {
+    "median_first_gen_high_mismatch": 1500,
+    "median_first_gen_low_mismatch": 8500,
+    "p_earlier_high_mismatch": 0.9564,
+    "n_high_mismatch": 3,
+    "rho_degree_timing_lowmismatch": -0.0269,
+    "p_rho_degree_timing_lowmismatch": 0.8342,
+    "n_low_mismatch_deg": 178,
+    "rho_degree_timing_full": -0.1887,
+    "p_rho_degree_timing_full": 0.011,
+    "n": 198
+  },
+  "p3": {
+    "mean_species_rho": 0.603,
+    "n_species_with_signal": 7,
+    "beta_dependency": 0.8375,
+    "p_dependency": 0.0076,
+    "n": 48,
+    "n_species": 8
+  }
+}
