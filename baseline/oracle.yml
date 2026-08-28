@@ -3,8 +3,8 @@
 # Every value is the manuscript-reported result. Tolerance is absolute.
 # When results diverge, either update the baseline with proof or fix the regression.
 #
-# supports_vi: does the result support the VI prediction?
-# distinguishes_from_competitor: does the result distinguish VI from the named competitor?
+# supports_vi: does the result support the valence prediction?
+# distinguishes_from_competitor: does the result distinguish valence from the named competitor?
 #   (false = competitor predicts the same pattern; caveat required)
 
 t1_orobanchaceae_pgls:
@@ -121,7 +121,7 @@ empirical_formal_model:
   # script had a data-flattening bug (as.vector(t(retention)) is species-major;
   # rep(dep_scores, each=8) is gene-major) that scrambled dep <-> retention
   # and produced the wrong sign (dep = -0.83). With the corrected flattening
-  # (as.vector(retention), gene-major), the GLM confirms VI: dep = +0.84
+  # (as.vector(retention), gene-major), the GLM confirms valence: dep = +0.84
   # (p=0.0008), para = -1.86 (p<0.0001), pseudo-R2 = 0.55, cross-kingdom
   # rho = +0.755. The GLM is deterministic (A2: no RNG), so these are exact.
   # The theoretical companion is threshold_model (the ODE simulation above).
@@ -136,7 +136,7 @@ empirical_formal_model:
     cross_kingdom_p: 0.0305127590
     dep_positive: true
     para_negative: true
-    vi_confirmed: true
+    Valence_confirmed: true
   tolerance: 0.001
   supports_vi: true
   distinguishes_from_competitor: true

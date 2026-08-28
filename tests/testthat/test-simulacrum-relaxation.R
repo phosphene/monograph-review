@@ -8,7 +8,7 @@ library(testthat)
 
 context("Simulacrum: Relaxation formula — foundry verification")
 
-source("/home/node/.openclaw/workspace/vi-foundry/inst/simulacra/generate_relaxation.R", local = FALSE)
+source("/home/node/.openclaw/workspace/valence-foundry/inst/simulacra/generate_relaxation.R", local = FALSE)
 
 # Fitter — uses nlsLM (Levenberg-Marquardt) which is more robust than nls
 # Falls back to grid search if nlsLM unavailable

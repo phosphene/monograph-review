@@ -5,7 +5,7 @@
 #' mean of post-breakpoint values. Compares the step model against the best
 #' sigmoid (logistic function) on AIC.
 #'
-#' This is the core fitter for the original VI formula ρ(θ) = ρ_sat · H(θ − θ*).
+#' This is the core fitter for the original valence formula ρ(θ) = ρ_sat · H(θ − θ*).
 #' The successor relaxation formula — dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂) —
 #' is implemented in `fit_biexp.R` (bi-exponential time-series fitter) and
 #' `relaxation_model.R` (ODE simulation). Both fitters are preserved:

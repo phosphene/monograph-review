@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# VI Framework: R-based Enhancements to Quantitative Tests
+# valence Framework: R-based Enhancements to Quantitative Tests
 # Uses R 4.4.3 with ape, nlme, brms
 
 library(stats)

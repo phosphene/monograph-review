@@ -1,2 +1,2 @@
 linters: linters_with_defaults(line_length_linter = line_length_linter(120), object_name_linter = object_name_linter("snake_case"), object_usage_linter = NULL)
-exclusions: list("inst/examples/section12-reproduction.Rmd", "inst/examples/formal-model-comparison.R", "vignettes/vi-foundry.Rmd", "vignettes/exploring-toy-realms.Rmd", "tests/testthat/_problems/")
+exclusions: list("inst/examples/section12-reproduction.Rmd", "inst/examples/formal-model-comparison.R", "vignettes/valence-foundry.Rmd", "vignettes/exploring-toy-realms.Rmd", "tests/testthat/_problems/")

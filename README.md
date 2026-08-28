@@ -1,6 +1,6 @@
-# VI Foundry
+# Valence Foundry
 
-**Production-grade computational artifacts for testing predictions from the Valence-Ingression (VI) framework monograph.**
+**Production-grade computational artifacts for testing predictions from the Valence-Ingression framework monograph.**
 
 ---
 
@@ -12,7 +12,7 @@ The artifacts here do not merely reproduce numbers from the monograph. They cons
 
 The package serves three audiences:
 
-- **Researchers** evaluating the VI framework's empirical support
+- **Researchers** evaluating the valence framework's empirical support
 - **Reviewers** checking whether the statistical methods are sound
 - **Replicators** reproducing the results on different data or platforms
 
@@ -22,8 +22,8 @@ The package serves three audiences:
 
 ```bash
 # Clone and enter
-git clone [https://github.com/FlowFeel/vi-foundry](https://github.com/FlowFeel/vi-foundry).git
-cd vi-foundry
+git clone [https://github.com/phosphene/monograph-review](https://github.com/phosphene/monograph-review).git
+cd valence-foundry
 
 # Restore the R environment (exact package versions)
 renv::restore()
@@ -43,14 +43,14 @@ make regression    # Compare all results to the baseline oracle
 
 Every value below is the manuscript-reported result, stored as ground truth in [`baseline/oracle.yml`](baseline/oracle.yml). The pipeline must reproduce these within numerical tolerance (0.001).
 
-| Test | What It Measures | Key Value | Distinguishes VI from Competitors? |
+| Test | What It Measures | Key Value | Distinguishes valence from Competitors? |
 |------|-----------------|-----------|-----------------------------------|
 | T1: Orobanchaceae PGLS | Plastome genome size vs parasitism depth | β = −23.5 kb/level, R² = 0.652, p < 10⁻⁹ | No — relaxed selection predicts the same gradient |
 | T3: Endosymbiont biphasic | Genome reduction kinetics shape | R² = 0.920, BF = 6.7 (logistic vs exponential) | Yes — constant-rate and ratchet predict different shapes |
 | T6: Gene-loss ordering | Functional dependency vs retention order | ρ = 0.955, exact permutation p = 0.0083 | Yes — random loss predicts no ordering |
 | L3: Cross-kingdom transfer | Plant parameters predict bird morphology | ρ = 0.755, p = 0.031 | Yes — substrate independence predicts no transfer |
 
-**Live visualizations:** [https://flowfeel.github.io/vi-foundry/](https://flowfeel.github.io/vi-foundry/) — simulacra parameter recovery, baseline oracle, key results, and four speculative toy realms (threshold gate, irreversibility, Homo inversion, cross-kingdom transfer), all with literate context.
+**Live visualizations:** [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/) — simulacra parameter recovery, baseline oracle, key results, and four speculative toy realms (threshold gate, irreversibility, Homo inversion, cross-kingdom transfer), all with literate context.
 
 ---
 
@@ -62,7 +62,7 @@ The foundry ships a complete review trail — every claim traced to its root cau
 
 | Document | What it is |
 |----------|-----------|
-| [Valence-ingression review](docs/review/valence-ingression-review.md) | Critical review of the VI monograph (Ritch-Frel, v9) and the foundry artifacts. Numbered **Remarks** (R1–R7) and **Review Items** (1–6). The foundry's code cites these directly. |
+| [Valence-ingression review](docs/review/valence-ingression-review.md) | Critical review of the valence monograph (Ritch-Frel, v9) and the foundry artifacts. Numbered **Remarks** (R1–R7) and **Review Items** (1–6). The foundry's code cites these directly. |
 | [Calculation review](docs/review/calculation-review.md) | Literate walkthrough of the calculation audit: for each oracle entry, the prediction, the broken output, the root-cause diagnosis, and the fix. |
 | [Math review](docs/review/math-review.md) | Audit of the mathematics vs. the implementation vs. the claims (seven issues ranked by severity; two severe). All seven resolved by the three-phase refactoring. |
 | [Refactoring plan](docs/review/refactoring-plan.md) | Execution plan for the math-review issues: proposed refactoring, blast radius, risk, and three-phase ordering (safest-first). Status: COMPLETE. |
@@ -71,7 +71,7 @@ The foundry ships a complete review trail — every claim traced to its root cau
 
 | Document | What it is |
 |----------|-----------|
-| [Phased breakdown](docs/review/vi-foundry-phased-breakdown.md) | Phase-by-phase breakdown of the foundry build, current gate status, and the open data-reconciliation work (items 4–6). |
+| [Phased breakdown](docs/review/valence-foundry-phased-breakdown.md) | Phase-by-phase breakdown of the foundry build, current gate status, and the open data-reconciliation work (items 4–6). |
 | [Algorithms & findings](docs/review/algorithms-and-findings.md) | Formal literate survey of every algorithm, its prediction, its competitor, and a plain-language reading of the current result. The synthesis of what the foundry establishes, what it does not, and what that means for the framework. |
 
 ### Modeling, data, and the empirical frontier
@@ -79,9 +79,9 @@ The foundry ships a complete review trail — every claim traced to its root cau
 | Document | What it is |
 |----------|-----------|
 | [Modeling, sim & viz review](docs/review/modeling-sim-viz-review.md) | Review of the author's existing modeling (finds the original empirical GLM was broken by a data-flattening bug; the foundry hid this with a theoretical simulation). Evaluation of the sim/viz infrastructure (three latent viz bugs found and fixed). Proposal for a speculative simulation capacity. |
-| [Formal model reproduction](docs/review/formal-model-reproduction.md) | Deep-dive reproduction of the broken GLM. **Root cause:** `as.vector(t(retention))` misaligns dep and retention. **Fix:** remove one `t()`. The corrected additive GLM gives dep = +0.84 (p = 0.0008), para p < 0.0001, cross-kingdom ρ = +0.755 — all matching VI. Recorded as **Remark R7**. |
+| [Formal model reproduction](docs/review/formal-model-reproduction.md) | Deep-dive reproduction of the broken GLM. **Root cause:** `as.vector(t(retention))` misaligns dep and retention. **Fix:** remove one `t()`. The corrected additive GLM gives dep = +0.84 (p = 0.0008), para p < 0.0001, cross-kingdom ρ = +0.755 — all matching valence. Recorded as **Remark R7**. |
 | [Empirical-testing expansion plan](docs/review/empirical-testing-expansion-plan.md) | Proposal for moving the three "testable but not yet tested" modules (Homo inversion, cusp irreversibility, cross-kingdom transfer) toward tested. Honest about the data boundary. |
-| [Toy realms plan](docs/review/toy-realms-plan.md) | Execution plan for the speculative simulation capacity: four phased toy realms that make VI's predictions explorable without claiming empirical test. Status: COMPLETE — all 4 realms built, tested, and documented. |
+| [Toy realms plan](docs/review/toy-realms-plan.md) | Execution plan for the speculative simulation capacity: four phased toy realms that make valence's predictions explorable without claiming empirical test. Status: COMPLETE — all 4 realms built, tested, and documented. |
 
 ---
 
@@ -89,15 +89,15 @@ The foundry ships a complete review trail — every claim traced to its root cau
 
 ### Framework Terms
 
-**Valence-Ingression (VI)** — The framework's name. "Valence" refers to the adaptive returns an ecological space offers an organism; "Ingression" refers to the process of committing to that space. Together: the hypothesis that organisms enter ecological spaces offering adaptive returns, are reshaped by those spaces, and that this commitment process directs evolutionary trajectory more fundamentally than selection alone. The name is currently under review (see Remark R1 in the review file) because "VI" is ambiguous within the Phosphene ecosystem and "Valence-Ingression" requires reading internal definitions before it becomes meaningful.
+**Valence-Ingression** — The framework's name. "Valence" refers to the adaptive returns an ecological space offers an organism; "Ingression" refers to the process of committing to that space. Together: the hypothesis that organisms enter ecological spaces offering adaptive returns, are reshaped by those spaces, and that this commitment process directs evolutionary trajectory more fundamentally than selection alone. The name is currently under review (see Remark R1 in the review file) because "valence" is ambiguous within the Phosphene ecosystem and "Valence-Ingression" requires reading internal definitions before it becomes meaningful.
 
-**Integration depth** — A trait's position in the functional architecture of an organism. Traits that participate in many developmental pathways (e.g., ribosomal RNA genes) have high integration depth; traits serving a single function (e.g., NADH dehydrogenase in non-photosynthetic parasites) have low integration depth. VI predicts that high-integration-depth traits resist loss during capacity reallocation.
+**Integration depth** — A trait's position in the functional architecture of an organism. Traits that participate in many developmental pathways (e.g., ribosomal RNA genes) have high integration depth; traits serving a single function (e.g., NADH dehydrogenase in non-photosynthetic parasites) have low integration depth. Valence predicts that high-integration-depth traits resist loss during capacity reallocation.
 
 **Capacity reallocation** — The process by which an organism shedding traits (due to niche commitment) preferentially loses low-integration-depth functions first, reallocating the saved maintenance budget to the remaining high-integration-depth functions. This produces an ordered pattern of trait loss, not random loss.
 
-**Substrate shift** — The transition point where an organism's primary adaptive challenges move from one ecological substrate (e.g., photosynthesis) to another (e.g., parasitism). VI predicts this shift is autocatalytic — innovations in the new substrate generate further innovations faster than they are lost.
+**Substrate shift** — The transition point where an organism's primary adaptive challenges move from one ecological substrate (e.g., photosynthesis) to another (e.g., parasitism). Valence predicts this shift is autocatalytic — innovations in the new substrate generate further innovations faster than they are lost.
 
-**Homo inversion** — The observation that the Homo lineage shows positively diversity-dependent speciation (more species over time), which is the inverse of the standard pattern in most clades (negatively diversity-dependent, or niche-filling). VI explains this via the cultural substrate's autocatalytic dynamics.
+**Homo inversion** — The observation that the Homo lineage shows positively diversity-dependent speciation (more species over time), which is the inverse of the standard pattern in most clades (negatively diversity-dependent, or niche-filling). Valence explains this via the cultural substrate's autocatalytic dynamics.
 
 ### Statistical Methods
 
@@ -134,17 +134,17 @@ The foundry ships a complete review trail — every claim traced to its root cau
 
 **Simulacrum** — Borrowed from Nancy Cartwright's philosophy of science: a model that captures essential properties of the target system while being explicitly not the target system. In practice: a Dockerized environment with known test data where you verify the pipeline produces correct results before running against real data. The simulacrum is the only place where you have a known baseline. On real data, you don't know the right answer — that's why you're running the analysis.
 
-**Baseline oracle** — A YAML file ([`baseline/oracle.yml`](baseline/oracle.yml)) containing every manuscript-reported result as ground truth. Each entry includes: the prediction being tested, the competing hypothesis, the expected values (with numerical tolerance), whether the result supports VI, whether it distinguishes VI from the named competitor, and any caveats. The regression gate compares pipeline output to the oracle — if results diverge, either the code regressed (fix it) or the method improved (update the oracle with proof).
+**Baseline oracle** — A YAML file ([`baseline/oracle.yml`](baseline/oracle.yml)) containing every manuscript-reported result as ground truth. Each entry includes: the prediction being tested, the competing hypothesis, the expected values (with numerical tolerance), whether the result supports valence, whether it distinguishes valence from the named competitor, and any caveats. The regression gate compares pipeline output to the oracle — if results diverge, either the code regressed (fix it) or the method improved (update the oracle with proof).
 
 ### Biological Terms
 
-**Orobanchaceae** — The broomrape family, a clade of parasitic plants spanning the full gradient from autotrophic (self-feeding, full plastome) to extreme holoparasitic (entirely dependent on host, severely reduced plastome). This gradient makes it the primary test system for VI's integration-depth predictions.
+**Orobanchaceae** — The broomrape family, a clade of parasitic plants spanning the full gradient from autotrophic (self-feeding, full plastome) to extreme holoparasitic (entirely dependent on host, severely reduced plastome). This gradient makes it the primary test system for valence's integration-depth predictions.
 
-**Endosymbiont** — A bacterium living inside a host cell in a permanent, obligate symbiosis. Examples: *Buchnera* (aphid endosymbiont), *Wigglesworthia* (tsetse fly), *Carsonella* (psyllid), *Blochmannia* (ants). These bacteria undergo severe genome reduction over evolutionary time, making them a test system for VI's biphasic kinetics prediction.
+**Endosymbiont** — A bacterium living inside a host cell in a permanent, obligate symbiosis. Examples: *Buchnera* (aphid endosymbiont), *Wigglesworthia* (tsetse fly), *Carsonella* (psyllid), *Blochmannia* (ants). These bacteria undergo severe genome reduction over evolutionary time, making them a test system for valence's biphasic kinetics prediction.
 
-**LTEE (Long-Term Evolution Experiment)** — Richard Lenski's ongoing experiment (since 1988) tracking 12 populations of *E. coli* over 75,000+ generations. Used here to test whether metabolic function loss co-segregates with beneficial mutations (VI's drift prediction) or is independently assorted (competitor's pleiotropy prediction).
+**LTEE (Long-Term Evolution Experiment)** — Richard Lenski's ongoing experiment (since 1988) tracking 12 populations of *E. coli* over 75,000+ generations. Used here to test whether metabolic function loss co-segregates with beneficial mutations (valence's drift prediction) or is independently assorted (competitor's pleiotropy prediction).
 
-**NCC (Neural Crest Cell)** — A population of migratory embryonic cells in vertebrates that give rise to facial morphology, pigmentation, and parts of the nervous system. NCC-derived traits are predicted by VI to change early in domestication because they have low integration depth in the developmental architecture.
+**NCC (Neural Crest Cell)** — A population of migratory embryonic cells in vertebrates that give rise to facial morphology, pigmentation, and parts of the nervous system. NCC-derived traits are predicted by valence to change early in domestication because they have low integration depth in the developmental architecture.
 
 ### Data Structures
 
@@ -206,7 +206,7 @@ Seven gates, each depends on the previous:
 | 4. Integration | Full pipeline via Docker simulacrum stack + BDD features | Integration results |
 | 5. Regression | All results match baseline oracle within tolerance | — |
 | 6. R CMD check | Package validation (no errors, warnings, or notes) | Check report |
-| 7. Pages | Verify + commit regenerated visualizations to `docs/` (served via legacy branch deployment from `main/docs`) | [https://flowfeel.github.io/vi-foundry/](https://flowfeel.github.io/vi-foundry/) |
+| 7. Pages | Verify + commit regenerated visualizations to `docs/` (served via legacy branch deployment from `main/docs`) | [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/) |
 
 ---
 
@@ -219,7 +219,7 @@ All data files are bundled in `data/` with provenance documented in [`data/READM
 ## Repository Structure
 
 ```
-vi-foundry/
+Valence-foundry/
 ├── R/                    Pure functional library (12 files, 30+ exported functions)
 ├── tests/                Test suite (18 files, 267 test cases)
 ├── baseline/             Ground truth oracle (YAML — human-readable)
@@ -243,7 +243,7 @@ vi-foundry/
 ## Authors
 
 - **Ed Phil** — Systems architect, foundry standards, R package design
-- **[Jan Ritch-Frel](https://github.com/janfrel)** — Author of the VI monograph, data curation
+- **[Jan Ritch-Frel](https://github.com/janfrel)** — Author of the valence monograph, data curation
 - **Flow Feel** — AI platform engineer, implementation, testing, CI/CD
 
 ## License
@@ -252,7 +252,7 @@ MIT
 
 ## Related
 
-- VI Monograph: "A Trajectory Account of Adaptive Evolution from Homo to the Wider Animal Kingdom" (Jan Ritch-Frel, 2026)
+- valence Monograph: "A Trajectory Account of Adaptive Evolution from Homo to the Wider Animal Kingdom" (Jan Ritch-Frel, 2026)
 - Phosphene R Standards: [`docs/standards/PHOSPHENE_R_STANDARDS.md`](docs/standards/PHOSPHENE_R_STANDARDS.md)
-- Live visualizations: [https://flowfeel.github.io/vi-foundry/](https://flowfeel.github.io/vi-foundry/)
+- Live visualizations: [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/)
 - Review index: [`docs/review/README.md`](docs/review/README.md) — links to all 11 review documents

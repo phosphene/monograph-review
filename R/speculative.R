@@ -1,9 +1,9 @@
-#' Speculative simulation capacity — toy realms for exploring VI
+#' Speculative simulation capacity — toy realms for exploring valence
 #'
-#' The toy realms are a theoretical-exploration layer that makes VI's
+#' The toy realms are a theoretical-exploration layer that makes valence's
 #' predictions explorable across parameter space and hypothetical substrates.
 #' They are NOT empirical tests — they do not source new data and do not claim
-#' to corroborate VI. Each realm names the experiment that would convert it
+#' to corroborate valence. Each realm names the experiment that would convert it
 #' from speculative to empirical.
 #'
 #' See `docs/review/toy-realms-plan.md` for the execution plan and
@@ -13,7 +13,7 @@
 #'
 #' The empirical tests are blocked on data (Items 4–6). The formal model is a
 #' theoretical ODE that cannot fail. The toy realms fill the gap: they let a
-#' reader *explore* the consequences of VI across parameter space — "if VI
+#' reader *explore* the consequences of valence across parameter space — "if valence
 #' were true, what would we expect to see in worlds we have not measured?" —
 #' sharpening the predictions for when the data arrives.
 #'
@@ -51,7 +51,7 @@ NULL
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: biphasic kinetics — the threshold gate separates protected
+#' valence Prediction: biphasic kinetics — the threshold gate separates protected
 #' traits (d ≥ θ, retention = 1.0) from unprotected traits (d < θ, retention
 #' → 0). The biphasic signal IS the gate (math-review Issue 3, resolved).
 #'
@@ -62,7 +62,7 @@ NULL
 #' noise, not a logistic — which is exactly why T3 fails on real data.
 #'
 #' Competitors: constant rate (no gate, no biphasicity), accelerating (no
-#' gate). The biphasic gate is unique to VI's threshold-gated model.
+#' gate). The biphasic gate is unique to valence's threshold-gated model.
 #'
 #' @dft A1, A2, A6
 #'
@@ -161,10 +161,10 @@ sweep_threshold <- function(depths, theta_grid, lambda = 0.15,
 #'
 #' @section Theoretical Context:
 #'
-#' The threshold gate is the heart of VI's biphasic prediction. Seeing it
+#' The threshold gate is the heart of valence's biphasic prediction. Seeing it
 #' respond to θ builds the intuition that the biphasic signal is *the gate*,
 #' not the displacement ratio (math-review Issue 3, resolved). The shaded
-#' region is the "gate open" zone — the parameter range where VI's biphasic
+#' region is the "gate open" zone — the parameter range where valence's biphasic
 #' prediction is active.
 #'
 #' @dft A1, A6
@@ -239,7 +239,7 @@ plot_threshold_gate <- function(sweep_result) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: irreversibility — the forward path (increasing commitment)
+#' valence Prediction: irreversibility — the forward path (increasing commitment)
 #' differs from the reverse path (decreasing commitment). The loop area
 #' quantifies *how much* they differ. A system with no bifurcation (e.g.,
 #' `a >= 0` in the cusp) has loop area = 0 (fully reversible). A system deep
@@ -322,7 +322,7 @@ hysteresis_loop_area <- function(control_values, equilibrium_fn, seed = 42L,
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: irreversibility emerges discontinuously at the bifurcation.
+#' valence Prediction: irreversibility emerges discontinuously at the bifurcation.
 #' For `a >= 0` the system has a single equilibrium (no bifurcation, fully
 #' reversible, loop area = 0). For `a < 0` the system has a cusp (two stable
 #' equilibria); the loop area grows as `|a|` increases because the cusp
@@ -400,10 +400,10 @@ sweep_cusp_irreversibility <- function(a_grid,
 #'
 #' @section Theoretical Context:
 #'
-#' Irreversibility is VI's sharpest departure from gradual reversibility.
+#' Irreversibility is valence's sharpest departure from gradual reversibility.
 #' This visualization shows that irreversibility is *quantitative* (loop
 #' area, not just a boolean) and that it emerges at the bifurcation (`a = 0`).
-#' The shaded region is where VI's irreversibility prediction is active.
+#' The shaded region is where valence's irreversibility prediction is active.
 #'
 #' @dft A1, A6
 #'
@@ -510,7 +510,7 @@ generate_dd_series <- function(n_steps, innovation_rate, capacity, feedback,
 #' Generates two matched innovation time series — one with logistic growth
 #' (feedback = 0, negative DD, niche-filling — the competitor's model) and one
 #' with autocatalytic growth (feedback = 1, positive DD, the Homo inversion —
-#' VI's prediction) — and computes the diversity-dependence slope for each via
+#' valence's prediction) — and computes the diversity-dependence slope for each via
 #' [diversity_dependence_sign()]. The *contrast* is the difference: positive
 #' = the Homo inversion signature (autocatalytic DD slope > logistic DD slope).
 #'
@@ -531,11 +531,11 @@ generate_dd_series <- function(n_steps, innovation_rate, capacity, feedback,
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: the Homo inversion — positive diversity-dependence (per-
+#' valence Prediction: the Homo inversion — positive diversity-dependence (per-
 #' capita innovation rate increases with diversity N). Competitor: niche-
 #' filling — negative diversity-dependence (per-capita rate decreases with N).
 #' Both produce growing time series, but the DD slope has opposite signs. The
-#' contrast quantifies the difference: positive contrast = VI signature.
+#' contrast quantifies the difference: positive contrast = valence signature.
 #'
 #' @section Risk note:
 #'
@@ -621,12 +621,12 @@ diversity_dependence_contrast <- function(n_steps = 20, innovation_rate = 0.3,
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: the Homo inversion is a bifurcation — there is a threshold
+#' valence Prediction: the Homo inversion is a bifurcation — there is a threshold
 #' in cultural complexity (feedback strength) beyond which diversity-
 #' dependence flips from negative (niche-filling) to positive (autocatalytic).
 #' This sweep makes the bifurcation explorable: below the threshold, the
 #' system is niche-filling (competitor); above it, the system is autocatalytic
-#' (VI). The threshold is the endogenous-K bifurcation (Review Item 3).
+#'. The threshold is the endogenous-K bifurcation (Review Item 3).
 #'
 #' @section Risk note:
 #'
@@ -865,7 +865,7 @@ plot_dd_contrast <- function(contrast_result) {
 #' @param n_species Integer. Number of plant species. Default 8.
 #' @param n_gene_categories Integer. Number of gene categories. Default 6.
 #' @param n_birds Integer. Number of bird structures. Default 10.
-#' @param dep_coef Numeric. True dependency coefficient (> 0, VI). Default 0.8.
+#' @param dep_coef Numeric. True dependency coefficient (> 0, valence). Default 0.8.
 #' @param para_coef Numeric. True parasitism coefficient (< 0). Default -0.5.
 #' @param noise_sd Numeric. SD of retention noise on the plant matrix. Default 0.05.
 #' @param seed Integer. RNG seed. Default 42.
@@ -962,7 +962,7 @@ generate_transfer_data <- function(n_species = 8, n_gene_categories = 6,
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: the full model (dep + para, logistic) transfers across
+#' valence Prediction: the full model (dep + para, logistic) transfers across
 #' kingdoms — a plant-derived model predicts bird ordering. Competitor:
 #' substrate-independence (rho ~= 0). Issue 7: ranking discards magnitude,
 #' so the sign-only transfer is the weakest form of cross-kingdom transfer.

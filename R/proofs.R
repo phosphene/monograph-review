@@ -2,7 +2,7 @@
 #'
 #' Pure analytical + numeric proofs (DFT axioms A1 pure-io-separation, A2
 #' determinism, A6 check-result) for the dynamics module. Each returns a
-#' \code{vi_proof} object carrying the statement, a LaTeX-like derivation,
+#' \code{valence_proof} object carrying the statement, a LaTeX-like derivation,
 #' an outcome, a logical verification flag, and a numeric corroboration.
 #'
 #' The proofs establish the mathematical backbone of three empirical tests:
@@ -54,7 +54,7 @@ NULL
 #' @param a Numeric. Cubic coefficient \eqn{a}.
 #' @param b Numeric. Cubic coefficient \eqn{b}.
 #'
-#' @return A \code{vi_proof} object.
+#' @return A \code{valence_proof} object.
 #'
 #' @section Theoretical Context:
 #'
@@ -103,7 +103,7 @@ prove_cusp_bifurcation <- function(a, b) {
   expected <- if (a > 0) 1L else if (a < 0 && abs(b) < crit_b) 3L else 1L
   verified <- isTRUE(n_real == expected)
 
-  vi_proof(
+  Valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",
@@ -128,7 +128,7 @@ prove_cusp_bifurcation <- function(a, b) {
 #' @param n Integer. Number of control points for the numeric sweep.
 #' @param tol Numeric. Relative tolerance between analytic and numeric area.
 #'
-#' @return A \code{vi_proof} object.
+#' @return A \code{valence_proof} object.
 #'
 #' @section Theoretical Context:
 #'
@@ -201,7 +201,7 @@ prove_hysteresis_loop_area <- function(a = -1, control_range = c(-2, 2),
             numeric_area, analytic_area)
   )
 
-  vi_proof(
+  Valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",
@@ -225,7 +225,7 @@ prove_hysteresis_loop_area <- function(a = -1, control_range = c(-2, 2),
 #' @param N_max Numeric. Upper end of the diversity grid.
 #' @param n_grid Integer. Number of grid points.
 #'
-#' @return A \code{vi_proof} object.
+#' @return A \code{valence_proof} object.
 #'
 #' @section Theoretical Context:
 #'
@@ -283,7 +283,7 @@ prove_dd_sign <- function(r = 1, K = 10, N_max = 50, n_grid = 100L) {
             min_df, max_dg)
   )
 
-  vi_proof(
+  Valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",
@@ -308,7 +308,7 @@ prove_dd_sign <- function(r = 1, K = 10, N_max = 50, n_grid = 100L) {
 #' @param N_max Numeric. Upper end of the diversity grid.
 #' @param n_grid Integer. Number of grid points.
 #'
-#' @return A \code{vi_proof} object.
+#' @return A \code{valence_proof} object.
 #'
 #' @section Theoretical Context:
 #'
@@ -365,7 +365,7 @@ prove_autocatalytic_growth_rate <- function(r = 1, K = 10, N_max = 5000,
             f0, f[n_grid], fmax_grid, r)
   )
 
-  vi_proof(
+  Valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",

@@ -24,7 +24,7 @@ analysis: species name, plastome size, and parasitism score.
 \section{Theoretical Context}{
 
 
-Plastome data tests VI's prediction that genome reduction tracks
+Plastome data tests valence's prediction that genome reduction tracks
 parasitism depth (integration-depth ordering). The competitor
 (relaxed selection, Lahti 2009) predicts the same gradient but
 through a different mechanism. This data alone cannot distinguish

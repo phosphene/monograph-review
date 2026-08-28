@@ -15,17 +15,17 @@
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction D5: plastome size correlates with parasitism level —
+#' valence Prediction D5: plastome size correlates with parasitism level —
 #' organisms committing to deeper parasitic niches lose plastome capacity
 #' in proportion to commitment depth.
 #'
 #' Competitor: relaxed selection (Lahti et al. 2009) predicts the same
 #' gradient through a different mechanism (stabilizing selection relaxes
-#' proportional to parasitism depth). This test does NOT distinguish VI
+#' proportional to parasitism depth). This test does NOT distinguish valence
 #' from relaxed selection — caveat in paper §12.1.2.
 #'
-#' What supports VI: significant negative beta (parasitism → smaller plastome).
-#' What refutes VI: no correlation, or positive correlation.
+#' What supports valence: significant negative beta (parasitism → smaller plastome).
+#' What refutes valence: no correlation, or positive correlation.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function, no file I/O
@@ -112,13 +112,13 @@ pgls_orobanchaceae <- function(data, tree, lambda = "ML", seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction D5: the gene-loss gradient appears across independent
+#' valence Prediction D5: the gene-loss gradient appears across independent
 #' parasitic origins. This implementation tests whether family-MEAN plastome
 #' size correlates with family-MEAN parasitism across the independent
 #' parasitic lineages (a between-family association, n = number of
 #' families), NOT whether the within-family slope replicates per family.
 #' Competitor: stochastic gene loss / relaxed selection — both predict the
-#' same pattern. Does NOT distinguish VI from competitors.
+#' same pattern. Does NOT distinguish valence from competitors.
 #'
 #' @dft A1, A2, A6
 #'
@@ -161,7 +161,7 @@ pgls_cross_family <- function(data, seed = 42L) {
 #' T3: Endosymbiont Biphasic Genome Reduction
 #'
 #' Tests whether genome reduction in obligate endosymbionts follows a
-#' decelerating (logistic/saturation) curve — consistent with VI's
+#' decelerating (logistic/saturation) curve — consistent with valence's
 #' biphasic prediction — vs constant-rate (exponential) or accelerating.
 #'
 #' @param data Data frame from load_endosymbionts()$data.
@@ -171,10 +171,10 @@ pgls_cross_family <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: biphasic kinetics (fast Phase 1, slow Phase 2).
+#' valence Prediction: biphasic kinetics (fast Phase 1, slow Phase 2).
 #' Competitors: constant rate (Lynch 2007), accelerating (Muller's ratchet).
 #' McCutcheon's metabolic complementarity predicts the same correlation —
-#' does NOT distinguish VI from McCutcheon.
+#' does NOT distinguish valence from McCutcheon.
 #'
 #' @dft A1, A2, A6
 #'
@@ -215,7 +215,7 @@ endosymbiont_biphasic <- function(data, seed = 42L) {
       error = function(e) NULL
     )
 
-    # Model 3: Logistic / saturation (biphasic/VI). Try a spread of start
+    # Model 3: Logistic / saturation (biphasic/valence). Try a spread of start
     # values — nls is sensitive to starts on noisy cross-sectional data.
     fit_logistic <- function(starts) {
       tryCatch(
@@ -319,9 +319,9 @@ endosymbiont_biphasic <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction D3: niche breadth predicts gene loss better than Ne.
+#' valence Prediction D3: niche breadth predicts gene loss better than Ne.
 #' Competitor: drift (Lynch 2007) predicts Ne is primary driver.
-#' DOES distinguish VI from drift.
+#' DOES distinguish valence from drift.
 #'
 #' @dft A1, A2, A6
 #'
@@ -330,10 +330,10 @@ niche_vs_ne <- function(data, seed = 42L) {
   withr::with_seed(seed, {
     validate_niche_data(data)
 
-    # Response: pan-genome size (the gene-loss / capacity proxy VI predicts).
+    # Response: pan-genome size (the gene-loss / capacity proxy valence predicts).
     # Prefer a pan-genome column; fall back to genome size only if absent.
     # The prior implementation regressed Genome Size (the core genome), which
-    # is not the quantity VI predicts — see review item 6.
+    # is not the quantity valence predicts — see review item 6.
     pan_col <- grep("pan", names(data), value = TRUE, ignore.case = TRUE)[1]
     if (is.na(pan_col)) {
       pan_col <- grep("genome", names(data), value = TRUE, ignore.case = TRUE)[1]
@@ -408,8 +408,8 @@ niche_vs_ne <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: pan-genome openness tracks lifestyle. Competitor: Ne-only
-#' model. DOES distinguish VI from Ne-only.
+#' valence Prediction: pan-genome openness tracks lifestyle. Competitor: Ne-only
+#' model. DOES distinguish valence from Ne-only.
 #'
 #' @dft A1, A2, A6
 #'
@@ -471,7 +471,7 @@ pangenome_fluidity <- function(data, seed = 42L) {
 
 #' T6: Gene-Loss Ordering (Integration-Depth ρ)
 #'
-#' Tests VI's prediction that gene categories with higher functional
+#' Tests valence's prediction that gene categories with higher functional
 #' dependency (integration depth) are retained longer during genome
 #' reduction. Uses exact permutation test (720 permutations of 6 items).
 #'
@@ -483,11 +483,11 @@ pangenome_fluidity <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: integration-depth determines gene-loss order. Competitor:
-#' random loss predicts no ordering. DOES distinguish VI from random loss.
+#' valence Prediction: integration-depth determines gene-loss order. Competitor:
+#' random loss predicts no ordering. DOES distinguish valence from random loss.
 #'
-#' What supports VI: high positive Spearman ρ (deeply integrated → retained).
-#' What refutes VI: ρ ≈ 0 (no ordering).
+#' What supports valence: high positive Spearman ρ (deeply integrated → retained).
+#' What refutes valence: ρ ≈ 0 (no ordering).
 #'
 #' @dft A1, A2, A6
 #'
@@ -586,7 +586,7 @@ gene_loss_ordering <- function(data, seed = 42L, n_perm = 720L) {
 #'
 #' Tests whether metabolic function loss in the LTEE co-segregates with
 #' beneficial mutations LESS than expected by chance — consistent with
-#' passive drift in unused genes (VI prediction). The observed proportion
+#' passive drift in unused genes (valence prediction). The observed proportion
 #' (36.4%) is depleted relative to the chance expectation (61.7%); the
 #' binomial test uses alternative = "less" for this reason.
 #'
@@ -597,14 +597,14 @@ gene_loss_ordering <- function(data, seed = 42L, n_perm = 720L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: function-loss mutations co-segregate with beneficial
+#' valence Prediction: function-loss mutations co-segregate with beneficial
 #' mutations LESS than chance (passive drift in unused genes — their loss
 #' is not concentrated near adaptive sweeps). Competitor: independent
 #' assortment predicts 61.7% co-segregation. Reported as suggestive due
 #' to hitchhiking confound.
 #'
-#' What supports VI: observed co-segregation is significantly LOWER than
-#' expected by chance (depletion_ratio < 1). What refutes VI: observed
+#' What supports valence: observed co-segregation is significantly LOWER than
+#' expected by chance (depletion_ratio < 1). What refutes valence: observed
 #' rate equals or exceeds expected rate.
 #'
 #' @dft A1, A2, A6

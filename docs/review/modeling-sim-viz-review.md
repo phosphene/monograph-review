@@ -1,4 +1,4 @@
-# vi-foundry Modeling, Simulation & Visualization Review — and a Speculative Simulation Proposal
+# valence-foundry Modeling, Simulation & Visualization Review — and a Speculative Simulation Proposal
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
@@ -18,7 +18,7 @@ This document recurses on what we *can* do without that data: it reviews the
 evaluates the **simulation and visualization infrastructure** (`R/viz.R`,
 `R/simulacra_viz.R`, `R/simulacra_logging.R`, the simulacra generators, and
 `scripts/render_pages.R`), and proposes a **speculative simulation capacity** —
-a way to extend the VI hypothesis into toy realms that explores the theory's
+a way to extend the valence hypothesis into toy realms that explores the theory's
 consequences without claiming empirical test.
 
 The review found one significant modeling finding (the author's empirical
@@ -41,21 +41,21 @@ rpl_rps; 48 observations). The foundry's `threshold_model()` is a
 data fit at all. The refactoring replaced a fit-to-data with a simulation-of-
 theory, and in doing so hid the fact that the fit-to-data was broken.
 
-### The author's GLM, when run, does not support VI
+### The author's GLM, when run, does not support valence
 
 Reproducing the author's original script verbatim:
 
 ```
 quasibinomial GLM: retention ~ dep + para  (48 obs)
   intercept (a) =  2.050  (p = 0.0151)
-  dep       (b) = -0.828  (p = 0.0013)   ← VI predicts b > 0; fit gives b < 0
+  dep       (b) = -0.828  (p = 0.0013)   ← valence predicts b > 0; fit gives b < 0
   para      (c) = -0.138  (p = 0.5924)   ← not significant
   pseudo-R²     =  0.269
 ```
 
 Three things are wrong:
 
-1. **The dependency coefficient has the wrong sign.** VI predicts `b > 0`
+1. **The dependency coefficient has the wrong sign.** valence predicts `b > 0`
    (deeper integration → higher retention). The fit gives `b = −0.828 < 0`.
    The author's own script annotates this coefficient as
    `"b > 0: higher dependency → higher retention probability"` — the comment
@@ -82,12 +82,12 @@ Three things are wrong:
 ### Why the GLM is broken: it is misspecified
 
 > **⚠ Correction (superseded).** The diagnosis below — that the GLM is broken
-> because it is *misspecified* (additive where VI predicts interaction) — was
+> because it is *misspecified* (additive where valence predicts interaction) — was
 > **incomplete**. The root cause is a **data-flattening bug**: the author's
 > script uses `as.vector(t(retention))` (species-major) where it should use
 > `as.vector(retention)` (gene-major), scrambling `dep` ↔ `retention`. With
 > the one-character fix, the additive GLM gives `dep = +0.84` (p = 0.0008),
-> `para` p < 0.0001, and cross-kingdom ρ = +0.755 — all matching VI. The
+> `para` p < 0.0001, and cross-kingdom ρ = +0.755 — all matching valence. The
 > additive specification is adequate; the interaction is theoretically
 > preferred but not needed for the sign. See
 > [`formal-model-reproduction.md`](formal-model-reproduction.md) for the full
@@ -96,7 +96,7 @@ Three things are wrong:
 > the foundry replaced a *fixable one-character bug* with a simulation that
 > cannot fail.
 
-The VI prediction is an **interaction**: dependency depth matters *more* at
+The valence prediction is an **interaction**: dependency depth matters *more* at
 higher parasitism (deeper commitment). At `para = 0` (autotroph), every trait
 is retained regardless of depth; at `para = 4` (holoparasite), only the
 deepest trait survives. The author's GLM is **additive** (`dep + para`, no
@@ -118,8 +118,8 @@ The foundry's `threshold_model()` is a deterministic Euler integration of
 `dC/dt = -λ·M(t)·C·𝟙(d < θ)`. It takes `(λ, θ, M₀, α)` as *given* parameters
 and produces retention trajectories. It **never fits** these parameters to
 data — they are oracle inputs (`λ = 0.15, θ = 2.5, M₀ = 10, α = 0.05`). The
-model cannot fail to support VI because it is a simulation of VI: given VI's
-equation, it produces VI's prediction. This is legitimate as a *theoretical*
+model cannot fail to support valence because it is a simulation of valence: given valence's
+equation, it produces valence's prediction. This is legitimate as a *theoretical*
 model (it shows the equation produces the predicted biphasic gate), but it is
 not an *empirical* test.
 
@@ -146,7 +146,7 @@ The author's empirical formal model (the GLM) is **misspecified and broken**:
 wrong sign on `dep`, non-significant `para`, wrong-signed cross-kingdom
 transfer. The foundry's theoretical formal model (the ODE) is **correct but
 non-empirical**: it simulates the theory, it does not test it. Neither is an
-empirical test of VI. The 8×6 retention matrix is real data that should be
+empirical test of valence. The 8×6 retention matrix is real data that should be
 bundled, and the right empirical model is an **interaction** GLM
 (`retention ~ dep * para`) or — better — a direct fit of the threshold model's
 parameters (λ, θ) to the retention matrix, which is exactly the "direct fit of
@@ -276,16 +276,16 @@ the viz faithfully reflects the (refactored) math.
 
 ---
 
-## Part III — A speculative simulation capacity: extending VI to toy realms
+## Part III — A speculative simulation capacity: extending valence to toy realms
 
 ### The idea
 
 The empirical tests are blocked on data. The formal model is a theoretical
 simulation that cannot fail. Between these lies a gap the foundry can fill
 without external data: a **speculative simulation capacity** that lets a
-reader explore the *consequences* of the VI framework across parameter space
+reader explore the *consequences* of the valence framework across parameter space
 and across hypothetical substrates — "toy realms." This is not empirical
-testing; it is theoretical exploration. It asks: *if VI were true, what would
+testing; it is theoretical exploration. It asks: *if valence were true, what would
 we expect to see in worlds we have not measured?* The answer sharpens the
 predictions and, when the data arrives, makes the empirical tests more
 discriminating.
@@ -317,7 +317,7 @@ fix the architecture, vary θ over a grid, and visualize how
 threshold gate *visible* as a control parameter, not just a fixed oracle
 input.
 
-**What it teaches.** The threshold gate is the heart of VI's biphasic
+**What it teaches.** The threshold gate is the heart of valence's biphasic
 prediction. Seeing it respond to θ across a sweep builds the intuition that
 the biphasic signal is *the gate*, not the displacement ratio (math-review
 Issue 3). It also makes the R6 method-misspecification visceral: a
@@ -368,7 +368,7 @@ cusp's "testable but not tested" status *concrete*: the reader sees exactly
 what experiment (a forward+reverse path through a real system's control
 parameter) would fill it.
 
-**What it teaches.** Irreversibility is VI's sharpest departure from gradual
+**What it teaches.** Irreversibility is valence's sharpest departure from gradual
 reversibility. The explorer shows that irreversibility is *quantitative*
 (loop area), not just boolean (`has_hysteresis`), and that it emerges
 discontinuously at the bifurcation. It also makes the data requirement
@@ -380,7 +380,7 @@ the test.
 
 **What it explores.** Given a growth model (autocatalytic vs. logistic) and a
 diversification time series, simulate the diversity-dependence sign and
-visualize the *contrast* between VI (positive DD, the Homo inversion) and the
+visualize the *contrast* between valence (positive DD, the Homo inversion) and the
 competitor (negative DD, niche-filling). The reader can toggle the growth
 model and watch `diversity_dependence_sign` flip, and explore the
 endogenous-K bifurcation (Review Item 3) by sweeping the cultural-feedback
@@ -406,7 +406,7 @@ spanning the threshold).
 
 ### What the speculative capacity is, and is not
 
-**It is:** a theoretical-exploration layer that makes VI's predictions
+**It is:** a theoretical-exploration layer that makes valence's predictions
 explorable across parameter space and hypothetical substrates. It sharpens
 the predictions (the threshold gate, the transfer breakdown, the
 irreversibility bifurcation, the DD flip), it is honest about the data
@@ -414,7 +414,7 @@ boundary (each realm names the experiment that would fill it), and it is
 built almost entirely from existing, validated components.
 
 **It is not:** an empirical test. It does not source new data. It does not
-claim to corroborate VI. A toy realm that shows "VI predicts X in world W"
+claim to corroborate valence. A toy realm that shows "valence predicts X in world W"
 is a theoretical statement, not an empirical one. The value is in making the
 theory's consequences visible and its data requirements precise — so that
 when the author delivers data, the empirical tests are sharper, and when a
@@ -431,7 +431,7 @@ read 400 lines of ODE.
 | 4. Homo inversion | `generate_autocatalytic_set()`, `diversity_dependence_sign()` | `diversity_dependence_contrast()`; endogenous-K bifurcation sweep; overlay viz |
 
 The capacity is a new module (`R/speculative.R` or `inst/toy_realms/`) plus a
-vignette ("Exploring VI in toy realms") that walks a reader through each realm
+vignette ("Exploring valence in toy realms") that walks a reader through each realm
 with dials and visualizations. It is the literate-documentation Layer 2
 (vignette) the standards require, realized as exploration rather than
 reproduction.
@@ -457,7 +457,7 @@ reproduction.
    claiming empirical test, it is 80% built from existing components, and it
    sharpens the predictions for when the data arrives. Start with Toy realm 1
    (genome-reduction explorer) — it is the simplest, it exercises the
-   threshold gate (the heart of VI), and it directly visualizes the R6
+   threshold gate (the heart of valence), and it directly visualizes the R6
    method misspecification that blocks T3.
 
 4. **Do not restore the author's GLM as-is.** It is misspecified and broken.

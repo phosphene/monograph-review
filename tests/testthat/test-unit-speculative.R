@@ -274,7 +274,7 @@ test_that("diversity_dependence_contrast: logistic DD is negative (niche-filling
   expect_equal(result$values$logistic_dd_sign, "negative")
 })
 
-test_that("diversity_dependence_contrast: contrast is positive (VI signature)", {
+test_that("diversity_dependence_contrast: contrast is positive (valence signature)", {
   result <- diversity_dependence_contrast(n_steps = 20, capacity = 30)
   expect_gt(result$values$contrast, 0)
   expect_equal(result$values$contrast_sign, "positive")
@@ -289,17 +289,17 @@ test_that("diversity_dependence_contrast is deterministic (A2)", {
 
 test_that("generate_dd_series at feedback=1 matches existing autocatalytic generator", {
   # Source the existing generator
-  source(system.file("simulacra", "generate_autocatalytic.R", package = "vi.foundry"))
+  source(system.file("simulacra", "generate_autocatalytic.R", package = "valence.foundry"))
   existing <- generate_autocatalytic_set(
     n_steps = 20, innovation_rate = 0.3,
     capacity = 30, seed = 42L
   )
-  new <- vi.foundry:::generate_dd_series(20, 0.3, 30, feedback = 1, seed = 42L)
+  new <- valence.foundry:::generate_dd_series(20, 0.3, 30, feedback = 1, seed = 42L)
   expect_equal(existing$values$innovation_counts, new)
 })
 
 test_that("generate_dd_series at feedback=0 gives negative DD", {
-  counts <- vi.foundry:::generate_dd_series(20, 0.3, 30, feedback = 0, seed = 42L)
+  counts <- valence.foundry:::generate_dd_series(20, 0.3, 30, feedback = 0, seed = 42L)
   dd <- diversity_dependence_sign(counts, seed = 42L)
   expect_equal(dd$values$diversity_dependence_sign, "negative")
 })
@@ -358,7 +358,7 @@ test_that("plot_dd_contrast returns a plot object", {
 # === glm_transfer ===
 
 test_that("glm_transfer returns A6 proof object", {
-  d <- vi.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
+  d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
   result <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   expect_true(validate_result(result))
   for (k in c(
@@ -370,26 +370,26 @@ test_that("glm_transfer returns A6 proof object", {
 })
 
 test_that("glm_transfer: model outperforms sign-only at low noise", {
-  d <- vi.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
+  d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
   result <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   expect_gt(result$values$model_rho, result$values$sign_only_rho)
   expect_gt(result$values$model_advantage, 0)
 })
 
-test_that("glm_transfer: dep coefficient is positive (VI signature)", {
-  d <- vi.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
+test_that("glm_transfer: dep coefficient is positive (valence signature)", {
+  d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
   result <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   expect_gt(result$values$dep_coefficient, 0)
 })
 
-test_that("glm_transfer: para coefficient is negative (VI signature)", {
-  d <- vi.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
+test_that("glm_transfer: para coefficient is negative (valence signature)", {
+  d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
   result <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   expect_lt(result$values$para_coefficient, 0)
 })
 
 test_that("glm_transfer is deterministic (A2)", {
-  d <- vi.foundry:::generate_transfer_data(noise_sd = 0.1, seed = 42L)
+  d <- valence.foundry:::generate_transfer_data(noise_sd = 0.1, seed = 42L)
   r1 <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   r2 <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   expect_equal(r1$values, r2$values)
@@ -404,21 +404,21 @@ test_that("glm_transfer validates plant data", {
 })
 
 test_that("generate_transfer_data produces valid retention matrix", {
-  d <- vi.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
+  d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
   expect_true(validate_retention_data(d$plant_data))
   expect_equal(nrow(d$plant_data), 8 * 6) # 8 species x 6 gene categories
   expect_equal(nrow(d$bird_data), 10)
 })
 
 test_that("generate_transfer_data: bird data is independent of plant noise", {
-  d0 <- vi.foundry:::generate_transfer_data(noise_sd = 0, seed = 42L)
-  d1 <- vi.foundry:::generate_transfer_data(noise_sd = 0.5, seed = 42L)
+  d0 <- valence.foundry:::generate_transfer_data(noise_sd = 0, seed = 42L)
+  d1 <- valence.foundry:::generate_transfer_data(noise_sd = 0.5, seed = 42L)
   expect_identical(d0$bird_data, d1$bird_data)
 })
 
 test_that("generate_transfer_data is deterministic (A2)", {
-  d1 <- vi.foundry:::generate_transfer_data(noise_sd = 0.1, seed = 42L)
-  d2 <- vi.foundry:::generate_transfer_data(noise_sd = 0.1, seed = 42L)
+  d1 <- valence.foundry:::generate_transfer_data(noise_sd = 0.1, seed = 42L)
+  d2 <- valence.foundry:::generate_transfer_data(noise_sd = 0.1, seed = 42L)
   expect_identical(d1$plant_data, d2$plant_data)
   expect_identical(d1$bird_data, d2$bird_data)
 })

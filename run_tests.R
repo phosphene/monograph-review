@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# run_tests.R — Test runner for vi.foundry
+# run_tests.R — Test runner for valence.foundry
 #
 # Usage:
 #   Rscript run_tests.R             # Run all tests
@@ -19,7 +19,7 @@
 # separate, authoritative step in the unit job.
 
 library(testthat)
-library(vi.foundry)
+library(valence.foundry)
 
 arg <- if (length(commandArgs(trailingOnly = TRUE)) > 0) {
   commandArgs(trailingOnly = TRUE)[1]
@@ -47,7 +47,7 @@ if (is.null(arg)) {
   filter_label <- arg
 }
 
-cat("=== VI Foundry Test Runner ===\n")
+cat("=== Valence Foundry Test Runner ===\n")
 cat(sprintf("Gate: %s  (filter: %s)\n",
   if (is.null(filter_label)) "all" else filter_label,
   if (is.null(filter)) "(none)" else filter

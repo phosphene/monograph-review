@@ -10,7 +10,7 @@
 #
 # @section Theoretical Context:
 #
-# VI Prediction: after substrate shift, innovations generate further innovations
+# valence Prediction: after substrate shift, innovations generate further innovations
 # faster than they are lost — positive diversity-dependence producing superlinear
 # growth. Competitor: standard niche-filling predicts negatively
 # diversity-dependent (logistic) growth from the start.

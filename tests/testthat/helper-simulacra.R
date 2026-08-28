@@ -2,7 +2,7 @@
 # One generator per file.
 
 .simulacra_dir <- function() {
-  d <- system.file("simulacra", package = "vi.foundry")
+  d <- system.file("simulacra", package = "valence.foundry")
   if (file.exists(file.path(d, "generate_step.R"))) d
   else file.path(getwd(), "..", "..", "inst", "simulacra")
 }
@@ -10,7 +10,7 @@
 source_simulacrum <- function(file) {
   path <- file.path(.simulacra_dir(), file)
   if (!file.exists(path)) {
-    path <- file.path("/home/node/.openclaw/workspace/vi-foundry/inst/simulacra", file)
+    path <- file.path("/home/node/.openclaw/workspace/valence-foundry/inst/simulacra", file)
   }
   if (!file.exists(path)) {
     stop("simulacrum generator not found: ", file, call. = FALSE)

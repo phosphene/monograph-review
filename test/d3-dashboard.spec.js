@@ -1,5 +1,5 @@
 /**
- * d3-dashboard.spec.js — Jasmine BDD specs for the VI Foundry cross-filter dashboard
+ * d3-dashboard.spec.js — Jasmine BDD specs for the Valence Foundry cross-filter dashboard
  * ====================================================================================
  *
  * Test-informed development: specs describe EXPECTED behavior.
@@ -10,7 +10,7 @@
 
 /* ─── Spec Suite ──────────────────────────────────────────────── */
 
-describe('VI Foundry Cross-Filter Dashboard', () => {
+describe('Valence Foundry Cross-Filter Dashboard', () => {
 
   // ─── Mock Data ────────────────────────────────────────────────
 

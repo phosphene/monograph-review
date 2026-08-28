@@ -1,10 +1,10 @@
-# VI Foundry — Phased Breakdown
+# Valence Foundry — Phased Breakdown
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
 **License:** MIT
 
-A phase-by-phase account of how the `vi-foundry` was built, the standards each
+A phase-by-phase account of how the `valence-foundry` was built, the standards each
 phase enforces, and the current status of every gate. This accompanies the
 [`valence-ingression-review.md`](valence-ingression-review.md); the open work
 tracked here is the review's items 4–6.
@@ -117,7 +117,7 @@ corroboration, not method validity.
   `run_tests.R` — the gate cannot pass by running nothing.
 
 **Status:** structurally complete; **partially passing**. After the
-calculation review, 2 entries pass (T5, formal_model) and T4 confirms VI (niche
+calculation review, 2 entries pass (T5, formal_model) and T4 confirms valence (niche
 subsumes Ne). 7 skips remain: T6 + L3 have no bundled data (items 4–5); T1, T2,
 T4, T7 drift on data-version (item 6 — science holds); T3 is method-misspecified
 (R6 — cross-sectional cannot test within-lineage kinetics). Closing the items

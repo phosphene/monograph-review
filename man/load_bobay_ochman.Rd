@@ -16,8 +16,8 @@ and lifestyle classifications for 140+ species.
 \section{Theoretical Context}{
 
 
-Tests VI Prediction D3: niche breadth predicts gene loss better than
+Tests valence Prediction D3: niche breadth predicts gene loss better than
 Ne alone. Competitor: drift (Lynch 2007) predicts Ne is primary.
-DOES distinguish VI from drift.
+DOES distinguish valence from drift.
 }
 

@@ -3,7 +3,7 @@
 # 06_gene_category_ordering.R
 # Gene Category Ordering: Dependency Score vs Retention
 #
-# Tests VI's prediction that gene categories with higher functional
+# Tests valence's prediction that gene categories with higher functional
 # dependency (more interconnected, essential for cellular processes)
 # are retained longer during genome reduction.
 #
@@ -161,7 +161,7 @@ cat("\n========== SUMMARY ==========\n")
 cat(sprintf("Gene categories: %d\n", nrow(gene_categories)))
 cat(sprintf("Spearman rho: %.3f (p = %.4f)\n", sp_cor$estimate, sp_cor$p.value))
 cat(sprintf("Pearson r: %.3f (R² = %.3f)\n", pe_cor$estimate, summary(mod)$r.squared))
-cat(sprintf("VI prediction (positive correlation): %s\n",
+cat(sprintf("valence prediction (positive correlation): %s\n",
             ifelse(sp_cor$estimate > 0 & sp_cor$p.value < 0.05,
                    "SUPPORTED", "NOT CLEARLY SUPPORTED")))
 cat("NOTE: Retention values are from literature consensus, not\n")

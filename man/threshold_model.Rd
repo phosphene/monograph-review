@@ -32,7 +32,7 @@ Solves dC_i/dt = -λ × M(t) × C_i × I(d_i < θ) for a panel of traits.
 \section{Theoretical Context}{
 
 
-VI Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+Valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 at rate proportional to λ×M₀), slow Phase 2 (protected traits remain at 1.0).
 }
 

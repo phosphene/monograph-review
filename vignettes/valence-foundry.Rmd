@@ -1,10 +1,10 @@
 ---
-title: "VI Foundry: Testing Valence-Ingression Predictions with R"
+title: "Valence Foundry: Testing Valence-Ingression Predictions with R"
 author: "Ed Phil, Jan Ritch-Frel, Flow"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{VI Foundry}
+  %\VignetteIndexEntry{Valence Foundry}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 ## The Valence-Ingression Framework
 
-Valence-Ingression (VI) is a formal theory of capacity reallocation under
+Valence-Ingression is a formal theory of capacity reallocation under
 niche-driven selection. The core claim is that when an organism commits to a
 novel niche, the rate at which it sheds ancestral functions follows a
 **threshold-gated integration-depth ordering**:
@@ -45,7 +45,7 @@ where $C_i$ is the retention probability of trait $i$, $M(t)$ is an
 exponentially decaying niche-demand mismatch, $\lambda$ is the shedding
 rate, and $\theta$ is the protection threshold.
 
-## What VI Predicts
+## What valence Predicts
 
 | Test | Prediction | In Brief |
 |------|-----------|----------|
@@ -63,7 +63,7 @@ rate, and $\theta$ is the protection threshold.
 Existing theories make overlapping predictions:
 
 - **Relaxed selection** (Lahti et al. 2009) predicts the same loss gradient
-  as VI for T1–T2, but through a different mechanism.
+  as valence for T1–T2, but through a different mechanism.
 - **Genetic drift** (Lynch 2007) predicts $\mathrm{N_e}$ is the primary
   driver of genome reduction — contradicting T4–T5.
 - **Muller's ratchet** predicts accelerating (not decelerating) loss —
@@ -75,7 +75,7 @@ Existing theories make overlapping predictions:
 - **Independent substrates** predicts no parameter transfer across kingdoms —
   contradicted by L3.
 
-VI is distinguished from competitors by the combination of T3 (biphasic
+Valence is distinguished from competitors by the combination of T3 (biphasic
 kinetics), T4–T5 (niche over Ne), T6 (integration-depth ordering), and
 L3 (cross-kingdom transfer). No single test suffices; the framework's
 strength is convergent evidence across multiple independent predictions.
@@ -96,7 +96,7 @@ map <- data.frame(
     "`transfer_test()`",
     "`threshold_model()`"
   ),
-  `VI Prediction` = c(
+  `valence Prediction` = c(
     "Plastome size ~ parasitism level",
     "Gradient replicates across families",
     "Biphasic (fast→slow) reduction",
@@ -118,7 +118,7 @@ map <- data.frame(
     "Substrates are independent",
     "Constant rate; accelerating"
   ),
-  `Distinguishes VI?` = c(
+  `Distinguishes valence?` = c(
     "No",
     "No",
     "Yes",
@@ -143,25 +143,25 @@ map <- data.frame(
   check.names = FALSE
 )
 
-knitr::kable(map, caption = "Summary of VI test functions, competitor predictions, and whether each test distinguishes VI.")
+knitr::kable(map, caption = "Summary of valence test functions, competitor predictions, and whether each test distinguishes valence.")
 ```
 
-Six of the seven empirical tests (T1–T7) support the VI prediction. But
-only **T3, T4, T5, and T6** distinguish VI from their named competitors.
-The cross-kingdom transfer test (L3) is the strongest: it distinguishes VI
+Six of the seven empirical tests (T1–T7) support the valence prediction. But
+only **T3, T4, T5, and T6** distinguish valence from their named competitors.
+The cross-kingdom transfer test (L3) is the strongest: it distinguishes valence
 from all competitors and provides the most stringent falsification
 criterion.
 
 # Worked Example: T6 — Gene-Loss Ordering
 
 This worked example walks through **T6: `gene_loss_ordering()`**, which
-tests VI's core prediction that integration depth determines the order in
+tests valence's core prediction that integration depth determines the order in
 which gene categories are lost during genome reduction.
 
 ## Step 1: Load the Required Packages
 
 ```{r t6-load}
-library(vi.foundry)
+library(valence.foundry)
 ```
 
 ## Step 2: Prepare the Data
@@ -196,7 +196,7 @@ The six categories represent functional gene groups:
 | `atp` | ATP synthase | 3 | Deeply integrated — core metabolism |
 | `rpl_rps` | Ribosomal proteins | 5 | Deepest — translation machinery |
 
-Higher dependency scores reflect deeper functional integration. VI predicts
+Higher dependency scores reflect deeper functional integration. Valence predicts
 that categories with higher scores are retained longer (higher loss rank
 = lost later).
 
@@ -223,7 +223,7 @@ The output contains:
 
 | Metric | Value | Interpretation |
 |--------|-------|----------------|
-| `spearman_rho` | ~0.96 | Very high positive correlation — deeply integrated functions are retained longer, exactly as VI predicts |
+| `spearman_rho` | ~0.96 | Very high positive correlation — deeply integrated functions are retained longer, exactly as valence predicts |
 | `permutation_p` | ~0.008 | Only about 6 of 720 possible permutations produce a correlation this extreme by chance |
 | `pseudo_r_squared` | ~0.82 | Integration depth explains ~82% of the variance in loss ordering |
 | `cross_family_concordance` | ~0.94 | Orobanchaceae and Cuscuta show nearly identical loss ordering — the pattern is not lineage-specific |
@@ -234,7 +234,7 @@ result$metadata
 
 ## Step 5: Visualise the Ordering
 
-```{r t6-plot, fig.width = 6, fig.height = 4, fig.cap = "Gene loss rank vs integration depth in Orobanchaceae. Each point is a gene category. The strong positive trend (ρ ≈ 0.96) supports VI's integration-depth ordering prediction."}
+```{r t6-plot, fig.width = 6, fig.height = 4, fig.cap = "Gene loss rank vs integration depth in Orobanchaceae. Each point is a gene category. The strong positive trend (ρ ≈ 0.96) supports valence's integration-depth ordering prediction."}
 plot(gene_data$dependency_score, gene_data$orobanchaceae_loss_rank,
      main = "Gene Loss Ordering: Orobanchaceae",
      xlab = "Integration Depth (Dependency Score)",
@@ -248,14 +248,14 @@ abline(lm(orobanchaceae_loss_rank ~ dependency_score, data = gene_data),
 
 ## Step 6: Interpret
 
-The results support VI: integration depth predicts loss ordering with high
+The results support valence: integration depth predicts loss ordering with high
 confidence (ρ ≈ 0.96, p ≈ 0.008). The competitor (random loss) predicts
 ρ ≈ 0, which is firmly rejected. The cross-family concordance (~0.94)
 shows the ordering is robust across independently evolved parasitic
 lineages.
 
 **What the test does NOT tell us:**
-- It does not distinguish VI from relaxed selection at the *rate* level
+- It does not distinguish valence from relaxed selection at the *rate* level
   (that is T3's job).
 - It does not establish causation — only that integration depth is a
   strong predictor of retention order.
@@ -290,7 +290,7 @@ lineages.
      misspecification of the null (61.7% expected) further weaken the
      result.
    - **T3 vs McCutcheon**: metabolic complementarity (McCutcheon & Moran
-     2012) predicts the same biphasic correlation as VI. T3 alone cannot
+     2012) predicts the same biphasic correlation as valence. T3 alone cannot
      distinguish the two — that requires the cross-kingdom test (L3).
 
 ## Methodological Limitations
@@ -300,7 +300,7 @@ lineages.
    conserved across plants and birds, but the *rate* is not. The
    plant-derived slope predicts the bird ordering ($\rho = 0.755$,
    $p = 0.031$) but the actual rate of morphological change in birds
-   differs from the rate of plastome reduction in plants. VI claims
+   differs from the rate of plastome reduction in plants. Valence claims
    universality of ordering, not of rate.
 
 5. **Phylogenetic pseudoreplication in T3**
@@ -310,7 +310,7 @@ lineages.
    appropriate but is not implemented.
 
 6. **No temporal data**
-   All tests are cross-sectional. The VI dynamical model makes predictions
+   All tests are cross-sectional. The valence dynamical model makes predictions
    about *rates* of change over time, but the empirical tests use
    contemporary measurements as proxies for evolutionary trajectories.
    T3's symbiosis age estimates are uncertain and may introduce error.
@@ -319,7 +319,7 @@ lineages.
 
 | Cannot establish | Why |
 |-----------------|-----|
-| That VI is the *only* mechanism | Competitors overlap on some predictions |
+| That valence is the *only* mechanism | Competitors overlap on some predictions |
 | Causation | All tests are correlational (comparative method) |
 | Irreversibility | The cusp catastrophe model is not yet empirically tested |
 | Universal applicability | Only tested on plants, bacteria, and birds |
@@ -342,7 +342,7 @@ The `values` vector contains the statistical quantities (effect sizes,
 p-values, fit metrics). The `metadata` list records the seed, sample size,
 method, and convergence status.
 
-## What Supports VI
+## What Supports valence
 
 | Observation | Interpretation |
 |-------------|----------------|
@@ -355,7 +355,7 @@ method, and convergence status.
 | Less than 61.7% in T7 | Loss co-segregates less than expected by chance |
 | $\rho > 0$ and $p < 0.05$ in L3 | Ordering principle transfers across kingdoms |
 
-## What Refutes VI
+## What Refutes valence
 
 | Observation | Interpretation |
 |-------------|----------------|
@@ -372,8 +372,8 @@ method, and convergence status.
 Several tests can produce ambiguous outcomes:
 
 **T1/T2 (non-distinguishing).** Even if significant, these tests do not
-distinguish VI from relaxed selection. A significant result is *necessary*
-for the framework but not *sufficient*. Report as "consistent with VI and
+distinguish valence from relaxed selection. A significant result is *necessary*
+for the framework but not *sufficient*. Report as "consistent with valence and
 with relaxed selection." The distinguishing weight must come from T3–T6.
 
 **T3 (biphasic fit).** If the logistic model fails to converge, the
@@ -400,7 +400,7 @@ Consider:
 
 **T7 (suggestive only).** The LTEE test is explicitly reported as
 suggestive in the monograph (§12.5). A non-significant result does not
-refute VI. A *significant* result (observed ≥ expected) would be more
+refute valence. A *significant* result (observed ≥ expected) would be more
 informative, as it would contradict the co-segregation deficit prediction.
 
 **L3 (cross-kingdom).** With $n = 8$ bird structures, the Spearman test
@@ -415,7 +415,7 @@ the observed $\rho$ and its confidence interval.
                      │
                 ┌────┴────┐
                 │         │
-               YES        NO ──→ VI not supported 
+               YES        NO ──→ valence not supported 
                 │              (but also doesn't refute)
            ┌────┴────┐
            │         │
@@ -437,13 +437,13 @@ the observed $\rho$ and its confidence interval.
       │    │    │
       │    │ ┌──┴──┐
       │    │ │    │
-      │    │ VI  Ambiguous ──→ More data needed
+      │    │ valence  Ambiguous ──→ More data needed
       │    │ supported
       │    │
-      └────┴─────────────────── VI strongly supported
+      └────┴─────────────────── valence strongly supported
 ```
 
-In practice, the strength of the VI framework is that **multiple
+In practice, the strength of the valence framework is that **multiple
 independent tests converge on the same conclusion**. A single ambiguous
 or even refuting result is informative but does not sink the framework
 if the other tests are strong. The cross-kingdom test (L3) carries the
@@ -471,7 +471,7 @@ provide the full WCI breakdown for each test.
 - Bobay, L.-M. & Ochman, H. (2017). *Impact of effective population size
   on genome evolution*. Nature Communications.
 - Dewar, A. et al. (2024). *Pan-genome fluidity and lifestyle*. [Data collected
-  for VI monograph.]
+  for valence monograph.]
 - Good, B. H. et al. (2017). *The dynamics of molecular evolution over 60,000
   generations*. Nature, 551:45–50.
 - Lahti, D. C. et al. (2009). *Relaxed selection in the wild*. Trends in
@@ -483,4 +483,4 @@ provide the full WCI breakdown for each test.
 - McCutcheon, J. P. & Moran, N. A. (2012). *Extreme genome reduction in
   symbiotic bacteria*. Nature Reviews Microbiology, 10:13–26.
 - Ritch-Frel, J. & Phil, E. (2026). *Valence-Ingression: A formal framework
-  for capacity reallocation under niche-driven selection*. VI Monograph.
+  for capacity reallocation under niche-driven selection*. Valence Monograph.

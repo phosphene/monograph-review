@@ -17,16 +17,16 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 WORKSPACE = Path("/home/node/.openclaw/workspace")
-OUTPUT_DIR = WORKSPACE / "vi-foundry" / "data" / "formula-analysis"
+OUTPUT_DIR = WORKSPACE / "valence-foundry" / "data" / "formula-analysis"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load Sodalis data
-dep = pd.read_csv(WORKSPACE / "vi-foundry/data/t7-ltee/gene_dependency_scores.tsv", sep="\t")
-with open(WORKSPACE / "vi-foundry/data/t7-ltee/sodalis/iJO_intact.txt") as f:
+dep = pd.read_csv(WORKSPACE / "valence-foundry/data/t7-ltee/gene_dependency_scores.tsv", sep="\t")
+with open(WORKSPACE / "valence-foundry/data/t7-ltee/sodalis/iJO_intact.txt") as f:
     intact = set(l.strip() for l in f if l.strip())
-with open(WORKSPACE / "vi-foundry/data/t7-ltee/sodalis/iJO_absent.txt") as f:
+with open(WORKSPACE / "valence-foundry/data/t7-ltee/sodalis/iJO_absent.txt") as f:
     absent = set(l.strip() for l in f if l.strip())
-with open(WORKSPACE / "vi-foundry/data/t7-ltee/sodalis/iJO_pseudo.txt") as f:
+with open(WORKSPACE / "valence-foundry/data/t7-ltee/sodalis/iJO_pseudo.txt") as f:
     pseudo = set(l.strip() for l in f if l.strip())
 
 def classify(row):
@@ -255,7 +255,7 @@ for i, (t, r) in enumerate(zip(theta_3, rho_3)):
     ax.annotate(labels[i], (t, r), textcoords="offset points", xytext=(8, 8), fontsize=9)
 
 ax.set_xlabel('θ (niche dependency)', fontsize=11)
-ax.set_ylabel('ρ (VI effect)', fontsize=11)
+ax.set_ylabel('ρ (valence effect)', fontsize=11)
 ax.set_title('Model Comparison: Step vs Sigmoid\n(3 comparable points)', fontsize=12)
 ax.legend(fontsize=9)
 ax.grid(True, alpha=0.3)

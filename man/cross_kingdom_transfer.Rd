@@ -13,8 +13,8 @@ substrate-independent.
 \section{Theoretical Context}{
 
 
-VI Prediction: integration-depth parameters transfer across kingdoms.
+Valence Prediction: integration-depth parameters transfer across kingdoms.
 Competitor: substrates are independent — no parameter transfer.
-DOES distinguish VI. This is the strongest test.
+DOES distinguish valence. This is the strongest test.
 }
 

@@ -5,7 +5,7 @@ renv/library/
 .RData
 .Rproj.user
 *.Rcheck/
-vi.foundry_*.tar.gz
+Valence.foundry_*.tar.gz
 # testthat artifacts
 tests/testthat/Rplots.pdf
 tests/testthat/_problems/

@@ -15,15 +15,15 @@ license: MIT
 
 > **What this is.** An execution plan for building a speculative simulation
 > capacity — four "toy realms" that let a reader *explore* the consequences
-> of the VI framework across parameter space and hypothetical substrates.
+> of the valence framework across parameter space and hypothetical substrates.
 > This is the actionable companion to the proposal in
 > [`modeling-sim-viz-review.md`](modeling-sim-viz-review.md) Part III. It
 > takes the proposal's four realms and turns them into phased, shippable
 > work with concrete functions, files, tests, and exit criteria.
 >
 > **What this is not.** An empirical test. The toy realms do not source new
-> data, do not claim to corroborate VI, and do not replace the blocked
-> empirical work (Items 4–6). They are theoretical exploration — "if VI
+> data, do not claim to corroborate valence, and do not replace the blocked
+> empirical work (Items 4–6). They are theoretical exploration — "if valence
 > were true, what would we expect to see in worlds we have not measured?"
 > — that sharpens the predictions for when the data arrives.
 
@@ -31,7 +31,7 @@ license: MIT
 
 The empirical tests are blocked on data (Items 4–6). The formal model is a
 theoretical ODE that cannot fail. Between these lies a gap the foundry can
-fill without external data: a layer that makes VI's predictions *explorable*.
+fill without external data: a layer that makes valence's predictions *explorable*.
 The existing simulacra generators already produce synthetic data from known
 parameters; the viz layer already plots trajectories, bifurcations, and
 growth curves. What is missing is a unifying **exploratory** layer that wraps
@@ -65,7 +65,7 @@ exactly what dataset would test each prediction.
 | 4 | Cross-kingdom transfer explorer | `generate_cross_kingdom_data()`, `transfer_test()` | GLM-transfer wrapper, transfer-breakdown viz | Medium | Yes (builds on R7) |
 
 **Suggested order:** 1 → 2 → 3 → 4. Realm 1 is simplest and exercises the
-threshold gate (the heart of VI). Realm 2 adds one new metric
+threshold gate (the heart of valence). Realm 2 adds one new metric
 (`hysteresis_loop_area`). Realm 3 adds the DD contrast and the endogenous-K
 bifurcation (Review Item 3). Realm 4 builds on the R7 finding (the corrected
 GLM) and is the richest. Each phase's exit gate is: suite green + the realm's
@@ -101,7 +101,7 @@ loosen; push λ and watch Phase 1 compress.
 
 ### What it teaches
 
-The threshold gate is the heart of VI's biphasic prediction. Seeing it
+The threshold gate is the heart of valence's biphasic prediction. Seeing it
 respond to θ across a sweep builds the intuition that the biphasic signal is
 *the gate* (math-review Issue 3, resolved), not the displacement ratio. It
 also makes the R6 method-misspecification visceral: a cross-sectional
@@ -177,7 +177,7 @@ large) and watch irreversibility emerge.
 
 ### What it teaches
 
-Irreversibility is VI's sharpest departure from gradual reversibility. The
+Irreversibility is valence's sharpest departure from gradual reversibility. The
 explorer shows that irreversibility is *quantitative* (loop area), not just
 boolean (`has_hysteresis`), and that it emerges discontinuously at the
 bifurcation. It also makes the data requirement honest: no real
@@ -262,7 +262,7 @@ empirical experiment exists.
 
 Given a growth model (autocatalytic vs. logistic) and a diversification time
 series, simulate the diversity-dependence sign and visualize the *contrast*
-between VI (positive DD, the *Homo* inversion) and the competitor (negative
+between valence (positive DD, the *Homo* inversion) and the competitor (negative
 DD, niche-filling). The reader can toggle the growth model and watch
 `diversity_dependence_sign` flip, and explore the endogenous-K bifurcation
 (Review Item 3) by sweeping the cultural-feedback parameter.
@@ -292,7 +292,7 @@ species-through-time series for *Homo* spanning the threshold).
 ```r
 #' Compute the diversity-dependence contrast: the difference in per-capita-
 #' rate-vs-N slope between autocatalytic (positive DD) and logistic (negative
-#' DD) growth on matched time series. Positive = VI signature; negative =
+#' DD) growth on matched time series. Positive = valence signature; negative =
 #' competitor.
 #'
 #' @param n_steps Integer. Time series length.
@@ -548,7 +548,7 @@ have unit tests, and the vignette section renders.
 ## Findings surfaced by implementation
 
 Each realm surfaced a finding or bug that sharpened the understanding of the
-VI framework's testability:
+Valence framework's testability:
 
 | Realm | Finding |
 |-------|---------|

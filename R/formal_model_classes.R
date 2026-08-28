@@ -17,7 +17,7 @@ NULL
 # VI_THRESHOLD_RESULT CLASS
 # ==============================================================================
 
-#' Create vi_threshold_result object (constructor)
+#' Create valence_threshold_result object (constructor)
 #'
 #' Bare-metal constructor — assigns class without validation. Used internally
 #' by the validator and helper. No type checking; trusts caller to provide
@@ -40,27 +40,27 @@ NULL
 #'   \item{converged}{logical. Whether integration converged}
 #'   \item{retention_history}{matrix. Full trajectory of retention over time}
 #'
-#' @return vi_threshold_result object (unvalidated)
+#' @return valence_threshold_result object (unvalidated)
 #' @keywords internal
-new_vi_threshold_result <- function(values, metadata) {
+new_valence_threshold_result <- function(values, metadata) {
   structure(
     list(values = values, metadata = metadata),
-    class = "vi_threshold_result"
+    class = "valence_threshold_result"
   )
 }
 
-#' Validate vi_threshold_result object
+#' Validate valence_threshold_result object
 #'
 #' Schema checks: verifies that all required fields are present and have
 #' correct types. Returns object invisibly if valid; stops with error if invalid.
 #'
-#' @param x vi_threshold_result object to validate.
+#' @param x valence_threshold_result object to validate.
 #'
 #' @return Invisible TRUE if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_threshold_result <- function(x) {
+validate_valence_threshold_result <- function(x) {
   if (!is.list(x)) {
-    stop("vi_threshold_result must be a list", call. = FALSE)
+    stop("valence_threshold_result must be a list", call. = FALSE)
   }
 
   # Check top-level structure
@@ -112,26 +112,26 @@ validate_vi_threshold_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_threshold_result
+#' Public helper for valence_threshold_result
 #'
 #' Public API: combines constructor + validator. Ensures all returned
 #' objects are properly structured before leaving this module.
 #'
-#' @param values See new_vi_threshold_result().
-#' @param metadata See new_vi_threshold_result().
+#' @param values See new_valence_threshold_result().
+#' @param metadata See new_valence_threshold_result().
 #'
-#' @return Validated vi_threshold_result object.
+#' @return Validated valence_threshold_result object.
 #' @export
-vi_threshold_result <- function(values, metadata) {
-  res <- new_vi_threshold_result(values, metadata)
-  validate_vi_threshold_result(res)
+Valence_threshold_result <- function(values, metadata) {
+  res <- new_valence_threshold_result(values, metadata)
+  validate_valence_threshold_result(res)
 }
 
 # ==============================================================================
 # VI_GLM_FIT CLASS
 # ==============================================================================
 
-#' Create vi_glm_fit object (constructor)
+#' Create valence_glm_fit object (constructor)
 #'
 #' Bare-metal constructor — assigns class without validation. Used internally
 #' by the validator and helper.
@@ -147,7 +147,7 @@ vi_threshold_result <- function(values, metadata) {
 #'   \item{cross_kingdom_p}{numeric. Cross-kingdom test p-value}
 #'   \item{dep_positive}{logical. Whether dep_coef > 0}
 #'   \item{para_negative}{logical. Whether para_coef < 0}
-#'   \item{vi_confirmed}{logical. Whether all VI predictions hold}
+#'   \item{valence_confirmed}{logical. Whether all valence predictions hold}
 #' @param metadata List. Named list with metadata fields:
 #'   \item{n}{integer. Number of observations}
 #'   \item{n_species}{integer. Number of species}
@@ -158,33 +158,33 @@ vi_threshold_result <- function(values, metadata) {
 #'   \item{converged}{logical. Whether GLM converged}
 #'   \item{glm_fit}{stats::glm object. Full fitted model (for diagnostics)}
 #'
-#' @return vi_glm_fit object (unvalidated)
+#' @return valence_glm_fit object (unvalidated)
 #' @keywords internal
-new_vi_glm_fit <- function(values, metadata) {
+new_valence_glm_fit <- function(values, metadata) {
   structure(
     list(values = values, metadata = metadata),
-    class = "vi_glm_fit"
+    class = "valence_glm_fit"
   )
 }
 
-#' Validate vi_glm_fit object
+#' Validate valence_glm_fit object
 #'
 #' Schema checks: verifies GLM result structure and consistency.
 #'
-#' @param x vi_glm_fit object to validate.
+#' @param x valence_glm_fit object to validate.
 #'
 #' @return Invisible TRUE if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_glm_fit <- function(x) {
+validate_valence_glm_fit <- function(x) {
   if (!is.list(x)) {
-    stop("vi_glm_fit must be a list", call. = FALSE)
+    stop("valence_glm_fit must be a list", call. = FALSE)
   }
 
   # Check values
   required_vals <- c("intercept", "dep_coefficient", "dep_p_value",
                      "para_coefficient", "para_p_value", "pseudo_r_squared",
                      "cross_kingdom_rho", "cross_kingdom_p", "dep_positive",
-                     "para_negative", "vi_confirmed")
+                     "para_negative", "valence_confirmed")
   missing_vals <- setdiff(required_vals, names(x$values))
   if (length(missing_vals) > 0) {
     stop("Missing required value fields: ", paste(missing_vals, collapse = ", "),
@@ -202,7 +202,7 @@ validate_vi_glm_fit <- function(x) {
   }
 
   # Logical flags
-  logical_fields <- c("dep_positive", "para_negative", "vi_confirmed")
+  logical_fields <- c("dep_positive", "para_negative", "valence_confirmed")
   for (field in logical_fields) {
     if (!is.logical(x$values[[field]])) {
       stop(sprintf("%s must be logical", field), call. = FALSE)
@@ -230,25 +230,25 @@ validate_vi_glm_fit <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_glm_fit
+#' Public helper for valence_glm_fit
 #'
 #' Public API: combines constructor + validator.
 #'
-#' @param values See new_vi_glm_fit().
-#' @param metadata See new_vi_glm_fit().
+#' @param values See new_valence_glm_fit().
+#' @param metadata See new_valence_glm_fit().
 #'
-#' @return Validated vi_glm_fit object.
+#' @return Validated valence_glm_fit object.
 #' @export
-vi_glm_fit <- function(values, metadata) {
-  res <- new_vi_glm_fit(values, metadata)
-  validate_vi_glm_fit(res)
+Valence_glm_fit <- function(values, metadata) {
+  res <- new_valence_glm_fit(values, metadata)
+  validate_valence_glm_fit(res)
 }
 
 # ==============================================================================
 # VI_EQUILIBRIUM CLASS
 # ==============================================================================
 
-#' Create vi_equilibrium object (constructor)
+#' Create valence_equilibrium object (constructor)
 #'
 #' Bare-metal constructor for equilibrium result at a single depth.
 #'
@@ -258,9 +258,9 @@ vi_glm_fit <- function(values, metadata) {
 #' @param depth Numeric. Trait integration depth.
 #' @param integrated_mismatch Numeric. Integrated mismatch ∫₀ᵀ M(t) dt.
 #'
-#' @return vi_equilibrium object (unvalidated)
+#' @return valence_equilibrium object (unvalidated)
 #' @keywords internal
-new_vi_equilibrium <- function(value, is_protected, params, depth, integrated_mismatch) {
+new_valence_equilibrium <- function(value, is_protected, params, depth, integrated_mismatch) {
   structure(
     list(
       value = value,
@@ -269,19 +269,19 @@ new_vi_equilibrium <- function(value, is_protected, params, depth, integrated_mi
       depth = depth,
       integrated_mismatch = integrated_mismatch
     ),
-    class = "vi_equilibrium"
+    class = "valence_equilibrium"
   )
 }
 
-#' Validate vi_equilibrium object
+#' Validate valence_equilibrium object
 #'
-#' @param x vi_equilibrium object to validate.
+#' @param x valence_equilibrium object to validate.
 #'
 #' @return Invisible TRUE if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_equilibrium <- function(x) {
+validate_valence_equilibrium <- function(x) {
   if (!is.list(x)) {
-    stop("vi_equilibrium must be a list", call. = FALSE)
+    stop("valence_equilibrium must be a list", call. = FALSE)
   }
 
   required <- c("value", "is_protected", "params", "depth", "integrated_mismatch")
@@ -313,19 +313,19 @@ validate_vi_equilibrium <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_equilibrium
+#' Public helper for valence_equilibrium
 #'
 #' Public API: combines constructor + validator.
 #'
-#' @param value See new_vi_equilibrium().
-#' @param is_protected See new_vi_equilibrium().
-#' @param params See new_vi_equilibrium().
-#' @param depth See new_vi_equilibrium().
-#' @param integrated_mismatch See new_vi_equilibrium().
+#' @param value See new_valence_equilibrium().
+#' @param is_protected See new_valence_equilibrium().
+#' @param params See new_valence_equilibrium().
+#' @param depth See new_valence_equilibrium().
+#' @param integrated_mismatch See new_valence_equilibrium().
 #'
-#' @return Validated vi_equilibrium object.
+#' @return Validated valence_equilibrium object.
 #' @export
-vi_equilibrium <- function(value, is_protected, params, depth, integrated_mismatch) {
-  res <- new_vi_equilibrium(value, is_protected, params, depth, integrated_mismatch)
-  validate_vi_equilibrium(res)
+Valence_equilibrium <- function(value, is_protected, params, depth, integrated_mismatch) {
+  res <- new_valence_equilibrium(value, is_protected, params, depth, integrated_mismatch)
+  validate_valence_equilibrium(res)
 }

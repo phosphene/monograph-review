@@ -1,7 +1,7 @@
 #' Dynamics Module Result Classes (S3 three-layer pattern)
 #'
 #' Implements Phosphene R Standards §7: constructor → validator → helper
-#' for the dynamics module of vi.foundry.
+#' for the dynamics module of valence.foundry.
 #'
 #' The dynamics module models three phenomena:
 #' \itemize{
@@ -19,7 +19,7 @@
 #' - A2 (determinism): fully deterministic, no RNG
 #' - A6 (check-result): returns structured objects with values + metadata
 #'
-#' The base class is \code{vi_dynamics_result}; each module adds a subclass
+#' The base class is \code{valence_dynamics_result}; each module adds a subclass
 #' carrying that base in its class vector so the base S3 methods
 #' (\code{print()}, \code{summary()}, \code{as.data.frame()}) dispatch
 #' uniformly.
@@ -31,7 +31,7 @@ NULL
 # VI_DYNAMICS_RESULT (BASE CLASS)
 # ==============================================================================
 
-#' Create vi_dynamics_result object (constructor)
+#' Create valence_dynamics_result object (constructor)
 #'
 #' Bare-metal constructor — assigns the base class without validation. Used
 #' internally by the validator and helper. No type checking; trusts the caller
@@ -40,13 +40,13 @@ NULL
 #' @param values List. Named list of numeric/logical module outputs.
 #' @param metadata List. Named list with provenance (params, seed, converged...).
 #' @param test_name Character. Name of the originating test / module.
-#' @param discriminating Logical. Whether the result distinguishes VI from the
+#' @param discriminating Logical. Whether the result distinguishes valence from the
 #'   competitor model (distinct sign or pattern predicted).
 #' @param status Character. Outcome status: "pass", "fail", or "inconclusive".
 #'
-#' @return vi_dynamics_result object (unvalidated)
+#' @return valence_dynamics_result object (unvalidated)
 #' @keywords internal
-new_vi_dynamics_result <- function(values, metadata, test_name, discriminating,
+new_valence_dynamics_result <- function(values, metadata, test_name, discriminating,
                                    status) {
   structure(
     list(
@@ -56,22 +56,22 @@ new_vi_dynamics_result <- function(values, metadata, test_name, discriminating,
       discriminating = discriminating,
       status = status
     ),
-    class = "vi_dynamics_result"
+    class = "valence_dynamics_result"
   )
 }
 
-#' Validate vi_dynamics_result object
+#' Validate valence_dynamics_result object
 #'
 #' Schema checks for the base class: verifies all top-level fields are present
 #' with the correct types.
 #'
-#' @param x vi_dynamics_result object to validate.
+#' @param x valence_dynamics_result object to validate.
 #'
 #' @return Invisible \code{x} if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_dynamics_result <- function(x) {
+validate_valence_dynamics_result <- function(x) {
   if (!is.list(x)) {
-    stop("vi_dynamics_result must be a list", call. = FALSE)
+    stop("valence_dynamics_result must be a list", call. = FALSE)
   }
 
   required_top <- c("values", "metadata", "test_name", "discriminating", "status")
@@ -98,30 +98,30 @@ validate_vi_dynamics_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_dynamics_result
+#' Public helper for valence_dynamics_result
 #'
 #' Public API: combines constructor + validator. Base-class instantiation is
 #' rare (subclasses are preferred) but permitted for generic dynamics results.
 #'
-#' @param values See \code{new_vi_dynamics_result()}.
-#' @param metadata See \code{new_vi_dynamics_result()}.
+#' @param values See \code{new_valence_dynamics_result()}.
+#' @param metadata See \code{new_valence_dynamics_result()}.
 #' @param test_name Character. Default "dynamics".
 #' @param discriminating Logical. Default TRUE.
 #' @param status Character. Default "pass".
 #'
-#' @return Validated vi_dynamics_result object.
+#' @return Validated valence_dynamics_result object.
 #' @export
-vi_dynamics_result <- function(values, metadata, test_name = "dynamics",
+Valence_dynamics_result <- function(values, metadata, test_name = "dynamics",
                                discriminating = TRUE, status = "pass") {
-  res <- new_vi_dynamics_result(values, metadata, test_name, discriminating, status)
-  validate_vi_dynamics_result(res)
+  res <- new_valence_dynamics_result(values, metadata, test_name, discriminating, status)
+  validate_valence_dynamics_result(res)
 }
 
 # ==============================================================================
 # VI_AUTOCATALYTIC_RESULT CLASS
 # ==============================================================================
 
-#' Create vi_autocatalytic_result object (constructor)
+#' Create valence_autocatalytic_result object (constructor)
 #'
 #' Bare-metal constructor for autocatalytic set dynamics results.
 #'
@@ -137,27 +137,27 @@ vi_dynamics_result <- function(values, metadata, test_name = "dynamics",
 #' @param discriminating Logical.
 #' @param status Character.
 #'
-#' @return vi_autocatalytic_result object (unvalidated)
+#' @return valence_autocatalytic_result object (unvalidated)
 #' @keywords internal
-new_vi_autocatalytic_result <- function(values, metadata, test_name,
+new_valence_autocatalytic_result <- function(values, metadata, test_name,
                                         discriminating, status) {
   structure(
     list(
       values = values, metadata = metadata, test_name = test_name,
       discriminating = discriminating, status = status
     ),
-    class = c("vi_autocatalytic_result", "vi_dynamics_result")
+    class = c("valence_autocatalytic_result", "valence_dynamics_result")
   )
 }
 
-#' Validate vi_autocatalytic_result object
+#' Validate valence_autocatalytic_result object
 #'
-#' @param x vi_autocatalytic_result object to validate.
+#' @param x valence_autocatalytic_result object to validate.
 #'
 #' @return Invisible \code{x} if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_autocatalytic_result <- function(x) {
-  validate_vi_dynamics_result(x)
+validate_valence_autocatalytic_result <- function(x) {
+  validate_valence_dynamics_result(x)
 
   vals <- x$values
   required_vals <- c("diversity_dependence_sign", "per_capita_rate",
@@ -185,7 +185,7 @@ validate_vi_autocatalytic_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_autocatalytic_result
+#' Public helper for valence_autocatalytic_result
 #'
 #' Public API: combines constructor + validator. Fields are supplied directly
 #' so callers can construct a validated result from computed quantities.
@@ -199,9 +199,9 @@ validate_vi_autocatalytic_result <- function(x) {
 #' @param discriminating Logical. Default TRUE.
 #' @param status Character. Default "pass".
 #'
-#' @return Validated vi_autocatalytic_result object.
+#' @return Validated valence_autocatalytic_result object.
 #' @export
-vi_autocatalytic_result <- function(diversity_dependence_sign, per_capita_rate,
+Valence_autocatalytic_result <- function(diversity_dependence_sign, per_capita_rate,
                                     n_species, time_series, metadata = list(),
                                     test_name = "autocatalytic_set_dynamics",
                                     discriminating = TRUE, status = "pass") {
@@ -211,23 +211,23 @@ vi_autocatalytic_result <- function(diversity_dependence_sign, per_capita_rate,
     n_species = n_species,
     time_series = time_series
   )
-  res <- new_vi_autocatalytic_result(values, metadata, test_name,
+  res <- new_valence_autocatalytic_result(values, metadata, test_name,
                                      discriminating, status)
-  validate_vi_autocatalytic_result(res)
+  validate_valence_autocatalytic_result(res)
 }
 
 #' Coerce a raw autocatalytic result into a classed result
 #'
 #' Wraps the A6 list returned by [diversity_dependence_sign()] into a
-#' \code{vi_autocatalytic_result}, computing the per-capita rate series from
+#' \code{valence_autocatalytic_result}, computing the per-capita rate series from
 #' the innovation counts when it is not already present.
 #'
 #' @param results List. Raw result list with \code{values} and \code{metadata}.
 #' @param metadata List. Optional override of result metadata.
 #'
-#' @return Validated vi_autocatalytic_result object.
+#' @return Validated valence_autocatalytic_result object.
 #' @export
-as_vi_autocatalytic_result <- function(results, metadata = NULL) {
+as_valence_autocatalytic_result <- function(results, metadata = NULL) {
   if (!is.list(results) || is.null(results$values)) {
     stop("results must be a list with a 'values' element", call. = FALSE)
   }
@@ -252,7 +252,7 @@ as_vi_autocatalytic_result <- function(results, metadata = NULL) {
     pc_rate <- NA_real_
   }
 
-  vi_autocatalytic_result(
+  Valence_autocatalytic_result(
     diversity_dependence_sign = dd_sign,
     per_capita_rate = pc_rate,
     n_species = n,
@@ -265,7 +265,7 @@ as_vi_autocatalytic_result <- function(results, metadata = NULL) {
 # VI_CUSP_RESULT CLASS
 # ==============================================================================
 
-#' Create vi_cusp_result object (constructor)
+#' Create valence_cusp_result object (constructor)
 #'
 #' Bare-metal constructor for cusp catastrophe analysis results.
 #'
@@ -283,27 +283,27 @@ as_vi_autocatalytic_result <- function(results, metadata = NULL) {
 #' @param discriminating Logical.
 #' @param status Character.
 #'
-#' @return vi_cusp_result object (unvalidated)
+#' @return valence_cusp_result object (unvalidated)
 #' @keywords internal
-new_vi_cusp_result <- function(values, metadata, test_name, discriminating,
+new_valence_cusp_result <- function(values, metadata, test_name, discriminating,
                                status) {
   structure(
     list(
       values = values, metadata = metadata, test_name = test_name,
       discriminating = discriminating, status = status
     ),
-    class = c("vi_cusp_result", "vi_dynamics_result")
+    class = c("valence_cusp_result", "valence_dynamics_result")
   )
 }
 
-#' Validate vi_cusp_result object
+#' Validate valence_cusp_result object
 #'
-#' @param x vi_cusp_result object to validate.
+#' @param x valence_cusp_result object to validate.
 #'
 #' @return Invisible \code{x} if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_cusp_result <- function(x) {
-  validate_vi_dynamics_result(x)
+validate_valence_cusp_result <- function(x) {
+  validate_valence_dynamics_result(x)
 
   vals <- x$values
   required_vals <- c("has_hysteresis", "max_difference", "loop_area",
@@ -332,7 +332,7 @@ validate_vi_cusp_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_cusp_result
+#' Public helper for valence_cusp_result
 #'
 #' Public API: combines constructor + validator.
 #'
@@ -346,9 +346,9 @@ validate_vi_cusp_result <- function(x) {
 #' @param discriminating Logical. Default TRUE.
 #' @param status Character. Default "pass".
 #'
-#' @return Validated vi_cusp_result object.
+#' @return Validated valence_cusp_result object.
 #' @export
-vi_cusp_result <- function(has_hysteresis, max_difference, loop_area,
+Valence_cusp_result <- function(has_hysteresis, max_difference, loop_area,
                            equilibria, bifurcation_set, metadata = list(),
                            test_name = "cusp_catastrophe",
                            discriminating = TRUE, status = "pass") {
@@ -359,22 +359,22 @@ vi_cusp_result <- function(has_hysteresis, max_difference, loop_area,
     equilibria = equilibria,
     bifurcation_set = bifurcation_set
   )
-  res <- new_vi_cusp_result(values, metadata, test_name, discriminating, status)
-  validate_vi_cusp_result(res)
+  res <- new_valence_cusp_result(values, metadata, test_name, discriminating, status)
+  validate_valence_cusp_result(res)
 }
 
 #' Coerce a raw cusp result into a classed result
 #'
 #' Wraps the A6 list returned by [cusp_hysteresis_check()] or
-#' [hysteresis_loop_area()] into a \code{vi_cusp_result}. Known fields are
+#' [hysteresis_loop_area()] into a \code{valence_cusp_result}. Known fields are
 #' mapped; unavailable ones fall back to safe defaults.
 #'
 #' @param results List. Raw list with \code{values} and \code{metadata}.
 #' @param metadata List. Optional metadata override.
 #'
-#' @return Validated vi_cusp_result object.
+#' @return Validated valence_cusp_result object.
 #' @export
-as_vi_cusp_result <- function(results, metadata = NULL) {
+as_valence_cusp_result <- function(results, metadata = NULL) {
   if (!is.list(results) || is.null(results$values)) {
     stop("results must be a list with a 'values' element", call. = FALSE)
   }
@@ -405,7 +405,7 @@ as_vi_cusp_result <- function(results, metadata = NULL) {
     if (aa < 0) (2 / (3 * sqrt(3))) * (-aa)^(3 / 2) else 0
   }
 
-  vi_cusp_result(
+  Valence_cusp_result(
     has_hysteresis = has_hysteresis,
     max_difference = max_difference,
     loop_area = loop_area,
@@ -419,7 +419,7 @@ as_vi_cusp_result <- function(results, metadata = NULL) {
 # VI_ECONOMICS_RESULT CLASS
 # ==============================================================================
 
-#' Create vi_economics_result object (constructor)
+#' Create valence_economics_result object (constructor)
 #'
 #' Bare-metal constructor for the economics module (commitment-driven option
 #' decay and stochastic CDI paths).
@@ -436,27 +436,27 @@ as_vi_cusp_result <- function(results, metadata = NULL) {
 #' @param discriminating Logical.
 #' @param status Character.
 #'
-#' @return vi_economics_result object (unvalidated)
+#' @return valence_economics_result object (unvalidated)
 #' @keywords internal
-new_vi_economics_result <- function(values, metadata, test_name,
+new_valence_economics_result <- function(values, metadata, test_name,
                                     discriminating, status) {
   structure(
     list(
       values = values, metadata = metadata, test_name = test_name,
       discriminating = discriminating, status = status
     ),
-    class = c("vi_economics_result", "vi_dynamics_result")
+    class = c("valence_economics_result", "valence_dynamics_result")
   )
 }
 
-#' Validate vi_economics_result object
+#' Validate valence_economics_result object
 #'
-#' @param x vi_economics_result object to validate.
+#' @param x valence_economics_result object to validate.
 #'
 #' @return Invisible \code{x} if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_economics_result <- function(x) {
-  validate_vi_dynamics_result(x)
+validate_valence_economics_result <- function(x) {
+  validate_valence_dynamics_result(x)
 
   vals <- x$values
   required_vals <- c("cdi", "option_value", "stochastic_paths",
@@ -479,7 +479,7 @@ validate_vi_economics_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_economics_result
+#' Public helper for valence_economics_result
 #'
 #' Public API: combines constructor + validator.
 #'
@@ -492,9 +492,9 @@ validate_vi_economics_result <- function(x) {
 #' @param discriminating Logical. Default TRUE.
 #' @param status Character. Default "pass".
 #'
-#' @return Validated vi_economics_result object.
+#' @return Validated valence_economics_result object.
 #' @export
-vi_economics_result <- function(cdi, option_value, stochastic_paths,
+Valence_economics_result <- function(cdi, option_value, stochastic_paths,
                                 threshold_disruption, metadata = list(),
                                 test_name = "economics",
                                 discriminating = TRUE, status = "pass") {
@@ -504,9 +504,9 @@ vi_economics_result <- function(cdi, option_value, stochastic_paths,
     stochastic_paths = stochastic_paths,
     threshold_disruption = threshold_disruption
   )
-  res <- new_vi_economics_result(values, metadata, test_name,
+  res <- new_valence_economics_result(values, metadata, test_name,
                                  discriminating, status)
-  validate_vi_economics_result(res)
+  validate_valence_economics_result(res)
 }
 
 # ==============================================================================
@@ -515,15 +515,15 @@ vi_economics_result <- function(cdi, option_value, stochastic_paths,
 
 #' Print a dynamics module result
 #'
-#' Human-readable console output for any \code{vi_dynamics_result} subclass.
+#' Human-readable console output for any \code{valence_dynamics_result} subclass.
 #'
-#' @param x A vi_dynamics_result (or subclass).
+#' @param x A valence_dynamics_result (or subclass).
 #' @param ... Unused, for S3 compatibility.
 #'
 #' @return Invisibly \code{x}.
 #' @export
-print.vi_dynamics_result <- function(x, ...) {
-  cat("<!> vi.dynamics result:", x$test_name, "\n")
+print.valence_dynamics_result <- function(x, ...) {
+  cat("<!> valence.dynamics result:", x$test_name, "\n")
   cat("    status:", x$status,
       "| discriminating:", if (isTRUE(x$discriminating)) "yes" else "no", "\n")
   cat("    values:\n")
@@ -551,12 +551,12 @@ fmt_num <- function(x) {
 #'
 #' Returns a tidy one-row data.frame summarising the key scalar outputs.
 #'
-#' @param object A vi_dynamics_result (or subclass).
+#' @param object A valence_dynamics_result (or subclass).
 #' @param ... Unused, for S3 compatibility.
 #'
 #' @return A data.frame with one row.
 #' @export
-summary.vi_dynamics_result <- function(object, ...) {
+summary.valence_dynamics_result <- function(object, ...) {
   vals <- object$values
 
   # Collect numeric scalar value fields (drop length-0 and matrices).
@@ -582,14 +582,14 @@ summary.vi_dynamics_result <- function(object, ...) {
 
 #' Convert a dynamics module result to a data.frame
 #'
-#' @param x A vi_dynamics_result (or subclass).
+#' @param x A valence_dynamics_result (or subclass).
 #' @param row.names Ignored (single row).
 #' @param optional Ignored.
 #' @param ... Unused, for S3 compatibility.
 #'
 #' @return A one-row data.frame.
 #' @export
-as.data.frame.vi_dynamics_result <- function(x, row.names = NULL,
+as.data.frame.valence_dynamics_result <- function(x, row.names = NULL,
                                              optional = FALSE, ...) {
   summary(x)
 }
@@ -598,7 +598,7 @@ as.data.frame.vi_dynamics_result <- function(x, row.names = NULL,
 # VI_PROOF CLASS (S3 three-layer pattern)
 # ==============================================================================
 
-#' Create vi_proof object (constructor)
+#' Create valence_proof object (constructor)
 #'
 #' Bare-metal constructor for a mathematical proof object.
 #'
@@ -608,25 +608,25 @@ as.data.frame.vi_dynamics_result <- function(x, row.names = NULL,
 #' @param verified Logical. Whether the numeric check corroborates.
 #' @param numeric_check Numeric. Numeric corroboration value.
 #'
-#' @return vi_proof object (unvalidated)
+#' @return valence_proof object (unvalidated)
 #' @keywords internal
-new_vi_proof <- function(statement, derivation, result, verified, numeric_check) {
+new_valence_proof <- function(statement, derivation, result, verified, numeric_check) {
   structure(
     list(statement = statement, derivation = derivation, result = result,
          verified = verified, numeric_check = numeric_check),
-    class = "vi_proof"
+    class = "valence_proof"
   )
 }
 
-#' Validate vi_proof object
+#' Validate valence_proof object
 #'
-#' @param x vi_proof object to validate.
+#' @param x valence_proof object to validate.
 #'
 #' @return Invisible \code{x} if valid. Stops with error if invalid.
 #' @keywords internal
-validate_vi_proof <- function(x) {
+validate_valence_proof <- function(x) {
   if (!is.list(x)) {
-    stop("vi_proof must be a list", call. = FALSE)
+    stop("valence_proof must be a list", call. = FALSE)
   }
   required <- c("statement", "derivation", "result", "verified", "numeric_check")
   missing <- setdiff(required, names(x))
@@ -653,7 +653,7 @@ validate_vi_proof <- function(x) {
   invisible(x)
 }
 
-#' Public helper for vi_proof
+#' Public helper for valence_proof
 #'
 #' Public API: combines constructor + validator.
 #'
@@ -663,24 +663,24 @@ validate_vi_proof <- function(x) {
 #' @param verified Logical. Whether the numeric check corroborates.
 #' @param numeric_check Numeric. Numeric corroboration value.
 #'
-#' @return Validated vi_proof object.
+#' @return Validated valence_proof object.
 #' @export
-vi_proof <- function(statement, derivation, result = "QED", verified,
+Valence_proof <- function(statement, derivation, result = "QED", verified,
                      numeric_check) {
-  res <- new_vi_proof(statement, derivation, result, verified, numeric_check)
-  validate_vi_proof(res)
+  res <- new_valence_proof(statement, derivation, result, verified, numeric_check)
+  validate_valence_proof(res)
 }
 
-#' Print a vi_proof object
+#' Print a valence_proof object
 #'
 #' Formats the proof: statement, derivation, and verification status.
 #'
-#' @param x A vi_proof object.
+#' @param x A valence_proof object.
 #' @param ... Unused, for S3 compatibility.
 #'
 #' @return Invisibly \code{x}.
 #' @export
-print.vi_proof <- function(x, ...) {
+print.valence_proof <- function(x, ...) {
   cat("==================================================\n")
   cat("THEOREM\n  ", x$statement, "\n")
   cat("DERIVATION\n")
@@ -695,14 +695,14 @@ print.vi_proof <- function(x, ...) {
   invisible(x)
 }
 
-#' Summarise a vi_proof object
+#' Summarise a valence_proof object
 #'
-#' @param object A vi_proof object.
+#' @param object A valence_proof object.
 #' @param ... Unused, for S3 compatibility.
 #'
 #' @return A one-row data.frame (statement, result, verified, numeric_check).
 #' @export
-summary.vi_proof <- function(object, ...) {
+summary.valence_proof <- function(object, ...) {
   data.frame(
     statement = object$statement,
     result = object$result,
@@ -712,15 +712,15 @@ summary.vi_proof <- function(object, ...) {
   )
 }
 
-#' Convert a vi_proof object to a data.frame
+#' Convert a valence_proof object to a data.frame
 #'
-#' @param x A vi_proof object.
+#' @param x A valence_proof object.
 #' @param row.names Ignored.
 #' @param optional Ignored.
 #' @param ... Unused, for S3 compatibility.
 #'
 #' @return A one-row data.frame.
 #' @export
-as.data.frame.vi_proof <- function(x, row.names = NULL, optional = FALSE, ...) {
+as.data.frame.valence_proof <- function(x, row.names = NULL, optional = FALSE, ...) {
   summary(x)
 }

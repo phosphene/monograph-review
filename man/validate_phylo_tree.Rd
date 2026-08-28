@@ -22,7 +22,7 @@ Newick-format phylogeny with at least 3 taxa.
 
 
 Phylogenetic trees are required for PGLS (T1, T2) to correct for
-non-independence of species due to shared evolutionary history. VI's
+non-independence of species due to shared evolutionary history. Valence's
 PGLS predictions require a resolved tree with branch lengths. A
 competitor using non-phylogenetic regression (OLS) does not need this
 contract — but OLS inflates false positives when species are

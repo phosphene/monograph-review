@@ -19,9 +19,9 @@ columns for the pan-genome openness test.
 \section{Theoretical Context}{
 
 
-Pangenome data tests VI's prediction that pan-genome openness tracks
+Pangenome data tests valence's prediction that pan-genome openness tracks
 lifestyle (commensal vs free-living). The competitor (Ne-only model)
 predicts Ne drives pangenome size regardless of lifestyle. This test
-DOES distinguish VI from the Ne-only model.
+DOES distinguish valence from the Ne-only model.
 }
 

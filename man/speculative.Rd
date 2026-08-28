@@ -2,12 +2,12 @@
 % Please edit documentation in R/speculative.R
 \name{speculative}
 \alias{speculative}
-\title{Speculative simulation capacity — toy realms for exploring VI}
+\title{Speculative simulation capacity — toy realms for exploring valence}
 \description{
-The toy realms are a theoretical-exploration layer that makes VI's
+The toy realms are a theoretical-exploration layer that makes valence's
 predictions explorable across parameter space and hypothetical substrates.
 They are NOT empirical tests — they do not source new data and do not claim
-to corroborate VI. Each realm names the experiment that would convert it
+to corroborate valence. Each realm names the experiment that would convert it
 from speculative to empirical.
 }
 \details{
@@ -19,7 +19,7 @@ See \code{docs/review/toy-realms-plan.md} for the execution plan and
 
 The empirical tests are blocked on data (Items 4–6). The formal model is a
 theoretical ODE that cannot fail. The toy realms fill the gap: they let a
-reader \emph{explore} the consequences of VI across parameter space — "if VI
+reader \emph{explore} the consequences of valence across parameter space — "if valence
 were true, what would we expect to see in worlds we have not measured?" —
 sharpening the predictions for when the data arrives.
 }

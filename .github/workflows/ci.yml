@@ -1,4 +1,4 @@
-name: VI Foundry CI
+name: Valence Foundry CI
 
 on:
   push:

@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# scripts/run_pipeline.R — Execute the full VI-foundry pipeline and write results
+# scripts/run_pipeline.R — Execute the full valence-foundry pipeline and write results
 #
 # Runs every analysis stage against the bundled data, collects each stage's
 # `values` (A6 proof object) keyed by the baseline-oracle entry name, and
@@ -15,7 +15,7 @@
 # (NA values + a reason) rather than aborting the run, so a partial pipeline
 # still produces a verifiable artifact.
 
-library(vi.foundry)
+library(valence.foundry)
 
 args <- commandArgs(trailingOnly = TRUE)
 output_dir <- "test-output"
@@ -23,7 +23,7 @@ if (length(args) >= 2L && args[1] == "--output") output_dir <- args[2]
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
 has_pkg <- function(p) requireNamespace(p, quietly = TRUE)
-has_data <- function(f) nzchar(system.file("data", f, package = "vi.foundry"))
+has_data <- function(f) nzchar(system.file("data", f, package = "valence.foundry"))
 
 # Each runner returns a list(values = list(...), skipped = NULL) or
 # list(skipped = "<reason>") on failure.

@@ -1,4 +1,4 @@
 library(testthat)
-library(vi.foundry)
+library(valence.foundry)
 
-test_check("vi.foundry")
+test_check("valence.foundry")

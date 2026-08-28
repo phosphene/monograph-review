@@ -2,15 +2,15 @@
 % Please edit documentation in R/economics.R
 \name{economics}
 \alias{economics}
-\title{Phase 6: Economics Extension — VI Predictions in Economic Substrates}
+\title{Phase 6: Economics Extension — valence Predictions in Economic Substrates}
 \description{
-Pure functions that carry the Valence-Ingression (VI) framework's
+Pure functions that carry the Valence-Ingression framework's
 integration-depth and commitment dynamics into economic systems:
 disruptive industry collapse trajectories, option-value destruction under
 lock-in, stochastic first-passage to irreversibility, and threshold-gated
 cascade disruption. Each function is DFI-compliant (A1 pure, A2 seeded
 determinism, A6 proof object) and mirrors the paper scripts under
-\verb{drafts/vi-econ-papers/}.
+\verb{drafts/valence-econ-papers/}.
 }
 \section{DFT Axioms}{
 

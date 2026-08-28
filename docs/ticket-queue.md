@@ -1,11 +1,11 @@
 ---
-uri: vi-foundry/ticket-queue
+uri: valence-foundry/ticket-queue
 owner: edphos
 status: living
 updated: 2026-08-18
 ---
 
-# VI Foundry — Ticket Queue
+# Valence Foundry — Ticket Queue
 
 ## Design Principles
 

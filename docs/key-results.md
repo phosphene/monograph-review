@@ -1,6 +1,6 @@
 # Key Results — Discriminating Core
 
-## The Six Tests That Distinguish VI
+## The Six Tests That Distinguish valence
 
 | Test | Key result | What it rules out |
 |------|-----------|-------------------|

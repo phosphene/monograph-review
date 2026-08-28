@@ -5,7 +5,7 @@
 #
 # Tests whether the parasitism–plastome relationship holds across
 # independently evolved parasitic plant lineages using family-level means.
-# VI monograph Test 2 (T2).
+# valence monograph Test 2 (T2).
 # =============================================================================
 
 library(ape)

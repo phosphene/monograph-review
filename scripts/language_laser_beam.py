@@ -18,7 +18,7 @@ from pathlib import Path
 
 WORKSPACE = Path("/home/node/.openclaw/workspace")
 GB_DIR = WORKSPACE / "data/glottobank/grambank/grambank_extracted/grambank-grambank-7ae000c/cldf"
-OUTPUT_DIR = WORKSPACE / "vi-foundry/data/formula-analysis"
+OUTPUT_DIR = WORKSPACE / "valence-foundry/data/formula-analysis"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ============================================================
