@@ -77,11 +77,21 @@ predict_bird_ordering <- function(bird_data, plant_slope) {
   validate_bird_morphology(bird_data)
 
   # Predict: rank = intercept + slope × dependency_score
-  # We only use the slope (ordering), not the intercept (rate)
-  # Plant loss_rank is inversely related to dependency (high dep = low loss_rank = retained).
-  # Bird observed_rank is directly related to dependency (high dep = changes late = high rank).
-  # Negate the slope so the direction matches: high dep → high predicted rank (changes late).
-  predicted <- -plant_slope * bird_data$dependency_score
+  # We only use the slope (ordering), not the intercept (rate).
+  #
+  # Sign convention (corrected 2026-08-28): plant loss_rank and bird
+  # observed_rank run in the SAME direction — in both kingdoms high
+  # dependency means the feature is retained/changes LATER (higher rank).
+  # The plant fit returns slope > 0 (loss_rank = intercept + slope·dep,
+  # so high dep -> high loss_rank), and the bird observed_rank is high for
+  # high dep. Therefore the prediction transfers DIRECTLY:
+  #     predicted = plant_slope * dependency_score
+  # and rank() (1 = first to change) puts high dep last. The earlier code
+  # negated the slope, which inverted the predicted ordering (high dep got
+  # rank 1), contradicting the docstring's own note "rank(a*x) = rank(x)
+  # for a > 0" and breaking both the unit ordering test and the shared-
+  # slope recovery simulacrum (bird_rho went strongly negative).
+  predicted <- plant_slope * bird_data$dependency_score
 
   # Convert to ranks (1 = first to change)
   rank(predicted, ties.method = "average")
