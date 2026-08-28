@@ -121,11 +121,18 @@ resolvable only if \(k_1 \cdot \Delta t \lesssim 1\). For \(t_\max = 56500\),
 \(k_1 \Delta t \approx 2.2\) at \(n=80\) — the fast phase is dead between
 samples.
 
-**The behaviour.** The fitter now reports `best_model = "monoexponential"`
-here — the honest answer. This is exactly the Kull-style boundary probe from
-the family-kinds discipline: a non-instantiating case is not a refutation of
-biphasic structure, it is a measurement that *at this sampling scale the fast
-phase is not resolvable*. Locked by T15.
+**The behaviour.** At this sampling the fast phase is dead between samples.
+The fit's honest output is a **boundary probe**: it either retreats to
+mono/linear, or — if the AIC model selection still prefers bi (seed- and
+noise-dependent at this boundary) — it reports a fast channel that is itself
+unresolvable at this sampling scale (fitted \(k_1 \Delta t > 1\), i.e. a time
+constant shorter than one sampling interval). Either way it does **not** claim
+a *resolved* two-timescale structure. This is exactly the Kull-style boundary
+probe from the family-kinds discipline: a non-instantiating case is not a
+refutation of biphasic structure, it is a measurement that *at this sampling
+scale the fast phase is not resolvable*. Locked by T15 (asserts the
+boundary-probe guarantee, not a specific model-selection winner — which is
+seed-dependent at this boundary).
 
 ### C4 — The noise boundary: when structure stops being separable
 
@@ -162,7 +169,7 @@ low-noise count), which documents the boundary without over-constraining.
 | T12 | Determinism (DFT A2) |
 | T13 | Halflife is a physical raw-time quantity |
 | T14 | Amplitude fractions bounded in [0,1] |
-| T15 | Degenerate sampling → honest mono (boundary probe, C3) |
+| T15 | Degenerate sampling → boundary probe: mono/linear, or unresolvable fast channel (k1·dt > 1) (C3) |
 | T16 | Zero time-range guard |
 | T17 | Identifiability boundary: decisive bi requires a material channel (C1) |
 | T18 | Noise boundary: bi selection rate falls with noise (C4) |
