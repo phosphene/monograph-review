@@ -400,7 +400,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 
 # valence component: dependency score
-Valence_rho, valence_p = stats.spearmanr(sodalis_df['dependency_score'], sodalis_df['retention'])
+valence_rho, valence_p = stats.spearmanr(sodalis_df['dependency_score'], sodalis_df['retention'])
 print(f"\n--- Variance Partition ---")
 print(f"valence component (dependency score): ρ={valence_rho:.3f}, p={valence_p:.6f}")
 
@@ -469,7 +469,7 @@ q75 = sodalis_df['dependency_score'].quantile(0.75)
 q25 = sodalis_df['dependency_score'].quantile(0.25)
 high_dep_retention = sodalis_df[sodalis_df['dependency_score'] >= q75]['retention'].mean()
 low_dep_retention = sodalis_df[sodalis_df['dependency_score'] <= q25]['retention'].mean()
-Valence_effect = high_dep_retention - low_dep_retention
+valence_effect = high_dep_retention - low_dep_retention
 
 if 'ess_binary' in sodalis_df.columns:
     ess_retention = sodalis_df[sodalis_df['ess_binary']==1]['retention'].mean()

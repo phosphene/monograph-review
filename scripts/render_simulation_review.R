@@ -35,7 +35,7 @@ data <- fromJSON(results_path, simplifyDataFrame = TRUE)
 # ---------------------------------------------------------------------------
 # 1. Shared theme (matches valence-foundry viz.R aesthetic)
 # ---------------------------------------------------------------------------
-Valence_theme <- function(base_size = 12) {
+valence_theme <- function(base_size = 12) {
   theme_minimal(base_size = base_size) +
     theme(
       plot.title = element_text(face = "bold", size = rel(1.1), color = "#2c3e50"),
@@ -51,7 +51,7 @@ Valence_theme <- function(base_size = 12) {
 }
 
 # Color palette (viridis-based, matching valence-foundry style)
-Valence_colors <- list(
+valence_colors <- list(
   two_tier = "#2980b9",   # blue
   uniform  = "#e74c3c",   # red
   bi_exp   = "#27ae60",   # green
@@ -99,7 +99,7 @@ plot_relaxation_curves <- function() {
       x = "Time (arbitrary units)",
       y = "Retention \u03c1(t)"
     ) +
-    Valence_theme() +
+    valence_theme() +
     theme(legend.position = "bottom")
 
   p
@@ -136,7 +136,7 @@ plot_k1k2_stability <- function() {
       x = "Seed",
       y = "k\u2081/k\u2082 ratio"
     ) +
-    Valence_theme()
+    valence_theme()
 
   # Distribution comparison
   p_box <- ggplot(combined, aes(x = type, y = ratio, fill = type)) +
@@ -154,7 +154,7 @@ plot_k1k2_stability <- function() {
       x = NULL,
       y = "k\u2081/k\u2082 ratio"
     ) +
-    Valence_theme() +
+    valence_theme() +
     theme(legend.position = "none")
 
   p_scatter / p_box + plot_layout(heights = c(1.2, 1))
@@ -190,7 +190,7 @@ plot_bic_comparison <- function() {
       x = "Seed",
       y = "\u0394BIC (bi-exp - mono-exp)"
     ) +
-    Valence_theme()
+    valence_theme()
 
   p
 }
@@ -229,7 +229,7 @@ plot_inflation_hierarchy <- function() {
       x = "Integration levels (structural depth)",
       y = "k\u2081/k\u2082 ratio (log scale)"
     ) +
-    Valence_theme() +
+    valence_theme() +
     theme(legend.position = "bottom")
 
   p
@@ -270,7 +270,7 @@ plot_fit_quality <- function() {
       x = "GRN Topology",
       y = "R\u00b2 (coefficient of determination)"
     ) +
-    Valence_theme() +
+    valence_theme() +
     coord_cartesian(ylim = c(0, 1)) +
     theme(legend.position = "bottom")
 
@@ -313,7 +313,7 @@ plot_parameter_recovery <- function() {
       x = NULL,
       y = "Parameter value"
     ) +
-    Valence_theme() +
+    valence_theme() +
     theme(legend.position = "bottom")
 
   # AIC comparison
@@ -336,7 +336,7 @@ plot_parameter_recovery <- function() {
       x = NULL,
       y = "AIC"
     ) +
-    Valence_theme() +
+    valence_theme() +
     theme(legend.position = "none") +
     coord_flip()
 

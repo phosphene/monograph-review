@@ -464,7 +464,7 @@ as.data.frame.valence_glm_fit <- function(x, row.names = NULL, optional = FALSE,
     coefficient = c("(Intercept)", "dependency_score", "parasitism_score"),
     estimate = c(vals$intercept, vals$dep_coefficient, vals$para_coefficient),
     p_value = c(NA, vals$dep_p_value, vals$para_p_value),  # intercept p not computed
-    Valence_prediction = c(NA, "dep > 0", "para < 0"),
+    valence_prediction = c(NA, "dep > 0", "para < 0"),
     consistent = c(NA, vals$dep_positive, vals$para_negative),
     stringsAsFactors = FALSE
   )

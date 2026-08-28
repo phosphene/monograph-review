@@ -396,7 +396,7 @@ threshold_model <- function(depths, lambda, theta, m0, alpha, time,
   )
 
   # Return as S3 object
-  Valence_threshold_result(values = values, metadata = metadata)
+  valence_threshold_result(values = values, metadata = metadata)
 }
 
 # ==============================================================================
@@ -509,7 +509,7 @@ empirical_formal_model <- function(plant_data, bird_data,
   # valence predictions
   dep_positive <- dep_coef > 0
   para_negative <- para_coef < 0
-  Valence_confirmed <- dep_positive && para_negative && cross_kingdom_rho > 0
+  valence_confirmed <- dep_positive && para_negative && cross_kingdom_rho > 0
 
   values <- list(
     intercept = intercept,
@@ -522,7 +522,7 @@ empirical_formal_model <- function(plant_data, bird_data,
     cross_kingdom_p = cross_kingdom_p,
     dep_positive = dep_positive,
     para_negative = para_negative,
-    Valence_confirmed = valence_confirmed
+    valence_confirmed = valence_confirmed
   )
 
   metadata <- list(
@@ -536,5 +536,5 @@ empirical_formal_model <- function(plant_data, bird_data,
     glm_fit = fit
   )
 
-  Valence_glm_fit(values = values, metadata = metadata)
+  valence_glm_fit(values = values, metadata = metadata)
 }

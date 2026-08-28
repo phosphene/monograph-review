@@ -84,7 +84,7 @@ NULL
     test_name = x$test_name,
     statistic = x$statistic,
     p_value = x$p_value,
-    Valence_prediction = x$valence_prediction,
+    valence_prediction = x$valence_prediction,
     discriminating = x$discriminating,
     status = x$status,
     stringsAsFactors = FALSE
@@ -142,7 +142,7 @@ new_valence_test_result <- function(test_name, statistic, p_value, valence_predi
       test_name = test_name,
       statistic = .valence_or_na(statistic),
       p_value = .valence_or_na(p_value),
-      Valence_prediction = .valence_or_na(valence_prediction),
+      valence_prediction = .valence_or_na(valence_prediction),
       discriminating = .valence_or_na(discriminating),
       status = .valence_or_na(status),
       values = values,
@@ -214,8 +214,8 @@ validate_valence_test_result <- function(x) {
 #'
 #' @return Validated valence_test_result object.
 #' @export
-Valence_test_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                           Valence_prediction = "", discriminating = FALSE,
+valence_test_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
+                           valence_prediction = "", discriminating = FALSE,
                            status = .valence_status_of(p_value),
                            values = list(), metadata = list()) {
   res <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
@@ -316,8 +316,8 @@ validate_valence_pgls_result <- function(x) {
 #' @param beta,r_squared,aic,n Extra PGLS fields.
 #' @return Validated valence_pgls_result object.
 #' @export
-Valence_pgls_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                           Valence_prediction = "", discriminating = FALSE,
+valence_pgls_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
+                           valence_prediction = "", discriminating = FALSE,
                            status = .valence_status_of(p_value),
                            values = list(), metadata = list(),
                            beta = NA_real_, r_squared = NA_real_,
@@ -425,8 +425,8 @@ validate_valence_niche_ne_result <- function(x) {
 #' @param niche_r_squared,ne_r_squared,delta_aic Extra fields.
 #' @return Validated valence_niche_ne_result object.
 #' @export
-Valence_niche_ne_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               Valence_prediction = "", discriminating = FALSE,
+valence_niche_ne_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
+                               valence_prediction = "", discriminating = FALSE,
                                status = .valence_status_of(p_value),
                                values = list(), metadata = list(),
                                niche_r_squared = NA_real_, ne_r_squared = NA_real_,
@@ -529,8 +529,8 @@ validate_valence_fluidity_result <- function(x) {
 #' @param lifestyle_r_squared,ne_r_squared,p_value2 Extra fields.
 #' @return Validated valence_fluidity_result object.
 #' @export
-Valence_fluidity_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               Valence_prediction = "", discriminating = FALSE,
+valence_fluidity_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
+                               valence_prediction = "", discriminating = FALSE,
                                status = .valence_status_of(p_value),
                                values = list(), metadata = list(),
                                lifestyle_r_squared = NA_real_, ne_r_squared = NA_real_,
@@ -631,8 +631,8 @@ validate_valence_ordering_result <- function(x) {
 #' @param rho,p_value2,n_permutations Extra fields.
 #' @return Validated valence_ordering_result object.
 #' @export
-Valence_ordering_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               Valence_prediction = "", discriminating = FALSE,
+valence_ordering_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
+                               valence_prediction = "", discriminating = FALSE,
                                status = .valence_status_of(p_value),
                                values = list(), metadata = list(),
                                rho = NA_real_, p_value2 = NA_real_,
@@ -733,8 +733,8 @@ validate_valence_transfer_result <- function(x) {
 #' @param rho,p_value2,n_null_draws Extra fields.
 #' @return Validated valence_transfer_result object.
 #' @export
-Valence_transfer_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               Valence_prediction = "", discriminating = FALSE,
+valence_transfer_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
+                               valence_prediction = "", discriminating = FALSE,
                                status = .valence_status_of(p_value),
                                values = list(), metadata = list(),
                                rho = NA_real_, p_value2 = NA_real_,
@@ -801,7 +801,7 @@ as.data.frame.valence_transfer_result <- function(x, row.names = NULL, optional 
 #' @return valence_cosegregation_result object (unvalidated).
 #' @keywords internal
 new_valence_cosegregation_result <- function(test_name, statistic, p_value,
-                                        Valence_prediction, discriminating, status,
+                                        valence_prediction, discriminating, status,
                                         values, metadata, observed_pct,
                                         expected_pct, depletion_ratio) {
   obj <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
@@ -839,8 +839,8 @@ validate_valence_cosegregation_result <- function(x) {
 #' @param observed_pct,expected_pct,depletion_ratio Extra fields.
 #' @return Validated valence_cosegregation_result object.
 #' @export
-Valence_cosegregation_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                                    Valence_prediction = "", discriminating = FALSE,
+valence_cosegregation_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
+                                    valence_prediction = "", discriminating = FALSE,
                                     status = .valence_status_of(p_value),
                                     values = list(), metadata = list(),
                                     observed_pct = NA_real_, expected_pct = NA_real_,

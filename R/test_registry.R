@@ -112,7 +112,7 @@ print.valence_test_registry_env <- function(x, ...) {
     test_name = entry$name,
     statistic = statistic,
     p_value = p_value,
-    Valence_prediction = entry$valence_prediction %||% "",
+    valence_prediction = entry$valence_prediction %||% "",
     discriminating = isTRUE(entry$discriminating),
     status = .valence_status_of(p_value),
     values = vals,
@@ -120,34 +120,34 @@ print.valence_test_registry_env <- function(x, ...) {
   )
 
   switch(cls,
-    Valence_pgls_result = do.call(valence_pgls_result, c(base, list(
+    valence_pgls_result = do.call(valence_pgls_result, c(base, list(
       beta = .val_or_na(vals, "beta"),
       r_squared = .val_or_na(vals, "r_squared"),
       aic = .val_or_na(vals, "aic"),
       n = .val_or_na(vals, "n", .val_or_na(meta, "n"))
     ))),
-    Valence_niche_ne_result = do.call(valence_niche_ne_result, c(base, list(
+    valence_niche_ne_result = do.call(valence_niche_ne_result, c(base, list(
       niche_r_squared = .val_or_na(vals, "niche_r_squared"),
       ne_r_squared = .val_or_na(vals, "ne_r_squared"),
       delta_aic = .val_or_na(vals, "aic_niche", .val_or_na(vals, "aic_ne")) -
         .val_or_na(vals, "aic_ne")
     ))),
-    Valence_fluidity_result = do.call(valence_fluidity_result, c(base, list(
+    valence_fluidity_result = do.call(valence_fluidity_result, c(base, list(
       lifestyle_r_squared = .val_or_na(vals, "niche_r_squared"),
       ne_r_squared = .val_or_na(vals, "ne_r_squared"),
       p_value2 = p_value
     ))),
-    Valence_ordering_result = do.call(valence_ordering_result, c(base, list(
+    valence_ordering_result = do.call(valence_ordering_result, c(base, list(
       rho = .val_or_na(vals, "spearman_rho"),
       p_value2 = .val_or_na(vals, "permutation_p", p_value),
       n_permutations = .val_or_na(vals, "n_permutations", .val_or_na(meta, "n_permutations"))
     ))),
-    Valence_transfer_result = do.call(valence_transfer_result, c(base, list(
+    valence_transfer_result = do.call(valence_transfer_result, c(base, list(
       rho = .val_or_na(vals, "bird_rho"),
       p_value2 = .val_or_na(vals, "null_p", .val_or_na(vals, "bird_p")),
       n_null_draws = .val_or_na(vals, "n_null", .val_or_na(meta, "n_null"))
     ))),
-    Valence_cosegregation_result = do.call(valence_cosegregation_result, c(base, list(
+    valence_cosegregation_result = do.call(valence_cosegregation_result, c(base, list(
       observed_pct = .val_or_na(vals, "observed_pct"),
       expected_pct = .val_or_na(vals, "expected_pct"),
       depletion_ratio = .val_or_na(vals, "depletion_ratio")
@@ -216,7 +216,7 @@ register_test <- function(name, fn, data_required = character(0),
                           expected_fields = character(0),
                           class = "valence_test_result",
                           statistic_key = NULL,
-                          Valence_prediction = "") {
+                          valence_prediction = "") {
   if (!is.character(name) || length(name) != 1 || !nzchar(name)) {
     stop("name must be a single non-empty character", call. = FALSE)
   }
@@ -240,7 +240,7 @@ register_test <- function(name, fn, data_required = character(0),
     expected_fields = expected_fields,
     class = class,
     statistic_key = statistic_key,
-    Valence_prediction = valence_prediction
+    valence_prediction = valence_prediction
   )
   .valence_register(entry)
   invisible(entry)
@@ -337,11 +337,11 @@ run_all_tests <- function(...) {
     out <- tryCatch(
       .build_valence_result(entry, entry$fn(...)),
       error = function(e) {
-        Valence_test_result(
+        valence_test_result(
           test_name = nms[i],
           statistic = NA_real_,
           p_value = NA_real_,
-          Valence_prediction = entry$valence_prediction %||% "",
+          valence_prediction = entry$valence_prediction %||% "",
           discriminating = isTRUE(entry$discriminating),
           status = "n/a",
           values = list(error = conditionMessage(e)),
@@ -486,14 +486,14 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = c("data", "tree"), discriminating = FALSE,
     expected_fields = c("beta", "r_squared", "p_value", "lambda", "n_species"),
     class = "valence_pgls_result", statistic_key = "beta",
-    Valence_prediction = "plastome size shrinks with parasitism depth (negative beta)"
+    valence_prediction = "plastome size shrinks with parasitism depth (negative beta)"
   )
   register_test(
     name = "pgls_cross_family", fn = pgls_cross_family,
     data_required = "data", discriminating = FALSE,
     expected_fields = c("pearson_r", "n", "p_value"),
     class = "valence_pgls_result", statistic_key = "pearson_r",
-    Valence_prediction = "gene-loss gradient replicates across independent parasitic families"
+    valence_prediction = "gene-loss gradient replicates across independent parasitic families"
   )
   # T3 — endosymbiont biphasic reduction (base result)
   register_test(
@@ -501,7 +501,7 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = "data", discriminating = FALSE,
     expected_fields = c("r_squared", "k1_k2_ratio", "bayes_factor"),
     class = "valence_test_result", statistic_key = "r_squared",
-    Valence_prediction = "biphasic (decelerating) genome reduction kinetics"
+    valence_prediction = "biphasic (decelerating) genome reduction kinetics"
   )
   # T4 — niche vs Ne
   register_test(
@@ -509,7 +509,7 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = "data", discriminating = TRUE,
     expected_fields = c("niche_r_squared", "ne_r_squared", "aic_niche", "aic_ne"),
     class = "valence_niche_ne_result", statistic_key = "niche_r_squared",
-    Valence_prediction = "niche breadth predicts gene loss better than Ne"
+    valence_prediction = "niche breadth predicts gene loss better than Ne"
   )
   # T5 — pan-genome fluidity
   register_test(
@@ -517,7 +517,7 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = "data", discriminating = TRUE,
     expected_fields = c("lifestyle_subsumes_ne", "niche_r_squared", "ne_r_squared"),
     class = "valence_fluidity_result", statistic_key = "niche_r_squared",
-    Valence_prediction = "pan-genome openness tracks lifestyle, not Ne alone"
+    valence_prediction = "pan-genome openness tracks lifestyle, not Ne alone"
   )
   # T6 — gene-loss ordering
   register_test(
@@ -525,7 +525,7 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = "data", discriminating = TRUE,
     expected_fields = c("spearman_rho", "permutation_p", "pseudo_r_squared"),
     class = "valence_ordering_result", statistic_key = "spearman_rho",
-    Valence_prediction = "integration depth orders gene loss (high rho)"
+    valence_prediction = "integration depth orders gene loss (high rho)"
   )
   # T7 — LTEE co-segregation (no external data)
   register_test(
@@ -533,7 +533,7 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = character(0), discriminating = TRUE,
     expected_fields = c("observed_pct", "expected_pct", "p_value", "depletion_ratio"),
     class = "valence_cosegregation_result", statistic_key = "depletion_ratio",
-    Valence_prediction = "function loss co-segregates with adaptive sweeps less than chance"
+    valence_prediction = "function loss co-segregates with adaptive sweeps less than chance"
   )
   # L3 — cross-kingdom transfer
   register_test(
@@ -541,7 +541,7 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = c("plant_data", "bird_data"), discriminating = TRUE,
     expected_fields = c("plant_slope", "bird_rho", "bird_p", "null_rho", "null_p"),
     class = "valence_transfer_result", statistic_key = "bird_rho",
-    Valence_prediction = "integration-depth parameters transfer across kingdoms"
+    valence_prediction = "integration-depth parameters transfer across kingdoms"
   )
   invisible(TRUE)
 }

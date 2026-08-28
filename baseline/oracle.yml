@@ -136,7 +136,7 @@ empirical_formal_model:
     cross_kingdom_p: 0.0305127590
     dep_positive: true
     para_negative: true
-    Valence_confirmed: true
+    valence_confirmed: true
   tolerance: 0.001
   supports_vi: true
   distinguishes_from_competitor: true

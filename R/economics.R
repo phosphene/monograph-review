@@ -270,7 +270,7 @@ option_destruction <- function(data, seed = 42L) {
         decay_rate = r_std,
         early_resid = early_resid,
         late_resid = late_resid,
-        Valence_pattern = pattern
+        valence_pattern = pattern
       )
     }
 
@@ -289,7 +289,7 @@ option_destruction <- function(data, seed = 42L) {
           per_system, function(p) p$late_resid,
           numeric(1)
         )),
-        Valence_pattern_share = mean(vapply(
+        valence_pattern_share = mean(vapply(
           per_system, function(p) p$valence_pattern,
           numeric(1)
         )),

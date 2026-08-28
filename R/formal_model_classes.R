@@ -122,7 +122,7 @@ validate_valence_threshold_result <- function(x) {
 #'
 #' @return Validated valence_threshold_result object.
 #' @export
-Valence_threshold_result <- function(values, metadata) {
+valence_threshold_result <- function(values, metadata) {
   res <- new_valence_threshold_result(values, metadata)
   validate_valence_threshold_result(res)
 }
@@ -239,7 +239,7 @@ validate_valence_glm_fit <- function(x) {
 #'
 #' @return Validated valence_glm_fit object.
 #' @export
-Valence_glm_fit <- function(values, metadata) {
+valence_glm_fit <- function(values, metadata) {
   res <- new_valence_glm_fit(values, metadata)
   validate_valence_glm_fit(res)
 }
@@ -325,7 +325,7 @@ validate_valence_equilibrium <- function(x) {
 #'
 #' @return Validated valence_equilibrium object.
 #' @export
-Valence_equilibrium <- function(value, is_protected, params, depth, integrated_mismatch) {
+valence_equilibrium <- function(value, is_protected, params, depth, integrated_mismatch) {
   res <- new_valence_equilibrium(value, is_protected, params, depth, integrated_mismatch)
   validate_valence_equilibrium(res)
 }

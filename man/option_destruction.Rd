@@ -14,7 +14,7 @@ option_destruction(data, seed = 42L)
 \value{
 List (A6: proof object):
 \item{values}{Named numeric: n_systems, mean_early_resid, mean_late_resid,
-Valence_pattern_share (fraction of systems showing the valence residual pattern),
+valence_pattern_share (fraction of systems showing the valence residual pattern),
 mean_standard_decay_rate}
 \item{metadata}{List: seed, n (systems), per_system, converged}
 }

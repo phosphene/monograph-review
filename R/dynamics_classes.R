@@ -111,7 +111,7 @@ validate_valence_dynamics_result <- function(x) {
 #'
 #' @return Validated valence_dynamics_result object.
 #' @export
-Valence_dynamics_result <- function(values, metadata, test_name = "dynamics",
+valence_dynamics_result <- function(values, metadata, test_name = "dynamics",
                                discriminating = TRUE, status = "pass") {
   res <- new_valence_dynamics_result(values, metadata, test_name, discriminating, status)
   validate_valence_dynamics_result(res)
@@ -201,7 +201,7 @@ validate_valence_autocatalytic_result <- function(x) {
 #'
 #' @return Validated valence_autocatalytic_result object.
 #' @export
-Valence_autocatalytic_result <- function(diversity_dependence_sign, per_capita_rate,
+valence_autocatalytic_result <- function(diversity_dependence_sign, per_capita_rate,
                                     n_species, time_series, metadata = list(),
                                     test_name = "autocatalytic_set_dynamics",
                                     discriminating = TRUE, status = "pass") {
@@ -252,7 +252,7 @@ as_valence_autocatalytic_result <- function(results, metadata = NULL) {
     pc_rate <- NA_real_
   }
 
-  Valence_autocatalytic_result(
+  valence_autocatalytic_result(
     diversity_dependence_sign = dd_sign,
     per_capita_rate = pc_rate,
     n_species = n,
@@ -348,7 +348,7 @@ validate_valence_cusp_result <- function(x) {
 #'
 #' @return Validated valence_cusp_result object.
 #' @export
-Valence_cusp_result <- function(has_hysteresis, max_difference, loop_area,
+valence_cusp_result <- function(has_hysteresis, max_difference, loop_area,
                            equilibria, bifurcation_set, metadata = list(),
                            test_name = "cusp_catastrophe",
                            discriminating = TRUE, status = "pass") {
@@ -405,7 +405,7 @@ as_valence_cusp_result <- function(results, metadata = NULL) {
     if (aa < 0) (2 / (3 * sqrt(3))) * (-aa)^(3 / 2) else 0
   }
 
-  Valence_cusp_result(
+  valence_cusp_result(
     has_hysteresis = has_hysteresis,
     max_difference = max_difference,
     loop_area = loop_area,
@@ -494,7 +494,7 @@ validate_valence_economics_result <- function(x) {
 #'
 #' @return Validated valence_economics_result object.
 #' @export
-Valence_economics_result <- function(cdi, option_value, stochastic_paths,
+valence_economics_result <- function(cdi, option_value, stochastic_paths,
                                 threshold_disruption, metadata = list(),
                                 test_name = "economics",
                                 discriminating = TRUE, status = "pass") {
@@ -665,7 +665,7 @@ validate_valence_proof <- function(x) {
 #'
 #' @return Validated valence_proof object.
 #' @export
-Valence_proof <- function(statement, derivation, result = "QED", verified,
+valence_proof <- function(statement, derivation, result = "QED", verified,
                      numeric_check) {
   res <- new_valence_proof(statement, derivation, result, verified, numeric_check)
   validate_valence_proof(res)

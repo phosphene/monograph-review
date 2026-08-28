@@ -103,7 +103,7 @@ prove_cusp_bifurcation <- function(a, b) {
   expected <- if (a > 0) 1L else if (a < 0 && abs(b) < crit_b) 3L else 1L
   verified <- isTRUE(n_real == expected)
 
-  Valence_proof(
+  valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",
@@ -201,7 +201,7 @@ prove_hysteresis_loop_area <- function(a = -1, control_range = c(-2, 2),
             numeric_area, analytic_area)
   )
 
-  Valence_proof(
+  valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",
@@ -283,7 +283,7 @@ prove_dd_sign <- function(r = 1, K = 10, N_max = 50, n_grid = 100L) {
             min_df, max_dg)
   )
 
-  Valence_proof(
+  valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",
@@ -365,7 +365,7 @@ prove_autocatalytic_growth_rate <- function(r = 1, K = 10, N_max = 5000,
             f0, f[n_grid], fmax_grid, r)
   )
 
-  Valence_proof(
+  valence_proof(
     statement = statement,
     derivation = derivation,
     result = "QED",
