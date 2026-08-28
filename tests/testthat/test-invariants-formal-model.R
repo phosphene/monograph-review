@@ -439,19 +439,19 @@ test_that("S3 classes have required print/summary/plot/as.data.frame methods", {
   skip_if_not(exists("summary.valence_threshold_result", mode = "function"),
               "summary.valence_threshold_result not yet available")
   sum_result <- tryCatch(summary(result), error = function(e) NULL)
-  skip_if_null(sum_result, "summary method not working yet")
+  skip_if(is.null(sum_result), "summary method not working yet")
   
   # Test plot returns ggplot object (skip if methods not available)
   skip_if_not(exists("plot.valence_threshold_result", mode = "function"),
-              "plot.valence_threshold_result not yet available")
+              "plot method not available yet")
   p <- tryCatch(plot(result), error = function(e) NULL)
-  skip_if_null(p, "plot method not working yet")
+  skip_if(is.null(p), "plot method not working yet")
   
   # Test as.data.frame returns data.frame
   skip_if_not(exists("as.data.frame.valence_threshold_result", mode = "function"),
-              "as.data.frame.valence_threshold_result not yet available")
+              "as.data.frame method not available yet")
   df <- tryCatch(as.data.frame(result), error = function(e) NULL)
-  skip_if_null(df, "as.data.frame method not working yet")
+  skip_if(is.null(df), "as.data.frame method not working yet")
 })
 
 test_that("valence_glm_fit S3 methods work", {
