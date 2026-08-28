@@ -23,7 +23,7 @@ The package serves three audiences:
 ```bash
 # Clone and enter
 git clone [https://github.com/phosphene/monograph-review](https://github.com/phosphene/monograph-review).git
-cd valence-foundry
+cd monograph-review
 
 # Restore the R environment (exact package versions)
 renv::restore()
@@ -242,9 +242,9 @@ Valence-foundry/
 
 ## Authors
 
-- **Ed Phil** — Systems architect, foundry standards, R package design
-- **[Jan Ritch-Frel](https://github.com/janfrel)** — Author of the valence monograph, data curation
-- **Flow Feel** — AI platform engineer, implementation, testing, CI/CD
+- **[Jan Ritch-Frel](https://github.com/janfrel)** — Author of the original paper, *"A Trajectory Account of Adaptive Evolution from Homo to the Wider Animal Kingdom"* (the valence monograph this repository exists to test). Jan is also an active contributor to this codebase.
+- **[Edward Phillips](https://github.com/phosphene)** — Author and designer of the mathematics and the software implementations (the Phosphene R engineering standards, MPI Handoff Blueprint, DFT axioms, STDD, and the foundry architecture itself).
+- **FlowBot** — Helper agent: implementation, testing, CI/CD, and review support.
 
 ## License
 
