@@ -84,9 +84,9 @@ predict_bird_ordering <- function(bird_data, plant_slope) {
   # dependency means the feature is retained/changes LATER (higher rank).
   # The plant fit returns slope > 0 (loss_rank = intercept + slope·dep,
   # so high dep -> high loss_rank), and the bird observed_rank is high for
-  # high dep. Therefore the prediction transfers DIRECTLY:
-  #     predicted = plant_slope * dependency_score
-  # and rank() (1 = first to change) puts high dep last. The earlier code
+  # high dep. Therefore the prediction transfers DIRECTLY (assign
+  # predicted = plant_slope * dependency_score), and rank() (1 = first to
+  # change) puts high dep last. The earlier code
   # negated the slope, which inverted the predicted ordering (high dep got
   # rank 1), contradicting the docstring's own note "rank(a*x) = rank(x)
   # for a > 0" and breaking both the unit ordering test and the shared-
