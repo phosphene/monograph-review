@@ -25,14 +25,14 @@ path (increasing commitment) vs reverse path (decreasing commitment).
 \section{Theoretical Context}{
 
 
-VI Prediction: irreversibility — substrate-shift creates a bifurcation
+Valence Prediction: irreversibility — substrate-shift creates a bifurcation
 that is difficult to reverse. The cusp catastrophe models this: smooth
 changes in control parameters produce sudden, irreversible jumps.
 Competitor: gradual reversibility (standard quantitative genetics
 predicts smooth recovery when selection pressure is removed).
 
-What supports VI: clear bifurcation region and hysteresis loop.
-What refutes VI: no bifurcation (smooth transitions everywhere).
+What supports valence: clear bifurcation region and hysteresis loop.
+What refutes valence: no bifurcation (smooth transitions everywhere).
 }
 
 \examples{

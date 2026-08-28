@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# VI Framework: Deliberative R Analysis
+# valence Framework: Deliberative R Analysis
 # Using R for what R does that Python doesn't — proper statistical modeling
 
 library(stats)
@@ -7,7 +7,7 @@ library(stats)
 cat("================================================================\n")
 cat("ANALYSIS 1: LOGISTIC REGRESSION — Full Gene × Species Matrix\n")
 cat("Does dependency score MODULATE the effect of parasitism on gene\n")
-cat("retention? This is the actual VI prediction, not a rank correlation.\n")
+cat("retention? This is the actual valence prediction, not a rank correlation.\n")
 cat("================================================================\n\n")
 
 # Build the full gene × species matrix
@@ -89,11 +89,11 @@ cat(sprintf("  Pseudo-R² (McFadden): %.4f\n\n",
     1 - m3$deviance / m3$null.deviance))
 
 # Model 4: THE KEY MODEL — interaction
-# VI predicts that dep_score MODULATES the effect of parasitism
+# valence predicts that dep_score MODULATES the effect of parasitism
 # The interaction term tests: does the rate of loss with increasing parasitism
 # depend on the gene's dependency score?
 m4 <- glm(frac_retained ~ dep_score * parasitism, data = df, family = quasibinomial())
-cat("MODEL 4: frac_retained ~ dep_score * parasitism (THE VI TEST)\n")
+cat("MODEL 4: frac_retained ~ dep_score * parasitism (THE valence TEST)\n")
 s4 <- summary(m4)
 for (i in 1:nrow(s4$coefficients)) {
   cat(sprintf("  %-25s %.4f (SE %.4f), p = %.4f\n",
@@ -105,7 +105,7 @@ cat(sprintf("  Pseudo-R² (McFadden): %.4f\n\n",
 
 # The interaction coefficient is the test:
 # If positive and significant → higher dep_score protects against parasitism-driven loss
-# This is EXACTLY what VI predicts: integration depth moderates shedding rate
+# This is EXACTLY what valence predicts: integration depth moderates shedding rate
 interaction_p <- s4$coefficients["dep_score:parasitism", 4]
 interaction_coef <- s4$coefficients["dep_score:parasitism", 1]
 
@@ -114,7 +114,7 @@ cat(sprintf("  Coefficient: %.4f\n", interaction_coef))
 cat(sprintf("  p-value: %.4f\n", interaction_p))
 if (interaction_coef > 0 && interaction_p < 0.05) {
   cat("  VERDICT: **PASS** — Higher dependency score significantly protects\n")
-  cat("  against parasitism-driven loss. VI's core prediction confirmed:\n")
+  cat("  against parasitism-driven loss. Valence's core prediction confirmed:\n")
   cat("  integration depth modulates shedding rate.\n")
 } else if (interaction_coef > 0 && interaction_p < 0.10) {
   cat("  VERDICT: TRENDING — Direction correct but not significant at 0.05.\n")
@@ -224,4 +224,4 @@ for (cat_name in c("ndh", "rpo/psa", "psb", "atp", "rpl/rps")) {
 cat("\nThe key behavior: at parasitism=0, everything is retained (all ~1.0).\n")
 cat("As parasitism increases, LOW-dependency genes drop FASTER than HIGH.\n")
 cat("At parasitism=4, only genes with dep_score≥3 have >50% retention.\n")
-cat("This IS the VI prediction: shedding rate ∝ mismatch / integration depth.\n")
+cat("This IS the valence prediction: shedding rate ∝ mismatch / integration depth.\n")

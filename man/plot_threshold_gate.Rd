@@ -22,10 +22,10 @@ depth (where the gate composition changes).
 \section{Theoretical Context}{
 
 
-The threshold gate is the heart of VI's biphasic prediction. Seeing it
+The threshold gate is the heart of valence's biphasic prediction. Seeing it
 respond to θ builds the intuition that the biphasic signal is \emph{the gate},
 not the displacement ratio (math-review Issue 3, resolved). The shaded
-region is the "gate open" zone — the parameter range where VI's biphasic
+region is the "gate open" zone — the parameter range where valence's biphasic
 prediction is active.
 }
 

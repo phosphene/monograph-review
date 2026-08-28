@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-VI Economic Extrapolations — Calculations & Visualizations
+Valence Economic Extrapolations — Calculations & Visualizations
 ===========================================================
 Generates both matplotlib PNG (300 DPI, publication-quality) and
-plotly HTML (interactive) for all 8 VI economic extrapolations.
+plotly HTML (interactive) for all 8 valence economic extrapolations.
 
-Output directory: /tmp/vi-foundry/docs/assets/economic/
+Output directory: /tmp/valence-foundry/docs/assets/economic/
 """
 
 import os
@@ -23,7 +23,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 
 # ── Output directory ──────────────────────────────────────────────────
-OUTPUT = Path("/tmp/vi-foundry/docs/assets/economic")
+OUTPUT = Path("/tmp/valence-foundry/docs/assets/economic")
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
 # ── Consistent colour palette ─────────────────────────────────────────
@@ -215,7 +215,7 @@ def extrapolation_3():
     ax.text(0.25, 0.75, "CAPM Zone\n(F_c has no effect)", ha="center", va="center",
             fontsize=10, color=PALETTE["safe"], fontweight="bold",
             bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8))
-    ax.text(0.75, 0.25, "VI Zone\n(CDI dominates)", ha="center", va="center",
+    ax.text(0.75, 0.25, "valence Zone\n(CDI dominates)", ha="center", va="center",
             fontsize=10, color=PALETTE["danger"], fontweight="bold",
             bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8))
 
@@ -243,7 +243,7 @@ def extrapolation_3():
         annotations=[
             dict(x=0.25, y=0.75, text="CAPM Zone", showarrow=False,
                  font=dict(color="green", size=14), bgcolor="rgba(255,255,255,0.8)"),
-            dict(x=0.75, y=0.25, text="VI Zone", showarrow=False,
+            dict(x=0.75, y=0.25, text="valence Zone", showarrow=False,
                  font=dict(color="red", size=14), bgcolor="rgba(255,255,255,0.8)"),
         ]
     )
@@ -654,7 +654,7 @@ def extrapolation_8():
 # =====================================================================
 def main():
     print("=" * 70)
-    print("VI Economic Extrapolations — Generating All 8 Visualizations")
+    print("valence Economic Extrapolations — Generating All 8 Visualizations")
     print("=" * 70)
     print(f"Output: {OUTPUT}\n")
 

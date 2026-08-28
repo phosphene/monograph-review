@@ -16,9 +16,9 @@ families for cross-family replication.
 \section{Theoretical Context}{
 
 
-Tests VI Prediction D5: gene-loss gradient replicates across
+Tests valence Prediction D5: gene-loss gradient replicates across
 independently evolved parasitic lineages. Competitor: stochastic gene
 loss / relaxed selection — both predict the same pattern. Does NOT
-distinguish VI from competitors.
+distinguish valence from competitors.
 }
 

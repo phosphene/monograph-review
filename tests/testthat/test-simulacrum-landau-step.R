@@ -1,6 +1,6 @@
 # test-simulacrum-landau-step.R — Landau Mean-Field → Step Pipeline
 #
-# Stage 2 → Stage 5 of the VI Genealogy:
+# Stage 2 → Stage 5 of the valence Genealogy:
 # Does Landau's mean-field free energy (F = aM² + bM⁴) produce a step
 # in the (theta, rho) projection? If so, at what a-range?
 #
@@ -13,8 +13,8 @@
 # 1. Landau data produces a step-like signal → step wins over sigmoid
 # 2. The step breakpoint is near a ≈ 0 (the Landau critical point)
 # 3. rho_sat captures the post-threshold plateau (mean of values above bp)
-# 4. The Landau rho_sat (~0.03) differs from the VI formula's 0.35 —
-#    Landau is a precursor environment, not the VI prediction itself
+# 4. The Landau rho_sat (~0.03) differs from the valence formula's 0.35 —
+#    Landau is a precursor environment, not the valence prediction itself
 
 library(testthat)
 
@@ -24,8 +24,8 @@ context("Landau → Step: Landau mean-field data produces a step")
 source("helper-simulacra.R")
 source("helper-genealogy.R")
 
-# Load the extracted fitter from R/ (Layer 2, design-spec separation of concerns)
-source("../../R/fit_step.R")
+# fit_step is exported by the package (loaded via library(valence.foundry));
+# no manual sourcing needed.
 
 # ---- Helper: normalize Landau data to (theta, rho) space ----
 
@@ -141,10 +141,10 @@ test_that("Landau: external field h ≠ 0 smooths the transition", {
   expect_true(fits$best_model %in% c("step", "sigmoid"))
 })
 
-# ---- Test 8: Landau rho_sat differs from VI formula's 0.35 ----
+# ---- Test 8: Landau rho_sat differs from valence formula's 0.35 ----
 
-test_that("Landau: rho_sat is distinct from the VI formula's 0.35", {
-  # The VI formula predicts ρ_sat ≈ 0.35 for biological systems.
+test_that("Landau: rho_sat is distinct from the valence formula's 0.35", {
+  # The valence formula predicts ρ_sat ≈ 0.35 for biological systems.
   # Landau mean-field produces a different rho_sat because the
   # post-breakpoint plateau is the discrete approximation of M = 0.
   # This is expected — the Landau model is a precursor environment
@@ -154,7 +154,7 @@ test_that("Landau: rho_sat is distinct from the VI formula's 0.35", {
   nr <- landau_to_theta_rho(landau)
   fits <- fit_step(nr$theta, nr$rho)
 
-  # Landau's rho_sat (~0.03) is different from the VI formula's 0.35
+  # Landau's rho_sat (~0.03) is different from the valence formula's 0.35
   # This is expected: the Landau model is a continuous phase transition,
   # not a step. The step function finds the best approximation, but the
   # post-threshold plateau is the near-zero residual magnetization.

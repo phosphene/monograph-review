@@ -19,9 +19,9 @@ for the Ne vs niche regression.
 \section{Theoretical Context}{
 
 
-Bobay-Ochman data tests VI's prediction that niche breadth predicts
+Bobay-Ochman data tests valence's prediction that niche breadth predicts
 gene loss better than Ne alone. The competitor (drift, Lynch 2007)
-predicts Ne is the primary driver. This test DOES distinguish VI
+predicts Ne is the primary driver. This test DOES distinguish valence
 from drift — it is a distinguishing test.
 }
 

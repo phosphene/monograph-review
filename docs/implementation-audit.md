@@ -2,7 +2,7 @@
 
 **Authors:** Jan Ritch-Frel, Ed Phillips
 
-This document audits the gap between the formal claims of the VI framework and the computational implementation in the vi-foundry R package. It covers: which R functions implement which equations, whether the tests test the right things, whether the monograph numbers trace back to foundry outputs, and the remaining gaps.
+This document audits the gap between the formal claims of the valence framework and the computational implementation in the valence-foundry R package. It covers: which R functions implement which equations, whether the tests test the right things, whether the monograph numbers trace back to foundry outputs, and the remaining gaps.
 
 ---
 
@@ -21,7 +21,7 @@ This document audits the gap between the formal claims of the VI framework and t
 
 **Audit status:** The ODE implementation is correct. The Euler integration is validated against the closed-form solution via `prove_convergence()`, which shows error decreasing from ~10⁻³ at 100 steps to ~10⁻⁶ at 10,000 steps. The C_i factor (current retention) in the ODE is essential — without it, the solution goes negative. The implementation includes it, matching the monograph's derivation.
 
-**Caveat:** The equilibrium function `equilibrium_retention()` returns a bare numeric vector, not a `vi_equilibrium` S3 object. The S3 class exists (`R/formal_model_classes.R`) but the wrapper function does not use it. The invariant test for `vi_equilibrium` S3 methods is explicitly skipped (`skip("equilibrium_retention returns plain numeric for backward compat")`). This is a structural debt, not a numerical error.
+**Caveat:** The equilibrium function `equilibrium_retention()` returns a bare numeric vector, not a `valence_equilibrium` S3 object. The S3 class exists (`R/formal_model_classes.R`) but the wrapper function does not use it. The invariant test for `valence_equilibrium` S3 methods is explicitly skipped (`skip("equilibrium_retention returns plain numeric for backward compat")`). This is a structural debt, not a numerical error.
 
 ### 1.2 Empirical Formal Model (GLM)
 
@@ -175,13 +175,13 @@ The ρ formula derivation is primarily in Python. The R package contains the for
 
 4. **ρ formula not in R.** The three-move analysis (Ohta, Fisher, Wimsatt) that derives ρ(θ) = ρ_sat · H(θ − θ*) is in Python, not R. The R package tests the formula's predictions but does not replicate the derivation.
 
-5. **θ* = 0 not directly tested.** The percolation proof is formal, not computational. A simulacrum that tests whether the VI effect activates at θ = 0.001 (vs. requiring θ > 0.1) would test the prediction directly.
+5. **θ* = 0 not directly tested.** The percolation proof is formal, not computational. A simulacrum that tests whether the valence effect activates at θ = 0.001 (vs. requiring θ > 0.1) would test the prediction directly.
 
 6. **Null controls not systematically verified.** Each simulacrum defines a null control in the oracle YAML, but we have not audited whether every null control test is implemented and passing. The oracle describes the null control criteria, but test coverage needs verification.
 
 ### 4.3 Minor Gaps
 
-7. **S3 class debt in equilibrium_retention.** The function returns a bare numeric, not a `vi_equilibrium` S3 object. The invariant test skips the S3 method checks. This is structural debt, not a numerical error.
+7. **S3 class debt in equilibrium_retention.** The function returns a bare numeric, not a `valence_equilibrium` S3 object. The invariant test skips the S3 method checks. This is structural debt, not a numerical error.
 
 8. **Economics tests use synthetic data.** The formula-grounded economics tests (`rho_sat_prediction()`, `step_cdi_comparison()`) use synthetic data in their examples. Real economic data has not been tested, so the formula's economic predictions are unverified.
 
@@ -210,4 +210,4 @@ The ρ formula derivation is primarily in Python. The R package contains the for
 | Cross-platform reproducibility | ⚠️ Not tested |
 | Economics real-data test | ❌ Not done |
 
-The vi-foundry is a well-designed verification layer with a correct ODE implementation, proper simulacra design, and an honest regression gate. The critical gaps are the T1–T5 data drift and the T6/L3 missing data — once these are resolved, the regression gate will enforce all monograph values automatically. The ρ formula derivation is a secondary gap: the formula is consistent with the data and the economic tests test its predictions, but the derivation itself is not replicated in the R package.
+The valence-foundry is a well-designed verification layer with a correct ODE implementation, proper simulacra design, and an honest regression gate. The critical gaps are the T1–T5 data drift and the T6/L3 missing data — once these are resolved, the regression gate will enforce all monograph values automatically. The ρ formula derivation is a secondary gap: the formula is consistent with the data and the economic tests test its predictions, but the derivation itself is not replicated in the R package.

@@ -36,7 +36,7 @@ GENERA = [
     "Nasuia",
 ]
 
-DATA_DIR = Path("/home/node/.openclaw/workspace/vi-foundry/data")
+DATA_DIR = Path("/home/node/.openclaw/workspace/valence-foundry/data")
 DEP_SCORES = DATA_DIR / "t7-ltee" / "gene_dependency_scores.tsv"
 
 # ── NCBI helpers ────────────────────────────────────────────────────────────

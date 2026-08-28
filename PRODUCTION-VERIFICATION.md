@@ -1,6 +1,6 @@
 # Production Formal Model Verification Guide
 
-This document describes how to verify the production-quality upgrade of the VI Foundry formal model module.
+This document describes how to verify the production-quality upgrade of the Valence Foundry formal model module.
 
 ## Changes Summary
 
@@ -8,16 +8,16 @@ This document describes how to verify the production-quality upgrade of the VI F
 
 1. **R/formal_model_classes.R** (12,086 bytes)
    - Three-layer S3 class design per Phosphene R Standards §7
-   - `new_vi_threshold_result()` / `validate_vi_threshold_result()` / `vi_threshold_result()`
-   - `new_vi_glm_fit()` / `validate_vi_glm_fit()` / `vi_glm_fit()`
-   - `new_vi_equilibrium()` / `validate_vi_equilibrium()` / `vi_equilibrium()`
+   - `new_valence_threshold_result()` / `validate_valence_threshold_result()` / `valence_threshold_result()`
+   - `new_valence_glm_fit()` / `validate_valence_glm_fit()` / `valence_glm_fit()`
+   - `new_valence_equilibrium()` / `validate_valence_equilibrium()` / `valence_equilibrium()`
 
 2. **R/formal_model_methods.R** (19,191 bytes)
-   - `print.vi_threshold_result()` - human-readable console output
-   - `summary.vi_threshold_result()` - tidy data.frame for programmatic access
-   - `plot.vi_threshold_result()` - patchwork ggplot2 composition
-   - `as.data.frame.vi_threshold_result()` - export for CSV/piping
-   - Same pattern for `vi_glm_fit` and `vi_equilibrium` classes
+   - `print.valence_threshold_result()` - human-readable console output
+   - `summary.valence_threshold_result()` - tidy data.frame for programmatic access
+   - `plot.valence_threshold_result()` - patchwork ggplot2 composition
+   - `as.data.frame.valence_threshold_result()` - export for CSV/piping
+   - Same pattern for `valence_glm_fit` and `valence_equilibrium` classes
 
 3. **tests/testthat/test-invariants-formal-model.R** (18,572 bytes)
    - 10 invariant properties tested across ~1,000 random parameter combinations
@@ -34,10 +34,10 @@ This document describes how to verify the production-quality upgrade of the VI F
 1. **R/formal_model.R** (19,122 bytes)
    - Added `retention_closed_form()` - analytical solution
    - Added `prove_convergence()` - numerical vs analytical comparison
-   - Updated `equilibrium_retention()` - returns vi_equilibrium class
-   - Updated `retention_at_time()` - returns vi_equilibrium class
-   - Updated `threshold_model()` - returns vi_threshold_result class
-   - Updated `empirical_formal_model()` - returns vi_glm_fit class
+   - Updated `equilibrium_retention()` - returns valence_equilibrium class
+   - Updated `retention_at_time()` - returns valence_equilibrium class
+   - Updated `threshold_model()` - returns valence_threshold_result class
+   - Updated `empirical_formal_model()` - returns valence_glm_fit class
    - All existing functions remain backward-compatible
 
 2. **NAMESPACE**
@@ -46,11 +46,11 @@ This document describes how to verify the production-quality upgrade of the VI F
 
 ## Verification Commands
 
-Run these commands from the vi-foundry repository root:
+Run these commands from the valence-foundry repository root:
 
 ```bash
 # Step 1: Install dependencies and document package
-cd lib/python  # or vi-foundry root if running from there
+cd lib/python  # or valence-foundry root if running from there
 Rscript -e 'devtools::document()'
 
 # Step 2: Run all tests (existing + new invariants)
@@ -102,7 +102,7 @@ result <- threshold_model(c(0,1,2), 0.15, 2.5, 10, 0.05, 100)
 is.list(result)           # TRUE (still a list)
 "values" %in% names(result)     # TRUE (structure preserved)
 "metadata" %in% names(result)   # TRUE (structure preserved)
-inherits(result, "vi_threshold_result")  # TRUE (now also has S3 class)
+inherits(result, "valence_threshold_result")  # TRUE (now also has S3 class)
 ```
 
 ## Mathematical Proofs Documented
@@ -176,6 +176,6 @@ git commit -m "feat(formal-model): S3 classes, closed-form proofs, invariant tes
 Once verified:
 
 1. Merge to main branch via PR
-2. Update dependency versions in parent repos that reference vi-foundry
+2. Update dependency versions in parent repos that reference valence-foundry
 3. Consider publishing to Posit Package Manager for team-wide use
 4. Update README.md to reflect new S3 methods and proof capabilities

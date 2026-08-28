@@ -16,9 +16,9 @@ endosymbionts (Buchnera, Wigglesworthia, Carsonella, Blochmannia).
 \section{Theoretical Context}{
 
 
-Tests VI Prediction: biphasic genome reduction (fast Phase 1, slow
+Tests valence Prediction: biphasic genome reduction (fast Phase 1, slow
 Phase 2). Competitors: constant rate (Lynch 2007), accelerating
 (Muller's ratchet). McCutcheon's metabolic complementarity predicts
-the same correlation — does NOT distinguish VI from McCutcheon.
+the same correlation — does NOT distinguish valence from McCutcheon.
 }
 

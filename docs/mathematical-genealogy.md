@@ -1,10 +1,10 @@
-# Mathematical Genealogy — The Formal Chain of the VI Relaxation Formula
+# Mathematical Genealogy — The Formal Chain of the valence Relaxation Formula
 
 > **⚠️ Updated August 2026 (T14):** The active chain is Ising → Landau → Cusp → Relaxation. Stages 4 (percolation, θ*=0) and 5 (drift-selection, ρ_sat≈0.35) are archived as falsified hypotheses — tested in T2 and not supported by simulation. The chain describes **relaxation dynamics toward an equilibrium landscape**, not a phase transition. The formula is **dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)**. See [ticket-queue.md](ticket-queue.md) for full provenance.
 
 **Authors:** Jan Ritch-Frel, Ed Phillips
 
-The VI relation dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂) is not an arbitrary curve fit. It is the endpoint of a formal chain spanning five linked results, each of which constrains the form of the next. This document traces that chain from the Ising model (1925) through to the relaxation formula, showing at each step what the mathematics says, what it means, and how it connects to the next step.
+The valence relation dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂) is not an arbitrary curve fit. It is the endpoint of a formal chain spanning five linked results, each of which constrains the form of the next. This document traces that chain from the Ising model (1925) through to the relaxation formula, showing at each step what the mathematics says, what it means, and how it connects to the next step.
 
 The chain is framed as **relaxation dynamics** — the system evolves toward an equilibrium defined by a free energy landscape. The three surviving stages (Ising, Landau, Cusp) each contribute a different aspect of this relaxation picture, while two intermediate stages (percolation, drift-selection) are preserved as documented historical hypotheses.
 
@@ -41,13 +41,13 @@ A **first-order phase transition** (discontinuous) occurs when the order paramet
 
 ### Relaxation Reinterpretation
 
-The Ising model is usually studied through its equilibrium properties (partition function, phase transitions). But the **dynamics** of the Ising model are governed by the Landau-Lifshitz or Glauber relaxation equations, which describe how the magnetization evolves toward equilibrium. This is the key connection to the VI formula: the Ising model's equilibrium landscape (the free energy as a function of M) defines the **basin toward which the system relaxes**, and the relaxation rate is proportional to the gradient of that landscape.
+The Ising model is usually studied through its equilibrium properties (partition function, phase transitions). But the **dynamics** of the Ising model are governed by the Landau-Lifshitz or Glauber relaxation equations, which describe how the magnetization evolves toward equilibrium. This is the key connection to the valence formula: the Ising model's equilibrium landscape (the free energy as a function of M) defines the **basin toward which the system relaxes**, and the relaxation rate is proportional to the gradient of that landscape.
 
-The Ising mean-field free energy F(M) = aM² + bM⁴ + hM, when coupled with the dynamical equation dM/dt = −∂F/∂M, produces a relaxation trajectory that is the **exact formal analog** of the VI relaxation formula. The Ising model is not the formula itself — it is the physical substrate that motivates the relaxation formalism.
+The Ising mean-field free energy F(M) = aM² + bM⁴ + hM, when coupled with the dynamical equation dM/dt = −∂F/∂M, produces a relaxation trajectory that is the **exact formal analog** of the valence relaxation formula. The Ising model is not the formula itself — it is the physical substrate that motivates the relaxation formalism.
 
 ### What It Means
 
-The Ising model shows that cooperative interactions between binary units produce collective behavior (magnetization) that cannot be predicted from any single unit. The key insight for VI: when metabolic dependencies create cooperative coupling between genes (J > 0), the system can relax toward a new equilibrium state, and the relaxation dynamics are governed by the gradient of the effective free energy landscape defined by the coupling.
+The Ising model shows that cooperative interactions between binary units produce collective behavior (magnetization) that cannot be predicted from any single unit. The key insight for valence: when metabolic dependencies create cooperative coupling between genes (J > 0), the system can relax toward a new equilibrium state, and the relaxation dynamics are governed by the gradient of the effective free energy landscape defined by the coupling.
 
 ### Mean-Field Derivation: Ising Hamiltonian → Landau Free Energy
 
@@ -158,7 +158,7 @@ At |b| = b_crit, the stable and unstable equilibria annihilate in a saddle-node 
 
 ### Relaxation Reinterpretation
 
-The cusp catastrophe is usually interpreted as a theory of **abrupt change** — the system jumps when the bifurcation set is crossed. For the VI formula, the cusp catastrophe instead provides the **landscape geometry** for relaxation dynamics. The potential V(x) defines the wells toward which the system relaxes, and the bifurcation set defines where the landscape changes its topology.
+The cusp catastrophe is usually interpreted as a theory of **abrupt change** — the system jumps when the bifurcation set is crossed. For the valence formula, the cusp catastrophe instead provides the **landscape geometry** for relaxation dynamics. The potential V(x) defines the wells toward which the system relaxes, and the bifurcation set defines where the landscape changes its topology.
 
 The key insight: the Landau free energy F(M) from Step 1 is the **same function** as the cusp potential V(x). When we write the relaxation equation:
 
@@ -171,17 +171,17 @@ the system evolves toward the nearest minimum of F(M). The cusp catastrophe tell
 2. **Where the minima are located** — the equilibrium values of the order parameter
 3. **When the landscape changes topology** — the bifurcation set where minima appear or annihilate
 
-For the VI formula, this means: the relaxation of ρ toward its equilibrium values ρ₁ and ρ₂ is governed by the gradient of a potential landscape whose topology is a cusp. The two relaxation channels (fast and slow) correspond to relaxation toward different minima of this landscape.
+For the valence formula, this means: the relaxation of ρ toward its equilibrium values ρ₁ and ρ₂ is governed by the gradient of a potential landscape whose topology is a cusp. The two relaxation channels (fast and slow) correspond to relaxation toward different minima of this landscape.
 
 ### What It Means
 
-Catastrophe theory formalizes the geometry of the relaxation landscape. The VI system does not "jump" between states — it relaxes toward a landscape whose shape is determined by the coupling between metabolic dependencies. The cusp catastrophe tells us that this landscape can have two minima (bistability) or one, depending on the control parameters.
+Catastrophe theory formalizes the geometry of the relaxation landscape. The valence system does not "jump" between states — it relaxes toward a landscape whose shape is determined by the coupling between metabolic dependencies. The cusp catastrophe tells us that this landscape can have two minima (bistability) or one, depending on the control parameters.
 
-For VI, the two minima correspond to the two equilibrium values ρ₁ and ρ₂ in the relaxation formula. The system relaxes toward both simultaneously, with different rates (k₁ for the fast channel, k₂ for the slow channel), because the landscape has two wells that the system must traverse.
+For valence, the two minima correspond to the two equilibrium values ρ₁ and ρ₂ in the relaxation formula. The system relaxes toward both simultaneously, with different rates (k₁ for the fast channel, k₂ for the slow channel), because the landscape has two wells that the system must traverse.
 
 ### Connection to Step 3
 
-The Landau free energy F(M) = aM² + bM⁴ + hM is the cusp catastrophe potential V(x) with x = M. The dynamical equation dM/dt = −∂F/∂M = −(2aM + 4bM³ + h) is the relaxation ODE — the same form as the VI relaxation formula when written with two channels. The cusp geometry constrains what the equilibrium landscape looks like; the relaxation equation governs how the system moves across it.
+The Landau free energy F(M) = aM² + bM⁴ + hM is the cusp catastrophe potential V(x) with x = M. The dynamical equation dM/dt = −∂F/∂M = −(2aM + 4bM³ + h) is the relaxation ODE — the same form as the valence relaxation formula when written with two channels. The cusp geometry constrains what the equilibrium landscape looks like; the relaxation equation governs how the system moves across it.
 
 **Type of connection:** Formal identity — the Landau free energy IS the cusp catastrophe potential, and the Landau-Lifshitz equation provides the relaxation dynamics.
 
@@ -227,7 +227,7 @@ where M_eq = (k₁·M₁ + k₂·M₂)/(k₁ + k₂) is the combined equilibrium
 
 ### What It Means
 
-Landau-Lifshitz provides the **dynamical form** of the relaxation equation. The VI formula dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂) is **exactly** the Landau-Lifshitz relaxation equation with two channels. There is no analogy — it is the same equation with ρ substituted for M.
+Landau-Lifshitz provides the **dynamical form** of the relaxation equation. The valence formula dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂) is **exactly** the Landau-Lifshitz relaxation equation with two channels. There is no analogy — it is the same equation with ρ substituted for M.
 
 The two channels correspond to two distinct relaxation processes:
 - **Fast channel (k₁):** Rapid relaxation toward a local equilibrium ρ₁, driven by the steepest part of the free energy landscape (e.g., loss of recently acquired, loosely integrated metabolic genes)
@@ -237,9 +237,9 @@ The ratio k₁/k₂ determines the timescale separation. In the LTEE data, k₁/
 
 ### Connection to Step 4
 
-The Landau-Lifshitz equation provides the **dynamical form** of the relaxation formula. The cusp catastrophe (Step 2) provides the **landscape geometry** that determines the equilibrium values ρ₁ and ρ₂. The two together — relaxation dynamics on a cusp landscape — are the complete formal structure of the VI formula.
+The Landau-Lifshitz equation provides the **dynamical form** of the relaxation formula. The cusp catastrophe (Step 2) provides the **landscape geometry** that determines the equilibrium values ρ₁ and ρ₂. The two together — relaxation dynamics on a cusp landscape — are the complete formal structure of the valence formula.
 
-**Type of connection:** Formal identity — the Landau-Lifshitz relaxation equation with two channels IS the VI relaxation formula.
+**Type of connection:** Formal identity — the Landau-Lifshitz relaxation equation with two channels IS the valence relaxation formula.
 
 ---
 
@@ -249,11 +249,11 @@ The Landau-Lifshitz equation provides the **dynamical form** of the relaxation f
 
 ### Stage 4 (Archived): Percolation on Networks — θ* = 0
 
-**Hypothesis:** The VI effect activates at the first provision of any external metabolic requirement. The percolation threshold θ* = 0 because the dependency network is connected, so any non-zero provision creates a non-empty zero-dependency set.
+**Hypothesis:** The valence effect activates at the first provision of any external metabolic requirement. The percolation threshold θ* = 0 because the dependency network is connected, so any non-zero provision creates a non-empty zero-dependency set.
 
 **Status: FALSIFIED.** The percolation model predicted a discontinuous transition at θ* = 0, with ρ jumping from 0 to ρ_sat at the first provision. This is not supported by the data. The relaxation model shows that ρ evolves **continuously** over time, not as a step function of provision depth. The transition is a relaxation process, not a percolation threshold crossing.
 
-**Code preserved at:** `vi-foundry/scripts/genealogy/generate_percolation.py` (ported from `vi-foundry/inst/genealogy/generate_percolation.R`). The R originals are in `vi-foundry/inst/genealogy/reference/`.
+**Code preserved at:** `valence-foundry/scripts/genealogy/generate_percolation.py` (ported from `valence-foundry/inst/genealogy/generate_percolation.R`). The R originals are in `valence-foundry/inst/genealogy/reference/`.
 
 **What was learned:** The percolation hypothesis was a natural first guess — the dependency network structure suggests that once the host provides any metabolic requirement, the organism should immediately lose the genes for producing it. What the percolation model missed is that gene loss is a **kinetic** process, not an instantaneous one. The relaxation formula captures the kinetics that the percolation model ignored.
 
@@ -263,7 +263,7 @@ The Landau-Lifshitz equation provides the **dynamical form** of the relaxation f
 
 **Status: FALSIFIED.** The Wright-Fisher simulation (T2) tested ρ_sat across a range of population sizes and selection coefficients. The value ρ_sat ≈ 0.35 was not recovered — the simulation produced ρ_sat values ranging from ~0.0 to ~0.99 depending on parameters, with the closest match being 0.247 (N=1000, δ=[0,0.05]). The ρ_sat ≈ 0.35 claim is not supported by the simulation.
 
-**Code preserved at:** `vi-foundry/scripts/genealogy/generate_drift_selection.py` and `vi-foundry/scripts/genealogy/measure_rho_sat.py` (ported from R). The R originals are in `vi-foundry/inst/genealogy/reference/`.
+**Code preserved at:** `valence-foundry/scripts/genealogy/generate_drift_selection.py` and `valence-foundry/scripts/genealogy/measure_rho_sat.py` (ported from R). The R originals are in `valence-foundry/inst/genealogy/reference/`.
 
 **What was learned:** The drift-selection boundary hypothesis attempted to explain the observed ρ values as a population-genetic equilibrium. The simulation showed that ρ is not a universal constant but depends on the population-genetic parameters. The relaxation formula, which does not require a universal ρ_sat, is a better fit to the data. The equilibrium values ρ₁ and ρ₂ in the relaxation formula are **system-specific**, not universal.
 
@@ -273,14 +273,14 @@ The Landau-Lifshitz equation provides the **dynamical form** of the relaxation f
 
 ### Formal Statement
 
-The VI relaxation formula is:
+The valence relaxation formula is:
 
 ```
 dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)
 ```
 
 where:
-- ρ(t) is the VI effect size (Spearman correlation between dependency score and retention) at time t
+- ρ(t) is the valence effect size (Spearman correlation between dependency score and retention) at time t
 - k₁ is the fast relaxation rate (k₁ ≫ k₂)
 - k₂ is the slow relaxation rate
 - ρ₁ is the fast-channel equilibrium (local minimum of the free energy landscape)
@@ -315,31 +315,31 @@ Landau (1937) — Free energy expansion, phase transition classification
     ↓ Formal identity: Landau free energy = cusp catastrophe potential
     ↓ Dynamical form: Landau-Lifshitz dM/dt = −∂F/∂M
 Thom (1972) — Cusp catastrophe, landscape geometry, bifurcation set
-    ↓ Formal identity: cusp potential with two relaxation channels = VI formula
+    ↓ Formal identity: cusp potential with two relaxation channels = valence formula
 Relaxation formula: dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)
 ```
 
 Each step is a **formal identity**, not an analogy:
 - **Ising → Landau:** The mean-field free energy of the Ising model IS the Landau free energy expansion. (Formal proof via algebraic expansion of the self-consistency equation.)
 - **Landau → Cusp:** The Landau free energy F(M) = aM² + bM⁴ + hM IS the cusp catastrophe potential V(x) = (1/4)x⁴ + (a/2)x² + bx. (Algebraic identity.)
-- **Landau-Lifshitz → Relaxation:** The Landau-Lifshitz equation dM/dt = −∂F/∂M with two relaxation channels IS the VI relaxation formula. (Same ODE, same solution form, different variable labels.)
+- **Landau-Lifshitz → Relaxation:** The Landau-Lifshitz equation dM/dt = −∂F/∂M with two relaxation channels IS the valence relaxation formula. (Same ODE, same solution form, different variable labels.)
 
 ### Simulation Verification (T11)
 
-The relaxation formula has been tested in simulation. The results (`vi-foundry/inst/results/genealogy-relaxation-results.json`) confirm:
+The relaxation formula has been tested in simulation. The results (`valence-foundry/inst/results/genealogy-relaxation-results.json`) confirm:
 
 - **Ground truth:** k₁ = 5.0, k₂ = 0.3, k₁/k₂ = 16.7
 - **Parameter recovery:** k₁ recovered within 9.4% error, k₂ within 13.9% error
 - **Model comparison:** ΔAIC (bi-exp vs mono-exp) = −89.99 — the bi-exponential model is decisively preferred over the mono-exponential null
 - **Pass criterion:** ΔAIC < −4 (met: ΔAIC = −90)
 
-The simulation generates bi-exponential data from known parameters, adds noise, and tests whether the fitter can recover the ground truth and distinguish bi-exp from mono-exp. The code is at `vi-foundry/inst/genealogy/generate_relaxation.py` with matching R simulacra at `vi-foundry/inst/simulacra/generate_relaxation.R`.
+The simulation generates bi-exponential data from known parameters, adds noise, and tests whether the fitter can recover the ground truth and distinguish bi-exp from mono-exp. The code is at `valence-foundry/inst/genealogy/generate_relaxation.py` with matching R simulacra at `valence-foundry/inst/simulacra/generate_relaxation.R`.
 
 ### What the Formula Means
 
-The relaxation formula changes the interpretation of the VI effect from a **state transition** to a **kinetic process**:
+The relaxation formula changes the interpretation of the valence effect from a **state transition** to a **kinetic process**:
 
-1. **No universal threshold.** The step function ρ(θ) = ρ_sat · H(θ − θ*) assumed a universal threshold θ* = 0 at which the VI effect activates. The relaxation formula has no threshold — ρ evolves continuously from the moment of first provision, determined by the relaxation rates.
+1. **No universal threshold.** The step function ρ(θ) = ρ_sat · H(θ − θ*) assumed a universal threshold θ* = 0 at which the valence effect activates. The relaxation formula has no threshold — ρ evolves continuously from the moment of first provision, determined by the relaxation rates.
 
 2. **No universal plateau.** The step function assumed a universal saturation value ρ_sat ≈ 0.35. The relaxation formula has no universal plateau — the equilibrium values ρ₁ and ρ₂ are system-specific, determined by the free energy landscape of the particular dependency network.
 
@@ -357,10 +357,10 @@ The two forms are not necessarily contradictory. The sigmoid could describe the 
 
 The relaxation formula makes testable predictions:
 
-1. **Bi-exponential decay:** The VI effect ρ(t) should decay as the sum of two exponentials, with k₁/k₂ ≫ 1. The LTEE data (T7 redesigned) is consistent with this form.
+1. **Bi-exponential decay:** The valence effect ρ(t) should decay as the sum of two exponentials, with k₁/k₂ ≫ 1. The LTEE data (T7 redesigned) is consistent with this form.
 2. **Timescale separation:** The fast rate k₁ should be 10–100× the slow rate k₂, reflecting the separation between local and global relaxation on the cusp landscape.
 3. **System-specific equilibria:** Different host-symbiont systems should have different ρ₁ and ρ₂ values, determined by their specific dependency network structures.
-4. **No threshold:** The VI effect should be present at any positive provision time, not just above a threshold provision depth.
+4. **No threshold:** The valence effect should be present at any positive provision time, not just above a threshold provision depth.
 
 ---
 
@@ -372,7 +372,7 @@ Ising (1925) — Cooperative interactions, mean-field free energy
 Landau (1937) — Free energy expansion, Landau-Lifshitz relaxation
     ↓ Formal identity: Landau-Lifshitz dM/dt = −∂F/∂M with two channels
 Cusp (Thom, 1972) — Landscape geometry, bifurcation set, bistability
-    ↓ Formal identity: cusp potential + relaxation dynamics = VI formula
+    ↓ Formal identity: cusp potential + relaxation dynamics = valence formula
 Relaxation formula: dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)
     ↓ Verified by simulation (T11): ΔAIC = −90, parameter recovery within 14%
 ```
@@ -392,7 +392,7 @@ Two intermediate hypotheses were tested and falsified in the T2 simulation campa
 
 | Hypothesis | Claim | Status | Preserved At |
 |-----------|-------|--------|-------------|
-| Percolation (θ* = 0) | VI activates at first provision, θ* = 0 | Falsified (no threshold in relaxation model) | `scripts/genealogy/generate_percolation.py` |
+| Percolation (θ* = 0) | valence activates at first provision, θ* = 0 | Falsified (no threshold in relaxation model) | `scripts/genealogy/generate_percolation.py` |
 | Drift-selection (ρ_sat ≈ 0.35) | Maximum universal ρ ≈ 0.35 | Falsified (ρ is system-specific, not universal) | `scripts/genealogy/generate_drift_selection.py` |
 
-These hypotheses were necessary historical steps. The failure of the percolation model revealed that the VI effect is a kinetic process, not an instantaneous transition. The failure of the drift-selection model revealed that ρ is not a universal constant but depends on the system's free energy landscape. Both failures pointed toward the correct formulation: the relaxation formula.
+These hypotheses were necessary historical steps. The failure of the percolation model revealed that the valence effect is a kinetic process, not an instantaneous transition. The failure of the drift-selection model revealed that ρ is not a universal constant but depends on the system's free energy landscape. Both failures pointed toward the correct formulation: the relaxation formula.

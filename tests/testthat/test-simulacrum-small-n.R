@@ -7,9 +7,9 @@
 #   - With noise_sd=0.02: minimum n = 5 for >80% reliable delta_AIC > 2
 #   - With noise_sd=0 (clean): n = 3 already gives perfect discrimination
 #   - At n=3 with noise: discrimination is marginal, often favors sigmoid
-#     (consistent with VI paper's delta_AIC = -1.55 on 3 points)
+#     (consistent with valence paper's delta_AIC = -1.55 on 3 points)
 #
-# Inference: The VI paper's AIC comparison (-11.01 vs -9.46, delta = -1.55)
+# Inference: The valence paper's AIC comparison (-11.01 vs -9.46, delta = -1.55)
 # on 3 data points is inconclusive — the small sample size cannot reliably
 # distinguish a step from a sigmoid. A minimum of n=5 is needed.
 

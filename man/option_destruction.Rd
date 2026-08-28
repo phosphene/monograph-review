@@ -14,7 +14,7 @@ option_destruction(data, seed = 42L)
 \value{
 List (A6: proof object):
 \item{values}{Named numeric: n_systems, mean_early_resid, mean_late_resid,
-vi_pattern_share (fraction of systems showing the VI residual pattern),
+valence_pattern_share (fraction of systems showing the valence residual pattern),
 mean_standard_decay_rate}
 \item{metadata}{List: seed, n (systems), per_system, converged}
 }
@@ -22,23 +22,23 @@ mean_standard_decay_rate}
 Models the devaluation of a disrupted industry's option to pivot as a
 function of CDI (commitment) rather than calendar time. Adapted from
 Paper 1's option-value-decay section: the standard model decays option
-value exponentially in time; VI couples decay to CDI itself.
+value exponentially in time; valence couples decay to CDI itself.
 }
 \section{Theoretical Context}{
 
 
-VI Prediction: because option value tracks remaining capacity (1 - CDI),
+Valence Prediction: because option value tracks remaining capacity (1 - CDI),
 and CDI grows deceleratingly, the standard exponential-in-time decay model
 systematically over-estimates early option value and under-estimates late
 remaining value (residuals negative early, positive late).
 
 Competitor: standard financial-options / theta-decay model values the pivot
 option as a pure exponential in time, independent of commitment. This test
-DOES distinguish VI: it predicts a specific residual sign pattern relative
+DOES distinguish valence: it predicts a specific residual sign pattern relative
 to the exponential baseline.
 
-What supports VI: early residuals negative, late residuals positive.
-What refutes VI: the opposite or no systematic pattern.
+What supports valence: early residuals negative, late residuals positive.
+What refutes valence: the opposite or no systematic pattern.
 }
 
 \examples{

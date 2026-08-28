@@ -13,7 +13,7 @@
 # This file matches the `integration` filter (run_tests.R integration).
 
 library(testthat)
-library(vi.foundry)
+library(valence.foundry)
 
 # Path helpers (tests/testthat -> ../../project root).
 proj_path <- function(...) testthat::test_path("..", "..", ...)
@@ -95,7 +95,7 @@ test_that("pipeline.feature: manifest conformance — every pipeline.yml stage f
   skip_if_not(file.exists(manifest_path), "pipeline.yml not available (source tree required)")
 
   manifest <- yaml::read_yaml(manifest_path)
-  ns <- getNamespaceExports("vi.foundry")
+  ns <- getNamespaceExports("valence.foundry")
 
   missing <- character(0)
   for (stage in manifest$stages) {

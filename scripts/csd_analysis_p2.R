@@ -184,7 +184,7 @@ cat("========================================\n")
 cat("PHASE 2: FITNESS TRAJECTORY CSD\n")
 cat("========================================\n")
 
-fitness_file <- "/home/node/.openclaw/workspace/vi-foundry/data/t7-ltee/LTEE-metagenomic/additional_data/Concatenated.LTEE.data.all.csv"
+fitness_file <- "/home/node/.openclaw/workspace/valence-foundry/data/t7-ltee/LTEE-metagenomic/additional_data/Concatenated.LTEE.data.all.csv"
 fitness <- read.csv(fitness_file, stringsAsFactors = FALSE)
 cat(sprintf("Loaded %d fitness measurements\n", nrow(fitness)))
 
@@ -214,7 +214,7 @@ cat("PHASE 3: ALLELE FREQUENCY CSD\n")
 cat("========================================\n")
 
 # Load the annotated timecourse for m1
-ann_file <- "/home/node/.openclaw/workspace/vi-foundry/data/t7-ltee/LTEE-metagenomic/data_files/m1_annotated_timecourse.txt"
+ann_file <- "/home/node/.openclaw/workspace/valence-foundry/data/t7-ltee/LTEE-metagenomic/data_files/m1_annotated_timecourse.txt"
 ann_lines <- readLines(ann_file)
 header <- strsplit(ann_lines[1], ",")[[1]]
 

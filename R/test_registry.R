@@ -31,13 +31,13 @@ NULL
 #' names; values are registry entries (lists).
 #'
 #' @keywords internal
-.vi_test_registry <- new.env(parent = emptyenv())
-class(.vi_test_registry) <- "vi_test_registry_env"
+.valence_test_registry <- new.env(parent = emptyenv())
+class(.valence_test_registry) <- "valence_test_registry_env"
 ## Helper making the registry behave like a (bounded) named list for printing.
 #' @export
-print.vi_test_registry_env <- function(x, ...) {
+print.valence_test_registry_env <- function(x, ...) {
   nms <- sort(ls(x))
-  cat("vi test registry:", length(nms), "registered tests\n\n")
+  cat("valence test registry:", length(nms), "registered tests\n\n")
   if (length(nms)) {
     for (nm in nms) {
       e <- x[[nm]]
@@ -53,10 +53,10 @@ print.vi_test_registry_env <- function(x, ...) {
 #' Writes one entry into the registry environment.
 #'
 #' @param entry List. Registry entry with name, fn, data_required,
-#'   discriminating, expected_fields, class, vi_prediction.
+#'   discriminating, expected_fields, class, valence_prediction.
 #' @keywords internal
-.vi_register <- function(entry) {
-  assign(entry$name, entry, envir = .vi_test_registry)
+.valence_register <- function(entry) {
+  assign(entry$name, entry, envir = .valence_test_registry)
   invisible(entry)
 }
 
@@ -65,9 +65,9 @@ print.vi_test_registry_env <- function(x, ...) {
 #' @param name Character. Test name.
 #' @return Character. Class name.
 #' @keywords internal
-.vi_class_for <- function(name) {
-  entry <- .vi_test_registry[[name]]
-  if (is.null(entry) || is.null(entry$class)) "vi_test_result" else entry$class
+.valence_class_for <- function(name) {
+  entry <- .valence_test_registry[[name]]
+  if (is.null(entry) || is.null(entry$class)) "valence_test_result" else entry$class
 }
 
 #' Build an S3 result object from a raw test list
@@ -80,8 +80,8 @@ print.vi_test_registry_env <- function(x, ...) {
 #' @param raw List. Raw result with `values` and `metadata`.
 #' @return S3 result object (see empirical_test_classes.R).
 #' @keywords internal
-.build_vi_result <- function(entry, raw) {
-  cls <- entry$class %||% "vi_test_result"
+.build_valence_result <- function(entry, raw) {
+  cls <- entry$class %||% "valence_test_result"
   vals <- raw$values
   meta <- raw$metadata
 
@@ -112,47 +112,47 @@ print.vi_test_registry_env <- function(x, ...) {
     test_name = entry$name,
     statistic = statistic,
     p_value = p_value,
-    vi_prediction = entry$vi_prediction %||% "",
+    valence_prediction = entry$valence_prediction %||% "",
     discriminating = isTRUE(entry$discriminating),
-    status = .vi_status_of(p_value),
+    status = .valence_status_of(p_value),
     values = vals,
     metadata = meta
   )
 
   switch(cls,
-    vi_pgls_result = do.call(vi_pgls_result, c(base, list(
+    valence_pgls_result = do.call(valence_pgls_result, c(base, list(
       beta = .val_or_na(vals, "beta"),
       r_squared = .val_or_na(vals, "r_squared"),
       aic = .val_or_na(vals, "aic"),
       n = .val_or_na(vals, "n", .val_or_na(meta, "n"))
     ))),
-    vi_niche_ne_result = do.call(vi_niche_ne_result, c(base, list(
+    valence_niche_ne_result = do.call(valence_niche_ne_result, c(base, list(
       niche_r_squared = .val_or_na(vals, "niche_r_squared"),
       ne_r_squared = .val_or_na(vals, "ne_r_squared"),
       delta_aic = .val_or_na(vals, "aic_niche", .val_or_na(vals, "aic_ne")) -
         .val_or_na(vals, "aic_ne")
     ))),
-    vi_fluidity_result = do.call(vi_fluidity_result, c(base, list(
+    valence_fluidity_result = do.call(valence_fluidity_result, c(base, list(
       lifestyle_r_squared = .val_or_na(vals, "niche_r_squared"),
       ne_r_squared = .val_or_na(vals, "ne_r_squared"),
       p_value2 = p_value
     ))),
-    vi_ordering_result = do.call(vi_ordering_result, c(base, list(
+    valence_ordering_result = do.call(valence_ordering_result, c(base, list(
       rho = .val_or_na(vals, "spearman_rho"),
       p_value2 = .val_or_na(vals, "permutation_p", p_value),
       n_permutations = .val_or_na(vals, "n_permutations", .val_or_na(meta, "n_permutations"))
     ))),
-    vi_transfer_result = do.call(vi_transfer_result, c(base, list(
+    valence_transfer_result = do.call(valence_transfer_result, c(base, list(
       rho = .val_or_na(vals, "bird_rho"),
       p_value2 = .val_or_na(vals, "null_p", .val_or_na(vals, "bird_p")),
       n_null_draws = .val_or_na(vals, "n_null", .val_or_na(meta, "n_null"))
     ))),
-    vi_cosegregation_result = do.call(vi_cosegregation_result, c(base, list(
+    valence_cosegregation_result = do.call(valence_cosegregation_result, c(base, list(
       observed_pct = .val_or_na(vals, "observed_pct"),
       expected_pct = .val_or_na(vals, "expected_pct"),
       depletion_ratio = .val_or_na(vals, "depletion_ratio")
     ))),
-    do.call(vi_test_result, base)
+    do.call(valence_test_result, base)
   )
 }
 
@@ -192,14 +192,14 @@ print.vi_test_registry_env <- function(x, ...) {
 #' @param data_required Character vector. Names of the data arguments the test
 #'   needs (e.g. `"data"`, `c("plant_data", "bird_data")`). Use
 #'   `character(0)` for tests that need no external data.
-#' @param discriminating Logical. Whether the test distinguishes VI from
-#'   competitors (as opposed to only being consistent with VI).
+#' @param discriminating Logical. Whether the test distinguishes valence from
+#'   competitors (as opposed to only being consistent with valence).
 #' @param expected_fields Character vector. Value fields the test returns.
 #' @param class Character. S3 result class to wrap the output in
-#'   (default `"vi_test_result"`).
+#'   (default `"valence_test_result"`).
 #' @param statistic_key Character. Optional name of the raw value field to use
 #'   as the canonical statistic (otherwise auto-detected).
-#' @param vi_prediction Character. Plain-language VI prediction statement.
+#' @param valence_prediction Character. Plain-language valence prediction statement.
 #'
 #' @return Invisibly returns the registry entry.
 #' @export
@@ -208,15 +208,15 @@ print.vi_test_registry_env <- function(x, ...) {
 #' register_test(
 #'   name = "my_test", fn = my_test,
 #'   data_required = "data", discriminating = TRUE,
-#'   expected_fields = c("rho", "p_value"), class = "vi_ordering_result"
+#'   expected_fields = c("rho", "p_value"), class = "valence_ordering_result"
 #' )
 #' }
 register_test <- function(name, fn, data_required = character(0),
                           discriminating = FALSE,
                           expected_fields = character(0),
-                          class = "vi_test_result",
+                          class = "valence_test_result",
                           statistic_key = NULL,
-                          vi_prediction = "") {
+                          valence_prediction = "") {
   if (!is.character(name) || length(name) != 1 || !nzchar(name)) {
     stop("name must be a single non-empty character", call. = FALSE)
   }
@@ -226,9 +226,9 @@ register_test <- function(name, fn, data_required = character(0),
   if (!is.character(class) || length(class) != 1) {
     stop("class must be a single character", call. = FALSE)
   }
-  if (!class %in% c("vi_test_result", "vi_pgls_result", "vi_niche_ne_result",
-                    "vi_fluidity_result", "vi_ordering_result",
-                    "vi_transfer_result", "vi_cosegregation_result")) {
+  if (!class %in% c("valence_test_result", "valence_pgls_result", "valence_niche_ne_result",
+                    "valence_fluidity_result", "valence_ordering_result",
+                    "valence_transfer_result", "valence_cosegregation_result")) {
     stop("Unknown result class: ", class, call. = FALSE)
   }
 
@@ -240,22 +240,22 @@ register_test <- function(name, fn, data_required = character(0),
     expected_fields = expected_fields,
     class = class,
     statistic_key = statistic_key,
-    vi_prediction = vi_prediction
+    valence_prediction = valence_prediction
   )
-  .vi_register(entry)
+  .valence_register(entry)
   invisible(entry)
 }
 
 #' List registered tests
 #'
 #' @param discriminating_only Logical. If TRUE, only return tests flagged as
-#'   discriminating (i.e. that distinguish VI from competitors).
+#'   discriminating (i.e. that distinguish valence from competitors).
 #'
 #' @return data.frame with columns: name, function, data_required,
 #'   discriminating, expected_fields, class.
 #' @export
 list_tests <- function(discriminating_only = FALSE) {
-  nms <- sort(ls(.vi_test_registry))
+  nms <- sort(ls(.valence_test_registry))
   if (length(nms) == 0) {
     return(data.frame(
       name = character(0), function_name = character(0),
@@ -264,7 +264,7 @@ list_tests <- function(discriminating_only = FALSE) {
       stringsAsFactors = FALSE
     ))
   }
-  entries <- lapply(nms, function(nm) .vi_test_registry[[nm]])
+  entries <- lapply(nms, function(nm) .valence_test_registry[[nm]])
   df <- data.frame(
     name = vapply(entries, `[[`, character(1), "name"),
     function_name = vapply(entries, function(e) deparse(substitute(e$fn))[1], character(1)),
@@ -304,44 +304,44 @@ list_tests <- function(discriminating_only = FALSE) {
 #' run_test("ltee_cosegregation", seed = 42)
 #' }
 run_test <- function(name, ...) {
-  entry <- .vi_test_registry[[name]]
+  entry <- .valence_test_registry[[name]]
   if (is.null(entry)) {
     stop("Unknown test '", name, "'. See list_tests().", call. = FALSE)
   }
   raw <- entry$fn(...)
-  .build_vi_result(entry, raw)
+  .build_valence_result(entry, raw)
 }
 
 #' Run all registered tests
 #'
 #' Runs every registered test, collects the S3 result objects into a
-#' `vi_test_suite`, and returns it. Tests that error are captured and reported
+#' `valence_test_suite`, and returns it. Tests that error are captured and reported
 #' as failed entries rather than aborting the run.
 #'
 #' @param ... Arguments forwarded to every test function. Tests requiring
 #'   different data must be run individually with `run_test()`; supply only
 #'   arguments that are valid for all tests here.
 #'
-#' @return vi_test_suite object.
+#' @return valence_test_suite object.
 #' @export
 #' @examples
 #' \dontrun{
 #' run_all_tests()
 #' }
 run_all_tests <- function(...) {
-  nms <- sort(ls(.vi_test_registry))
+  nms <- sort(ls(.valence_test_registry))
   results <- vector("list", length(nms))
   statuses <- character(length(nms))
   for (i in seq_along(nms)) {
-    entry <- .vi_test_registry[[nms[i]]]
+    entry <- .valence_test_registry[[nms[i]]]
     out <- tryCatch(
-      .build_vi_result(entry, entry$fn(...)),
+      .build_valence_result(entry, entry$fn(...)),
       error = function(e) {
-        vi_test_result(
+        valence_test_result(
           test_name = nms[i],
           statistic = NA_real_,
           p_value = NA_real_,
-          vi_prediction = entry$vi_prediction %||% "",
+          valence_prediction = entry$valence_prediction %||% "",
           discriminating = isTRUE(entry$discriminating),
           status = "n/a",
           values = list(error = conditionMessage(e)),
@@ -363,22 +363,22 @@ run_all_tests <- function(...) {
         isTRUE(r$metadata$failed)
       }, logical(1)))
     ),
-    class = "vi_test_suite"
+    class = "valence_test_suite"
   )
 }
 
 # =============================================================================
-# vi_test_suite methods
+# valence_test_suite methods
 # =============================================================================
 
-#' Print vi_test_suite Object
+#' Print valence_test_suite Object
 #'
-#' @param x vi_test_suite object.
+#' @param x valence_test_suite object.
 #' @param ... Ignored.
 #' @return Invisibly returns `x`.
 #' @export
-print.vi_test_suite <- function(x, ...) {
-  cat("vi_test_suite:", x$n_tests, "tests;",
+print.valence_test_suite <- function(x, ...) {
+  cat("valence_test_suite:", x$n_tests, "tests;",
       x$n_significant, "significant;", x$n_failed, "failed\n\n")
   if (x$n_tests == 0) {
     cat("  (no tests registered)\n")
@@ -399,18 +399,18 @@ print.vi_test_suite <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of vi_test_suite Object
+#' Summary of valence_test_suite Object
 #'
-#' @param object vi_test_suite object.
+#' @param object valence_test_suite object.
 #' @param ... Ignored.
 #' @return data.frame stacking per-test summaries plus the class of each result.
 #' @export
-summary.vi_test_suite <- function(object, ...) {
+summary.valence_test_suite <- function(object, ...) {
   if (object$n_tests == 0) {
     return(data.frame())
   }
   rows <- lapply(object$results, function(r) {
-    base <- .vi_base_summary(r)
+    base <- .valence_base_summary(r)
     base$class <- class(r)[1]
     base$n <- if (!is.null(r$metadata$n)) r$metadata$n else NA_real_
     base
@@ -420,16 +420,16 @@ summary.vi_test_suite <- function(object, ...) {
   out
 }
 
-#' Plot vi_test_suite Object
+#' Plot valence_test_suite Object
 #'
 #' Returns a ggplot2 forest plot of test statistics, points coloured by
 #' significance status. Pure: returns the plot object without drawing it.
 #'
-#' @param x vi_test_suite object.
+#' @param x valence_test_suite object.
 #' @param ... Ignored.
 #' @return ggplot2 object.
 #' @export
-plot.vi_test_suite <- function(x, ...) {
+plot.valence_test_suite <- function(x, ...) {
   library(ggplot2)
 
   if (x$n_tests == 0) {
@@ -442,7 +442,7 @@ plot.vi_test_suite <- function(x, ...) {
       statistic = if (is.null(r$statistic)) NA_real_ else as.numeric(r$statistic),
       p_value = if (is.null(r$p_value)) NA_real_ else as.numeric(r$p_value),
       status = r$status,
-      disc = ifelse(isTRUE(r$discriminating), "Distinguishes VI", "Consistent w/ VI"),
+      disc = ifelse(isTRUE(r$discriminating), "Distinguishes valence", "Consistent w/ valence"),
       stringsAsFactors = FALSE
     )
   }))
@@ -479,69 +479,69 @@ plot.vi_test_suite <- function(x, ...) {
 #' package load so the pipeline is ready immediately after `library()`.
 #'
 #' @keywords internal
-.vi_register_builtin <- function() {
+.valence_register_builtin <- function() {
   # T1 / T2 — PGLS comparative results
   register_test(
     name = "pgls_orobanchaceae", fn = pgls_orobanchaceae,
     data_required = c("data", "tree"), discriminating = FALSE,
     expected_fields = c("beta", "r_squared", "p_value", "lambda", "n_species"),
-    class = "vi_pgls_result", statistic_key = "beta",
-    vi_prediction = "plastome size shrinks with parasitism depth (negative beta)"
+    class = "valence_pgls_result", statistic_key = "beta",
+    valence_prediction = "plastome size shrinks with parasitism depth (negative beta)"
   )
   register_test(
     name = "pgls_cross_family", fn = pgls_cross_family,
     data_required = "data", discriminating = FALSE,
     expected_fields = c("pearson_r", "n", "p_value"),
-    class = "vi_pgls_result", statistic_key = "pearson_r",
-    vi_prediction = "gene-loss gradient replicates across independent parasitic families"
+    class = "valence_pgls_result", statistic_key = "pearson_r",
+    valence_prediction = "gene-loss gradient replicates across independent parasitic families"
   )
   # T3 — endosymbiont biphasic reduction (base result)
   register_test(
     name = "endosymbiont_biphasic", fn = endosymbiont_biphasic,
     data_required = "data", discriminating = FALSE,
     expected_fields = c("r_squared", "k1_k2_ratio", "bayes_factor"),
-    class = "vi_test_result", statistic_key = "r_squared",
-    vi_prediction = "biphasic (decelerating) genome reduction kinetics"
+    class = "valence_test_result", statistic_key = "r_squared",
+    valence_prediction = "biphasic (decelerating) genome reduction kinetics"
   )
   # T4 — niche vs Ne
   register_test(
     name = "niche_vs_ne", fn = niche_vs_ne,
     data_required = "data", discriminating = TRUE,
     expected_fields = c("niche_r_squared", "ne_r_squared", "aic_niche", "aic_ne"),
-    class = "vi_niche_ne_result", statistic_key = "niche_r_squared",
-    vi_prediction = "niche breadth predicts gene loss better than Ne"
+    class = "valence_niche_ne_result", statistic_key = "niche_r_squared",
+    valence_prediction = "niche breadth predicts gene loss better than Ne"
   )
   # T5 — pan-genome fluidity
   register_test(
     name = "pangenome_fluidity", fn = pangenome_fluidity,
     data_required = "data", discriminating = TRUE,
     expected_fields = c("lifestyle_subsumes_ne", "niche_r_squared", "ne_r_squared"),
-    class = "vi_fluidity_result", statistic_key = "niche_r_squared",
-    vi_prediction = "pan-genome openness tracks lifestyle, not Ne alone"
+    class = "valence_fluidity_result", statistic_key = "niche_r_squared",
+    valence_prediction = "pan-genome openness tracks lifestyle, not Ne alone"
   )
   # T6 — gene-loss ordering
   register_test(
     name = "gene_loss_ordering", fn = gene_loss_ordering,
     data_required = "data", discriminating = TRUE,
     expected_fields = c("spearman_rho", "permutation_p", "pseudo_r_squared"),
-    class = "vi_ordering_result", statistic_key = "spearman_rho",
-    vi_prediction = "integration depth orders gene loss (high rho)"
+    class = "valence_ordering_result", statistic_key = "spearman_rho",
+    valence_prediction = "integration depth orders gene loss (high rho)"
   )
   # T7 — LTEE co-segregation (no external data)
   register_test(
     name = "ltee_cosegregation", fn = ltee_cosegregation,
     data_required = character(0), discriminating = TRUE,
     expected_fields = c("observed_pct", "expected_pct", "p_value", "depletion_ratio"),
-    class = "vi_cosegregation_result", statistic_key = "depletion_ratio",
-    vi_prediction = "function loss co-segregates with adaptive sweeps less than chance"
+    class = "valence_cosegregation_result", statistic_key = "depletion_ratio",
+    valence_prediction = "function loss co-segregates with adaptive sweeps less than chance"
   )
   # L3 — cross-kingdom transfer
   register_test(
     name = "transfer_test", fn = transfer_test,
     data_required = c("plant_data", "bird_data"), discriminating = TRUE,
     expected_fields = c("plant_slope", "bird_rho", "bird_p", "null_rho", "null_p"),
-    class = "vi_transfer_result", statistic_key = "bird_rho",
-    vi_prediction = "integration-depth parameters transfer across kingdoms"
+    class = "valence_transfer_result", statistic_key = "bird_rho",
+    valence_prediction = "integration-depth parameters transfer across kingdoms"
   )
   invisible(TRUE)
 }

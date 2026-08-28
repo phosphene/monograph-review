@@ -19,7 +19,7 @@ Kent Beck — Test-Driven Development (TDD, ~2003)
 Ed Phil / phosphene — Test-Informed Development (~2014)
         │
         ▼
-FlowFeel / vi-foundry — Spec-First D3 (2026)
+FlowFeel / valence-foundry — Spec-First D3 (2026)
 ```
 
 ## What TDD Is
@@ -61,7 +61,7 @@ The `xdescribe` prefix (Jasmine's pending marker) is telling: the spec existed b
 
 ## The 2026 Inheritance
 
-The vi-foundry cross-filter dashboard inherits this exact posture. The spec file `test/d3-dashboard.spec.js` was written before the implementation. Its describe blocks are design probes:
+The valence-foundry cross-filter dashboard inherits this exact posture. The spec file `test/d3-dashboard.spec.js` was written before the implementation. Its describe blocks are design probes:
 
 ```js
 describe('filterBySeeds', () => {
@@ -101,25 +101,25 @@ The test-informed posture has roots in several traditions:
 | Beck TDD | 2003 | JUnit `test*` methods | Gate | Motor |
 | North BDD | 2006 | `describe`/`it`/`should` | Specification | Information |
 | phosphene TID | 2014 | Jasmine + Enzyme | Design probe | None (pending ok) |
-| vi-foundry | 2026 | Jasmine + ES modules | Interface blueprint | None (spec-first) |
+| valence-foundry | 2026 | Jasmine + ES modules | Interface blueprint | None (spec-first) |
 
 ## What phosphene Contributed
 
 The specific contribution was applying test-informed development to **interactive D3 visualization**. In 2014, most D3 work was exploratory — you wrote a chart, looked at it in the browser, tweaked it. Tests were rare. The phosphene repo said: you can spec a dashboard before you build it. The spec tells you what the charts should render, what the filters should do, what the API should be.
 
-That insight — that visualization benefits from test-informed design just as much as business logic — is the genealogical contribution. The vi-foundry inherits it: the cross-filter dashboard was spec'd before it was built, and the spec is still live, testing the real module, on GitHub Pages.
+That insight — that visualization benefits from test-informed design just as much as business logic — is the genealogical contribution. The valence-foundry inherits it: the cross-filter dashboard was spec'd before it was built, and the spec is still live, testing the real module, on GitHub Pages.
 
 ## Artifacts
 
 | Artifact | Location | Role |
 |----------|----------|------|
 | phosphene repo (2014) | `github.com/phosphene/react-d3-hotload-test-demo` | Prior — test-informed D3 with Karma/Jasmine/Enzyme |
-| vi-foundry spec (2026) | `test/d3-dashboard.spec.js` | 38 specs — the design probe |
-| vi-foundry module (2026) | `docs/review/js/cross-filter.js` | Implementation — shaped by the spec |
-| vi-foundry runner (2026) | `docs/test-runner.html` | Live Jasmine runner — tests the real module |
+| valence-foundry spec (2026) | `test/d3-dashboard.spec.js` | 38 specs — the design probe |
+| valence-foundry module (2026) | `docs/review/js/cross-filter.js` | Implementation — shaped by the spec |
+| valence-foundry runner (2026) | `docs/test-runner.html` | Live Jasmine runner — tests the real module |
 | D3 genealogy doc | `docs/d3-genealogy.md` | Technology lineage (dc.js → D3 v7) |
 | This document | `docs/test-informed-genealogy.md` | Methodology lineage (TDD → TID → spec-first) |
 
 ---
 
-*This document is part of the VI Foundry genealogy series — tracing the lineage of ideas, methods, and code through the projects that shaped them. The prior is phosphene (2014). The methodology is test-informed development. The inheritance is the discipline: spec first, design from outside in, pure functions, test the real thing.*
+*This document is part of the Valence Foundry genealogy series — tracing the lineage of ideas, methods, and code through the projects that shaped them. The prior is phosphene (2014). The methodology is test-informed development. The inheritance is the discipline: spec first, design from outside in, pure functions, test the real thing.*

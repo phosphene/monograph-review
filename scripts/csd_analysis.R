@@ -35,7 +35,7 @@ cat("LTEE — Gene Loss Over 60,000 Generations\n")
 cat("========================================\n\n")
 
 # Load all 4 populations
-base_dir <- "/home/node/.openclaw/workspace/vi-foundry/data/t7-ltee/LTEE-metagenomic/data_files"
+base_dir <- "/home/node/.openclaw/workspace/valence-foundry/data/t7-ltee/LTEE-metagenomic/data_files"
 populations <- list()
 for (p in 1:4) {
   f <- file.path(base_dir, sprintf("m%d_well_mixed_state_timecourse.txt", p))
@@ -340,7 +340,7 @@ cat(paste(rep("=", 60), collapse=""))
 cat("\n  ENDOSYMBIONT GENOME REDUCTION (Space-for-Time)\n")
 cat(paste(rep("=", 60), collapse=""), "\n\n")
 
-endo_file <- "/home/node/.openclaw/workspace/vi-foundry/data/endosymbiont_genome_data.tsv"
+endo_file <- "/home/node/.openclaw/workspace/valence-foundry/data/endosymbiont_genome_data.tsv"
 if (file.exists(endo_file)) {
   endo <- read.table(endo_file, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
   cat(sprintf("Loaded %d endosymbiont genomes\n", nrow(endo)))
@@ -408,7 +408,7 @@ cat(paste(rep("=", 60), collapse=""))
 cat("\n  OROBANCHACEAE PLASTOME RETENTION (Parasitism Gradient)\n")
 cat(paste(rep("=", 60), collapse=""), "\n\n")
 
-oro_file <- "/home/node/.openclaw/workspace/vi-foundry/data/orobanchaceae_retention_matrix.tsv"
+oro_file <- "/home/node/.openclaw/workspace/valence-foundry/data/orobanchaceae_retention_matrix.tsv"
 if (file.exists(oro_file)) {
   oro <- read.table(oro_file, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
   cat(sprintf("Loaded Orobanchaceae data: %d rows\n", nrow(oro)))

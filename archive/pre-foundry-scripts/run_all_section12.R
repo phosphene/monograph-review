@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# VI Framework §12 Quantitative Tests — Full Execution
+# valence Framework §12 Quantitative Tests — Full Execution
 # Runs every testable claim from Section 12 of the monograph.
 # Data hardcoded from published sources cited in the paper.
 
@@ -7,7 +7,7 @@
 library(stats)
 
 cat("================================================================\n")
-cat("VI FRAMEWORK §12 — QUANTITATIVE TEST RESULTS\n")
+cat("valence FRAMEWORK §12 — QUANTITATIVE TEST RESULTS\n")
 cat("================================================================\n")
 cat("Executed:", format(Sys.time(), "%Y-%m-%d %H:%M:%S UTC"), "\n")
 cat("R version:", paste0(R.version$major, ".", R.version$minor), "\n\n")
@@ -397,7 +397,7 @@ cat(sprintf("  %d of %d hybrid populations show behavioral scores > morphologica
     sum(hybrid_gaps > 0), length(hybrid_gaps)))
 
 cat("\n  Gradient: surface (0.00) → hybrid (+0.070) → cave (-0.097)\n")
-cat("  Consistent with VI Prediction 2: behavioral change leads at intermediate\n")
+cat("  Consistent with valence Prediction 2: behavioral change leads at intermediate\n")
 cat("  commitment, morphological change catches up at deep commitment\n")
 cat("  VERDICT: PASS (p = 0.001; but see Lahti alternative in paper)\n")
 
@@ -421,7 +421,7 @@ for (i in 1:3) {
 }
 cat(sprintf("\nAcceleration: %.1f× (from %.0f%% to %.0f%%)\n",
     per_gen_rate[3] / per_gen_rate[2], 100 * per_gen_rate[2], 100 * per_gen_rate[3]))
-cat("  VI prediction: a > 0 (accelerating) ✓\n")
+cat("  valence prediction: a > 0 (accelerating) ✓\n")
 cat("  Drift/inbreeding: ruled out (Christie et al. 2012: explains 1-4%)\n")
 cat("  Captive-wild trade-off confirmed: high-captive-fitness → only 0.62 wild offspring\n")
 cat("  VERDICT: PASS (2.7× acceleration, inbreeding null ruled out)\n")

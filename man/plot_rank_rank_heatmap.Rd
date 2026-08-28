@@ -24,13 +24,13 @@ lose, dark = lost early). Dendrogram optionally shown on column margins.
 \section{Theoretical Context}{
 
 
-VI Prediction: integration depth determines gene-loss order — deeply
+Valence Prediction: integration depth determines gene-loss order — deeply
 integrated functions (high dependency score) are retained longer.
 Competitor: random loss predicts no ordering. This test DOES distinguish
-VI from random loss.
+Valence from random loss.
 
-What supports VI: high Spearman rho (deeply integrated -> retained).
-What refutes VI: rho near zero (no ordering).
+What supports valence: high Spearman rho (deeply integrated -> retained).
+What refutes valence: rho near zero (no ordering).
 }
 
 \examples{

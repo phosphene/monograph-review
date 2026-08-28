@@ -24,13 +24,13 @@ a vertical dashed line.
 \section{Theoretical Context}{
 
 
-VI Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+Valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 rapidly at rate proportional to lambda * M0), slow Phase 2 (protected
 traits remain at 1.0). The phase boundary occurs when mismatch decays
 below the threshold fraction.
 
-What supports VI: clear inflection point between steep and shallow
-retention decline. What refutes VI: constant-rate decline.
+What supports valence: clear inflection point between steep and shallow
+retention decline. What refutes valence: constant-rate decline.
 }
 
 \examples{

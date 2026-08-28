@@ -1,4 +1,4 @@
-# vi-foundry Empirical-Testing Expansion Plan
+# valence-foundry Empirical-Testing Expansion Plan
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026

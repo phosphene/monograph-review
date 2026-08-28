@@ -1,4 +1,4 @@
-# helper-fixtures.R — Shared test fixtures for VI foundry
+# helper-fixtures.R — Shared test fixtures for valence foundry
 #
 # DFT A5: Real in-process fakes, not mocks.
 # fake_data_loader returns real dataframes from in-memory fixtures.
@@ -11,9 +11,9 @@ library(testthat)
 # and every bundled-data test would silently skip even when data is present.
 # Also checks the `.gz` variant: `R CMD build` may gzip data files.
 bundled_data <- function(file) {
-  p <- system.file("data", file, package = "vi.foundry")
+  p <- system.file("data", file, package = "valence.foundry")
   if (nzchar(p)) return(p)
-  system.file("data", paste0(file, ".gz"), package = "vi.foundry")
+  system.file("data", paste0(file, ".gz"), package = "valence.foundry")
 }
 has_bundled_data <- function(file) {
   nzchar(bundled_data(file))

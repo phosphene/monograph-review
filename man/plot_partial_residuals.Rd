@@ -25,12 +25,12 @@ Two-panel partial residual plots side by side: (A) genome size vs Ne,
 \section{Theoretical Context}{
 
 
-VI Prediction D3: niche breadth predicts gene loss better than Ne alone.
+Valence Prediction D3: niche breadth predicts gene loss better than Ne alone.
 Competitor: drift (Lynch 2007) predicts Ne is the primary driver. This
-test DOES distinguish VI from drift.
+test DOES distinguish valence from drift.
 
-What supports VI: niche panel shows stronger slope and tighter residuals
-than Ne panel. What refutes VI: Ne panel dominates.
+What supports valence: niche panel shows stronger slope and tighter residuals
+than Ne panel. What refutes valence: Ne panel dominates.
 }
 
 \examples{

@@ -1,7 +1,7 @@
 # generate_synthetic_population.R — Simulacrum synthetic data generator
 #
 # Simulacrum 1: Parameter Recovery.
-# Generates a synthetic trait panel from the VI threshold-gated capacity
+# Generates a synthetic trait panel from the valence threshold-gated capacity
 # reallocation model (dC_i/dt = -λ × M(t) × I(d_i < θ)) with KNOWN parameters,
 # so that the downstream pipeline can be proven to recover those parameters
 # (STDD — Stochastic Test-Driven Development).
@@ -21,7 +21,7 @@
 # The generator is used by the simulacrum test bed to prove the pipeline CAN
 # distinguish signal from noise before it is trusted on real Orobanchaceae data.
 
-#' Generate a synthetic trait population from the VI threshold model
+#' Generate a synthetic trait population from the valence threshold model
 #'
 #' Draws 50 species with integration depths spanning [0, 5], computes each
 #' species' equilibrium retention via \code{threshold_model()}, adds Gaussian
@@ -29,7 +29,7 @@
 #' maps retention to plastome size (retention × 150000 ancestor size).
 #' Parasitism score is the integration-depth proxy for Orobanchaceae: shallow
 #' protection depth maps to high parasitism (more capacity reallocation), so
-#' higher parasitism → smaller plastome (the VI signal the recovery test
+#' higher parasitism → smaller plastome (the valence signal the recovery test
 #' must detect).
 #'
 #' @param n Integer. Number of species. Default 50.

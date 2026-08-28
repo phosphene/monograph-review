@@ -436,25 +436,25 @@ test_that("S3 classes have required print/summary/plot/as.data.frame methods", {
   capture.output(print(result))
   
   # Test summary returns data.frame
-  skip_if_not(exists("summary.vi_threshold_result", mode = "function"),
-              "summary.vi_threshold_result not yet available")
+  skip_if_not(exists("summary.valence_threshold_result", mode = "function"),
+              "summary.valence_threshold_result not yet available")
   sum_result <- tryCatch(summary(result), error = function(e) NULL)
-  skip_if_null(sum_result, "summary method not working yet")
+  skip_if(is.null(sum_result), "summary method not working yet")
   
   # Test plot returns ggplot object (skip if methods not available)
-  skip_if_not(exists("plot.vi_threshold_result", mode = "function"),
-              "plot.vi_threshold_result not yet available")
+  skip_if_not(exists("plot.valence_threshold_result", mode = "function"),
+              "plot method not available yet")
   p <- tryCatch(plot(result), error = function(e) NULL)
-  skip_if_null(p, "plot method not working yet")
+  skip_if(is.null(p), "plot method not working yet")
   
   # Test as.data.frame returns data.frame
-  skip_if_not(exists("as.data.frame.vi_threshold_result", mode = "function"),
-              "as.data.frame.vi_threshold_result not yet available")
+  skip_if_not(exists("as.data.frame.valence_threshold_result", mode = "function"),
+              "as.data.frame method not available yet")
   df <- tryCatch(as.data.frame(result), error = function(e) NULL)
-  skip_if_null(df, "as.data.frame method not working yet")
+  skip_if(is.null(df), "as.data.frame method not working yet")
 })
 
-test_that("vi_glm_fit S3 methods work", {
+test_that("valence_glm_fit S3 methods work", {
   skip_if_not(has_bundled_data("orobanchaceae_retention_matrix.tsv"))
   skip_if_not(has_bundled_data("island_bird_morphology.csv"))
   
@@ -478,7 +478,7 @@ test_that("vi_glm_fit S3 methods work", {
   expect_s3_class(df, "data.frame")
 })
 
-test_that("vi_equilibrium S3 methods work", {
+test_that("valence_equilibrium S3 methods work", {
   skip("equilibrium_retention returns plain numeric for backward compat — no S3 class")
   eq <- equilibrium_retention(2.5, 0.15, 3.0, 20.0, 0.05)
   
@@ -515,7 +515,7 @@ test_that("Backward compatibility: threshold_model returns compatible list struc
   expect_true("converged" %in% names(result$metadata))
   
   # Should also have S3 class
-  expect_s3_class(result, "vi_threshold_result")
+  expect_s3_class(result, "valence_threshold_result")
 })
 
 test_that("Backward compatibility: empirical_formal_model returns compatible structure", {
@@ -530,10 +530,10 @@ test_that("Backward compatibility: empirical_formal_model returns compatible str
   expect_true("values" %in% names(result))
   expect_true("metadata" %in% names(result))
   expect_true("dep_coefficient" %in% names(result$values))
-  expect_true("vi_confirmed" %in% names(result$values))
+  expect_true("valence_confirmed" %in% names(result$values))
   
   # Should also have S3 class
-  expect_s3_class(result, "vi_glm_fit")
+  expect_s3_class(result, "valence_glm_fit")
 })
 
 test_that("Backward compatibility: validate_result still works", {

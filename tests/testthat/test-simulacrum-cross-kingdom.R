@@ -17,7 +17,7 @@
 #   A6 (check-result): returns structured proof object with metadata
 #
 # Theory:
-#   VI Prediction: integration-depth parameters transfer across kingdoms.
+#   valence Prediction: integration-depth parameters transfer across kingdoms.
 #   Competitor: substrates are independent — no parameter transfer.
 #   This is the strongest test in the monograph (L3).
 

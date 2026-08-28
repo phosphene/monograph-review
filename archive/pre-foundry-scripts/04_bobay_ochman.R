@@ -5,7 +5,7 @@
 #
 # Re-analyzes Bobay & Ochman's data on effective population size (Ne),
 # ecological lifestyle, and pan-genome size in 153 prokaryotic species.
-# Tests VI prediction: Ne (as proxy for drift barrier) should correlate
+# Tests valence prediction: Ne (as proxy for drift barrier) should correlate
 # with pan-genome size — larger Ne → more efficient selection → smaller
 # pan-genomes (fewer weakly deleterious accessory genes retained).
 #
@@ -188,5 +188,5 @@ cat(sprintf("Direction: %s (log-log slope = %.3f)\n",
             ifelse(coef(mod_ne_pan)[2] > 0, "POSITIVE (larger Ne → larger pan)", 
                    "NEGATIVE (larger Ne → smaller pan)"),
             coef(mod_ne_pan)[2]))
-cat("VI prediction: drift barrier (Ne) shapes pan-genome architecture\n")
+cat("valence prediction: drift barrier (Ne) shapes pan-genome architecture\n")
 cat("=============================\n")

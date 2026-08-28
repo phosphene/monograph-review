@@ -19,10 +19,10 @@ scores and loss ranks across lineages.
 \section{Theoretical Context}{
 
 
-Gene category data tests VI's integration-depth ordering prediction:
+Gene category data tests valence's integration-depth ordering prediction:
 deeply integrated functions (high dependency score) resist loss more
 than shallowly integrated ones. The competitor (random loss) predicts
-no ordering. This test DOES distinguish VI from random loss — it is
+no ordering. This test DOES distinguish valence from random loss — it is
 one of the distinguishing tests in the monograph.
 }
 

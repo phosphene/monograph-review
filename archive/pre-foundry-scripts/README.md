@@ -1,7 +1,7 @@
 # Pre-Foundry Scripts (Archived)
 
 These are the original scattered R scripts that were refactored into
-the vi.foundry R package. They are preserved here for historical reference.
+the valence.foundry R package. They are preserved here for historical reference.
 
 ## Migration Map
 

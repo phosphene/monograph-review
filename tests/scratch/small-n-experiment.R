@@ -3,7 +3,7 @@
 # Tests whether small samples can distinguish a step from a sigmoid
 
 source_simulacrum <- function(file) {
-  path <- file.path("/home/node/.openclaw/workspace/vi-foundry/inst/simulacra", file)
+  path <- file.path("/home/node/.openclaw/workspace/valence-foundry/inst/simulacra", file)
   source(path, local = FALSE)
 }
 

@@ -21,7 +21,7 @@ generate_transfer_data(
 
 \item{n_birds}{Integer. Number of bird structures. Default 10.}
 
-\item{dep_coef}{Numeric. True dependency coefficient (> 0, VI). Default 0.8.}
+\item{dep_coef}{Numeric. True dependency coefficient (> 0, valence). Default 0.8.}
 
 \item{para_coef}{Numeric. True parasitism coefficient (< 0). Default -0.5.}
 

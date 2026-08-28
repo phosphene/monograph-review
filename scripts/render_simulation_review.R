@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 # render_simulation_review.R — Generate GRN simulation review page
 #
-# Uses the vi-foundry's ggplot2 + viridis + patchwork ecosystem to produce
+# Uses the valence-foundry's ggplot2 + viridis + patchwork ecosystem to produce
 # publication-quality visualizations from the Python GRN simulation results.
 #
 # Produces 6 figures embedded in a self-contained HTML page:
@@ -33,9 +33,9 @@ if (!file.exists(results_path)) {
 data <- fromJSON(results_path, simplifyDataFrame = TRUE)
 
 # ---------------------------------------------------------------------------
-# 1. Shared theme (matches vi-foundry viz.R aesthetic)
+# 1. Shared theme (matches valence-foundry viz.R aesthetic)
 # ---------------------------------------------------------------------------
-vi_theme <- function(base_size = 12) {
+valence_theme <- function(base_size = 12) {
   theme_minimal(base_size = base_size) +
     theme(
       plot.title = element_text(face = "bold", size = rel(1.1), color = "#2c3e50"),
@@ -50,8 +50,8 @@ vi_theme <- function(base_size = 12) {
     )
 }
 
-# Color palette (viridis-based, matching vi-foundry style)
-vi_colors <- list(
+# Color palette (viridis-based, matching valence-foundry style)
+valence_colors <- list(
   two_tier = "#2980b9",   # blue
   uniform  = "#e74c3c",   # red
   bi_exp   = "#27ae60",   # green
@@ -88,7 +88,7 @@ plot_relaxation_curves <- function() {
     facet_wrap(~topology, scales = "free_y") +
     scale_color_manual(
       name = NULL,
-      values = c("Simulation data" = vi_colors$data, "Bi-exponential fit" = vi_colors$fit)
+      values = c("Simulation data" = valence_colors$data, "Bi-exponential fit" = valence_colors$fit)
     ) +
     labs(
       title = "Relaxation Curves: Two-Tier vs Uniform GRN Topology",
@@ -99,7 +99,7 @@ plot_relaxation_curves <- function() {
       x = "Time (arbitrary units)",
       y = "Retention \u03c1(t)"
     ) +
-    vi_theme() +
+    valence_theme() +
     theme(legend.position = "bottom")
 
   p
@@ -121,14 +121,14 @@ plot_k1k2_stability <- function() {
   # Wide format for paired plot
   p_scatter <- ggplot(combined, aes(x = seed, y = ratio, color = type)) +
     geom_hline(yintercept = mean(tt$ratio, na.rm = TRUE),
-               color = vi_colors$two_tier, linetype = "dotted", alpha = 0.5) +
+               color = valence_colors$two_tier, linetype = "dotted", alpha = 0.5) +
     geom_hline(yintercept = mean(uni$ratio, na.rm = TRUE),
-               color = vi_colors$uniform, linetype = "dotted", alpha = 0.5) +
+               color = valence_colors$uniform, linetype = "dotted", alpha = 0.5) +
     geom_point(size = 3, alpha = 0.8) +
     geom_line(aes(group = type), alpha = 0.3) +
     scale_color_manual(
       name = "Topology",
-      values = c("Two-tier" = vi_colors$two_tier, "Uniform" = vi_colors$uniform)
+      values = c("Two-tier" = valence_colors$two_tier, "Uniform" = valence_colors$uniform)
     ) +
     labs(
       title = "k\u2081/k\u2082 Ratio Stability Across 10 Seeds",
@@ -136,14 +136,14 @@ plot_k1k2_stability <- function() {
       x = "Seed",
       y = "k\u2081/k\u2082 ratio"
     ) +
-    vi_theme()
+    valence_theme()
 
   # Distribution comparison
   p_box <- ggplot(combined, aes(x = type, y = ratio, fill = type)) +
     geom_boxplot(alpha = 0.6, outlier.shape = NA) +
     geom_jitter(width = 0.15, alpha = 0.7, aes(color = type), size = 2.5) +
-    scale_fill_manual(values = c("Two-tier" = vi_colors$two_tier, "Uniform" = vi_colors$uniform)) +
-    scale_color_manual(values = c("Two-tier" = vi_colors$two_tier, "Uniform" = vi_colors$uniform)) +
+    scale_fill_manual(values = c("Two-tier" = valence_colors$two_tier, "Uniform" = valence_colors$uniform)) +
+    scale_color_manual(values = c("Two-tier" = valence_colors$two_tier, "Uniform" = valence_colors$uniform)) +
     labs(
       title = "Distribution of k\u2081/k\u2082 Ratios",
       subtitle = sprintf(
@@ -154,7 +154,7 @@ plot_k1k2_stability <- function() {
       x = NULL,
       y = "k\u2081/k\u2082 ratio"
     ) +
-    vi_theme() +
+    valence_theme() +
     theme(legend.position = "none")
 
   p_scatter / p_box + plot_layout(heights = c(1.2, 1))
@@ -182,7 +182,7 @@ plot_bic_comparison <- function() {
              vjust = 1.5, hjust = 0, color = "#e74c3c", size = 3, fontface = "italic") +
     scale_fill_manual(
       name = "Topology",
-      values = c("Two-tier" = vi_colors$two_tier, "Uniform" = vi_colors$uniform)
+      values = c("Two-tier" = valence_colors$two_tier, "Uniform" = valence_colors$uniform)
     ) +
     labs(
       title = "\u0394BIC: Bi-exponential vs Mono-exponential",
@@ -190,7 +190,7 @@ plot_bic_comparison <- function() {
       x = "Seed",
       y = "\u0394BIC (bi-exp - mono-exp)"
     ) +
-    vi_theme()
+    valence_theme()
 
   p
 }
@@ -216,7 +216,7 @@ plot_inflation_hierarchy <- function() {
               vjust = -1.2, size = 3.5, fontface = "bold", color = "#2c3e50") +
     scale_color_manual(
       name = "Best fit",
-      values = c("Mono-exp" = vi_colors$mono_exp, "Bi-exp" = vi_colors$bi_exp)
+      values = c("Mono-exp" = valence_colors$mono_exp, "Bi-exp" = valence_colors$bi_exp)
     ) +
     scale_shape_manual(name = "Best fit", values = c(15, 16)) +
     scale_y_log10(
@@ -229,7 +229,7 @@ plot_inflation_hierarchy <- function() {
       x = "Integration levels (structural depth)",
       y = "k\u2081/k\u2082 ratio (log scale)"
     ) +
-    vi_theme() +
+    valence_theme() +
     theme(legend.position = "bottom")
 
   p
@@ -262,7 +262,7 @@ plot_fit_quality <- function() {
     geom_jitter(position = position_jitterdodge(0.7, 0.15), alpha = 0.6, size = 2) +
     scale_fill_manual(
       name = "Model",
-      values = c("Bi-exponential" = vi_colors$bi_exp, "Mono-exponential" = vi_colors$mono_exp)
+      values = c("Bi-exponential" = valence_colors$bi_exp, "Mono-exponential" = valence_colors$mono_exp)
     ) +
     labs(
       title = "Fit Quality: R\u00b2 Comparison",
@@ -270,7 +270,7 @@ plot_fit_quality <- function() {
       x = "GRN Topology",
       y = "R\u00b2 (coefficient of determination)"
     ) +
-    vi_theme() +
+    valence_theme() +
     coord_cartesian(ylim = c(0, 1)) +
     theme(legend.position = "bottom")
 
@@ -313,7 +313,7 @@ plot_parameter_recovery <- function() {
       x = NULL,
       y = "Parameter value"
     ) +
-    vi_theme() +
+    valence_theme() +
     theme(legend.position = "bottom")
 
   # AIC comparison
@@ -336,7 +336,7 @@ plot_parameter_recovery <- function() {
       x = NULL,
       y = "AIC"
     ) +
-    vi_theme() +
+    valence_theme() +
     theme(legend.position = "none") +
     coord_flip()
 
@@ -426,8 +426,8 @@ cat("[6/6] Parameter recovery done\n")
 # 11. Assemble HTML page
 # ---------------------------------------------------------------------------
 timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M UTC")
-repo_url <- "https://github.com/FlowFeel/vi-foundry"
-pages_url <- "https://flowfeel.github.io/vi-foundry/"
+repo_url <- "https://github.com/phosphene/monograph-review"
+pages_url <- "https://phosphene.github.io/monograph-review/"
 
 make_fig <- function(b64, caption) {
   paste0(
@@ -443,7 +443,7 @@ body_html <- paste0(
 <h2>GRN Simulation Review — Valence-Ingression Framework</h2>
 <div class="summary">
 <p><strong>What this is:</strong> Computational verification of the bi-exponential relaxation prediction
-across GRN topologies. The VI framework predicts that organisms with multi-level integration
+across GRN topologies. The valence framework predicts that organisms with multi-level integration
 (battery + kernel structure) will show bi-exponential relaxation kinetics with a stable
 k\u2081/k\u2082 ratio, while uniform topologies will not.</p>
 <p><strong>Parsimony floor:</strong> No claims about mechanism below the budget floor.
@@ -528,13 +528,13 @@ html <- paste0(
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GRN Simulation Review — VI Foundry</title>
+<title>GRN Simulation Review — Valence Foundry</title>
 <style>', CSS, '</style>
 </head>
 <body>
 <div class="header">
 <h1>GRN Simulation Review</h1>
-<p>VI Foundry — computational verification for the Valence-Ingression Framework</p>
+<p>Valence Foundry — computational verification for the Valence-Ingression Framework</p>
 <p>Generated: ', timestamp, '&nbsp;|&nbsp;<a href="', repo_url, '">GitHub</a>&nbsp;|&nbsp;<a href="', pages_url, '">Pages</a></p>
 </div>
 <div class="nav">
@@ -548,7 +548,7 @@ html <- paste0(
 </div>
 ', body_html, '
 <div class="footer">
-<p><strong>VI Foundry</strong> — generated by <code>scripts/render_simulation_review.R</code> at ', timestamp, '</p>
+<p><strong>Valence Foundry</strong> — generated by <code>scripts/render_simulation_review.R</code> at ', timestamp, '</p>
 </div>
 </body>
 </html>

@@ -1,12 +1,12 @@
 #' Autocatalytic set dynamics for post-substrate-shift regime
 #'
-#' After the substrate shift, VI predicts that innovations generate further
+#' After the substrate shift, valence predicts that innovations generate further
 #' innovations faster than they are lost — positive diversity-dependence.
 #' This is modeled via autocatalytic set theory (Kauffman style).
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: positive diversity-dependence in cultural substrate —
+#' valence Prediction: positive diversity-dependence in cultural substrate —
 #' the Homo inversion (positively diversity-dependent speciation) is the
 #' empirical signature. Competitor: standard niche-filling predicts
 #' negatively diversity-dependent (logistic) growth.

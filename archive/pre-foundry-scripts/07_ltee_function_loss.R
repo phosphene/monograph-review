@@ -3,7 +3,7 @@
 # 07_ltee_function_loss.R
 # LTEE Function Loss: Cooper & Lenski / Leiby & Marx Reanalysis
 #
-# Tests VI prediction: metabolic function loss in the LTEE is primarily
+# Tests valence prediction: metabolic function loss in the LTEE is primarily
 # driven by passive drift (mutation accumulation in unused genes) rather
 # than antagonistic pleiotropy, and follows the same dependency-ordered
 # pattern seen in endosymbiont genome reduction.

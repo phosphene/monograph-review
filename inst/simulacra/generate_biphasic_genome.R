@@ -1,7 +1,7 @@
 #' Generate biphasic genome reduction synthetic data (Simulacrum 2)
 #'
 #' Generates synthetic genome reduction time series following a logistic
-#' (saturation/decelerating) curve, consistent with VI's biphasic kinetics
+#' (saturation/decelerating) curve, consistent with valence's biphasic kinetics
 #' prediction: fast Phase 1 (unprotected traits shed rapidly) followed by
 #' slow Phase 2 (protected traits resist loss).
 #'
@@ -16,14 +16,14 @@
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+#' valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 #' rapidly at rate k1) followed by slow Phase 2 (protected traits resist loss
 #' at rate k2). The logistic/saturation curve is the empirical signature.
 #'
 #' Competitors:
 #' - Constant rate (relaxed selection, Lahti 2009): predicts linear reduction
 #' - Accelerating (Muller's ratchet): predicts accelerating reduction
-#' - The biphasic (logistic/saturation) shape is unique to VI's threshold-gated model
+#' - The biphasic (logistic/saturation) shape is unique to valence's threshold-gated model
 #'
 #' @param seed Integer. Seed for reproducibility. Default 42.
 #' @param n_genera Integer. Number of genera to generate. Default 10.

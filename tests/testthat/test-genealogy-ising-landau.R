@@ -2,7 +2,7 @@
 #
 # T6: Ising→Landau formal verification.
 #
-# The VI paper claims "consistent with Landau mean-field theory."
+# The valence paper claims "consistent with Landau mean-field theory."
 # The genealogy docs claim a formal algebraic identity between Ising
 # mean-field and Landau. This test verifies numerically.
 #

@@ -27,14 +27,14 @@ for each model, (C) AICc bar chart comparing model fit.
 \section{Theoretical Context}{
 
 
-VI Prediction: biphasic kinetics (fast Phase 1, slow Phase 2) — the
+Valence Prediction: biphasic kinetics (fast Phase 1, slow Phase 2) — the
 logistic/saturation model should fit best. Competitors: constant rate
 (Lynch 2007, linear model), accelerating (Muller's ratchet, exponential).
-The biphasic shape is unique to VI's threshold-gated model. This test
-DOES distinguish VI from constant-rate and ratchet models.
+The biphasic shape is unique to valence's threshold-gated model. This test
+DOES distinguish valence from constant-rate and ratchet models.
 
-What supports VI: logistic model has lowest AICc and highest R^2.
-What refutes VI: linear or exponential models fit better.
+What supports valence: logistic model has lowest AICc and highest R^2.
+What refutes valence: linear or exponential models fit better.
 }
 
 \examples{

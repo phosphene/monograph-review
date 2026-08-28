@@ -19,7 +19,7 @@ holoparasite), matching the Orobanchaceae gradient.
 \section{Theoretical Context}{
 
 
-The parasitism score is VI's integration-depth proxy for Orobanchaceae:
+The parasitism score is valence's integration-depth proxy for Orobanchaceae:
 higher score = deeper niche commitment = more capacity reallocation.
 The competitor (relaxed selection) treats this as a time-since-relaxation
 proxy. Both use the same variable but interpret it differently.

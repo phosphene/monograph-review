@@ -14,7 +14,7 @@
 #' `fit_biexp.R` and `relaxation_model.R` test the temporal dynamics.
 #'
 #' The qualitative functions (`cdi_economics`, `option_destruction`,
-#' `stochastic_cdi`, `threshold_disruption`) test whether VI's directional
+#' `stochastic_cdi`, `threshold_disruption`) test whether valence's directional
 #' predictions hold. These functions test whether the formula's exact
 #' shape and constants hold. Both layers are valuable — the qualitative
 #' layer doesn't become redundant when the quantitative layer is added.
@@ -241,7 +241,7 @@ fit_step_models <- function(theta, rho) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Formula Prediction: ρ_sat ≈ 0.35 across all substrates. In economics,
+#' valence Formula Prediction: ρ_sat ≈ 0.35 across all substrates. In economics,
 #' this means: the correlation between firm-level capability dependency and
 #' firm survival, measured above the provision threshold, should be ~0.35.
 #' Not 0.1, not 0.8 — 0.35. This is a parameter-free, substrate-independent
@@ -255,7 +255,7 @@ fit_step_models <- function(theta, rho) {
 #' Competitor: no existing economic theory predicts a universal constant for
 #' the retention-survival correlation. Standard disruption theory (Christensen)
 #' predicts qualitative displacement, not a quantitative saturation value.
-#' This test DOES distinguish the VI formula from qualitative alternatives:
+#' This test DOES distinguish the valence formula from qualitative alternatives:
 #' it makes a specific numerical prediction that no other theory makes.
 #'
 #' What supports the formula: mean_rho_sat ∈ [0.25, 0.45] and step wins on AIC.
@@ -367,7 +367,7 @@ rho_sat_prediction <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Formula Prediction: s → ∞ — the transition width is zero. In economic
+#' valence Formula Prediction: s → ∞ — the transition width is zero. In economic
 #' terms, capacity collapse is a step at the provision threshold, not a
 #' gradual curve. The standard logistic or exponential decay models are
 #' wrong: they predict a finite transition width. The formula predicts
@@ -530,7 +530,7 @@ step_cdi_comparison <- function(data, seed = 42L) {
 #' the standard exponential-decay baseline.
 #'
 #' Where `option_destruction()` tests a residual sign pattern
-#' (qualitative VI prediction), this function tests the specific
+#' (qualitative valence prediction), this function tests the specific
 #' functional form (quantitative formula prediction): does a step
 #' at the trigger year beat exponential decay on AIC?
 #'
@@ -545,7 +545,7 @@ step_cdi_comparison <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Formula Prediction: option value = remaining capacity = (1 - CDI).
+#' valence Formula Prediction: option value = remaining capacity = (1 - CDI).
 #' The formula says CDI jumps as a step at θ = 0 (first provision).
 #' Therefore option value should collapse as a step, not as an
 #' exponential. The standard theta-decay model (exponential in time)
@@ -699,7 +699,7 @@ step_option_collapse <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Formula Prediction: on generative substrates, the attractor dynamics
+#' valence Formula Prediction: on generative substrates, the attractor dynamics
 #' reverse. Instead of capacity loss (negative diversity-dependence), you get
 #' capacity expansion (positive diversity-dependence). Each innovation creates
 #' new niches. More firms → more niches → more firms. The opposite of
