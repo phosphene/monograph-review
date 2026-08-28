@@ -44,7 +44,7 @@ irreversible the system is.
 \section{Theoretical Context}{
 
 
-VI Prediction: irreversibility — the forward path (increasing commitment)
+Valence Prediction: irreversibility — the forward path (increasing commitment)
 differs from the reverse path (decreasing commitment). The loop area
 quantifies \emph{how much} they differ. A system with no bifurcation (e.g.,
 \code{a >= 0} in the cusp) has loop area = 0 (fully reversible). A system deep

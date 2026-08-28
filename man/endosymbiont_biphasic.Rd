@@ -16,15 +16,15 @@ List (A6): values (r_squared, k1_k2_ratio, bayes_factor), metadata.
 }
 \description{
 Tests whether genome reduction in obligate endosymbionts follows a
-decelerating (logistic/saturation) curve — consistent with VI's
+decelerating (logistic/saturation) curve — consistent with valence's
 biphasic prediction — vs constant-rate (exponential) or accelerating.
 }
 \section{Theoretical Context}{
 
 
-VI Prediction: biphasic kinetics (fast Phase 1, slow Phase 2).
+Valence Prediction: biphasic kinetics (fast Phase 1, slow Phase 2).
 Competitors: constant rate (Lynch 2007), accelerating (Muller's ratchet).
 McCutcheon's metabolic complementarity predicts the same correlation —
-does NOT distinguish VI from McCutcheon.
+does NOT distinguish valence from McCutcheon.
 }
 

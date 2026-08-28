@@ -1,6 +1,6 @@
 #' Formal dynamical model of threshold-gated capacity reallocation
 #'
-#' The VI formal model: dC_i/dt = -λ × M(t) × C_i × I(d_i < θ)
+#' The valence formal model: dC_i/dt = -λ × M(t) × C_i × I(d_i < θ)
 #'
 #' NOTE: the C_i factor (current retention) is essential — without it the ODE
 #' is linear (dC/dt = -λM) whose solution C(T) = 1 - λ∫M dt goes negative;
@@ -23,13 +23,13 @@
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+#' valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 #' rapidly) followed by slow Phase 2 (protected traits resist loss).
 #'
 #' Competitors:
 #' - Constant rate (relaxed selection, Lahti 2009): predicts linear reduction
 #' - Accelerating (Muller's ratchet): predicts accelerating reduction
-#' - The biphasic (logistic/saturation) shape is unique to VI's threshold-gated model
+#' - The biphasic (logistic/saturation) shape is unique to valence's threshold-gated model
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure math, no I/O
@@ -79,7 +79,7 @@ mismatch_function <- function(t, m0, alpha) {
 #' @param alpha Numeric. Mismatch decay rate.
 #' @param time Numeric. Total time elapsed.
 #'
-#' @return vi_equilibrium object for each depth (vector of length length(depths)).
+#' @return valence_equilibrium object for each depth (vector of length length(depths)).
 #' @export
 #' @examples
 #' \dontrun{
@@ -213,7 +213,7 @@ prove_convergence <- function(depths, lambda, theta, m0, alpha, time,
 #' - If d_i >= θ: C_i = 1 (protected)
 #' - If d_i < θ: C_i = exp(-λ × M₀/α) (shed proportional to integrated mismatch)
 #'
-#' Returns a vi_equilibrium object per Phosphene R Standards §7.
+#' Returns a valence_equilibrium object per Phosphene R Standards §7.
 #'
 #' @param depth Numeric. Integration depth of the trait.
 #' @param lambda Numeric. Shedding rate.
@@ -221,7 +221,7 @@ prove_convergence <- function(depths, lambda, theta, m0, alpha, time,
 #' @param m0 Numeric. Initial mismatch.
 #' @param alpha Numeric. Mismatch decay rate.
 #'
-#' @return vi_equilibrium object.
+#' @return valence_equilibrium object.
 #' @export
 #' @examples
 #' equilibrium_retention(depth = 3, lambda = 0.15, theta = 2.5, m0 = 10, alpha = 0.05)
@@ -254,7 +254,7 @@ equilibrium_retention <- function(depth, lambda, theta, m0, alpha) {
 #' C_i(T) = exp(-λ × ∫₀ᵀ M(t)dt) if d_i < θ (shed)
 #' where ∫₀ᵀ M(t)dt = M₀/α × (1 - exp(-αT))
 #'
-#' Returns a vi_equilibrium object per Phosphene R Standards §7.
+#' Returns a valence_equilibrium object per Phosphene R Standards §7.
 #'
 #' @param depth Numeric. Integration depth.
 #' @param lambda Numeric. Shedding rate.
@@ -263,7 +263,7 @@ equilibrium_retention <- function(depth, lambda, theta, m0, alpha) {
 #' @param alpha Numeric. Mismatch decay rate.
 #' @param time Numeric. Time elapsed.
 #'
-#' @return vi_equilibrium object.
+#' @return valence_equilibrium object.
 #' @export
 retention_at_time <- function(depth, lambda, theta, m0, alpha, time) {
   protected <- depth >= theta
@@ -286,7 +286,7 @@ retention_at_time <- function(depth, lambda, theta, m0, alpha, time) {
 #' Threshold-gated capacity reallocation model (full numerical integration)
 #'
 #' Solves dC_i/dt = -λ × M(t) × C_i × I(d_i < θ) for a panel of traits using
-#' Euler integration. Returns a vi_threshold_result object with full provenance.
+#' Euler integration. Returns a valence_threshold_result object with full provenance.
 #'
 #' @param depths Numeric vector. Integration depths for each trait.
 #' @param lambda Numeric. Shedding rate.
@@ -296,13 +296,13 @@ retention_at_time <- function(depth, lambda, theta, m0, alpha, time) {
 #' @param time Numeric. Total time.
 #' @param n_steps Integer. Number of integration steps. Default 1000.
 #'
-#' @return vi_threshold_result object containing:
+#' @return valence_threshold_result object containing:
 #'   \item{values}{Named list: final_retention, phase rates, biphasicity metrics}
 #'   \item{metadata}{List: parameters, counts, convergence info, full trajectory}
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+#' valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 #' at rate proportional to λ×M₀), slow Phase 2 (protected traits remain at 1.0).
 #'
 #' @dft A1, A2, A6
@@ -396,7 +396,7 @@ threshold_model <- function(depths, lambda, theta, m0, alpha, time,
   )
 
   # Return as S3 object
-  vi_threshold_result(values = values, metadata = metadata)
+  valence_threshold_result(values = values, metadata = metadata)
 }
 
 # ==============================================================================
@@ -436,7 +436,7 @@ phase_transition_time <- function(m0, alpha, threshold_fraction = 0.1) {
 #' and correlating the predicted ordering with observed morphological-change
 #' ranks (Spearman).
 #'
-#' Returns a vi_glm_fit object per Phosphene R Standards §7.
+#' Returns a valence_glm_fit object per Phosphene R Standards §7.
 #'
 #' @param plant_data Data frame. The retention matrix (from
 #'   [load_retention_matrix()]). Requires columns: `dependency_score`,
@@ -449,13 +449,13 @@ phase_transition_time <- function(m0, alpha, threshold_fraction = 0.1) {
 #' @param seed Integer. Unused (the GLM is deterministic, A2) — included for
 #'   contract consistency.
 #'
-#' @return vi_glm_fit object containing:
-#'   \item{values}{GLM coefficients, p-values, cross-kingdom metrics, VI confirmation flags}
+#' @return valence_glm_fit object containing:
+#'   \item{values}{GLM coefficients, p-values, cross-kingdom metrics, valence confirmation flags}
 #'   \item{metadata}{Sample sizes, method description, fitted glm object}
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: `dep > 0` (deeper integration → higher retention),
+#' valence Prediction: `dep > 0` (deeper integration → higher retention),
 #' `para < 0` (deeper parasitism → lower retention), and cross-kingdom
 #' ρ > 0 (plant-derived model predicts bird ordering).
 #'
@@ -506,10 +506,10 @@ empirical_formal_model <- function(plant_data, bird_data,
   cross_kingdom_rho <- as.numeric(ct$estimate)
   cross_kingdom_p <- ct$p.value
 
-  # VI predictions
+  # valence predictions
   dep_positive <- dep_coef > 0
   para_negative <- para_coef < 0
-  vi_confirmed <- dep_positive && para_negative && cross_kingdom_rho > 0
+  valence_confirmed <- dep_positive && para_negative && cross_kingdom_rho > 0
 
   values <- list(
     intercept = intercept,
@@ -522,7 +522,7 @@ empirical_formal_model <- function(plant_data, bird_data,
     cross_kingdom_p = cross_kingdom_p,
     dep_positive = dep_positive,
     para_negative = para_negative,
-    vi_confirmed = vi_confirmed
+    valence_confirmed = valence_confirmed
   )
 
   metadata <- list(
@@ -536,5 +536,5 @@ empirical_formal_model <- function(plant_data, bird_data,
     glm_fit = fit
   )
 
-  vi_glm_fit(values = values, metadata = metadata)
+  valence_glm_fit(values = values, metadata = metadata)
 }

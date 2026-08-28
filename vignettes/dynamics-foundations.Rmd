@@ -1,5 +1,5 @@
 ---
-title: "Dynamics Foundations of the VI Foundry"
+title: "Dynamics Foundations of the Valence Foundry"
 author: "Ed Phillips, Jan Ritch-Frel, Flow Feel"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -18,14 +18,14 @@ knitr::opts_chunk$set(
   message = FALSE
 )
 
-library(vi.foundry)
+library(valence.foundry)
 library(ggplot2)
 ```
 
 ## Overview
 
 This document gives the mathematical foundations of the **dynamics module** of
-the VI (Valence-Ingression) framework. Three families of dynamics are treated:
+the valence (Valence-Ingression) framework. Three families of dynamics are treated:
 
 1. The **cusp catastrophe** — how a bistable equilibrium `x³ + ax + b = 0`
    produces hysteresis and irreversibility.
@@ -36,11 +36,11 @@ the VI (Valence-Ingression) framework. Three families of dynamics are treated:
 4. **Economics** — commitment-driven (CDI) option-value decay and stochastic
    CDI paths.
 
-Every result that is *proved* here is returned as a `vi_proof` object
+Every result that is *proved* here is returned as a `valence_proof` object
 (statement, LaTeX-like derivation, `QED` result, a `verified` flag and a
 `numeric_check` cab), and every module result is wrapped in an S3 class
-(`vi_cusp_result`, `vi_autocatalytic_result`, `vi_economics_result`) built on
-the shared `vi_dynamics_result` base — the Phosphene R Standards §7
+(`valence_cusp_result`, `valence_autocatalytic_result`, `valence_economics_result`) built on
+the shared `valence_dynamics_result` base — the Phosphene R Standards §7
 three-layer pattern (constructor → validator → helper).
 
 All functions obey the DFT axioms: **A1** (pure IO separation), **A2**
@@ -156,7 +156,7 @@ $$\frac{df}{dN} = \frac{r}{2}\,\frac{d}{dN}\!\left(\frac{N}{N+K}\right)
 The per-capita rate is **monotonically increasing** — the "Homo inversion".
 By contrast the logistic per-capita rate $g(N)=r(1-N/K)$ has
 $dg/dN = -r/K < 0$: niche-filling predicts a *decreasing* per-capita rate.
-This sign flip is exactly what distinguishes VI from its competitor.
+This sign flip is exactly what distinguishes valence from its competitor.
 
 ```{r dd-sign}
 dd_proof <- prove_dd_sign(r = 1, K = 10, N_max = 100, n_grid = 100)
@@ -192,13 +192,13 @@ ggplot(df2, aes(N, rate)) +
   theme_minimal()
 ```
 
-The `vi_autocatalytic_result` class packages these quantities. We can coerce a
+The `valence_autocatalytic_result` class packages these quantities. We can coerce a
 raw `diversity_dependence_sign()` output into the classed result:
 
 ```{r auto-class}
 counts <- c(1, 2, 4, 8, 15, 28, 52, 96, 180, 340)
 raw <- diversity_dependence_sign(counts, seed = 42L)
-res <- as_vi_autocatalytic_result(raw)
+res <- as_valence_autocatalytic_result(raw)
 res$values$diversity_dependence_sign
 summary(res)
 ```
@@ -245,14 +245,14 @@ $[0,1]$.
 ### 4.2 Option-value decay
 
 Standard options theory decays the value of the pivot option exponentially in
-*time*; VI couples decay to *commitment*: because remaining capacity is
+*time*; valence couples decay to *commitment*: because remaining capacity is
 $1 - \text{CDI}$, the option value falls monotonically as CDI rises.
 
 ```{r econ-opt}
 cdi_grid <- seq(0, 1, length.out = 30)
 k <- 2
 option_value <- exp(-k * cdi_grid)
-econ <- vi_economics_result(
+econ <- valence_economics_result(
   cdi = cdi_grid,
   option_value = option_value,
   stochastic_paths = matrix(rep(cdi_grid, 3), ncol = 3),
@@ -289,7 +289,7 @@ ggplot(df3, aes(step, cdi)) +
   theme_minimal()
 ```
 
-The `vi_economics_result` class bundles the CDI trajectory, option-value
+The `valence_economics_result` class bundles the CDI trajectory, option-value
 schedule, stochastic paths, and disruption outcome, and — like all
 dynamics results — prints, summarises to a tidy data.frame, and converts via
 `as.data.frame()`.
@@ -309,4 +309,4 @@ The dynamics module is mathematically closed at three levels:
 
 Because the proofs fix *signs and structure* rather than magnitudes, their
 conclusions transfer across kingdoms while the specifics are per-system — the
-central epistemology of the VI framework.
+central epistemology of the valence framework.

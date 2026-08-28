@@ -16,7 +16,7 @@
 # This file matches the `regression` filter (run_tests.R regression).
 
 library(testthat)
-library(vi.foundry)
+library(valence.foundry)
 
 # Locate baseline/oracle.yml relative to the source tree (tests/testthat -> ../../).
 oracle_path <- function() {

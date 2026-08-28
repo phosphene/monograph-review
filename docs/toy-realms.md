@@ -2,7 +2,7 @@
 
 ## What These Are
 
-The toy realms are interactive **simulations** — computational models that generate synthetic data from the VI equations and visualize the trajectory under different parameter settings. They are **not tests** of the hypothesis. They are tools for building intuition about how the framework's mechanisms operate. Each realm generates data from known equations, lets the user adjust parameters, and shows what the trajectory looks like under different conditions.
+The toy realms are interactive **simulations** — computational models that generate synthetic data from the valence equations and visualize the trajectory under different parameter settings. They are **not tests** of the hypothesis. They are tools for building intuition about how the framework's mechanisms operate. Each realm generates data from known equations, lets the user adjust parameters, and shows what the trajectory looks like under different conditions.
 
 A **simulation** differs from a **simulacrum** (see the Simulacra page). A simulacrum tests whether the statistical pipeline can recover known parameters from synthetic data — it verifies the *methods*. A simulation explores what the model *does* under different parameter combinations — it builds understanding of the *dynamics*. Both use synthetic data, but for different purposes: one tests the tools, the other explores the theory.
 
@@ -10,7 +10,7 @@ A **simulation** differs from a **simulacrum** (see the Simulacra page). A simul
 
 ### Realm 1 — Genome Reduction (The Threshold Gate)
 
-**What it explores:** How genome retention collapses as parasitism crosses the **protection threshold** (θ). Below the threshold, retention is approximately 1.0 (the trait is protected by its integration with other systems). Above the threshold, retention collapses to approximately 0.0 (the trait is no longer protected and enters relaxed selection). The transition is sharp, not gradual — VI predicts a threshold, not a smooth decline.
+**What it explores:** How genome retention collapses as parasitism crosses the **protection threshold** (θ). Below the threshold, retention is approximately 1.0 (the trait is protected by its integration with other systems). Above the threshold, retention collapses to approximately 0.0 (the trait is no longer protected and enters relaxed selection). The transition is sharp, not gradual — valence predicts a threshold, not a smooth decline.
 
 **What to look for:** The **threshold_biphasicity** metric (a binary indicator: 1.0 if the threshold cleanly separates protected from unprotected traits, 0.0 otherwise) approaches 1.0 in the interesting regime. At low θ, almost everything is unprotected and the trajectory looks monophasic (everything is shed). At high θ, almost everything is protected and little is shed. The interesting regime is intermediate θ, where the biphasic signal is strongest — some traits are protected and some are not, producing the rapid-then-slow trajectory the framework predicts.
 
@@ -22,7 +22,7 @@ A **simulation** differs from a **simulacrum** (see the Simulacra page). A simul
 
 ### Realm 3 — The *Homo* Inversion (Diversity-Dependence Sign Flip)
 
-**What it explores:** The macroevolutionary inversion: positively **diversity-dependent speciation** in *Homo* vs negative diversity-dependence in other vertebrate clades. **Diversity-dependent speciation** means that the speciation rate depends on how many species already exist. In standard ecological radiations, more species means more competition for finite resources, so speciation rate *decreases* (negative diversity-dependence). VI predicts that after a lineage shifts its primary **ingression substrate** (the resource base it exploits) from ecological to cultural, the dynamics reverse: cultural substrates expand under exploitation rather than depleting, so more species (or more cultural variants) produce more niches, and speciation rate *increases* (positive diversity-dependence).
+**What it explores:** The macroevolutionary inversion: positively **diversity-dependent speciation** in *Homo* vs negative diversity-dependence in other vertebrate clades. **Diversity-dependent speciation** means that the speciation rate depends on how many species already exist. In standard ecological radiations, more species means more competition for finite resources, so speciation rate *decreases* (negative diversity-dependence). Valence predicts that after a lineage shifts its primary **ingression substrate** (the resource base it exploits) from ecological to cultural, the dynamics reverse: cultural substrates expand under exploitation rather than depleting, so more species (or more cultural variants) produce more niches, and speciation rate *increases* (positive diversity-dependence).
 
 **What to look for:** The **sign flip** — the slope of speciation rate vs species count changes from positive (autocatalytic, the *Homo* pattern) to negative (logistic, the standard pattern) when the substrate parameter is toggled. Both trajectories grow, but the per-capita-rate-vs-N slope has opposite signs. The discriminator is the slope sign, not whether growth occurs.
 

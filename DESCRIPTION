@@ -1,6 +1,6 @@
 Type: Package
-Package: vi.foundry
-Title: VI Foundry — Production-Grade R Artifacts for the Valence-Ingression Monograph
+Package: valence.foundry
+Title: Valence Foundry — Production-Grade R Artifacts for the Valence-Ingression Monograph
 Version: 0.1.0
 Authors@R: c(
     person("Ed", "Phillips", role = c("aut", "cre"),
@@ -10,7 +10,7 @@ Authors@R: c(
     person("Flow", "Feel", role = "aut",
            email = "flow@ind.media", comment = c(GitHub = "FlowFeel"))
   )
-Description: Production-grade R artifacts for testing Valence-Ingression (VI)
+Description: Production-grade R artifacts for testing Valence-Ingression
     framework predictions. Provides PGLS comparative methods, integration-depth
     ordering tests, biphasic genome reduction models, cross-kingdom parameter
     transfer, formal dynamical model (threshold-gated capacity reallocation),
@@ -19,8 +19,8 @@ Description: Production-grade R artifacts for testing Valence-Ingression (VI)
     operations, and testcontainers simulacrum infrastructure. Phosphene R
     engineering standards are reproduced in docs/standards/ for self-sufficiency.
 License: MIT + file LICENSE
-URL: https://github.com/FlowFeel/vi-foundry
-BugReports: https://github.com/FlowFeel/vi-foundry/issues
+URL: https://github.com/phosphene/monograph-review
+BugReports: https://github.com/phosphene/monograph-review/issues
 Depends:
     R (>= 4.4.0)
 Imports:
@@ -43,7 +43,8 @@ Suggests:
     knitr,
     rmarkdown,
     readxl,
-    base64enc
+    base64enc,
+    minpack.lm
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

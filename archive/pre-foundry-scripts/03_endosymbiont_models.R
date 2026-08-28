@@ -4,9 +4,9 @@
 # Endosymbiont Genome Reduction: Decelerating vs Linear vs Accelerating
 #
 # Tests whether genome reduction in obligate endosymbionts follows a
-# decelerating (logistic/saturation) curve — consistent with VI's prediction
+# decelerating (logistic/saturation) curve — consistent with valence's prediction
 # that functional-dependency locks essential genes against further loss.
-# VI monograph Test 3 (T3).
+# valence monograph Test 3 (T3).
 # =============================================================================
 
 library(nlme)
@@ -218,7 +218,7 @@ cat(sprintf("Best model: %s (AIC = %.1f)\n", aic_table$Model[1], aic_table$AIC[1
 cat(sprintf("Worst model ΔAIC: %.1f (%s)\n",
             max(aic_table$deltaAIC), aic_table$Model[which.max(aic_table$deltaAIC)]))
 cat(sprintf("Genera analyzed: %d\n", nrow(genus_means)))
-cat(sprintf("VI prediction (decelerating best): %s\n",
+cat(sprintf("valence prediction (decelerating best): %s\n",
             ifelse(aic_table$Model[1] %in% c("Decelerating", "Exponential"),
                    "SUPPORTED", "NOT SUPPORTED")))
 cat("=============================\n")

@@ -19,7 +19,7 @@ NULL
 # VI_THRESHOLD_RESULT METHODS
 # ==============================================================================
 
-#' Print vi_threshold_result Object
+#' Print valence_threshold_result Object
 #'
 #' Human-readable console output showing:
 #' - Parameter summary
@@ -27,7 +27,7 @@ NULL
 #' - Biphasicity metrics
 #' - Retention trajectory statistics
 #'
-#' @param x vi_threshold_result object.
+#' @param x valence_threshold_result object.
 #' @param ... Ignored (standard print argument).
 #'
 #' @return Invisibly returns x.
@@ -40,8 +40,8 @@ NULL
 #' )
 #' print(result)
 #' }
-print.vi_threshold_result <- function(x, ...) {
-  cat("vi_threshold_result\n")
+print.valence_threshold_result <- function(x, ...) {
+  cat("valence_threshold_result\n")
   cat("===================\n\n")
 
   # Parameters
@@ -101,12 +101,12 @@ print.vi_threshold_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of vi_threshold_result Object
+#' Summary of valence_threshold_result Object
 #'
 #' Returns a tidy data.frame summarizing key metrics. Useful for programmatic
 #' access and comparison across multiple simulations.
 #'
-#' @param object vi_threshold_result object.
+#' @param object valence_threshold_result object.
 #' @param ... Ignored.
 #'
 #' @return data.frame with columns:
@@ -130,7 +130,7 @@ print.vi_threshold_result <- function(x, ...) {
 #' result <- threshold_model(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
 #' summary(result)
 #' }
-summary.vi_threshold_result <- function(object, ...) {
+summary.valence_threshold_result <- function(object, ...) {
   params <- object$metadata$params
   meta <- object$metadata
   vals <- object$values
@@ -154,13 +154,13 @@ summary.vi_threshold_result <- function(object, ...) {
   )
 }
 
-#' Plot vi_threshold_result Object
+#' Plot valence_threshold_result Object
 #'
 #' Returns a patchwork ggplot2 composition with:
 #' 1. Left: retention trajectory over time (all traits)
 #' 2. Right: threshold gate visualization (depth vs retention)
 #'
-#' @param x vi_threshold_result object.
+#' @param x valence_threshold_result object.
 #' @param ... Ignored.
 #'
 #' @return patchwork of two ggplot2 objects.
@@ -170,7 +170,7 @@ summary.vi_threshold_result <- function(object, ...) {
 #' result <- threshold_model(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
 #' plot(result)
 #' }
-plot.vi_threshold_result <- function(x, ...) {
+plot.valence_threshold_result <- function(x, ...) {
   library(ggplot2)
   library(patchwork)
 
@@ -237,12 +237,12 @@ plot.vi_threshold_result <- function(x, ...) {
     theme(legend.box = "vertical")
 }
 
-#' Convert vi_threshold_result to Data Frame
+#' Convert valence_threshold_result to Data Frame
 #'
 #' Extracts key results into a tidy data.frame for downstream piping
 #' or export to CSV/Excel.
 #'
-#' @param x vi_threshold_result object.
+#' @param x valence_threshold_result object.
 #' @param row.names Ignored.
 #' @param optional Ignored.
 #' @param ... Additional arguments passed to as.data.frame().
@@ -254,7 +254,7 @@ plot.vi_threshold_result <- function(x, ...) {
 #' result <- threshold_model(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
 #' as.data.frame(result)
 #' }
-as.data.frame.vi_threshold_result <- function(x, row.names = NULL, optional = FALSE, ...) {
+as.data.frame.valence_threshold_result <- function(x, row.names = NULL, optional = FALSE, ...) {
   params <- x$metadata$params
   meta <- x$metadata
 
@@ -298,12 +298,12 @@ as.data.frame.vi_threshold_result <- function(x, row.names = NULL, optional = FA
 # VI_GLM_FIT METHODS
 # ==============================================================================
 
-#' Print vi_glm_fit Object
+#' Print valence_glm_fit Object
 #'
 #' Human-readable console output showing GLM coefficients, significance,
 #' and cross-kingdom validation results.
 #'
-#' @param x vi_glm_fit object.
+#' @param x valence_glm_fit object.
 #' @param ... Ignored.
 #'
 #' @return Invisibly returns x.
@@ -315,8 +315,8 @@ as.data.frame.vi_threshold_result <- function(x, row.names = NULL, optional = FA
 #' fit <- empirical_formal_model(plant$data, bird$data)
 #' print(fit)
 #' }
-print.vi_glm_fit <- function(x, ...) {
-  cat("vi_glm_fit: Valence-Ingression Empirical Test\n")
+print.valence_glm_fit <- function(x, ...) {
+  cat("valence_glm_fit: Valence-Ingression Empirical Test\n")
   cat("=============================================\n\n")
 
   vals <- x$values
@@ -334,10 +334,10 @@ print.vi_glm_fit <- function(x, ...) {
               vals$intercept, vals$dep_p_value))
   cat(sprintf("  dependency_score:            %.4f (p = %.4g) %s\n",
               vals$dep_coefficient, vals$dep_p_value,
-              ifelse(vals$dep_positive, "[VI PREDICTION]", "")))
+              ifelse(vals$dep_positive, "[valence PREDICTION]", "")))
   cat(sprintf("  parasitism_score:            %.4f (p = %.4g) %s\n",
               vals$para_coefficient, vals$para_p_value,
-              ifelse(vals$para_negative, "[VI PREDICTION]", "")))
+              ifelse(vals$para_negative, "[valence PREDICTION]", "")))
   cat(sprintf("  Pseudo R² (McFadden):        %.4f\n", vals$pseudo_r_squared))
   cat("\n")
 
@@ -347,25 +347,25 @@ print.vi_glm_fit <- function(x, ...) {
               vals$cross_kingdom_rho, vals$cross_kingdom_p))
   cat("\n")
 
-  cat("VI Confirmation Status:\n")
+  cat("valence Confirmation Status:\n")
   cat(sprintf("  dep > 0:                      %s\n", ifelse(vals$dep_positive, "✓ YES", "✗ NO")))
   cat(sprintf("  para < 0:                     %s\n", ifelse(vals$para_negative, "✓ YES", "✗ NO")))
   cat(sprintf("  ρ > 0:                        %s\n", ifelse(vals$cross_kingdom_rho > 0, "✓ YES", "✗ NO")))
-  cat(sprintf("  Overall: %s\n", ifelse(vals$vi_confirmed, "CONFIRMED", "NOT CONFIRMED")))
+  cat(sprintf("  Overall: %s\n", ifelse(vals$valence_confirmed, "CONFIRMED", "NOT CONFIRMED")))
 
   invisible(x)
 }
 
-#' Summary of vi_glm_fit Object
+#' Summary of valence_glm_fit Object
 #'
 #' Returns a tidy data.frame of model diagnostics.
 #'
-#' @param object vi_glm_fit object.
+#' @param object valence_glm_fit object.
 #' @param ... Ignored.
 #'
 #' @return data.frame with model metrics.
 #' @export
-summary.vi_glm_fit <- function(object, ...) {
+summary.valence_glm_fit <- function(object, ...) {
   vals <- object$values
   meta <- object$metadata
 
@@ -374,29 +374,29 @@ summary.vi_glm_fit <- function(object, ...) {
                "para_coefficient", "para_p_value", "pseudo_r_squared",
                "cross_kingdom_rho", "cross_kingdom_p",
                "observations", "n_species", "n_gene_categories",
-               "vi_confirmed"),
+               "valence_confirmed"),
     value = c(vals$intercept, vals$dep_coefficient, vals$dep_p_value,
               vals$para_coefficient, vals$para_p_value, vals$pseudo_r_squared,
               vals$cross_kingdom_rho, vals$cross_kingdom_p,
               meta$n, meta$n_species, meta$n_gene_categories,
-              as.numeric(vals$vi_confirmed)),
+              as.numeric(vals$valence_confirmed)),
     stringsAsFactors = FALSE
   )
 }
 
-#' Plot vi_glm_fit Object
+#' Plot valence_glm_fit Object
 #'
 #' Returns a ggplot2 diagnostic plot showing:
 #' - Observed vs fitted retention (with confidence band)
 #' - Residuals vs fitted
 #' - Coefficient bar chart with significance stars
 #'
-#' @param x vi_glm_fit object.
+#' @param x valence_glm_fit object.
 #' @param ... Ignored.
 #'
 #' @return patchwork of diagnostic plots.
 #' @export
-plot.vi_glm_fit <- function(x, ...) {
+plot.valence_glm_fit <- function(x, ...) {
   library(ggplot2)
   library(patchwork)
 
@@ -436,7 +436,7 @@ plot.vi_glm_fit <- function(x, ...) {
     geom_hline(yintercept = 0, linetype = "dashed") +
     geom_text(aes(label = significance), vjust = -0.5, size = 5) +
     labs(title = "Coefficient Estimates",
-         subtitle = "VI predicts dep > 0, para < 0",
+         subtitle = "valence predicts dep > 0, para < 0",
          x = "Predictor",
          y = "Coefficient Estimate") +
     theme_minimal(base_size = 10) +
@@ -445,18 +445,18 @@ plot.vi_glm_fit <- function(x, ...) {
   p1 / p2 + plot_layout(guides = "collect")
 }
 
-#' Convert vi_glm_fit to Data Frame
+#' Convert valence_glm_fit to Data Frame
 #'
 #' Extracts GLM results into tidy format.
 #'
-#' @param x vi_glm_fit object.
+#' @param x valence_glm_fit object.
 #' @param row.names Ignored.
 #' @param optional Ignored.
 #' @param ... Additional arguments.
 #'
 #' @return data.frame with coefficients and diagnostics.
 #' @export
-as.data.frame.vi_glm_fit <- function(x, row.names = NULL, optional = FALSE, ...) {
+as.data.frame.valence_glm_fit <- function(x, row.names = NULL, optional = FALSE, ...) {
   vals <- x$values
   meta <- x$metadata
 
@@ -464,7 +464,7 @@ as.data.frame.vi_glm_fit <- function(x, row.names = NULL, optional = FALSE, ...)
     coefficient = c("(Intercept)", "dependency_score", "parasitism_score"),
     estimate = c(vals$intercept, vals$dep_coefficient, vals$para_coefficient),
     p_value = c(NA, vals$dep_p_value, vals$para_p_value),  # intercept p not computed
-    vi_prediction = c(NA, "dep > 0", "para < 0"),
+    valence_prediction = c(NA, "dep > 0", "para < 0"),
     consistent = c(NA, vals$dep_positive, vals$para_negative),
     stringsAsFactors = FALSE
   )
@@ -474,17 +474,17 @@ as.data.frame.vi_glm_fit <- function(x, row.names = NULL, optional = FALSE, ...)
 # VI_EQUILIBRIUM METHODS
 # ==============================================================================
 
-#' Print vi_equilibrium Object
+#' Print valence_equilibrium Object
 #'
 #' Concise output showing equilibrium status for a single trait.
 #'
-#' @param x vi_equilibrium object.
+#' @param x valence_equilibrium object.
 #' @param ... Ignored.
 #'
 #' @return Invisibly returns x.
 #' @export
-print.vi_equilibrium <- function(x, ...) {
-  cat(sprintf("vi_equilibrium: depth = %.4f\n", x$depth))
+print.valence_equilibrium <- function(x, ...) {
+  cat(sprintf("valence_equilibrium: depth = %.4f\n", x$depth))
   cat(sprintf("  Protected:       %s\n", ifelse(x$is_protected, "YES", "NO")))
   cat(sprintf("  Equilibrium:     %.6f\n", x$value))
   if (!x$is_protected) {
@@ -493,14 +493,14 @@ print.vi_equilibrium <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of vi_equilibrium Object
+#' Summary of valence_equilibrium Object
 #'
-#' @param object vi_equilibrium object.
+#' @param object valence_equilibrium object.
 #' @param ... Ignored.
 #'
 #' @return data.frame with single row.
 #' @export
-summary.vi_equilibrium <- function(object, ...) {
+summary.valence_equilibrium <- function(object, ...) {
   data.frame(
     depth = object$depth,
     is_protected = object$is_protected,
@@ -510,16 +510,16 @@ summary.vi_equilibrium <- function(object, ...) {
   )
 }
 
-#' Plot vi_equilibrium Object
+#' Plot valence_equilibrium Object
 #'
 #' Simple dot plot showing position relative to threshold.
 #'
-#' @param x vi_equilibrium object.
+#' @param x valence_equilibrium object.
 #' @param ... Ignored.
 #'
 #' @return ggplot2 object.
 #' @export
-plot.vi_equilibrium <- function(x, ...) {
+plot.valence_equilibrium <- function(x, ...) {
   library(ggplot2)
 
   ggplot() +
@@ -536,16 +536,16 @@ plot.vi_equilibrium <- function(x, ...) {
     theme_minimal(base_size = 10)
 }
 
-#' Convert vi_equilibrium to Data Frame
+#' Convert valence_equilibrium to Data Frame
 #'
-#' @param x vi_equilibrium object.
+#' @param x valence_equilibrium object.
 #' @param row.names Ignored.
 #' @param optional Ignored.
 #' @param ... Additional arguments.
 #'
 #' @return data.frame with single row.
 #' @export
-as.data.frame.vi_equilibrium <- function(x, row.names = NULL, optional = FALSE, ...) {
+as.data.frame.valence_equilibrium <- function(x, row.names = NULL, optional = FALSE, ...) {
   data.frame(
     depth = x$depth,
     is_protected = x$is_protected,

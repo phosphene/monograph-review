@@ -27,7 +27,7 @@ cat("  A GLM treating all 48 as independent INFLATES degrees of freedom.\n")
 cat("  The effective sample size is closer to n=8 (species) than n=48.\n\n")
 
 # Issue 2: The question might be wrong
-# VI's rate equation says: shedding rate ∝ mismatch / integration
+# valence's rate equation says: shedding rate ∝ mismatch / integration
 # This predicts: at HIGH parasitism, only HIGH-integration genes survive.
 # At LOW parasitism, ALL genes survive regardless of integration.
 # This is NOT a linear interaction — it's a THRESHOLD effect.
@@ -35,7 +35,7 @@ cat("  The effective sample size is closer to n=8 (species) than n=48.\n\n")
 # At high parasitism, integration determines survival.
 # A linear interaction term can't capture a threshold.
 
-cat("ISSUE 2: VI predicts a THRESHOLD, not a linear interaction\n")
+cat("ISSUE 2: valence predicts a THRESHOLD, not a linear interaction\n")
 cat("  At low parasitism: all genes retained regardless of dependency score\n")
 cat("  At high parasitism: only high-dependency genes retained\n")
 cat("  This is a threshold effect, not a proportional interaction.\n")
@@ -108,7 +108,7 @@ cat("interaction means: dependency score predicts retention REGARDLESS\n")
 cat("of parasitism level. High-dependency genes are always more likely\n")
 cat("to be retained, even at low parasitism.\n\n")
 
-cat("This is ACTUALLY what VI predicts at the informational-momentum level:\n")
+cat("This is ACTUALLY what valence predicts at the informational-momentum level:\n")
 cat("deeply integrated genes resist loss at ALL commitment levels because\n")
 cat("they are embedded in essential developmental programs. The integration\n")
 cat("protection is not contingent on parasitism depth — it is structural.\n\n")
@@ -121,7 +121,7 @@ cat("in an essential operon → it can't be lost regardless of mismatch),\n")
 cat("then the main effect is the correct test, not the interaction.\n\n")
 
 cat("CONCLUSION: The 'failed' interaction test actually SUPPORTS a more\n")
-cat("precise version of the VI prediction. Integration provides\n")
+cat("precise version of the valence prediction. Integration provides\n")
 cat("categorical (structural) protection against loss, not proportional\n")
 cat("(rate-modulated) protection. This is informational momentum\n")
 cat("operating as a binary threshold (in essential operon? → protected)\n")

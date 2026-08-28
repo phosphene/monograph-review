@@ -94,7 +94,7 @@ beta_mediation_test <- function(data, seed = 42L) {
       metadata = list(
         seed = seed,
         test = "H2_beta_mediation",
-        vi_prediction = "β predicts complexity; N does not predict β",
+        valence_prediction = "β predicts complexity; N does not predict β",
         discriminating = TRUE
       )
     )
@@ -125,7 +125,7 @@ cross_domain_beta_test <- function(data) {
     ),
     metadata = list(
       test = "H4_cross_domain_beta",
-      vi_prediction = "cultural β > 1; non-cultural β < 1",
+      valence_prediction = "cultural β > 1; non-cultural β < 1",
       discriminating = TRUE
     )
   )
@@ -173,7 +173,7 @@ growth_curve_test <- function(data) {
     ),
     metadata = list(
       test = "H5_super_exponential_growth",
-      vi_prediction = "quadratic coefficient > 0; quadratic beats linear",
+      valence_prediction = "quadratic coefficient > 0; quadratic beats linear",
       discriminating = TRUE
     )
   )
@@ -208,7 +208,7 @@ sign_reversal_test <- function(homo_gl, nonhomo_gl, config = "unknown") {
     ),
     metadata = list(
       test = "H10_sign_reversal",
-      vi_prediction = "Homo: positive DD; Non-Homo: negative DD",
+      valence_prediction = "Homo: positive DD; Non-Homo: negative DD",
       discriminating = TRUE
     )
   )

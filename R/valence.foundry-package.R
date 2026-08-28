@@ -1,6 +1,6 @@
-#' vi.foundry: Production-Grade R Artifacts for the VI Monograph
+#' valence.foundry: Production-Grade R Artifacts for the Valence-Ingression Monograph
 #'
-#' Provides the full empirical pipeline for the Valence-Ingression (VI)
+#' Provides the full empirical pipeline for the Valence-Ingression
 #' framework monograph — PGLS comparative methods, integration-depth
 #' ordering tests, biphasic genome reduction models, cross-kingdom
 #' parameter transfer, and the formal dynamical model of threshold-gated
@@ -18,5 +18,5 @@
 #' tests that prove the pipeline CAN distinguish signal from noise.
 #'
 #' @docType package
-#' @name vi.foundry
+#' @name valence.foundry
 NULL

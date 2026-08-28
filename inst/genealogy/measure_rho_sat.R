@@ -1,6 +1,6 @@
 #' Measure ρ_sat across Wright-Fisher parameter grid
 #'
-#' Tests whether the VI paper's claim of ρ_sat ≈ 0.35 holds
+#' Tests whether the valence paper's claim of ρ_sat ≈ 0.35 holds
 #' under realistic Wright-Fisher simulation.
 
 source("inst/genealogy/generate_drift_selection.R")

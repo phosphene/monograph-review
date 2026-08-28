@@ -38,7 +38,7 @@ test_that("Invariant: a>0 cusp never bifurcates and loop area = 0", {
       hres <- cusp_hysteresis_check(cv, eq, seed = 42L)
       expect_true(isFALSE(hres$values$has_hysteresis),
         info = sprintf("iter %d: a>0 must have no hysteresis", i))
-      cres <- as_vi_cusp_result(hres)
+      cres <- as_valence_cusp_result(hres)
       expect_true(isFALSE(cres$values$has_hysteresis),
         info = sprintf("iter %d: classed cusp must have has_hysteresis=FALSE", i))
       expect_true(cres$values$loop_area == 0,
@@ -84,7 +84,7 @@ test_that("Invariant: loop area > 0 iff hysteresis exists (class-level)", {
       area <- hysteresis_loop_area(cv, eq, seed = 42L)$values$loop_area
       has_hyst <- isTRUE(area > 0)
 
-      cres <- vi_cusp_result(
+      cres <- valence_cusp_result(
         has_hysteresis = has_hyst,
         max_difference = if (has_hyst) area else 0,
         loop_area = area,
@@ -93,9 +93,9 @@ test_that("Invariant: loop area > 0 iff hysteresis exists (class-level)", {
       )
       expect_true(cres$values$loop_area > 0,
         info = sprintf("iter %d: loop_area>0 when hysteresis", i))
-      expect_true(inherits(cres, "vi_cusp_result"),
+      expect_true(inherits(cres, "valence_cusp_result"),
         info = sprintf("iter %d: cusp result class set", i))
-      expect_true(inherits(cres, "vi_dynamics_result"),
+      expect_true(inherits(cres, "valence_dynamics_result"),
         info = sprintf("iter %d: cusp result inherits base class", i))
 
       df <- summary(cres)
@@ -143,7 +143,7 @@ test_that("Invariant: DD sign positive for bounded autocatalytic, negative for l
 
   # Autocatalytic: per-capita rate rises with diversity -> positive DD.
   pc_auto <- 0.5 + 0.5 * NN / (NN + 10)
-  res_auto <- vi_autocatalytic_result(
+  res_auto <- valence_autocatalytic_result(
     diversity_dependence_sign = "positive",
     per_capita_rate = pc_auto,
     n_species = length(NN),
@@ -153,12 +153,12 @@ test_that("Invariant: DD sign positive for bounded autocatalytic, negative for l
     info = "autocatalytic per-capita rate must increase with N")
   expect_true(res_auto$values$diversity_dependence_sign == "positive",
     info = "autocatalytic DD sign must be positive")
-  expect_true(inherits(res_auto, "vi_autocatalytic_result"),
+  expect_true(inherits(res_auto, "valence_autocatalytic_result"),
     info = "autocatalytic result class set")
 
   # Logistic: per-capita rate falls with diversity -> negative DD.
   pc_log <- 1 - NN / 100
-  res_log <- vi_autocatalytic_result(
+  res_log <- valence_autocatalytic_result(
     diversity_dependence_sign = "negative",
     per_capita_rate = pc_log,
     n_species = length(NN),
@@ -220,7 +220,7 @@ test_that("Invariant: CDI in [0, 1] and option value decreases with CDI", {
       expect_true(all(diff(option_value) <= 0),
         info = sprintf("iter %d: option value must be non-increasing in CDI", i))
 
-      econ <- vi_economics_result(
+      econ <- valence_economics_result(
         cdi = cdi_grid,
         option_value = option_value,
         stochastic_paths = matrix(rep(cdi_grid, 3), ncol = 3),
@@ -228,7 +228,7 @@ test_that("Invariant: CDI in [0, 1] and option value decreases with CDI", {
       )
       expect_true(all(econ$values$cdi >= 0 & econ$values$cdi <= 1),
         info = sprintf("iter %d: CDI must be in [0,1]", i))
-      expect_true(inherits(econ, "vi_economics_result"),
+      expect_true(inherits(econ, "valence_economics_result"),
         info = sprintf("iter %d: economics result class set", i))
 
       s <- summary(econ)

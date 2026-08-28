@@ -2,7 +2,7 @@
 % Please edit documentation in R/viz.R
 \name{viz}
 \alias{viz}
-\title{VI Foundry visualizations — production-grade ggplot2 plots}
+\title{Valence Foundry visualizations — production-grade ggplot2 plots}
 \description{
 Produces publication-quality ggplot2 visualizations for each empirical
 test (T1–T7), the formal dynamical model, cusp catastrophe, autocatalytic

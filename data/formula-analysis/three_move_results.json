@@ -63,7 +63,7 @@
   },
   "move2_fisher": {
     "total_retention": 0.42825768667642755,
-    "vi_effect": 0.39801593438378835,
+    "valence_effect": 0.39801593438378835,
     "selection_effect": 0.3878773125608569,
     "quintile_retention": {
       "mean": {

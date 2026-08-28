@@ -25,24 +25,24 @@ test_that("USPTO: VI ODE confirms generative regime (r_eff > 0)", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   expect_true(result$values$r_eff_positive)
-  expect_gt(result$values$vi_r_eff, 0)
+  expect_gt(result$values$r_eff, 0)
 })
 
 test_that("USPTO: VI ODE beats quadratic (Gabora) model", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   # Quadratic model diverges on USPTO (188 years of super-exponential growth)
   # When quadratic diverges, AIC is NA — VI ODE wins by default
   if (is.na(result$values$quad_aic)) {
-    expect_true(!is.na(result$values$vi_aic))
+    expect_true(!is.na(result$values$aic))
   } else {
-    expect_lt(result$values$vi_aic, result$values$quad_aic)
+    expect_lt(result$values$aic, result$values$quad_aic)
   }
 })
 
@@ -50,7 +50,7 @@ test_that("USPTO: system is far from saturation (exponential regime)", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   # USPTO should be well below K (exponential regime)
   # The exact % depends on optimizer convergence, but should be < 50%
@@ -77,11 +77,11 @@ test_that("Wikipedia: near saturation (high % of K)", {
   wiki <- utils::read.csv(wiki_file)
   t <- wiki$year - min(wiki$year)
   B <- wiki$articles
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   # Simple exponential should NOT win (system is near saturation)
   expect_false(result$values$best_model == "exp")
-  # Either biexp, vi_ode, or logistic should win
+  # Either biexp, valence_ode, or logistic should win
   expect_true(result$values$best_model %in% c("biexp", "vi", "logistic"))
 })
 
@@ -91,9 +91,9 @@ test_that("All cultural domains confirm r_eff > 0 (generative regime)", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   expect_true(result$values$r_eff_positive)
-  expect_gt(result$values$vi_r_eff, 0)
-  expect_gt(result$values$vi_r, result$values$vi_delta)
+  expect_gt(result$values$r_eff, 0)
+  expect_gt(result$values$r, result$values$delta)
 })

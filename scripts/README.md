@@ -1,4 +1,4 @@
-# VI Foundry Scripts
+# Valence Foundry Scripts
 
 ## P1-P8 Testing Scripts
 
@@ -39,5 +39,5 @@ All scripts use `python3` (Python 3.10+). Dependencies: numpy, scipy, statsmodel
 
 For the uv workspace:
 ```bash
-cd lib/python && uv run python ../../vi-foundry/scripts/<script>.py
+cd lib/python && uv run python ../../valence-foundry/scripts/<script>.py
 ```

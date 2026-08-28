@@ -1,5 +1,5 @@
 /**
- * cross-filter.js — VI Foundry cross-filtered dashboard module
+ * cross-filter.js — Valence Foundry cross-filtered dashboard module
  * ==============================================================
  *
  * Test-informed development (phosphene/react-d3-hotload-test-demo, 2014):

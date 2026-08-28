@@ -15,7 +15,7 @@ license: MIT
 > `as.vector(retention)` (gene-major). The mismatch shuffles `dep` and
 > `retention`, so the GLM fits scrambled data and produces the wrong sign on
 > `dep`. **Removing one `t()` fixes everything**: `dep = +0.84` (p = 0.0008),
-> `para` p < 0.0001, cross-kingdom ρ = +0.755 — all matching VI predictions.
+> `para` p < 0.0001, cross-kingdom ρ = +0.755 — all matching valence predictions.
 >
 > The foundry replaced this fixable one-character bug with a theoretical ODE
 > simulation that cannot fail (it does not fit the 8×6 matrix at all), hiding
@@ -64,7 +64,7 @@ gene categories with functional-dependency scores 0 → 5:
 | 5 | rpl_rps | 0.728 |
 
 The means are **roughly monotonic in dependency**: higher-dep traits are more
-retained. This is the pattern VI predicts. The GLM should capture it easily —
+retained. This is the pattern valence predicts. The GLM should capture it easily —
 and it does, once the data is flattened correctly.
 
 The bird data for cross-kingdom transfer (from
@@ -141,7 +141,7 @@ Correct (aligned):    1 0 0 0 0 0 0 0   ← ndh for 8 species ✓
 This is the author's original code, with the flattening bug. The GLM fits
 scrambled data:
 
-| Coefficient | Estimate | p-value | VI prediction | Verdict |
+| Coefficient | Estimate | p-value | valence prediction | Verdict |
 |-------------|----------|---------|---------------|---------|
 | intercept | +2.050 | 0.0151 | — | — |
 | **dep** | **−0.828** | **0.0013** | **> 0** | **WRONG SIGN** |
@@ -151,8 +151,8 @@ scrambled data:
 - Cross-kingdom ρ = **−0.755** (oracle: +0.755 — **wrong sign**)
 
 The GLM reports a *significant* negative `dep` effect — the opposite of what
-VI predicts. The `para` effect is non-significant. The cross-kingdom transfer
-gives the wrong sign. **Every VI prediction fails.**
+Valence predicts. The `para` effect is non-significant. The cross-kingdom transfer
+gives the wrong sign. **Every valence prediction fails.**
 
 > **Deprecation note.** The additive GLM as implemented in
 > `archive/pre-foundry-scripts/run_formal_model.R` is **deprecated**. Its
@@ -172,7 +172,7 @@ gives the wrong sign. **Every VI prediction fails.**
 **Specification:** same `retention ~ dep + para`, `family = quasibinomial()`,
 but with `as.vector(retention)` (no transpose).
 
-| Coefficient | Estimate | p-value | VI prediction | Verdict |
+| Coefficient | Estimate | p-value | valence prediction | Verdict |
 |-------------|----------|---------|---------------|---------|
 | intercept | +3.002 | 0.0032 | — | — |
 | **dep** | **+0.837** | **0.0008** | **> 0** | **✓ significant** |
@@ -181,7 +181,7 @@ but with `as.vector(retention)` (no transpose).
 - Pseudo-R² = 0.552
 - Cross-kingdom ρ = **+0.755** (oracle: +0.755 — **matches**)
 
-**The additive GLM works.** With the correct data flattening, every VI
+**The additive GLM works.** With the correct data flattening, every valence
 prediction is confirmed: `dep` is positive and significant (higher dependency
 → higher retention), `para` is negative and significant (deeper parasitism →
 lower retention), and the cross-kingdom transfer gives ρ = +0.755, matching
@@ -199,7 +199,7 @@ main effects of `dep` and `para` without needing an interaction term.
 parasites only (autotroph row dropped to avoid separation — all retention =
 1.0 at para = 0).
 
-VI predicts that `dep` matters *more* at higher `para` (the protection
+Valence predicts that `dep` matters *more* at higher `para` (the protection
 threshold θ bites harder as parasitism deepens). This is an interaction:
 `dep:para` should be **positive** (the `dep` effect strengthens with `para`).
 
@@ -218,11 +218,11 @@ The interaction GLM gives the **correct sign** on `dep` (+1.77, though not
 significant due to the interaction absorbing variance and the small sample).
 The interaction term `dep:para` is **negative** (−0.32) and non-significant
 (p = 0.45) — suggesting `dep` matters *less* at higher `para`, which is
-*against* the VI interaction prediction. But this is non-significant and the
+*against* the valence interaction prediction. But this is non-significant and the
 effective `dep` effect at para = 3 is still positive (+0.80).
 
 **Assessment.** The interaction GLM is the theoretically preferred
-specification (VI predicts an interaction), but in this 48-observation
+specification (valence predicts an interaction), but in this 48-observation
 dataset the interaction is non-significant and the additive model (Model A)
 captures the main effects more cleanly (higher pseudo-R², significant `dep`).
 The interaction GLM does not change the cross-kingdom ρ (+0.755 in both).
@@ -329,7 +329,7 @@ rate (λ); it cannot *test* whether the data supports them.
 
 The foundry traded a fixable one-character bug for a simulation that cannot
 fail. The corrected GLM (Model A) is the empirical test the framework needs:
-it fits the real data, estimates parameters from data, and confirms VI
+it fits the real data, estimates parameters from data, and confirms valence
 predictions with significant coefficients and the correct cross-kingdom ρ.
 
 ---
@@ -390,10 +390,10 @@ The recommendation below has been **implemented**:
 - ✅ The 8×6 retention matrix is bundled (`data/orobanchaceae_retention_matrix.tsv`).
 - ✅ The corrected additive GLM is restored as `empirical_formal_model()`.
 - ✅ It fits the real data, estimates `dep` and `para` from data, and confirms
-  VI predictions: `dep = +0.84` (p = 0.0008), `para` p < 0.0001.
+  Valence predictions: `dep = +0.84` (p = 0.0008), `para` p < 0.0001.
 - ✅ Cross-kingdom ρ = +0.755 from the fitted model.
 - ✅ The regression gate enforces the oracle values; the unit tests verify
-  VI predictions on both synthetic and real data.
+  Valence predictions on both synthetic and real data.
 - ✅ The ODE (`threshold_model()`) remains as the theoretical companion — both
   are in the pipeline as `formal_model` (ODE) and `empirical_formal_model` (GLM).
 
@@ -404,14 +404,14 @@ foundry's ODE (Model D) remains as a useful *simulation* alongside the new
 *empirical test*.
 
 The corrected additive GLM (Model A) is the right empirical model: it is the
-simplest model that fits the data, confirms VI predictions, and can fail.
+simplest model that fits the data, confirms valence predictions, and can fail.
 
 ---
 
 ## Correction to modeling-sim-viz-review
 
 [`modeling-sim-viz-review.md`](modeling-sim-viz-review.md) Part I reported
-that the author's GLM was "misspecified (additive where VI predicts
+that the author's GLM was "misspecified (additive where valence predicts
 interaction)" and attributed the wrong sign to this misspecification plus
 separation. That diagnosis was **incomplete**. The root cause is the
 data-flattening bug (§2): `as.vector(t(retention))` misaligns `dep` and

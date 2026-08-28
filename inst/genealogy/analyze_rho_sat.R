@@ -47,7 +47,7 @@ print(r_close2$data, row.names = FALSE)
 
 cat("\n\n=== Key Finding ===\n")
 cat("ρ_sat is NOT a constant ~0.35. It depends strongly on N and delta_range.\n")
-cat("The VI paper's claim of ρ_sat ≈ 0.35 is NOT supported by the Wright-Fisher simulation.\n")
+cat("The valence paper's claim of ρ_sat ≈ 0.35 is NOT supported by the Wright-Fisher simulation.\n")
 cat("The value varies from ~0.0000 to ~0.9874 depending on parameters.\n")
 cat("The closest value to 0.35 is 0.2474 (N=1000, delta=[0,0.05]).\n")
 cat("This suggests the 0.35 value may come from a different model or empirical observation.\n")

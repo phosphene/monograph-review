@@ -49,7 +49,8 @@ runs:
           "testthat", "withr", "covr", "mockery", "R6", "yaml", "ggplot2",
           "roxygen2", "readxl", "knitr", "rmarkdown", "patchwork", "dplyr",
           "viridis", "ape", "caper", "phytools", "base64enc", "DBI",
-          "RPostgres", "lintr", "styler", "rcmdcheck"
+          "RPostgres", "lintr", "styler", "rcmdcheck",
+          "minpack.lm"
         )
         already <- rownames(installed.packages())
         missing <- setdiff(pkgs, already)

@@ -1,4 +1,4 @@
-#' VI Foundry visualizations — production-grade ggplot2 plots
+#' Valence Foundry visualizations — production-grade ggplot2 plots
 #'
 #' Produces publication-quality ggplot2 visualizations for each empirical
 #' test (T1–T7), the formal dynamical model, cusp catastrophe, autocatalytic
@@ -32,16 +32,16 @@ NULL
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction D5: plastome size correlates with parasitism level —
+#' valence Prediction D5: plastome size correlates with parasitism level —
 #' organisms committing to deeper parasitic niches lose plastome capacity
 #' in proportion to commitment depth. The PGLS lambda parameter corrects
 #' for phylogenetic non-independence. Competitor: relaxed selection
 #' (Lahti et al. 2009) predicts the same gradient through a different
 #' mechanism.
 #'
-#' What supports VI: significant negative beta (parasitism -> smaller plastome).
-#' What refutes VI: no correlation, or positive correlation.
-#' This test does NOT distinguish VI from relaxed selection.
+#' What supports valence: significant negative beta (parasitism -> smaller plastome).
+#' What refutes valence: no correlation, or positive correlation.
+#' This test does NOT distinguish valence from relaxed selection.
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -150,13 +150,13 @@ plot_pgls_with_phylogeny <- function(data, tree, result) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction D5: the gene-loss gradient replicates across independent
+#' valence Prediction D5: the gene-loss gradient replicates across independent
 #' parasitic plant families. Competitor: stochastic gene loss / relaxed
 #' selection — both predict the same pattern. This test does NOT distinguish
-#' VI from competitors.
+#' valence from competitors.
 #'
-#' What supports VI: consistent negative slope across families.
-#' What refutes VI: slopes vary in sign or are zero.
+#' What supports valence: consistent negative slope across families.
+#' What refutes valence: slopes vary in sign or are zero.
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -211,14 +211,14 @@ plot_faceted_family_regression <- function(data) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: biphasic kinetics (fast Phase 1, slow Phase 2) — the
+#' valence Prediction: biphasic kinetics (fast Phase 1, slow Phase 2) — the
 #' logistic/saturation model should fit best. Competitors: constant rate
 #' (Lynch 2007, linear model), accelerating (Muller's ratchet, exponential).
-#' The biphasic shape is unique to VI's threshold-gated model. This test
-#' DOES distinguish VI from constant-rate and ratchet models.
+#' The biphasic shape is unique to valence's threshold-gated model. This test
+#' DOES distinguish valence from constant-rate and ratchet models.
 #'
-#' What supports VI: logistic model has lowest AICc and highest R^2.
-#' What refutes VI: linear or exponential models fit better.
+#' What supports valence: logistic model has lowest AICc and highest R^2.
+#' What refutes valence: linear or exponential models fit better.
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -434,12 +434,12 @@ plot_model_comparison <- function(data, mod_linear, mod_exp, mod_logistic) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction D3: niche breadth predicts gene loss better than Ne alone.
+#' valence Prediction D3: niche breadth predicts gene loss better than Ne alone.
 #' Competitor: drift (Lynch 2007) predicts Ne is the primary driver. This
-#' test DOES distinguish VI from drift.
+#' test DOES distinguish valence from drift.
 #'
-#' What supports VI: niche panel shows stronger slope and tighter residuals
-#' than Ne panel. What refutes VI: Ne panel dominates.
+#' What supports valence: niche panel shows stronger slope and tighter residuals
+#' than Ne panel. What refutes valence: Ne panel dominates.
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -538,14 +538,14 @@ plot_partial_residuals <- function(data, mod_ne, mod_niche) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: pan-genome openness tracks lifestyle — free-living
+#' valence Prediction: pan-genome openness tracks lifestyle — free-living
 #' bacteria have more open pan-genomes than obligate intracellular
 #' symbionts. Competitor: Ne-only model predicts Ne drives pan-genome
-#' size regardless of lifestyle. This test DOES distinguish VI from
+#' size regardless of lifestyle. This test DOES distinguish valence from
 #' the Ne-only model.
 #'
-#' What supports VI: fluidity decreases from free-living to obligate.
-#' What refutes VI: no trend or reverse trend.
+#' What supports valence: fluidity decreases from free-living to obligate.
+#' What refutes valence: no trend or reverse trend.
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -626,13 +626,13 @@ plot_fluidity_by_lifestyle <- function(data) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: integration depth determines gene-loss order — deeply
+#' valence Prediction: integration depth determines gene-loss order — deeply
 #' integrated functions (high dependency score) are retained longer.
 #' Competitor: random loss predicts no ordering. This test DOES distinguish
-#' VI from random loss.
+#' valence from random loss.
 #'
-#' What supports VI: high Spearman rho (deeply integrated -> retained).
-#' What refutes VI: rho near zero (no ordering).
+#' What supports valence: high Spearman rho (deeply integrated -> retained).
+#' What refutes valence: rho near zero (no ordering).
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -742,13 +742,13 @@ plot_rank_rank_heatmap <- function(data, show_dendrogram = FALSE) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: function-loss mutations co-segregate with beneficial
+#' valence Prediction: function-loss mutations co-segregate with beneficial
 #' mutations (passive drift in unused genes). Competitor: independent
 #' assortment predicts 61.7% co-segregation. Reported as suggestive due
 #' to hitchhiking confound.
 #'
-#' What supports VI: observed co-segregation is significantly lower than
-#' expected by chance. What refutes VI: observed rate equals or exceeds
+#' What supports valence: observed co-segregation is significantly lower than
+#' expected by chance. What refutes valence: observed rate equals or exceeds
 #' expected rate.
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
@@ -821,13 +821,13 @@ plot_observed_vs_expected_bar <- function(observed, expected, ci) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+#' valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 #' rapidly at rate proportional to lambda * M0), slow Phase 2 (protected
 #' traits remain at 1.0). The phase boundary occurs when mismatch decays
 #' below the threshold fraction.
 #'
-#' What supports VI: clear inflection point between steep and shallow
-#' retention decline. What refutes VI: constant-rate decline.
+#' What supports valence: clear inflection point between steep and shallow
+#' retention decline. What refutes valence: constant-rate decline.
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -971,14 +971,14 @@ plot_retention_trajectory <- function(model_result, depths = NULL) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: irreversibility — substrate-shift creates a bifurcation
+#' valence Prediction: irreversibility — substrate-shift creates a bifurcation
 #' that is difficult to reverse. The cusp catastrophe models this: smooth
 #' changes in control parameters produce sudden, irreversible jumps.
 #' Competitor: gradual reversibility (standard quantitative genetics
 #' predicts smooth recovery when selection pressure is removed).
 #'
-#' What supports VI: clear bifurcation region and hysteresis loop.
-#' What refutes VI: no bifurcation (smooth transitions everywhere).
+#' What supports valence: clear bifurcation region and hysteresis loop.
+#' What refutes valence: no bifurcation (smooth transitions everywhere).
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -1130,13 +1130,13 @@ plot_cusp_bifurcation <- function(a_range, b_range, grid_size = 50L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: positive diversity-dependence in the cultural substrate
+#' valence Prediction: positive diversity-dependence in the cultural substrate
 #' (the Homo inversion). Competitor: standard niche-filling predicts
 #' negatively diversity-dependent (logistic) growth. This test DOES
-#' distinguish VI from niche-filling.
+#' distinguish valence from niche-filling.
 #'
-#' What supports VI: log-log slope > 1 (superlinear growth).
-#' What refutes VI: log-log slope <= 1 (linear or sublinear).
+#' What supports valence: log-log slope > 1 (superlinear growth).
+#' What refutes valence: log-log slope <= 1 (linear or sublinear).
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)
 #'
@@ -1295,12 +1295,12 @@ plot_loglog_growth <- function(counts, catalyst_matrix = NULL,
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: integration-depth parameters transfer across kingdoms.
+#' valence Prediction: integration-depth parameters transfer across kingdoms.
 #' Competitor: substrates are independent — no parameter transfer. This
-#' test DOES distinguish VI. This is the strongest test in the monograph.
+#' test DOES distinguish valence. This is the strongest test in the monograph.
 #'
-#' What supports VI: bird ordering predicted by plant-derived slope matches
-#' observed ordering (high Spearman rho). What refutes VI: no match
+#' What supports valence: bird ordering predicted by plant-derived slope matches
+#' observed ordering (high Spearman rho). What refutes valence: no match
 #' (rho near zero).
 #'
 #' @dft A1 (pure — data in, ggplot2 object out), A6 (structured, inspectable)

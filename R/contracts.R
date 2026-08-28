@@ -1,4 +1,4 @@
-#' Contract validators for VI foundry data
+#' Contract validators for valence foundry data
 #'
 #' These functions validate inputs at function entry and outputs at exit,
 #' enforcing the MPI Handoff Blueprint's pure-function contract discipline.
@@ -25,7 +25,7 @@ NULL
 #' @section Theoretical Context:
 #'
 #' Phylogenetic trees are required for PGLS (T1, T2) to correct for
-#' non-independence of species due to shared evolutionary history. VI's
+#' non-independence of species due to shared evolutionary history. Valence's
 #' PGLS predictions require a resolved tree with branch lengths. A
 #' competitor using non-phylogenetic regression (OLS) does not need this
 #' contract — but OLS inflates false positives when species are
@@ -73,7 +73,7 @@ validate_phylo_tree <- function(tree, min_taxa = 3L) {
 #'
 #' @section Theoretical Context:
 #'
-#' Plastome data tests VI's prediction that genome reduction tracks
+#' Plastome data tests valence's prediction that genome reduction tracks
 #' parasitism depth (integration-depth ordering). The competitor
 #' (relaxed selection, Lahti 2009) predicts the same gradient but
 #' through a different mechanism. This data alone cannot distinguish
@@ -127,7 +127,7 @@ validate_plastome_data <- function(data,
 #'
 #' @section Theoretical Context:
 #'
-#' The parasitism score is VI's integration-depth proxy for Orobanchaceae:
+#' The parasitism score is valence's integration-depth proxy for Orobanchaceae:
 #' higher score = deeper niche commitment = more capacity reallocation.
 #' The competitor (relaxed selection) treats this as a time-since-relaxation
 #' proxy. Both use the same variable but interpret it differently.
@@ -160,11 +160,11 @@ validate_parasitism_scores <- function(scores) {
 #'
 #' @section Theoretical Context:
 #'
-#' Endosymbiont data tests VI's biphasic kinetics prediction: fast
+#' Endosymbiont data tests valence's biphasic kinetics prediction: fast
 #' initial genome reduction (Phase 1) followed by slow reduction (Phase 2).
 #' The competitor (constant-rate, Lynch 2007) predicts linear reduction.
 #' McCutcheon's metabolic complementarity predicts the same correlation
-#' as VI — this test does NOT distinguish VI from McCutcheon.
+#' as valence — this test does NOT distinguish valence from McCutcheon.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function
@@ -206,10 +206,10 @@ validate_endosymbiont_data <- function(data) {
 #'
 #' @section Theoretical Context:
 #'
-#' Gene category data tests VI's integration-depth ordering prediction:
+#' Gene category data tests valence's integration-depth ordering prediction:
 #' deeply integrated functions (high dependency score) resist loss more
 #' than shallowly integrated ones. The competitor (random loss) predicts
-#' no ordering. This test DOES distinguish VI from random loss — it is
+#' no ordering. This test DOES distinguish valence from random loss — it is
 #' one of the distinguishing tests in the monograph.
 #'
 #' @dft
@@ -260,7 +260,7 @@ validate_gene_categories <- function(data) {
 #' Bird morphology data tests the L3 cross-kingdom prediction: plant-derived
 #' integration-depth parameters predict bird morphological change ordering.
 #' The competitor (substrates are independent) predicts no transfer. This
-#' test DOES distinguish VI — it is the strongest test in the monograph.
+#' test DOES distinguish valence — it is the strongest test in the monograph.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function
@@ -311,7 +311,7 @@ validate_bird_morphology <- function(data) {
 #' The retention matrix is the empirical data for the formal model: it
 #' records plastid-gene retention (0–1) for 8 Orobanchaceae species across a
 #' parasitism gradient (0–4) and 6 gene categories with dependency scores
-#' (0–5). VI predicts: higher dependency → higher retention (dep > 0);
+#' (0–5). Valence predicts: higher dependency → higher retention (dep > 0);
 #' deeper parasitism → lower retention (para < 0). The competitor (random
 #' loss) predicts no dep effect. The author's original GLM produced the wrong
 #' sign because of a data-flattening bug (Remark R7); this validator guards
@@ -374,9 +374,9 @@ validate_retention_data <- function(data) {
 #'
 #' @section Theoretical Context:
 #'
-#' Bobay-Ochman data tests VI's prediction that niche breadth predicts
+#' Bobay-Ochman data tests valence's prediction that niche breadth predicts
 #' gene loss better than Ne alone. The competitor (drift, Lynch 2007)
-#' predicts Ne is the primary driver. This test DOES distinguish VI
+#' predicts Ne is the primary driver. This test DOES distinguish valence
 #' from drift — it is a distinguishing test.
 #'
 #' @dft
@@ -420,10 +420,10 @@ validate_niche_data <- function(data) {
 #'
 #' @section Theoretical Context:
 #'
-#' Pangenome data tests VI's prediction that pan-genome openness tracks
+#' Pangenome data tests valence's prediction that pan-genome openness tracks
 #' lifestyle (commensal vs free-living). The competitor (Ne-only model)
 #' predicts Ne drives pangenome size regardless of lifestyle. This test
-#' DOES distinguish VI from the Ne-only model.
+#' DOES distinguish valence from the Ne-only model.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function

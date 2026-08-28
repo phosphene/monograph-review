@@ -17,7 +17,7 @@ Orobanchaceae, along with the phylogenetic tree.
 \section{Theoretical Context}{
 
 
-Tests VI Prediction D5: plastome size correlates with parasitism level.
+Tests valence Prediction D5: plastome size correlates with parasitism level.
 Competitor: relaxed selection (Lahti 2009) predicts the same gradient.
 This data feeds T1 (PGLS) and T6 (gene-loss ordering).
 }

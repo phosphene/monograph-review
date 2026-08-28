@@ -1,12 +1,12 @@
-#' Phase 6: Economics Extension — VI Predictions in Economic Substrates
+#' Phase 6: Economics Extension — valence Predictions in Economic Substrates
 #'
-#' Pure functions that carry the Valence-Ingression (VI) framework's
+#' Pure functions that carry the Valence-Ingression framework's
 #' integration-depth and commitment dynamics into economic systems:
 #' disruptive industry collapse trajectories, option-value destruction under
 #' lock-in, stochastic first-passage to irreversibility, and threshold-gated
 #' cascade disruption. Each function is DFI-compliant (A1 pure, A2 seeded
 #' determinism, A6 proof object) and mirrors the paper scripts under
-#' `drafts/vi-econ-papers/`.
+#' `drafts/valence-econ-papers/`.
 #'
 #' @section DFT Axioms:
 #' - A1 (pure-io-separation): every function is pure — data in, data out
@@ -52,7 +52,7 @@ validate_econ_data <- function(data, need_trigger = FALSE) {
 
 #' Compute CDI trajectories for economic systems
 #'
-#' Converts the VI economics `capacity` time series into Commitment/
+#' Converts the valence economics `capacity` time series into Commitment/
 #' Disintegration Index (CDI) trajectories — `CDI = 1 - capacity/peak` — and
 #' compares the trajectory shape (linear vs log vs quadratic) for each system.
 #' This is the pure-function adaptation of Paper 1's `compute_cdi` and
@@ -71,17 +71,17 @@ validate_econ_data <- function(data, need_trigger = FALSE) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: capacity loss in disrupted industries follows a decelerating
+#' valence Prediction: capacity loss in disrupted industries follows a decelerating
 #' (log/logistic/saturating) CDI trajectory — commitment accrues fast early,
 #' then slows — rather than linear or exponential collapse.
 #'
 #' Competitor: constant-rate decay (exponential) predicts a linear rate of
 #' capacity loss and an accelerating CDI in these units. This test DOES
-#' distinguish VI from constant-rate decay: VI predicts the log or quadratic
+#' distinguish valence from constant-rate decay: valence predicts the log or quadratic
 #' (decelerating) model wins on AIC across independent industries.
 #'
-#' What supports VI: log/quadratic models outperform linear (decelerating CDI).
-#' What refutes VI: linear or exponential models dominate.
+#' What supports valence: log/quadratic models outperform linear (decelerating CDI).
+#' What refutes valence: linear or exponential models dominate.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function, no file I/O
@@ -189,31 +189,31 @@ cdi_economics <- function(data, seed = 42L) {
 #' Models the devaluation of a disrupted industry's option to pivot as a
 #' function of CDI (commitment) rather than calendar time. Adapted from
 #' Paper 1's option-value-decay section: the standard model decays option
-#' value exponentially in time; VI couples decay to CDI itself.
+#' value exponentially in time; valence couples decay to CDI itself.
 #'
 #' @param data Data frame with columns `system`, `year`, `capacity`.
 #' @param seed Integer. Seed for reproducibility (A2: injectable).
 #'
 #' @return List (A6: proof object):
 #'   \item{values}{Named numeric: n_systems, mean_early_resid, mean_late_resid,
-#'     vi_pattern_share (fraction of systems showing the VI residual pattern),
+#'     valence_pattern_share (fraction of systems showing the valence residual pattern),
 #'     mean_standard_decay_rate}
 #'   \item{metadata}{List: seed, n (systems), per_system, converged}
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: because option value tracks remaining capacity (1 - CDI),
+#' valence Prediction: because option value tracks remaining capacity (1 - CDI),
 #' and CDI grows deceleratingly, the standard exponential-in-time decay model
 #' systematically over-estimates early option value and under-estimates late
 #' remaining value (residuals negative early, positive late).
 #'
 #' Competitor: standard financial-options / theta-decay model values the pivot
 #' option as a pure exponential in time, independent of commitment. This test
-#' DOES distinguish VI: it predicts a specific residual sign pattern relative
+#' DOES distinguish valence: it predicts a specific residual sign pattern relative
 #' to the exponential baseline.
 #'
-#' What supports VI: early residuals negative, late residuals positive.
-#' What refutes VI: the opposite or no systematic pattern.
+#' What supports valence: early residuals negative, late residuals positive.
+#' What refutes valence: the opposite or no systematic pattern.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function, no file I/O
@@ -270,7 +270,7 @@ option_destruction <- function(data, seed = 42L) {
         decay_rate = r_std,
         early_resid = early_resid,
         late_resid = late_resid,
-        vi_pattern = pattern
+        valence_pattern = pattern
       )
     }
 
@@ -289,8 +289,8 @@ option_destruction <- function(data, seed = 42L) {
           per_system, function(p) p$late_resid,
           numeric(1)
         )),
-        vi_pattern_share = mean(vapply(
-          per_system, function(p) p$vi_pattern,
+        valence_pattern_share = mean(vapply(
+          per_system, function(p) p$valence_pattern,
           numeric(1)
         )),
         mean_standard_decay_rate = mean(vapply(per_system, function(p) {
@@ -314,7 +314,7 @@ option_destruction <- function(data, seed = 42L) {
 #' Stochastic CDI first-passage simulation
 #'
 #' Simulates a single stochastic Commitment/Disintegration Index (CDI) path
-#' under the VI logistic-drift, commitment-damped-volatility SDE and returns
+#' under the valence logistic-drift, commitment-damped-volatility SDE and returns
 #' the first-passage time to a threshold. Adapted from Paper 2's
 #' `simulate_cdi_path` as a pure, seedable function.
 #'
@@ -334,7 +334,7 @@ option_destruction <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: commitment (CDI) is autocatalytic under logistic drift and
+#' valence Prediction: commitment (CDI) is autocatalytic under logistic drift and
 #' reaches irreversibility (threshold) with probability 1, while volatility is
 #' damped as commitment grows (`sigma0 * (1 - CDI)`). First-passage times are
 #' the economic analog of time-to-irreversibility in the monograph.
@@ -342,10 +342,10 @@ option_destruction <- function(data, seed = 42L) {
 #' Competitor: a constant-drift / constant-volatility random walk (Merton-style
 #' baseline) predicts the same mean first-passage time but with hazard that is
 #' constant over time, not increasing with CDI. The logistic-drift + damped
-#' volatility structure DOES distinguish VI from the constant baseline.
+#' volatility structure DOES distinguish valence from the constant baseline.
 #'
-#' What supports VI: first-passage times that are realistic and hazard that
-#' increases with CDI. What refutes VI: paths that wander without converging
+#' What supports valence: first-passage times that are realistic and hazard that
+#' increases with CDI. What refutes valence: paths that wander without converging
 #' to the threshold.
 #'
 #' @dft
@@ -451,17 +451,17 @@ stochastic_cdi <- function(mu0, sigma0, cdi_init = 0.01, dt = 0.01,
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: capability/capacity loss is threshold-gated — reversible
+#' valence Prediction: capability/capacity loss is threshold-gated — reversible
 #' erosion below a trigger, then a correlated cascade once a functionally
 #' coherent capability module enters "relaxed selection." A piecewise model
 #' with a breakpoint at the trigger year should beat a smooth linear model.
 #'
 #' Competitor: smooth, single-regime decay (constant-rate) predicts a piecewise
-#' model adds no predictive value. This test DOES distinguish VI: it predicts a
+#' model adds no predictive value. This test DOES distinguish valence: it predicts a
 #' material ΔAIC and a steeper post-trigger slope.
 #'
-#' What supports VI: piecewise AIC < linear AIC and late/early slope ratio > 1.
-#' What refutes VI: no improvement from the piecewise model.
+#' What supports valence: piecewise AIC < linear AIC and late/early slope ratio > 1.
+#' What refutes valence: no improvement from the piecewise model.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function, no file I/O

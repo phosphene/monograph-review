@@ -21,7 +21,7 @@
 #   Rscript scripts/run_simulacra.R --output dir      # <dir>/
 #   Rscript scripts/run_simulacra.R --n-sims 50       # more simulations
 
-library(vi.foundry)
+library(valence.foundry)
 
 # --- Parse args ---
 args <- commandArgs(trailingOnly = TRUE)
@@ -39,7 +39,7 @@ while (i <= length(args)) {
 }
 
 # --- Source simulacrum generators (they live in inst/simulacra/, not R/) ---
-.sim_dir <- system.file("simulacra", package = "vi.foundry")
+.sim_dir <- system.file("simulacra", package = "valence.foundry")
 if (!nzchar(.sim_dir)) .sim_dir <- "inst/simulacra"
 for (f in c("generate_synthetic_population.R", "generate_biphasic_genome.R",
             "generate_cross_kingdom.R", "generate_cusp_system.R",

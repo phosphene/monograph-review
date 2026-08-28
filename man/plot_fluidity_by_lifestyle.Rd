@@ -21,14 +21,14 @@ from free-living to obligate (increasing host dependence).
 \section{Theoretical Context}{
 
 
-VI Prediction: pan-genome openness tracks lifestyle — free-living
+Valence Prediction: pan-genome openness tracks lifestyle — free-living
 bacteria have more open pan-genomes than obligate intracellular
 symbionts. Competitor: Ne-only model predicts Ne drives pan-genome
-size regardless of lifestyle. This test DOES distinguish VI from
+size regardless of lifestyle. This test DOES distinguish valence from
 the Ne-only model.
 
-What supports VI: fluidity decreases from free-living to obligate.
-What refutes VI: no trend or reverse trend.
+What supports valence: fluidity decreases from free-living to obligate.
+What refutes valence: no trend or reverse trend.
 }
 
 \examples{

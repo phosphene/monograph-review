@@ -8,7 +8,7 @@
 #'
 #' This is the relaxation-formula fitter, complementing the step-function
 #' fitter in \code{fit_step.R}. The bi-exponential model captures the
-#' two-timescale relaxation dynamics predicted by the VI relaxation formula
+#' two-timescale relaxation dynamics predicted by the valence relaxation formula
 #' \eqn{d\rho/dt = -k_1(\rho - \rho_1) - k_2(\rho - \rho_2)}.
 #'
 #' The step-function fitter (\code{fit_step.R}) is preserved for
@@ -19,14 +19,39 @@
 #'
 #' @section Fitting Strategy:
 #'
-#' Uses \code{nlsLM} (Levenberg-Marquardt from \code{minpack.lm}) if
-#' available, which is more robust than \code{nls} for exponential models.
-#' Falls back to \code{nls} with multiple starting-value attempts.
+#' The two-timescale fit is notoriously ill-conditioned: the fast channel
+#' decays within the first few sampling intervals, so naive starting values
+#' routinely fail to converge or collapse both channels onto the slow rate.
+#' Three defences are layered here:
+#'
+#' \enumerate{
+#'   \item \strong{Exponential peeling} produces data-derived starting
+#'     values. The slow phase \eqn{(c_0, A_2, k_2)} is estimated by a
+#'     log-linear regression on the tail (where the fast channel is dead),
+#'     then the fast channel \eqn{(A_1, k_1)} is estimated from the early
+#'     residual. This puts the optimizer in the correct basin on any time
+#'     scale, including after \eqn{t}-normalisation.
+#'   \item \strong{Log-rate reparameterisation}: the fit is performed on
+#'     \eqn{(\log k_1, \log k_2)} so rates are structurally positive and the
+#'     Jacobian never degenerates from negative-rate drift. Coefficients are
+#'     reported on the natural scale.
+#'   \item \strong{Convention fix}: after fitting, the channels are labelled
+#'     so that \eqn{k_1 \ge k_2} (fast/slow hierarchy) regardless of which
+#'     basin the optimizer found.
+#' }
+#'
+#' \code{nlsLM} (Levenberg-Marquardt from \code{minpack.lm}) is used when
+#' available; otherwise \code{stats::nls} with the log-rate
+#' parameterisation, which is far more robust than fitting raw rates.
 #'
 #' @param t Numeric vector. Time points.
 #' @param rho Numeric vector. Retention correlation or response variable.
-#' @param normalize_t Logical. If \code{TRUE} (default), normalise t to
-#'   [0, 1] before fitting. This improves numerical stability.
+#' @param normalize_t Logical. If \code{TRUE} (default), reported rates are
+#'   per normalised-time unit (t in [0, 1]); if \code{FALSE}, rates are
+#'   reported per raw time unit. The fit itself is always performed on
+#'   normalised time (see Fitting Strategy), so model selection and
+#'   convergence are identical for both settings — only the rate scale and
+#'   halflife interpretation differ.
 #'
 #' @return List with elements:
 #'   \describe{
@@ -66,18 +91,24 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
          call. = FALSE)
   }
 
-  # Normalise time to [0, 1] for numerical stability
-  t_scale <- if (normalize_t) {
-    t_range <- max(t, na.rm = TRUE) - min(t, na.rm = TRUE)
-    if (t_range == 0) t_range <- 1
-    (t - min(t, na.rm = TRUE)) / t_range
-  } else {
-    t
-  }
+  # Always fit on normalised time to [0, 1]. The model space is closed
+  # under time-scaling (rho = c0 + A1*exp(-k1*t) + A2*exp(-k2*t), t -> a*t
+  # is absorbed into k -> k/a), so the least-squares optimum, RSS and AIC
+  # are identical on any scale. Fitting unconditionally on normalised t
+  # makes model selection and convergence scale-invariant; normalize_t only
+  # controls the SCALE at which rates are REPORTED (see below).
+  t_range <- max(t, na.rm = TRUE) - min(t, na.rm = TRUE)
+  if (!is.finite(t_range) || t_range == 0) t_range <- 1
+  t_scale <- (t - min(t, na.rm = TRUE)) / t_range
 
   ord <- order(t_scale)
   t_s <- t_scale[ord]
   rho_s <- rho[ord]
+
+  # Reporting scale for rates: 1 reports per-normalised-unit rates
+  # (normalize_t = TRUE); t_range reports per-raw-time-unit rates
+  # (normalize_t = FALSE): k_raw = k_norm / t_range.
+  report_scale <- if (normalize_t) 1 else t_range
 
   # --- Helper: approximate AIC ---
   aic_val <- function(rss, k, n) {
@@ -91,40 +122,43 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   lm_aic <- aic_val(lm_rss, 3, n)
 
   # --- Mono-exponential: rho = c0 + A * exp(-k * t) ---
+  # Log-rate parameterisation: logk is free, k = exp(logk) is positive.
   mono_fit <- NULL
   mono_rss <- Inf
   mono_aic <- Inf
   mono_coef <- list(c0 = NA_real_, A = NA_real_, k = NA_real_)
   mono_converged <- FALSE
 
-  # Try nlsLM if available, else nls
   rho_range <- max(rho_s, na.rm = TRUE) - min(rho_s, na.rm = TRUE)
   c0_guess <- min(rho_s, na.rm = TRUE)
   A_guess <- rho_range
   k_guess <- 1.0
 
-  mono_start <- list(c0 = c0_guess, A = A_guess, k = k_guess)
+  mono_start <- list(c0 = c0_guess, A = A_guess, logk = log(k_guess))
 
   if (requireNamespace("minpack.lm", quietly = TRUE)) {
     mono_fit <- tryCatch({
-      minpack.lm::nlsLM(rho_s ~ c0 + A * exp(-k * t_s),
+      minpack.lm::nlsLM(rho_s ~ c0 + A * exp(-exp(logk) * t_s),
                         start = mono_start,
                         control = minpack.lm::nls.lm.control(
-                          maxiter = 200, ftol = 1e-8, ptol = 1e-8))
+                          maxiter = 500, ftol = 1e-8, ptol = 1e-8))
     }, error = function(e) NULL)
   } else {
     mono_fit <- tryCatch({
-      stats::nls(rho_s ~ c0 + A * exp(-k * t_s),
+      stats::nls(rho_s ~ c0 + A * exp(-exp(logk) * t_s),
                  start = mono_start,
                  control = stats::nls.control(
-                   maxiter = 200, minFactor = 1e-6))
+                   maxiter = 500, minFactor = 1e-8))
     }, error = function(e) NULL)
   }
 
   if (!is.null(mono_fit)) {
+    raw_coef <- stats::coef(mono_fit)
     mono_rss <- sum(stats::residuals(mono_fit)^2)
     mono_aic <- aic_val(mono_rss, 4, n)
-    mono_coef <- as.list(stats::coef(mono_fit))
+    mono_coef <- list(c0 = unname(raw_coef[["c0"]]),
+                      A = unname(raw_coef[["A"]]),
+                      k = unname(exp(raw_coef[["logk"]])) / report_scale)
     mono_converged <- TRUE
   }
 
@@ -136,9 +170,11 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
                   A2 = NA_real_, k2 = NA_real_)
   bi_converged <- FALSE
 
-  # Multiple starting-value attempts
-  # Pattern: k1 is fast (large), k2 is slow (small)
-  starts <- list(
+  # --- Data-derived start via exponential peeling (see Fitting Strategy) ---
+  peel <- .peel_biexp_starts(t_s, rho_s)
+
+  # Grid of fallback starts. Pattern: k1 is fast (large), k2 is slow (small).
+  grid <- list(
     list(c0 = c0_guess, A1 = rho_range * 0.7, k1 = 2, A2 = rho_range * 0.3, k2 = 0.05),
     list(c0 = c0_guess, A1 = rho_range * 0.8, k1 = 5, A2 = rho_range * 0.2, k2 = 0.1),
     list(c0 = c0_guess, A1 = rho_range * 0.6, k1 = 10, A2 = rho_range * 0.4, k2 = 0.5),
@@ -146,22 +182,32 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
     list(c0 = c0_guess, A1 = rho_range * 0.9, k1 = 20, A2 = rho_range * 0.1, k2 = 1),
     list(c0 = c0_guess, A1 = rho_range * 0.75, k1 = 3, A2 = rho_range * 0.25, k2 = 0.02)
   )
+  starts <- c(list(peel), grid)
 
   for (st in starts) {
     fit <- NULL
+    nls_start <- list(
+      c0 = st$c0,
+      A1 = st$A1,
+      logk1 = log(max(st$k1, 1e-9)),
+      A2 = st$A2,
+      logk2 = log(max(st$k2, 1e-9))
+    )
     if (requireNamespace("minpack.lm", quietly = TRUE)) {
       fit <- tryCatch({
-        minpack.lm::nlsLM(rho_s ~ c0 + A1 * exp(-k1 * t_s) + A2 * exp(-k2 * t_s),
-                          start = st,
-                          control = minpack.lm::nls.lm.control(
-                            maxiter = 500, ftol = 1e-8, ptol = 1e-8))
+        minpack.lm::nlsLM(
+          rho_s ~ c0 + A1 * exp(-exp(logk1) * t_s) + A2 * exp(-exp(logk2) * t_s),
+          start = nls_start,
+          control = minpack.lm::nls.lm.control(
+            maxiter = 500, ftol = 1e-8, ptol = 1e-8))
       }, error = function(e) NULL)
     } else {
       fit <- tryCatch({
-        stats::nls(rho_s ~ c0 + A1 * exp(-k1 * t_s) + A2 * exp(-k2 * t_s),
-                   start = st,
-                   control = stats::nls.control(
-                     maxiter = 500, minFactor = 1e-8))
+        stats::nls(
+          rho_s ~ c0 + A1 * exp(-exp(logk1) * t_s) + A2 * exp(-exp(logk2) * t_s),
+          start = nls_start,
+          control = stats::nls.control(
+            maxiter = 500, minFactor = 1e-8))
       }, error = function(e) NULL)
     }
 
@@ -175,8 +221,22 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   }
 
   if (!is.null(bi_fit)) {
+    raw_coef <- stats::coef(bi_fit)
     bi_aic <- aic_val(bi_rss, 6, n)
-    bi_coef <- as.list(stats::coef(bi_fit))
+    bi_coef <- list(
+      c0 = unname(raw_coef[["c0"]]),
+      A1 = unname(raw_coef[["A1"]]),
+      k1 = unname(exp(raw_coef[["logk1"]])) / report_scale,
+      A2 = unname(raw_coef[["A2"]]),
+      k2 = unname(exp(raw_coef[["logk2"]])) / report_scale
+    )
+    # Fast/slow convention: k1 >= k2 (swap channels if the optimizer
+    # converged to the mirror-image basin).
+    if (bi_coef$k1 < bi_coef$k2) {
+      tmp_k <- bi_coef$k1; tmp_A <- bi_coef$A1
+      bi_coef$k1 <- bi_coef$k2; bi_coef$A1 <- bi_coef$A2
+      bi_coef$k2 <- tmp_k; bi_coef$A2 <- tmp_A
+    }
     bi_converged <- TRUE
   }
 
@@ -206,13 +266,17 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   } else {
     NA_real_
   }
-  k1_halflife <- if (is.finite(k1) && k1 > 0) {
-    log(2) / k1 * (max(t) - min(t))
+  # Halflives are physical (raw-time) quantities: halflife = log(2) / k_raw,
+  # and k_raw = k_norm / t_range, so halflife = log(2) * t_range / k_norm.
+  k1_norm <- k1 * report_scale   # per-normalised-unit rate
+  k2_norm <- k2 * report_scale
+  k1_halflife <- if (is.finite(k1_norm) && k1_norm > 0) {
+    log(2) * t_range / k1_norm
   } else {
     NA_real_
   }
-  k2_halflife <- if (is.finite(k2) && k2 > 0) {
-    log(2) / k2 * (max(t) - min(t))
+  k2_halflife <- if (is.finite(k2_norm) && k2_norm > 0) {
+    log(2) * t_range / k2_norm
   } else {
     NA_real_
   }
@@ -257,4 +321,87 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
       A2_frac = A2_frac
     )
   )
+}
+
+#' Exponential peeling starting values for bi-exponential fitting
+#'
+#' Estimates \eqn{(c_0, A_2, k_2)} from the tail of the decay (where the
+#' fast channel has fully decayed) via log-linear regression, then estimates
+#' \eqn{(A_1, k_1)} from the early residual after removing the slow channel.
+#'
+#' Pure function of the (already ordered, already scaled) data — DFT A1/A2.
+#'
+#' @param t_s Numeric vector. Ordered, scaled time points (first is the
+#'   minimum).
+#' @param rho_s Numeric vector. Response ordered with \code{t_s}.
+#' @return List with components \code{c0}, \code{A1}, \code{k1}, \code{A2},
+#'   \code{k2} on the fit scale.
+#' @keywords internal
+.peel_biexp_starts <- function(t_s, rho_s) {
+  n <- length(t_s)
+  c0 <- min(rho_s)
+  y <- pmax(rho_s - c0, 1e-12)
+
+  # Noise estimate from the plateau (last 20% of points)
+  plateau <- max(floor(n * 0.8), 1):n
+  noise_hat <- stats::sd(rho_s[plateau])
+  if (is.na(noise_hat) || noise_hat == 0) noise_hat <- 1e-9
+  thr <- max(3 * noise_hat, 1e-9)
+
+  # Slow channel: tail points above the noise floor, t_s >= 0.15
+  k2 <- 0.5
+  A2 <- 0.3 * max(y)
+  tail_idx <- which(y > thr & t_s >= 0.15)
+  if (length(tail_idx) >= 5) {
+    tail_fit <- tryCatch(
+      stats::lm(log(y[tail_idx]) ~ t_s[tail_idx]),
+      error = function(e) NULL)
+    if (!is.null(tail_fit)) {
+      slope <- stats::coef(tail_fit)[[2]]
+      intercept <- stats::coef(tail_fit)[[1]]
+      k2_hat <- -unname(slope)
+      A2_hat <- exp(unname(intercept))
+      if (is.finite(k2_hat) && k2_hat > 0 &&
+          is.finite(A2_hat) && A2_hat > 0) {
+        k2 <- k2_hat
+        A2 <- min(A2_hat, max(y) * 1.5)
+      }
+    }
+  }
+
+  # Fast channel: early residual after removing the slow channel
+  res <- y - A2 * exp(-k2 * t_s)
+  k1 <- k2 * 10
+  A1 <- max(max(res), max(y) * 0.5)
+  early_idx <- which(t_s <= 0.25)
+  pos <- early_idx[res[early_idx] > thr]
+  if (length(pos) >= 2) {
+    res_fit <- tryCatch(
+      stats::lm(log(res[pos]) ~ t_s[pos]),
+      error = function(e) NULL)
+    if (!is.null(res_fit)) {
+      slope <- stats::coef(res_fit)[[2]]
+      intercept <- stats::coef(res_fit)[[1]]
+      k1_hat <- -unname(slope)
+      A1_hat <- exp(unname(intercept))
+      if (is.finite(k1_hat) && k1_hat > k2 &&
+          is.finite(A1_hat) && A1_hat > 0) {
+        k1 <- k1_hat
+        A1 <- min(A1_hat, max(y) * 1.5)
+      }
+    }
+  } else if (length(pos) == 1 && n > 1) {
+    # Two-point estimate: t_s[1] == 0, so rho_s[1] - c0 == res at t = 0
+    r0 <- res[1]
+    p1 <- pos[1]
+    if (r0 > thr && res[p1] > 0 && (t_s[p1] - t_s[1]) > 0) {
+      k1_hat <- -log(res[p1] / r0) / (t_s[p1] - t_s[1])
+      if (is.finite(k1_hat) && k1_hat > k2) {
+        k1 <- k1_hat
+        A1 <- r0
+      }
+    }
+  }
+
+  list(c0 = c0, A1 = A1, k1 = k1, A2 = A2, k2 = k2)
 }

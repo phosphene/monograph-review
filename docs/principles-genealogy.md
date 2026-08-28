@@ -3,7 +3,7 @@ uri: docs/principles-genealogy
 owner: edphos
 status: living
 updated: 2026-08-21
-lineage: Aristotle → Ockham → Darwin → Beck → phosphene → vi-foundry
+lineage: Aristotle → Ockham → Darwin → Beck → phosphene → valence-foundry
 ---
 
 # A Genealogy of Principles
@@ -33,7 +33,7 @@ Beck — The test as epistemic probe (2003)
 phosphene — Test as information, not gate (2014)
         │
         ▼
-vi-foundry — Spec as design probe + parsimony floor (2026)
+Valence-foundry — Spec as design probe + parsimony floor (2026)
 ```
 
 ## Principle 1: Parsimony
@@ -43,11 +43,11 @@ vi-foundry — Spec as design probe + parsimony floor (2026)
 
 **In science:** Darwin didn't claim to know how variation arose. He claimed that variation exists and selection acts on it. The mechanism was below his budget floor. He explained what he could measure and stopped.
 
-**In software:** Don't add abstractions, frameworks, or indirections unless they're necessary. The 2014 phosphene repo used React + webpack + Babel + Karma + Enzyme — that was the necessary stack for hot-loading D3 in 2014. The 2026 vi-foundry uses vanilla D3 + ES modules + Jasmine — because that's all that's necessary now. The framework disappeared. The principle stayed.
+**In software:** Don't add abstractions, frameworks, or indirections unless they're necessary. The 2014 phosphene repo used React + webpack + Babel + Karma + Enzyme — that was the necessary stack for hot-loading D3 in 2014. The 2026 valence-foundry uses vanilla D3 + ES modules + Jasmine — because that's all that's necessary now. The framework disappeared. The principle stayed.
 
-**In the VI framework:** The bi-exponential holds at the food level. The budget floor is the parsimony floor. No pre-programming, no cognition, no mechanism claim below the observable dynamics. When the math works, you don't invoke intelligence — the structure explains itself. This is Ockham's razor applied to biology: don't posit a cognitive layer when a relaxation kinetics layer suffices.
+**In the valence framework:** The bi-exponential holds at the food level. The budget floor is the parsimony floor. No pre-programming, no cognition, no mechanism claim below the observable dynamics. When the math works, you don't invoke intelligence — the structure explains itself. This is Ockham's razor applied to biology: don't posit a cognitive layer when a relaxation kinetics layer suffices.
 
-**The inheritance:** Ockham → Darwin (explain through material constraints) → vi-foundry (the parsimony floor). The principle is the same: stop at what you can measure.
+**The inheritance:** Ockham → Darwin (explain through material constraints) → valence-foundry (the parsimony floor). The principle is the same: stop at what you can measure.
 
 ## Principle 2: Falsifiability
 
@@ -56,11 +56,11 @@ vi-foundry — Spec as design probe + parsimony floor (2026)
 
 **In science:** A theory that can accommodate any observation explains nothing. Einstein predicted the bending of light during an eclipse — a specific, falsifiable claim. If the light didn't bend, general relativity would have been wrong.
 
-**In software:** A spec that can't fail isn't a spec — it's a tautology. The phosphene 2014 specs could fail: `expect(shallow(<Counter/>).find('h2').length).toBe(1)` — either the component renders an h2 or it doesn't. The 2026 vi-foundry specs can fail: `expect(computeOpacity('uniform_42', new Set(['two_tier_42']))).toBe(0.1)` — either the function returns 0.1 or it doesn't.
+**In software:** A spec that can't fail isn't a spec — it's a tautology. The phosphene 2014 specs could fail: `expect(shallow(<Counter/>).find('h2').length).toBe(1)` — either the component renders an h2 or it doesn't. The 2026 valence-foundry specs can fail: `expect(computeOpacity('uniform_42', new Set(['two_tier_42']))).toBe(0.1)` — either the function returns 0.1 or it doesn't.
 
-**In the VI framework:** The bubble sort contrast. When Levin's sort didn't work, he called it intelligence. That's unfalsifiable — the failure confirms the thesis. The VI framework takes the opposite stance: the bi-exponential fit either holds or it doesn't. ΔBIC is a number. R² is a number. If the fit fails, the theory fails. That's the Popperian commitment.
+**In the valence framework:** The bubble sort contrast. When Levin's sort didn't work, he called it intelligence. That's unfalsifiable — the failure confirms the thesis. The valence framework takes the opposite stance: the bi-exponential fit either holds or it doesn't. ΔBIC is a number. R² is a number. If the fit fails, the theory fails. That's the Popperian commitment.
 
-**The inheritance:** Popper → test-informed development (the spec must be able to fail) → vi-foundry (the math must fit or the theory is wrong). The principle: if it can't be wrong, it can't be right.
+**The inheritance:** Popper → test-informed development (the spec must be able to fail) → valence-foundry (the math must fit or the theory is wrong). The principle: if it can't be wrong, it can't be right.
 
 ## Principle 3: The Spec Precedes the Implementation
 
@@ -73,24 +73,24 @@ vi-foundry — Spec as design probe + parsimony floor (2026)
 
 The `xdescribe` in the 2014 repo is the purest expression: the spec exists as form, marked pending, informing the design without blocking it. The implementation is then built to match the form.
 
-**In vi-foundry:** The 38 specs were written before `cross-filter.js` existed. They defined `filterBySeeds(data, selectedSet) → filteredArray` — the formal cause. The implementation — `export function filterBySeeds(data, selectedSet) { ... }` — is the material cause, built to match.
+**In valence-foundry:** The 38 specs were written before `cross-filter.js` existed. They defined `filterBySeeds(data, selectedSet) → filteredArray` — the formal cause. The implementation — `export function filterBySeeds(data, selectedSet) { ... }` — is the material cause, built to match.
 
-**The inheritance:** Aristotle (formal causality) → Meyer (design by contract) → North (BDD: spec as behavior) → phosphene (spec as information) → vi-foundry (spec as interface blueprint). The principle: figure out what the thing should be before you build it.
+**The inheritance:** Aristotle (formal causality) → Meyer (design by contract) → North (BDD: spec as behavior) → phosphene (spec as information) → valence-foundry (spec as interface blueprint). The principle: figure out what the thing should be before you build it.
 
 ## Principle 4: Isolation of Logic from IO
 
-**Prior:** Aristotle's distinction between theoretical and practical knowledge → Dijkstra (1974: "On the role of scientific thought") → Hermetic Modular pattern (vi-foundry, 2026)
+**Prior:** Aristotle's distinction between theoretical and practical knowledge → Dijkstra (1974: "On the role of scientific thought") → Hermetic Modular pattern (valence-foundry, 2026)
 **Statement:** Pure logic should not depend on its environment. The function that computes should not be the function that renders.
 
 **In philosophy:** Aristotle distinguished episteme (theoretical knowledge — pure, universal) from techne (practical knowledge — applied, situated). A theorem in geometry doesn't change when you draw it on paper vs. chalkboard. The logic is independent of the medium.
 
 **In software:** Dijkstra said: "The art of programming is the art of organising unorganisation." The pure function — `filterBySeeds(data, set) → array` — knows nothing about D3, SVG, the DOM, or the browser. It operates on data structures. The renderer — `renderScatter({container, data, ...})` — takes the result and paints it. Logic here, IO there.
 
-**In vi-foundry:** The pure functions (`getAllDataPoints`, `filterBySeeds`, `computeOpacity`, `getSelectedSeeds`, `generateTrajectory`) have zero DOM dependency. They're testable from Node, from a browser, from any harness. The renderers take a config object and return an SVG selection. No hidden state. No side effects beyond the DOM they're given.
+**In valence-foundry:** The pure functions (`getAllDataPoints`, `filterBySeeds`, `computeOpacity`, `getSelectedSeeds`, `generateTrajectory`) have zero DOM dependency. They're testable from Node, from a browser, from any harness. The renderers take a config object and return an SVG selection. No hidden state. No side effects beyond the DOM they're given.
 
-**In the VI framework:** The Logic/IO Separation axiom. The mathematical model — ρ(t) = f·e^(−k₁t) + s·e^(−k₂t) — is pure logic. The simulation that produces the data is IO. The fit that recovers parameters is logic. The visualization that displays them is IO. You can run the model with paper and pencil. You need a computer for the simulation.
+**In the valence framework:** The Logic/IO Separation axiom. The mathematical model — ρ(t) = f·e^(−k₁t) + s·e^(−k₂t) — is pure logic. The simulation that produces the data is IO. The fit that recovers parameters is logic. The visualization that displays them is IO. You can run the model with paper and pencil. You need a computer for the simulation.
 
-**The inheritance:** Aristotle (episteme vs. techne) → Dijkstra (logic vs. hardware) → vi-foundry (pure functions vs. renderers). The principle: the computation is independent of the medium.
+**The inheritance:** Aristotle (episteme vs. techne) → Dijkstra (logic vs. hardware) → valence-foundry (pure functions vs. renderers). The principle: the computation is independent of the medium.
 
 ## Principle 5: Genealogical Thinking
 
@@ -107,7 +107,7 @@ The `xdescribe` in the 2014 repo is the purest expression: the spec exists as fo
 
 ## The Consolidation
 
-| Principle | Philosophical Prior | Software Inheritance | VI Framework Expression |
+| Principle | Philosophical Prior | Software Inheritance | valence Framework Expression |
 |-----------|--------------------|-----------------------|------------------------|
 | Parsimony | Ockham (~1320) | Minimal stack, no unnecessary frameworks | Budget floor = parsimony floor |
 | Falsifiability | Popper (1934) | Specs that can fail | ΔBIC is a number, not a narrative |
@@ -119,10 +119,10 @@ The `xdescribe` in the 2014 repo is the purest expression: the spec exists as fo
 
 This is not a README. It's not a tech doc. It's a genealogy — a tracing of descent through ideas. The technology is the contingent layer: React → vanilla, dc.js → D3 v7, Karma → Jasmine. The principles are the necessary layer: parsimony, falsifiability, spec-first, logic/IO isolation, genealogical thinking.
 
-The phosphene contribution was specific: applying test-informed development to interactive visualization. The vi-foundry inheritance is specific: carrying that discipline forward with a lighter stack, a richer domain, and a deeper lineage.
+The phosphene contribution was specific: applying test-informed development to interactive visualization. The valence-foundry inheritance is specific: carrying that discipline forward with a lighter stack, a richer domain, and a deeper lineage.
 
 The genealogy matters because it reveals that the principles are older than the tech. Ockham's razor is older than software. Aristotle's formal causality is older than D3. Popper's falsifiability is older than Jasmine. What we're doing is inheriting these principles and applying them to a new medium — the same way every generation does.
 
 ---
 
-*This document is part of the VI Foundry genealogy series. The prior is phosphene (2014). The principles are older. The inheritance is the discipline.*
+*This document is part of the Valence Foundry genealogy series. The prior is phosphene (2014). The principles are older. The inheritance is the discipline.*

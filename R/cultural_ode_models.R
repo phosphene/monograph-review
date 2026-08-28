@@ -17,7 +17,7 @@
 #'
 #' @dft A1, A2, A6
 #'
-#' @name vi_ode_models
+#' @name valence_ode_models
 NULL
 
 #' Analytical solution for VI ODE (generalized logistic with decay)
@@ -35,7 +35,7 @@ NULL
 #' @param B0 Initial B.
 #' @return Numeric vector. B(t).
 #' @export
-vi_ode_solution <- function(t, r, K, delta, B0) {
+valence_ode_solution <- function(t, r, K, delta, B0) {
   r_eff <- r - delta
   if (r_eff <= 0) return(rep(B0, length(t)))
   K_eff <- K * r_eff / r
@@ -134,13 +134,13 @@ mismatch_equation <- function(t, rho_eq0, r_B, k1) {
 #' @param seed Integer. For reproducibility.
 #' @return List (A6: proof object) with values and metadata.
 #' @export
-fit_vi_ode_models <- function(t, B, seed = 42L) {
+fit_valence_ode_models <- function(t, B, seed = 42L) {
   withr::with_seed(seed, {
     results <- list()
 
     # 1. VI ODE (generalized logistic with decay)
     # Try multiple starting points for robustness
-    vi_fit <- tryCatch({
+    fit_res <- tryCatch({
       best_fit <- NULL
       best_val <- Inf
       starts <- list(
@@ -153,7 +153,7 @@ fit_vi_ode_models <- function(t, B, seed = 42L) {
           stats::optim(
             par = start,
             fn = function(p) {
-              pred <- vi_ode_solution(t, p["r"], p["K"], p["delta"], p["B0"])
+              pred <- valence_ode_solution(t, p["r"], p["K"], p["delta"], p["B0"])
               if (any(is.na(pred)) || any(pred <= 0)) return(Inf)
               sum((log(B) - log(pred))^2)
             },
@@ -170,16 +170,16 @@ fit_vi_ode_models <- function(t, B, seed = 42L) {
       best_fit
     }, error = function(e) list(par = c(r=NA, K=NA, delta=NA, B0=NA), value = Inf))
 
-    vi_pred <- if (!is.infinite(vi_fit$value)) {
-      vi_ode_solution(t, vi_fit$par["r"], vi_fit$par["K"],
-                      vi_fit$par["delta"], vi_fit$par["B0"])
+    pred_res <- if (!is.infinite(fit_res$value)) {
+      valence_ode_solution(t, fit_res$par["r"], fit_res$par["K"],
+                      fit_res$par["delta"], fit_res$par["B0"])
     } else rep(NA, length(t))
 
-    vi_rss <- if (!any(is.na(vi_pred))) sum((B - vi_pred)^2) else NA
-    vi_npar <- 4
-    vi_aic <- if (!is.na(vi_rss)) {
+    rss <- if (!any(is.na(pred_res))) sum((B - pred_res)^2) else NA
+    npar <- 4
+    aic <- if (!is.na(rss)) {
       n <- length(B)
-      n * log(vi_rss / n) + 2 * vi_npar
+      n * log(rss / n) + 2 * npar
     } else NA
 
     # 2. Simple exponential
@@ -289,7 +289,7 @@ fit_vi_ode_models <- function(t, B, seed = 42L) {
     } else NA
 
     # Compile results
-    aics <- c(vi = vi_aic, exp = exp_aic, quad = quad_aic,
+    aics <- c(vi = aic, exp = exp_aic, quad = quad_aic,
               logistic = log_aic, biexp = biexp_aic)
     aics <- aics[!is.na(aics)]
     best_model <- names(which.min(aics))
@@ -298,15 +298,15 @@ fit_vi_ode_models <- function(t, B, seed = 42L) {
     list(
       values = list(
         # VI ODE
-        vi_r = unname(vi_fit$par["r"]),
-        vi_K = unname(vi_fit$par["K"]),
-        vi_delta = unname(vi_fit$par["delta"]),
-        vi_B0 = unname(vi_fit$par["B0"]),
-        vi_r_eff = unname(vi_fit$par["r"] - vi_fit$par["delta"]),
-        vi_rss = vi_rss,
-        vi_aic = vi_aic,
-        vi_r2 = if (!is.na(vi_rss) && vi_rss > 0) {
-          1 - vi_rss / sum((B - mean(B))^2)
+        r = unname(fit_res$par["r"]),
+        K = unname(fit_res$par["K"]),
+        delta = unname(fit_res$par["delta"]),
+        B0 = unname(fit_res$par["B0"]),
+        r_eff = unname(fit_res$par["r"] - fit_res$par["delta"]),
+        rss = rss,
+        aic = aic,
+        r2 = if (!is.na(rss) && rss > 0) {
+          1 - rss / sum((B - mean(B))^2)
         } else NA,
         # Simple exponential
         exp_r = unname(exp_fit$par["r"]),
@@ -325,23 +325,23 @@ fit_vi_ode_models <- function(t, B, seed = 42L) {
         all_aic = aics,
         delta_aic = delta_aic,
         best_model = best_model,
-        vi_delta_aic = if ("vi" %in% names(delta_aic)) delta_aic["vi"] else NA,
-        vi_beats_exp = !is.na(vi_aic) && !is.na(exp_aic) && vi_aic < exp_aic,
+        delta_aic = if ("valence" %in% names(delta_aic)) delta_aic["valence"] else NA,
+        beats_exp = !is.na(aic) && !is.na(exp_aic) && aic < exp_aic,
         # Generative regime check
-        r_eff_positive = !is.na(vi_rss) &&
-          unname(vi_fit$par["r"] - vi_fit$par["delta"]) > 0,
+        r_eff_positive = !is.na(rss) &&
+          unname(fit_res$par["r"] - fit_res$par["delta"]) > 0,
         # Saturation
-        pct_of_K = if (!is.na(vi_fit$par["K"]) && vi_fit$par["K"] > 0) {
-          max(B) / vi_fit$par["K"] * 100
+        pct_of_K = if (!is.na(fit_res$par["K"]) && fit_res$par["K"] > 0) {
+          max(B) / fit_res$par["K"] * 100
         } else NA,
         n = length(B)
       ),
       metadata = list(
         seed = seed,
         test = "VI_ODE_fit",
-        vi_prediction = "r_eff > 0 (generative regime); bi-exp wins near saturation",
+        valence_prediction = "r_eff > 0 (generative regime); bi-exp wins near saturation",
         discriminating = TRUE,
-        models_fitted = c("vi_ode", "exponential", "quadratic", "logistic", "biexponential")
+        models_fitted = c("valence_ode", "exponential", "quadratic", "logistic", "biexponential")
       )
     )
   })
@@ -428,7 +428,7 @@ mismatch_regime_test <- function(r_B, k1, k2) {
     ),
     metadata = list(
       test = "buildout_failure_mismatch",
-      vi_prediction = "r_B > k1 → mismatch grows (failure regime)",
+      valence_prediction = "r_B > k1 → mismatch grows (failure regime)",
       discriminating = TRUE
     )
   )

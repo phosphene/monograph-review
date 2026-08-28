@@ -8,9 +8,9 @@
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: integration-depth parameters transfer across kingdoms.
+#' valence Prediction: integration-depth parameters transfer across kingdoms.
 #' Competitor: substrates are independent — no parameter transfer.
-#' DOES distinguish VI. This is the strongest test.
+#' DOES distinguish valence. This is the strongest test.
 #'
 #' @dft A1, A2, A6
 #'

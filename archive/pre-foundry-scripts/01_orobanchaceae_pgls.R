@@ -5,7 +5,7 @@
 # 
 # Tests whether parasitism level predicts plastome size reduction in
 # Orobanchaceae, controlling for phylogenetic non-independence.
-# VI monograph Test 1 (T1).
+# valence monograph Test 1 (T1).
 # =============================================================================
 
 library(ape)

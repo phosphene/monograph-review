@@ -38,14 +38,14 @@ path (full numeric CDI vector), time (numeric vector), reached}
 }
 \description{
 Simulates a single stochastic Commitment/Disintegration Index (CDI) path
-under the VI logistic-drift, commitment-damped-volatility SDE and returns
+under the valence logistic-drift, commitment-damped-volatility SDE and returns
 the first-passage time to a threshold. Adapted from Paper 2's
 \code{simulate_cdi_path} as a pure, seedable function.
 }
 \section{Theoretical Context}{
 
 
-VI Prediction: commitment (CDI) is autocatalytic under logistic drift and
+Valence Prediction: commitment (CDI) is autocatalytic under logistic drift and
 reaches irreversibility (threshold) with probability 1, while volatility is
 damped as commitment grows (\code{sigma0 * (1 - CDI)}). First-passage times are
 the economic analog of time-to-irreversibility in the monograph.
@@ -53,10 +53,10 @@ the economic analog of time-to-irreversibility in the monograph.
 Competitor: a constant-drift / constant-volatility random walk (Merton-style
 baseline) predicts the same mean first-passage time but with hazard that is
 constant over time, not increasing with CDI. The logistic-drift + damped
-volatility structure DOES distinguish VI from the constant baseline.
+volatility structure DOES distinguish valence from the constant baseline.
 
-What supports VI: first-passage times that are realistic and hazard that
-increases with CDI. What refutes VI: paths that wander without converging
+What supports valence: first-passage times that are realistic and hazard that
+increases with CDI. What refutes valence: paths that wander without converging
 to the threshold.
 }
 

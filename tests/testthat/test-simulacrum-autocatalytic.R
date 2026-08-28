@@ -6,7 +6,7 @@
 #
 # @section Theoretical Context:
 #
-# VI Prediction: positive diversity-dependence (superlinear growth). The
+# valence Prediction: positive diversity-dependence (superlinear growth). The
 # Autocatalytic model predicts superlinear slope, good fit, positive sign.
 # Null control (linear, no feedback) should not be superlinear.
 #
@@ -27,7 +27,7 @@ context("Simulacrum: Autocatalytic set")
 # In development, testthat runs from package root so inst/ is accessible
 source_if_available <- function(file) {
   # Try system.file first (installed package), then relative path (dev)
-  installed <- system.file("simulacra", basename(file), package = "vi.foundry")
+  installed <- system.file("simulacra", basename(file), package = "valence.foundry")
   if (nzchar(installed)) {
     source(installed)
   } else {

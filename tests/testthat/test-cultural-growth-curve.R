@@ -35,26 +35,26 @@ test_that("H5: VI ODE confirms generative regime (r_eff > 0)", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   expect_true(result$values$r_eff_positive)
-  expect_gt(result$values$vi_r_eff, 0)
+  expect_gt(result$values$r_eff, 0)
 })
 
 test_that("H5: VI ODE beats quadratic (Gabora) model", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   # Quadratic model often diverges (infinite B) on long time series
   # When it does, AIC is NA — VI ODE wins by default
   # When it doesn't, VI ODE should have lower AIC
   if (is.na(result$values$quad_aic)) {
     # Quadratic diverged — VI ODE wins by default
-    expect_true(!is.na(result$values$vi_aic))
+    expect_true(!is.na(result$values$aic))
   } else {
-    expect_lt(result$values$vi_aic, result$values$quad_aic)
+    expect_lt(result$values$aic, result$values$quad_aic)
   }
 })
 
@@ -62,7 +62,7 @@ test_that("USPTO: system is far from saturation", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
-  result <- fit_vi_ode_models(t, B)
+  result <- fit_valence_ode_models(t, B)
 
   expect_lt(result$values$pct_of_K, 50)
 })

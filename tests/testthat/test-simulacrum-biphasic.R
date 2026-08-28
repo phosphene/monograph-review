@@ -12,9 +12,9 @@
 #
 # @section Theoretical Context:
 #
-# VI Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+# valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 # rapidly) followed by slow Phase 2 (protected traits resist loss). The
-# logistic/saturation curve is the empirical signature distinguishing VI
+# logistic/saturation curve is the empirical signature distinguishing valence
 # from constant-rate (relaxed selection, Lahti 2009) and accelerating
 # (Muller's ratchet) competitors.
 #
@@ -127,7 +127,7 @@ test_simulacrum_biphasic <- function(
     k_linear <- 3L # intercept, slope, residual variance
     aicc_linear <- aicc(mod_linear, k_linear, n_genera)
 
-    # ---- Model 2: Logistic (biphasic/VI) ----
+    # ---- Model 2: Logistic (biphasic/valence) ----
     mod_logistic <- tryCatch(
       stats::nls(
         y ~ floor_val + (ceil_val - floor_val) /

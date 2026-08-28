@@ -4,7 +4,7 @@
 # Dewar et al. (2024): Bacterial Lifestyle Shapes Pangenomes
 #
 # Re-analyzes data from Dewar et al. (2024) PNAS 121(21):e2320170121
-# to test VI predictions about lifestyle-dependent genome architecture.
+# to test valence predictions about lifestyle-dependent genome architecture.
 #
 # Data: Downloaded from https://github.com/AnnaEDewar/pangenome_lifestyle
 # =============================================================================
@@ -179,7 +179,7 @@ cat("\nPlot saved: output/05_dewar_pangenome.pdf\n")
 cat("\n========== SUMMARY ==========\n")
 cat(sprintf("Species analyzed: %d\n", nrow(dat)))
 cat(sprintf("Host vs Free pan-genome: p = %.4f\n", host_test$p.value))
-cat("VI relevance: lifestyle constrains pangenome architecture,\n")
+cat("valence relevance: lifestyle constrains pangenome architecture,\n")
 cat("consistent with functional dependency shaping gene retention.\n")
 cat("Host-associated species predicted to have smaller, more constrained\n")
 cat("pan-genomes due to stronger dependency on host-provided functions.\n")

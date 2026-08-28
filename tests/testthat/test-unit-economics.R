@@ -101,7 +101,7 @@ test_that("option_destruction returns named fields in values", {
   result <- option_destruction(dat, seed = 42)
   expected_names <- c(
     "n_systems", "mean_early_resid", "mean_late_resid",
-    "vi_pattern_share", "mean_standard_decay_rate"
+    "valence_pattern_share", "mean_standard_decay_rate"
   )
   expect_true(all(expected_names %in% names(result$values)))
 })
@@ -113,11 +113,11 @@ test_that("option_destruction stops with invalid data (no system col)", {
   )
 })
 
-test_that("option_destruction vi_pattern_share is in [0, 1]", {
+test_that("option_destruction valence_pattern_share is in [0, 1]", {
   dat <- .make_test_data()
   result <- option_destruction(dat, seed = 42)
-  expect_true(result$values[["vi_pattern_share"]] >= 0)
-  expect_true(result$values[["vi_pattern_share"]] <= 1)
+  expect_true(result$values[["valence_pattern_share"]] >= 0)
+  expect_true(result$values[["valence_pattern_share"]] <= 1)
 })
 
 test_that("option_destruction returns per-system data in metadata", {

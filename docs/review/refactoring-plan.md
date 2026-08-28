@@ -1,4 +1,4 @@
-# vi-foundry Math Refactoring Plan
+# valence-foundry Math Refactoring Plan
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
@@ -311,7 +311,7 @@ match the math.** Each phase above adds the missing assertion where relevant
 (T7 direction, threshold_biphasicity, diversity_dependence_sign, cusp
 `has_hysteresis = TRUE`). As a cross-cutting rule, for every renamed/reframed
 metric, add a unit assertion that the metric reads correctly on (a) synthetic
-VI-supporting data and (b) the null control — so the claim is enforced, not
+Valence-supporting data and (b) the null control — so the claim is enforced, not
 just the arithmetic.
 
 ---

@@ -7,7 +7,7 @@ prior: phosphene/react-d3-hotload-test-demo (2014)
 descendant: docs/review/cross-filter-dashboard.html (2026)
 ---
 
-# D3 Genealogy: From phosphene to VI Foundry
+# D3 Genealogy: From phosphene to Valence Foundry
 
 ## The Prior
 
@@ -39,7 +39,7 @@ The dashboards themselves — `BarSingleSelectDC`, `HeatMapFilteringDC`, `NasDas
 
 ## The Descendant
 
-**Repository:** [`FlowFeel/vi-foundry`](https://github.com/FlowFeel/vi-foundry)
+**Repository:** [`phosphene/monograph-review`](https://github.com/phosphene/monograph-review)
 **Year:** 2026
 **Stack:** Vanilla D3 v7 + ES Modules + Jasmine 5 standalone (no React, no webpack, no build step)
 **Testing:** Jasmine BDD — 38 specs across 10 describe blocks
@@ -48,7 +48,7 @@ The dashboards themselves — `BarSingleSelectDC`, `HeatMapFilteringDC`, `NasDas
 
 The cross-filter dashboard at `docs/review/cross-filter-dashboard.html` and its implementation module `docs/review/js/cross-filter.js` trace a direct lineage to the 2014 phosphene repo:
 
-| Trait | phosphene (2014) | vi-foundry (2026) |
+| Trait | phosphene (2014) | valence-foundry (2026) |
 |-------|-----------------|-------------------|
 | Spec style | Jasmine `describe`/`it`/`expect` | Jasmine `describe`/`it`/`expect` |
 | Test file naming | `Component-test.js` | `d3-dashboard.spec.js` |
@@ -64,7 +64,7 @@ The cross-filter dashboard at `docs/review/cross-filter-dashboard.html` and its 
 
 2. **No framework.** React + d3act → vanilla D3. The cross-filter orchestration is 15 lines of `updateAll()`. The pure functions have zero DOM dependency — testable from Node, browser, or any harness.
 
-3. **The spec tests the real module.** The 2014 Karma config ran tests against webpack-bundled code. The 2026 runner loads `docs/review/js/cross-filter.js` directly — if the module drifts from the spec, the runner fails. The test runner is live at `https://flowfeel.github.io/vi-foundry/test-runner.html`.
+3. **The spec tests the real module.** The 2014 Karma config ran tests against webpack-bundled code. The 2026 runner loads `docs/review/js/cross-filter.js` directly — if the module drifts from the spec, the runner fails. The test runner is live at `https://phosphene.github.io/monograph-review/test-runner.html`.
 
 4. **Domain-agnostic filtering.** The 2014 dashboards were hard-coded to financial data (NASDAQ, VC, beer). The 2026 pure functions operate on keyed data points — swap `seed` for `ticker` or `date` and you have a financial instrument explorer. The cross-filter logic doesn't care what the data represents.
 
@@ -78,7 +78,7 @@ phosphene/react-d3-hotload-test-demo (2014)
 └── Spec-first development methodology
         │
         ▼
-FlowFeel/vi-foundry (2026)
+phosphene/monograph-review (2026)
 ├── D3 v7 cross-filter dashboard (scatter, bars, trajectories, R²)
 ├── Jasmine 5 standalone (38 specs, real module under test)
 ├── ES modules + deferred loading (browser-native hot reload)
@@ -125,4 +125,4 @@ The repo is MIT licensed and preserved as-is from 2014.
 
 ---
 
-*This document is part of the VI Foundry genealogy series — tracing the lineage of ideas, methods, and code through the projects that shaped them.*
+*This document is part of the Valence Foundry genealogy series — tracing the lineage of ideas, methods, and code through the projects that shaped them.*

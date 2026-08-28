@@ -68,12 +68,12 @@ print(f"Unique gene names: {len(buchnera_genes)}")
 print(f"Sample: {list(buchnera_genes)[:20]}")
 
 # Save gene list
-with open(WORKSPACE / "vi-foundry/data/buchnera_gene_list.txt", 'w') as f:
+with open(WORKSPACE / "valence-foundry/data/buchnera_gene_list.txt", 'w') as f:
     for g in sorted(buchnera_genes):
         f.write(g + "\n")
 
 # Step 3: Load iJO1366 dependency scores
-dep_scores = pd.read_csv(WORKSPACE / "vi-foundry/data/t7-ltee/gene_dependency_scores.tsv", sep="\t")
+dep_scores = pd.read_csv(WORKSPACE / "valence-foundry/data/t7-ltee/gene_dependency_scores.tsv", sep="\t")
 print(f"\niJO1366 dependency scores: {len(dep_scores)} genes")
 
 # Step 4: Match Buchnera genes to iJO1366
@@ -124,5 +124,5 @@ result = {
 }
 print(f"\nResult: {json.dumps(result, indent=2)}")
 
-with open(WORKSPACE / "vi-foundry/data/buchnera_rho_result.json", 'w') as f:
+with open(WORKSPACE / "valence-foundry/data/buchnera_rho_result.json", 'w') as f:
     json.dump(result, f, indent=2)
