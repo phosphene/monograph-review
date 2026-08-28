@@ -10,10 +10,6 @@
 source_genealogy <- function(file) {
   path <- file.path(.genealogy_dir(), file)
   if (!file.exists(path)) {
-    # Try absolute path as final fallback
-    path <- file.path("/home/node/.openclaw/workspace/valence-foundry/inst/genealogy", file)
-  }
-  if (!file.exists(path)) {
     stop("genealogy generator not found: ", file, call. = FALSE)
   }
   source(path, local = FALSE)

@@ -16,8 +16,9 @@ source_simulacrum("generate_sigmoid.R")
 source_simulacrum("generate_null_rho.R")
 source_simulacrum("generate_percolation.R")
 
-# Load the extracted fitter from R/ (Layer 2, design-spec separation of concerns)
-source("../../R/fit_step.R")
+# fit_step is exported by the package (loaded via library(valence.foundry))
+# and needs no manual sourcing — the relative source below broke under
+# covr / installed-package test directories.
 
 # ---- Test 1: Recover rho_sat from clean step data ----
 

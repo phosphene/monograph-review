@@ -24,8 +24,8 @@ context("Landau → Step: Landau mean-field data produces a step")
 source("helper-simulacra.R")
 source("helper-genealogy.R")
 
-# Load the extracted fitter from R/ (Layer 2, design-spec separation of concerns)
-source("../../R/fit_step.R")
+# fit_step is exported by the package (loaded via library(valence.foundry));
+# no manual sourcing needed.
 
 # ---- Helper: normalize Landau data to (theta, rho) space ----
 

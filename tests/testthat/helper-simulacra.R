@@ -10,9 +10,6 @@
 source_simulacrum <- function(file) {
   path <- file.path(.simulacra_dir(), file)
   if (!file.exists(path)) {
-    path <- file.path("/home/node/.openclaw/workspace/valence-foundry/inst/simulacra", file)
-  }
-  if (!file.exists(path)) {
     stop("simulacrum generator not found: ", file, call. = FALSE)
   }
   source(path, local = FALSE)
