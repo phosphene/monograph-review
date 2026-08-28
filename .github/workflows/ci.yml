@@ -54,12 +54,7 @@ jobs:
         run: Rscript run_tests.R unit
       - name: Check coverage
         run: |
-          Rscript -e "
-            cov <- covr::package_coverage()
-            pct <- covr::percent_coverage(cov)
-            message('Coverage: ', round(pct, 2), '%')
-            if (pct < 80) stop('Coverage below 80%: ', round(pct, 2), '%')
-          "
+          Rscript scripts/coverage_report.R
       - name: Upload coverage
         if: always()
         uses: actions/upload-artifact@v4
