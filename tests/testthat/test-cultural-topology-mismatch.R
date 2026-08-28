@@ -90,7 +90,7 @@ test_that("Mismatch: failure regime when r_B > k1", {
 
 test_that("Mismatch: modern human culture is in failure regime", {
   # r_B ≈ 0.22 (PyPI rate) >> k1 ≈ 0.01-0.1 (biological plasticity)
-  # This is the VI prediction for evolutionary mismatch
+  # This is the valence prediction for evolutionary mismatch
   result <- mismatch_regime_test(r_B = 0.22, k1 = 0.05, k2 = 0.001)
   expect_equal(result$values$regime, "failure")
   expect_true(result$values$mismatch_grows)
