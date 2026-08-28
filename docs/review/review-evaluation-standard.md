@@ -21,6 +21,59 @@ topic: what the review evaluates, and the properties it evaluates for.
 
 ---
 
+## The role of the review and platform team: underwriting, not discovery
+
+*Ed Phillips, 2026-08-28: "This gets into the discussion about being in
+the business of running the platform. We used the public analogy of the
+underwriting of insurance for the inferential claims or predictive
+apparatus of any given research program. The individual authors in those
+domains are in the business of Discovery, but as the review team and the
+platform team we are not. We underwrite the insurance for that process of
+discovery."*
+
+The review team and the platform team do not do what the authors do. The
+authors in a research program propose new inferential claims and new
+predictive apparatus — they are in the business of producing claims. The
+review and platform teams are in a different business: they **underwrite**
+the reliability of those claims.
+
+The insurance-underwriting analogy is a public one, not a private
+construct: insurance underwriting is the established practice of assessing
+a proposed risk before accepting it, of pricing the premium against the
+probability and severity of failure, and of specifying the conditions under
+which coverage holds (ancient in origin; formalized in actuarial science
+and in institutions such as Lloyd's of London). Applied to a research
+program, it means:
+
+- The **inferential claim or predictive apparatus** is the proposed risk —
+  the thing seeking coverage.
+- **Coverage** is reliance: being cited, published, or used as a basis for
+  further work.
+- **Underwriting** is the assessment this review performs: for each claim,
+  evaluate its three vertices (mathematics, software, data) against the
+  three properties (well-formedness, coherence, reproducibility), and
+  state the conditions under which the claim is covered.
+- The **premium** is the proof obligation: the testing and reproduction the
+  claim must survive before coverage is granted.
+- The **policy** is the stated-and-tested conditions themselves — the
+  claim is covered only under exactly the conditions it has stated and
+  tested, and not beyond them.
+
+This is why the review team is not in the discovery business and has no
+"Discovery" of its own (per the austerity rule): the review adds no new
+claims about the world. It assesses the risk of the claims others propose,
+and issues coverage only for what is actually verified. A claim that has
+not passed its underwriting is not denied in the sense of being refuted —
+it is simply not yet covered, and remains under test.
+
+This role is the platform team's business: running the platform is running
+the underwriting infrastructure — the foundry, the CI gates, the oracle
+baseline, the review standard — so that any research program's claims can
+be assessed the same way, against the same three vertices and three
+properties.
+
+---
+
 ## The three vertices (what the review evaluates)
 
 The review evaluates three objects, each as an independent vertex. A
