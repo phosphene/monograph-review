@@ -39,6 +39,44 @@ make regression    # Compare all results to the baseline oracle
 
 ---
 
+## Methodological Note
+
+The empirical posture of this repository follows two linked
+intellectual lines, both traced in the [genealogies](#genealogies):
+
+**Bohr's austerity (complementarity as a realist axiom under test).**
+The patterns reported here come from research programs that do not
+commute — different systems, different measures, different founding
+assumptions, no shared apparatus. They do not need to commute. The
+*observation* is naked: each apparatus registers something definite,
+and that registration does not carry any one theory's vocabulary. The
+*representation* is theory-laden: models, metrics, and instruments are
+built to their own frameworks. The strategy is therefore never to fight
+over representations, but to hold the naked observations side by side
+and let the pattern show itself. Anyone who re-runs the pipeline and
+re-represents the observations in their own vocabulary is welcome to;
+the conclusions they draw are theirs.
+
+**The family-kinds discipline (boundary-challenged concepts).** The
+cross-domain concepts here — valence-seeking, conserved core, ordered
+loss, substrate independence — are *family-resemblance* categories:
+present in many instances, not essential in all. They are defined
+operationally within each domain (a fitted biphasic model, a PGLS slope,
+a permutation ordering, a cross-kingdom transfer), and the cross-domain
+pattern is the family resemblance. A non-instantiating case is a
+*boundary probe*, not a refutation: it measures the domain of validity
+of the pattern rather than contradicting it. See
+[`docs/review/family-kinds-genealogy.md`](docs/review/family-kinds-genealogy.md).
+
+**The vintage-label standard.** Because the concepts are
+boundary-challenged, the label must never exceed the contents: every
+claim here is reproducible (CI gates, baseline oracle, seed-locked
+fits), every citation points at a real passage, and the representation
+is openly theory-laden while the observation is left naked for anyone
+to verify.
+
+---
+
 ## Key Results
 
 Every value below is the manuscript-reported result, stored as ground truth in [`baseline/oracle.yml`](baseline/oracle.yml). The pipeline must reproduce these within numerical tolerance (0.001).
@@ -66,6 +104,13 @@ The foundry ships a complete review trail — every claim traced to its root cau
 | [Calculation review](docs/review/calculation-review.md) | Literate walkthrough of the calculation audit: for each oracle entry, the prediction, the broken output, the root-cause diagnosis, and the fix. |
 | [Math review](docs/review/math-review.md) | Audit of the mathematics vs. the implementation vs. the claims (seven issues ranked by severity; two severe). All seven resolved by the three-phase refactoring. |
 | [Refactoring plan](docs/review/refactoring-plan.md) | Execution plan for the math-review issues: proposed refactoring, blast radius, risk, and three-phase ordering (safest-first). Status: COMPLETE. |
+
+### Genealogies
+
+| Document | What it is |
+|----------|-----------|
+| [Family-kinds genealogy](docs/review/family-kinds-genealogy.md) | The definitory-apparatus lineage: Wittgenstein (family resemblance, 1953) → Beckner (polytypic classes, 1959) → Sokal & Sneath (operational polythetic groups, 1963) → Mayr → Ghiselin → Paterson → Templeton → de Queiroz → Pigliucci → Kunz → Kull (semiotic species, 2016). Why boundary-challenged concepts are handled as family-resemblance categories and non-instantiating cases as boundary probes. |
+| [Complementarity lineage](docs/review/bohr-complementarity-lineage.md) | The epistemology: Bohr (Light and Life, 1932) → Delbrück → Elsasser/Pattee/Rosen/Stent. Observation is naked, representation is theory-laden, programs need not commute. The realist axiom under test. |
 
 ### Build history and synthesis
 
