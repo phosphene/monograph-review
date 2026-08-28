@@ -1,0 +1,10 @@
+{
+  "genus": "Hodgkinia",
+  "theta_aa": 864,
+  "theta_genome": 864,
+  "rho": 0.062793,
+  "p": 0.020289,
+  "n_retained": 6,
+  "n_total": 1366,
+  "n_genes_found": 26
+}

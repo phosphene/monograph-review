@@ -23,12 +23,26 @@ NULL
 #'
 #' @return Character. Path to data/ directory.
 #' @keywords internal
-get_data_dir <- function() {
+get_data_dir <- function(file = NULL) {
+  # Try installed package first — but only if it has the requested file
   path <- system.file("data", package = "valence.foundry")
   if (path != "" && dir.exists(path)) {
-    return(path)
+    if (is.null(file)) return(path)
+    if (file.exists(file.path(path, file)) || file.exists(paste0(file.path(path, file), ".gz"))) {
+      return(path)
+    }
   }
-  # Fallback: project-relative path
+  # Fallback: source tree candidates (path-agnostic; no hardcoded
+  # workspace paths — the repo root's data/ dir when running from source)
+  candidates <- c("data", file.path("..", "data"))
+  for (cand in candidates) {
+    if (dir.exists(cand)) {
+      if (is.null(file)) return(cand)
+      if (file.exists(file.path(cand, file)) || file.exists(paste0(file.path(cand, file), ".gz"))) {
+        return(cand)
+      }
+    }
+  }
   "data"
 }
 
@@ -44,7 +58,7 @@ get_data_dir <- function() {
 #' @return Character. Path to the file (uncompressed or .gz).
 #' @keywords internal
 resolve_data_file <- function(file) {
-  data_dir <- get_data_dir()
+  data_dir <- get_data_dir(file)
   p <- file.path(data_dir, file)
   if (file.exists(p)) return(p)
   pgz <- paste0(p, ".gz")

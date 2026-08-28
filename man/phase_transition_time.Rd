@@ -21,3 +21,6 @@ Returns the time at which the fast phase transitions to the slow phase,
 defined as the time when the mismatch function drops below a threshold
 fraction of its initial value.
 }
+\examples{
+phase_transition_time(m0 = 10, alpha = 0.05, threshold_fraction = 0.1)
+}

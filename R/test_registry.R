@@ -535,6 +535,42 @@ plot.valence_test_suite <- function(x, ...) {
     class = "valence_cosegregation_result", statistic_key = "depletion_ratio",
     valence_prediction = "function loss co-segregates with adaptive sweeps less than chance"
   )
+  # P-series — a priori integration-depth (two-component metric)
+  register_test(
+    name = "p1_buchnera_two_component", fn = p1_buchnera_two_component,
+    data_required = "scores", discriminating = TRUE,
+    expected_fields = c("beta_B", "p_B", "beta_A", "p_A", "pseudo_r2_AB"),
+    class = "valence_test_result", statistic_key = "beta_B_AB",
+    valence_prediction = "two-component metric (mismatch + integration position) predicts Buchnera retention"
+  )
+  register_test(
+    name = "p2_ltee_niche_fba", fn = p2_ltee_niche_fba,
+    data_required = "scores", discriminating = TRUE,
+    expected_fields = c("median_first_gen_high_mismatch", "median_first_gen_low_mismatch", "p_earlier_high_mismatch"),
+    class = "valence_test_result", statistic_key = "p_earlier_high_mismatch",
+    valence_prediction = "niche-specific mismatch (Component A) predicts earlier LTEE loss"
+  )
+  register_test(
+    name = "p3_plastid_erosion_order", fn = p3_plastid_erosion_order,
+    data_required = "scores", discriminating = TRUE,
+    expected_fields = c("mean_species_rho", "n_species_with_signal", "beta_dependency", "p_dependency"),
+    class = "valence_test_result", statistic_key = "mean_species_rho",
+    valence_prediction = "a priori functional position orders plastid erosion with parasitism"
+  )
+  register_test(
+    name = "p4_echolocation_centrality", fn = p4_echolocation_centrality,
+    data_required = "centralities", discriminating = TRUE,
+    expected_fields = c("deg", "ev", "cl"),
+    class = "valence_test_result", statistic_key = "deg",
+    valence_prediction = "convergent genes less integrated than conserved in same domain"
+  )
+  register_test(
+    name = "p5_c4_integration_depth", fn = p5_c4_integration_depth,
+    data_required = "syndrome", discriminating = TRUE,
+    expected_fields = c("p_invariant_higher", "rho_depth_invariance", "binom_p_upper_half"),
+    class = "valence_test_result", statistic_key = "rho_depth_invariance",
+    valence_prediction = "invariant (function-converges) elements sit high in integration hierarchy; varying (mechanism-diverges) sit low"
+  )
   # L3 — cross-kingdom transfer
   register_test(
     name = "transfer_test", fn = transfer_test,
@@ -542,6 +578,48 @@ plot.valence_test_suite <- function(x, ...) {
     expected_fields = c("plant_slope", "bird_rho", "bird_p", "null_rho", "null_p"),
     class = "valence_transfer_result", statistic_key = "bird_rho",
     valence_prediction = "integration-depth parameters transfer across kingdoms"
+  )
+  # H2 — β mediation (Oswalt 1973 + 1976)
+  register_test(
+    name = "beta_mediation_oswalt1973", fn = beta_mediation_test,
+    data_required = "data", discriminating = TRUE,
+    expected_fields = c("r_N_beta", "p_N_beta", "r_beta_complexity",
+                        "p_beta_complexity", "mediation_type"),
+    class = "valence_test_result", statistic_key = "p_N_beta",
+    valence_prediction = "β is substrate property; N does not predict β (1973 data)"
+  )
+  register_test(
+    name = "beta_mediation_oswalt1976", fn = beta_mediation_test,
+    data_required = "data", discriminating = TRUE,
+    expected_fields = c("r_N_beta", "p_N_beta", "r_beta_complexity",
+                        "p_beta_complexity", "mediation_type"),
+    class = "valence_test_result", statistic_key = "p_N_beta",
+    valence_prediction = "β is substrate property; N does not predict β (1976 data)"
+  )
+  # H4 — cross-domain β threshold
+  register_test(
+    name = "cross_domain_beta", fn = cross_domain_beta_test,
+    data_required = "data", discriminating = TRUE,
+    expected_fields = c("n_cultural", "n_non_cultural", "threshold_confirmed"),
+    class = "valence_test_result", statistic_key = "threshold_confirmed",
+    valence_prediction = "cultural substrates have β > 1; non-cultural have β < 1"
+  )
+  # H5 — super-exponential growth
+  register_test(
+    name = "uspto_growth", fn = growth_curve_test,
+    data_required = "data", discriminating = TRUE,
+    expected_fields = c("quadratic_coefficient", "delta_aic_quad_vs_linear",
+                        "best_model"),
+    class = "valence_test_result", statistic_key = "quadratic_coefficient",
+    valence_prediction = "β > 1 produces super-exponential (t²) growth"
+  )
+  # H10 — sign reversal
+  register_test(
+    name = "sign_reversal", fn = sign_reversal_test,
+    data_required = c("homo_gl", "nonhomo_gl"), discriminating = TRUE,
+    expected_fields = c("homo_gl_mean", "nonhomo_gl_mean", "sign_reversal"),
+    class = "valence_test_result", statistic_key = "sign_reversal",
+    valence_prediction = "Homo: positive DD; non-Homo: negative DD (sign reversal)"
   )
   invisible(TRUE)
 }

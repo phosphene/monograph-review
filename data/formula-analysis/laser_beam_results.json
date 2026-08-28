@@ -1,0 +1,49 @@
+{
+  "island_birds": {
+    "rho": 0.7545045450053531,
+    "p": 0.030512759033309068,
+    "n": 8,
+    "zero_dep_mean_rank": 1.0,
+    "nonzero_dep_mean_rank": 5.0
+  },
+  "cross_family_plastome": {
+    "rho": -0.8833177244344207,
+    "p": 4.947566205833057e-31,
+    "n": 91,
+    "step_threshold": 1.0999999999999999,
+    "step_r2": 0.9255908796387688,
+    "below_mean_bp": 135146.30188679244,
+    "above_mean_bp": 22212.052631578947
+  },
+  "species_plastome": {
+    "rho": -0.7367386482205531,
+    "p": 6.665685189146482e-26,
+    "n": 144,
+    "step_threshold": 2.0999999999999996,
+    "step_r2": 0.42335946692952564,
+    "linear_r2": 0.40222160948450564
+  },
+  "dewar_pangenome": {
+    "n_species": 126,
+    "free_fluidity": 0.2817780915,
+    "symbiotic_fluidity": 0.19681607042975205,
+    "t_stat": 1.8697324312986938,
+    "t_p": 0.06389858510219712
+  },
+  "endosymbiont_species": {
+    "rho": -0.5928404681949784,
+    "p": 3.341052080985518e-36,
+    "n": 367,
+    "step_theta_star": 0.9600000000000001,
+    "step_r2": 0.6266071817442257,
+    "linear_r2": 0.29586217012275057
+  },
+  "orobanchaceae": {
+    "pooled_rho": 0.369451507623986,
+    "pooled_p": 0.009757457525320493,
+    "parasitic_rho": 0.460640283010944,
+    "parasitic_p": 0.00214189598465687,
+    "zero_dep_retention": 0.0,
+    "nonzero_dep_retention": 0.5605714285714287
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "genus": "Wigglesworthia",
+  "theta_aa": 635,
+  "theta_genome": 635,
+  "rho": 0.328149,
+  "p": 0.0,
+  "n_retained": 152,
+  "n_total": 1366,
+  "n_genes_found": 344
+}

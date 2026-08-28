@@ -1,0 +1,17 @@
+domain,substrate,beta,n_elements,method_type,source
+language_full_vocab,words,9.06,40445,NETWORK,BrownCorpus
+language_core_1000,words,63.98,1000,NETWORK,BrownCorpus
+stone_tools,tool_components,1.95,37,NETWORK,Perreault2013
+pypi_packages,code_modules,5.29,2000,NETWORK,PyPI
+github_repos,software_projects,5.98,NA,NETWORK,GitHub
+wikipedia_links,knowledge_nodes,75.0,NA,NETWORK,Wikipedia
+wordnet_tree,concepts,0.76,117659,TREE,WordNet31
+tasmanian_toolkit,technounits,0.36,11,COUNT_RATIO,Oswalt1976
+tasmanian_toolkit_pre,technounits,0.09,11,COUNT_RATIO,Reconstructed
+tiwi_toolkit,technounits,0.27,11,COUNT_RATIO,Oswalt1976
+oswalt_1973_range,technounits,0.70,12,COUNT_RATIO,Oswalt1973
+oswalt_1976_range,technounits,2.70,29,COUNT_RATIO,Oswalt1976
+uspto_patents,technology,NA,NA,GROWTH_INFERRED,USPTO_growth
+english_vocabulary,word_types,1.15,NA,GROWTH_INFERRED,OED_Ngram
+derex_boyd,experimental,0.487,NA,GROWTH_INFERRED,DerexBoyd2016
+hominin_speciation,species_diversity,NA,NA,BAYESIAN,VanHolstein2024

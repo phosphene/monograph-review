@@ -41,7 +41,7 @@ Authors:
 \itemize{
   \item Ed Phillips \email{ed@phosphene.dev} (GitHub: phosphene)
   \item Jan Ritch-Frel (GitHub: janfrel)
-  \item Flow Feel \email{flow@ind.media} (GitHub: FlowFeel, comment: AI platform engineer)
+  \item Flow Feel \email{flow@ind.media} (GitHub: FlowFeel)
 }
 
 }

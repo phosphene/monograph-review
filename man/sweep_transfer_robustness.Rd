@@ -73,5 +73,5 @@ the crossover.
 
 \examples{
 result <- sweep_transfer_robustness(noise_grid = seq(0, 0.3, by = 0.05))
-result$values$low_noise_advantage  # > 0 (model outperforms at low noise)
+result$values$low_noise_advantage # > 0 (model outperforms at low noise)
 }

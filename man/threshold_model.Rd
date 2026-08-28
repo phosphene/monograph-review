@@ -22,12 +22,13 @@ threshold_model(depths, lambda, theta, m0, alpha, time, n_steps = 1000L)
 \item{n_steps}{Integer. Number of integration steps. Default 1000.}
 }
 \value{
-List (A6):
-\item{values}{Named numeric: final_retention vector, phase1_rate, phase2_rate, early_late_displacement_ratio, threshold_biphasicity}
-\item{metadata}{List: params, n_traits, n_steps, converged, method}
+vi_threshold_result object containing:
+\item{values}{Named list: final_retention, phase rates, biphasicity metrics}
+\item{metadata}{List: parameters, counts, convergence info, full trajectory}
 }
 \description{
-Solves dC_i/dt = -λ × M(t) × C_i × I(d_i < θ) for a panel of traits.
+Solves dC_i/dt = -λ × M(t) × C_i × I(d_i < θ) for a panel of traits using
+Euler integration. Returns a vi_threshold_result object with full provenance.
 }
 \section{Theoretical Context}{
 
@@ -38,7 +39,8 @@ at rate proportional to λ×M₀), slow Phase 2 (protected traits remain at 1.0)
 
 \examples{
 result <- threshold_model(
-  depths = c(0, 1, 2, 3, 5),
-  lambda = 0.15, theta = 2.5, m0 = 10, alpha = 0.05, time = 100
+  depths = c(0, 1, 2, 3, 5), lambda = 0.15, theta = 2.5,
+  m0 = 10, alpha = 0.05, time = 100
 )
+print(result)
 }

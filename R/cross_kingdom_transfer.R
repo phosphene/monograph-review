@@ -78,7 +78,10 @@ predict_bird_ordering <- function(bird_data, plant_slope) {
 
   # Predict: rank = intercept + slope × dependency_score
   # We only use the slope (ordering), not the intercept (rate)
-  predicted <- plant_slope * bird_data$dependency_score
+  # Plant loss_rank is inversely related to dependency (high dep = low loss_rank = retained).
+  # Bird observed_rank is directly related to dependency (high dep = changes late = high rank).
+  # Negate the slope so the direction matches: high dep → high predicted rank (changes late).
+  predicted <- -plant_slope * bird_data$dependency_score
 
   # Convert to ranks (1 = first to change)
   rank(predicted, ties.method = "average")

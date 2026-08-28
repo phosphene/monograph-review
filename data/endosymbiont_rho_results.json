@@ -1,0 +1,74 @@
+[
+  {
+    "genus": "Hodgkinia",
+    "theta_aa": 864,
+    "theta_genome": 864,
+    "rho": 0.062793,
+    "p": 0.020289,
+    "n_retained": 6,
+    "n_total": 1366
+  },
+  {
+    "genus": "Sulcia",
+    "theta_aa": 0,
+    "theta_genome": 0,
+    "rho": NaN,
+    "p": NaN,
+    "n_retained": 0,
+    "n_total": 1366
+  },
+  {
+    "genus": "Tremblaya",
+    "theta_aa": 655,
+    "theta_genome": 655,
+    "rho": 0.104394,
+    "p": 0.000111,
+    "n_retained": 41,
+    "n_total": 1366
+  },
+  {
+    "genus": "Portiera",
+    "theta_aa": 2409,
+    "theta_genome": 2409,
+    "rho": 0.169136,
+    "p": 0.0,
+    "n_retained": 53,
+    "n_total": 1366
+  },
+  {
+    "genus": "Baumannia",
+    "theta_aa": 2321,
+    "theta_genome": 2321,
+    "rho": 0.202719,
+    "p": 0.0,
+    "n_retained": 53,
+    "n_total": 1366
+  },
+  {
+    "genus": "Blochmannia",
+    "theta_aa": 16993,
+    "theta_genome": 16993,
+    "rho": 0.412714,
+    "p": 0.0,
+    "n_retained": 184,
+    "n_total": 1366
+  },
+  {
+    "genus": "Wigglesworthia",
+    "theta_aa": 635,
+    "theta_genome": 635,
+    "rho": 0.328149,
+    "p": 0.0,
+    "n_retained": 152,
+    "n_total": 1366
+  },
+  {
+    "genus": "Nasuia",
+    "theta_aa": 1307,
+    "theta_genome": 1307,
+    "rho": -0.015606,
+    "p": 0.564411,
+    "n_retained": 1,
+    "n_total": 1366
+  }
+]

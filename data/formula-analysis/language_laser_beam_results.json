@@ -1,0 +1,13 @@
+{
+  "n_languages": 2408,
+  "n_features": 195,
+  "rho_vs_theta_spearman": -0.2813050809631363,
+  "rho_vs_theta_p": 4.8880349440957996e-45,
+  "step_threshold": 0.8000000000000002,
+  "step_r2": 0.060766970106171714,
+  "linear_r2": 0.06805290399411322,
+  "mean_rho": 0.12823420250286116,
+  "mean_step_size": 0.11892646705822484,
+  "low_dep_retention": 0.2615123247319744,
+  "high_dep_retention": 0.3804387917901991
+}

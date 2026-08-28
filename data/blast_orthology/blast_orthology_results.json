@@ -1,0 +1,57 @@
+[
+  {
+    "genus": "Buchnera",
+    "accession": "GCF_000009605.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Sodalis",
+    "accession": "GCF_000287795.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Wigglesworthia",
+    "accession": "GCF_000010245.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Blochmannia",
+    "accession": "GCF_000010505.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Carsonella",
+    "accession": "GCF_000009445.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Hodgkinia",
+    "accession": "GCF_000278815.2",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Tremblaya",
+    "accession": "GCF_000194075.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Portiera",
+    "accession": "GCF_000271165.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Baumannia",
+    "accession": "GCF_000020325.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Sulcia",
+    "accession": "GCF_000020385.1",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "genus": "Nasuia",
+    "accession": "GCF_000422645.1",
+    "error": "HTTP Error 400: Bad Request"
+  }
+]

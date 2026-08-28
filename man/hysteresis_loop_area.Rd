@@ -57,5 +57,5 @@ bifurcation, smooth recovery).
 \examples{
 eq_fn <- make_cusp_equilibrium_fn(a = -1)
 result <- hysteresis_loop_area(seq(-2, 2, length.out = 100), eq_fn)
-result$values$loop_area  # > 0 (cusp region: irreversible)
+result$values$loop_area # > 0 (cusp region: irreversible)
 }

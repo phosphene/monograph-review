@@ -56,5 +56,5 @@ result <- sweep_cusp_irreversibility(
   a_grid = seq(1, -2, by = -0.25),
   control_values = seq(-2, 2, length.out = 100)
 )
-result$values$peak_a  # most negative a (largest loop area)
+result$values$peak_a # most negative a (largest loop area)
 }

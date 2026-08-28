@@ -65,5 +65,5 @@ result <- sweep_threshold(
   depths = c(0, 1, 2, 3, 5),
   theta_grid = seq(0, 6, by = 0.5)
 )
-result$values$peak_theta  # θ where the gate is maximally open
+result$values$peak_theta # θ where the gate is maximally open
 }

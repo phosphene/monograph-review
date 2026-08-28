@@ -1,0 +1,10 @@
+{
+  "genus": "Tremblaya",
+  "theta_aa": 655,
+  "theta_genome": 655,
+  "rho": 0.104394,
+  "p": 0.000111,
+  "n_retained": 41,
+  "n_total": 1366,
+  "n_genes_found": 116
+}

@@ -109,3 +109,39 @@ stages:
     function: transfer_test
     params:
       seed: 42
+
+  # === P-series: a priori integration-depth (two-component metric) ===
+  - name: p1_buchnera_two_component
+    inputs: [data/a-priori-scores/p1_buchnera_scores.tsv]
+    outputs: [results/p1_buchnera]
+    function: p1_buchnera_two_component
+    params:
+      seed: 42
+
+  - name: p2_ltee_niche_fba
+    inputs: [data/a-priori-scores/p2_ltee_scores.tsv]
+    outputs: [results/p2_ltee]
+    function: p2_ltee_niche_fba
+    params:
+      seed: 42
+
+  - name: p3_plastid_erosion_order
+    inputs: [data/orobanchaceae_retention_matrix.tsv]
+    outputs: [results/p3_plastid]
+    function: p3_plastid_erosion_order
+    params:
+      seed: 42
+
+  - name: p4_echolocation_centrality
+    inputs: [data/a-priori-scores/p4_echolocation_symbols.tsv, data/raw/echolocation/string_centralities.json, data/raw/echolocation/string_maps.json]
+    outputs: [results/p4_echolocation]
+    function: p4_echolocation_centrality
+    params:
+      seed: 42
+
+  - name: p5_c4_integration_depth
+    inputs: [data/a-priori-scores/p5_c4_syndrome.tsv]
+    outputs: [results/p5_c4]
+    function: p5_c4_integration_depth
+    params:
+      seed: 42

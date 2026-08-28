@@ -62,5 +62,5 @@ comment block above \code{generate_dd_series()} for the full analysis.
 
 \examples{
 result <- diversity_dependence_contrast(n_steps = 20, capacity = 30)
-result$values$contrast  # > 0 (Homo inversion signature)
+result$values$contrast # > 0 (Homo inversion signature)
 }

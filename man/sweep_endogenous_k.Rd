@@ -61,5 +61,5 @@ sign is reliable but the exact crossing point may differ slightly from 2/3.
 
 \examples{
 result <- sweep_endogenous_k(feedback_grid = seq(0, 1, by = 0.1))
-result$values$bifurcation_feedback  # theoretical = 2/3
+result$values$bifurcation_feedback # theoretical = 2/3
 }

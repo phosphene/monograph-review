@@ -4,7 +4,7 @@
 \alias{get_data_dir}
 \title{Helper: get data directory path}
 \usage{
-get_data_dir()
+get_data_dir(file = NULL)
 }
 \value{
 Character. Path to data/ directory.

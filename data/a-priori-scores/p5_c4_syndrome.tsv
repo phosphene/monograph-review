@@ -1,0 +1,7 @@
+level	integration_depth	invariant	rationale
+Niche	6	0	Environmental conditions (warm, open) - vary by lineage ecology; not part of the syndrome per se
+Physiology	5	1	C4 photosynthesis itself - the whole-organism function, present in all C4 plants
+Function	4	1	Action at cellular/tissue level (CO2 fixation, rapid transport) - present in all C4 plants independent of origin
+Character	3	0	Emergent property of one component (bundle distance, PEPC activity) - vary among C4 lineages
+Characteristic	2	0	Property of one component (bundle-sheath length, PEPC expression) - vary among C4 lineages
+Component	1	0	One cellular/enzymatic element (bundle-sheath cell, PEPC) - repeatedly co-opted, assembled in unique combinations

@@ -132,23 +132,23 @@ empirical_formal_model:
     para_coefficient: -1.8643890088
     para_p_value: 0.0000350239
     pseudo_r_squared: 0.5515413228
-    cross_kingdom_rho: 0.7545045450
-    cross_kingdom_p: 0.0305127590
+    cross_kingdom_rho: 0.7513818
+    cross_kingdom_p: 0.00124009
     dep_positive: true
     para_negative: true
     valence_confirmed: true
   tolerance: 0.001
   supports_vi: true
   distinguishes_from_competitor: true
-  caveat: "Empirical GLM fit to the 8x6 retention matrix (corrected flattening, Remark R7). The foundry's theoretical ODE (threshold_model) is the companion simulation; this is the empirical test that can fail."
+  caveat: "Empirical GLM fit to the 8x6 retention matrix (corrected flattening, Remark R7). Bird data: n=15 skeletal structures from Wright 2016 raw data (2,238 specimens, 23 species). The foundry's theoretical ODE (threshold_model) is the companion simulation; this is the empirical test that can fail."
 
 cross_kingdom_l3:
   prediction: "Plant-derived slope SIGN predicts bird morphological change ordering (ordering-concordance transfer; slope magnitude does not transfer)"
   competitor: "Substrates are independent — no parameter transfer"
   values:
-    bird_rho: 0.755
-    bird_p: 0.031
+    bird_rho: 0.7881263
+    bird_p: 0.0004828
   tolerance: 0.01
   supports_vi: true
   distinguishes_from_competitor: true
-  caveat: "Ordering transfers across kingdoms; rate does not."
+  caveat: "Ordering transfers across kingdoms; rate does not. n=15 skeletal structures from Wright 2016 raw data (2,238 specimens, 23 species). Bird dependency scores assigned by functional anatomy; observed ranks from actual island-vs-mainland log ratios. Plant-derived slope sign (negated for rank direction) predicts bird ordering."

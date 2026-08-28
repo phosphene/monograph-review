@@ -83,9 +83,15 @@ stages <- list(
     if (!has_bundled_data("island_bird_morphology.csv")) {
       stop("island_bird_morphology.csv not bundled (items 4-6)")
     }
-    plant <- load_orobanchaceae()
+    plant <- load_retention_matrix()
     bird <- load_island_birds()
-    transfer_test(plant$data, bird$data, seed = 42)$values
+    # transfer_test expects 'category' column; retention matrix has 'gene_category'
+    plant_data <- plant$data
+    names(plant_data)[names(plant_data) == "gene_category"] <- "category"
+    # Aggregate to category-level with mean retention as loss_rank
+    agg <- aggregate(retention ~ category + dependency_score, data = plant_data, FUN = mean)
+    agg$mean_loss_rank <- rank(-agg$retention, ties.method = "average")
+    transfer_test(agg, bird$data, seed = 42)$values
   }
 )
 
