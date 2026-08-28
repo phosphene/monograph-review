@@ -46,8 +46,12 @@
 #'
 #' @param t Numeric vector. Time points.
 #' @param rho Numeric vector. Retention correlation or response variable.
-#' @param normalize_t Logical. If \code{TRUE} (default), normalise t to
-#'   [0, 1] before fitting. This improves numerical stability.
+#' @param normalize_t Logical. If \code{TRUE} (default), reported rates are
+#'   per normalised-time unit (t in [0, 1]); if \code{FALSE}, rates are
+#'   reported per raw time unit. The fit itself is always performed on
+#'   normalised time (see Fitting Strategy), so model selection and
+#'   convergence are identical for both settings — only the rate scale and
+#'   halflife interpretation differ.
 #'
 #' @return List with elements:
 #'   \describe{
@@ -87,18 +91,24 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
          call. = FALSE)
   }
 
-  # Normalise time to [0, 1] for numerical stability
-  t_scale <- if (normalize_t) {
-    t_range <- max(t, na.rm = TRUE) - min(t, na.rm = TRUE)
-    if (t_range == 0) t_range <- 1
-    (t - min(t, na.rm = TRUE)) / t_range
-  } else {
-    t
-  }
+  # Always fit on normalised time to [0, 1]. The model space is closed
+  # under time-scaling (rho = c0 + A1*exp(-k1*t) + A2*exp(-k2*t), t -> a*t
+  # is absorbed into k -> k/a), so the least-squares optimum, RSS and AIC
+  # are identical on any scale. Fitting unconditionally on normalised t
+  # makes model selection and convergence scale-invariant; normalize_t only
+  # controls the SCALE at which rates are REPORTED (see below).
+  t_range <- max(t, na.rm = TRUE) - min(t, na.rm = TRUE)
+  if (!is.finite(t_range) || t_range == 0) t_range <- 1
+  t_scale <- (t - min(t, na.rm = TRUE)) / t_range
 
   ord <- order(t_scale)
   t_s <- t_scale[ord]
   rho_s <- rho[ord]
+
+  # Reporting scale for rates: 1 reports per-normalised-unit rates
+  # (normalize_t = TRUE); t_range reports per-raw-time-unit rates
+  # (normalize_t = FALSE): k_raw = k_norm / t_range.
+  report_scale <- if (normalize_t) 1 else t_range
 
   # --- Helper: approximate AIC ---
   aic_val <- function(rss, k, n) {
@@ -148,7 +158,7 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
     mono_aic <- aic_val(mono_rss, 4, n)
     mono_coef <- list(c0 = unname(raw_coef[["c0"]]),
                       A = unname(raw_coef[["A"]]),
-                      k = unname(exp(raw_coef[["logk"]])))
+                      k = unname(exp(raw_coef[["logk"]])) / report_scale)
     mono_converged <- TRUE
   }
 
@@ -216,9 +226,9 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
     bi_coef <- list(
       c0 = unname(raw_coef[["c0"]]),
       A1 = unname(raw_coef[["A1"]]),
-      k1 = unname(exp(raw_coef[["logk1"]])),
+      k1 = unname(exp(raw_coef[["logk1"]])) / report_scale,
       A2 = unname(raw_coef[["A2"]]),
-      k2 = unname(exp(raw_coef[["logk2"]]))
+      k2 = unname(exp(raw_coef[["logk2"]])) / report_scale
     )
     # Fast/slow convention: k1 >= k2 (swap channels if the optimizer
     # converged to the mirror-image basin).
@@ -256,13 +266,17 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   } else {
     NA_real_
   }
-  k1_halflife <- if (is.finite(k1) && k1 > 0) {
-    log(2) / k1 * (max(t) - min(t))
+  # Halflives are physical (raw-time) quantities: halflife = log(2) / k_raw,
+  # and k_raw = k_norm / t_range, so halflife = log(2) * t_range / k_norm.
+  k1_norm <- k1 * report_scale   # per-normalised-unit rate
+  k2_norm <- k2 * report_scale
+  k1_halflife <- if (is.finite(k1_norm) && k1_norm > 0) {
+    log(2) * t_range / k1_norm
   } else {
     NA_real_
   }
-  k2_halflife <- if (is.finite(k2) && k2 > 0) {
-    log(2) / k2 * (max(t) - min(t))
+  k2_halflife <- if (is.finite(k2_norm) && k2_norm > 0) {
+    log(2) * t_range / k2_norm
   } else {
     NA_real_
   }
