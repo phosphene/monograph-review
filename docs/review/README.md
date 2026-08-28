@@ -14,6 +14,7 @@ with the standards in [`docs/standards/`](../standards/).
 | Document | What it is |
 |----------|-----------|
 | [`valence-ingression-review.md`](valence-ingression-review.md) | Critical review of the valence monograph (Ritch-Frel, v9) and the valence-foundry artifacts. Numbered **Remarks** (R1…) and **Review Items** (1–6). The foundry's code cites these directly. |
+| [`review-evaluation-standard.md`](review-evaluation-standard.md) | The review's evaluation contract (Ed Phillips, 2026-08-28): the review must support three vertices — **mathematics, software, data** — and evaluate each for **well-formedness, coherence, reproducibility**. Operational form of claim-evidence conformance: no claim exceeds its stated-and-tested conditions. |
 | [`calculation-review.md`](calculation-review.md) | Literate walkthrough of the calculation audit: for each oracle entry, the prediction, the broken output, the root-cause diagnosis, and the fix. The analysis-level companion to the review. |
 | [`math-review.md`](math-review.md) | Audit of the mathematics vs. the implementation vs. the claims: does the code realize the math it states, and do the claims follow? Seven issues ranked by severity (two severe). |
 | [`refactoring-plan.md`](refactoring-plan.md) | Execution plan for the math-review issues: proposed refactoring, blast radius, risk, and phasing for each of the seven issues (three phases, safest-first). |
