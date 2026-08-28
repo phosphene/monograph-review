@@ -224,8 +224,11 @@ relaxation_simulate <- function(times, rho0, k1, k2, rho1, rho2,
 #'     \item{phase1_amplitude}{Numeric. \eqn{A_1 / (A_1 + A_2)}.}
 #'     \item{phase2_amplitude}{Numeric. \eqn{A_2 / (A_1 + A_2)}.}
 #'     \item{rate_ratio}{Numeric. \eqn{k_1 / k_2}.}
-#'     \item{biphasic}{Logical. Whether the rate ratio > 2 (indicating
-#'       clear biphasic separation).}
+#'     \item{biphasic}{Logical. Whether the relaxation is genuinely
+#'       two-timescale: mono rejected by AIC (delta_aic_bi_mono > 0),
+#'       rate ratio > 2, both channels same sign, and the smaller channel
+#'       at least 15\% of total amplitude (guards against spurious
+#'       low-amplitude fast channels on one-channel data).}
 #'     \item{halflife_phase1}{Numeric. Halflife of fast phase in original time units.}
 #'     \item{halflife_phase2}{Numeric. Halflife of slow phase in original time units.}
 #'   }
@@ -249,6 +252,10 @@ relaxation_phase_analysis <- function(fit_result, t_max = NULL) {
   k2 <- abs(coef$k2)
   A1 <- abs(coef$A1)
   A2 <- abs(coef$A2)
+  # Signed amplitudes retained for the same-sign check: a genuine biphasic
+  # relaxation has both channels decaying in the same direction.
+  A1_signed <- coef$A1
+  A2_signed <- coef$A2
 
   if (is.null(t_max) && is.finite(k2) && k2 > 0) {
     t_max <- 5 / k2
@@ -263,8 +270,35 @@ relaxation_phase_analysis <- function(fit_result, t_max = NULL) {
     NA_real_
   }
 
-  # Biphasic detection: rate_ratio > 2 indicates clear separation
-  biphasic <- isTRUE(is.finite(rate_ratio) && rate_ratio > 2)
+  # Amplitude fractions (bounded in [0, 1] via abs(): a degenerate fit with
+  # opposite-sign channels still reports a bounded fraction)
+  total_amp <- A1 + A2
+  phase1_amp <- if (is.finite(total_amp) && total_amp > 0) A1 / total_amp else NA_real_
+  phase2_amp <- if (is.finite(total_amp) && total_amp > 0) A2 / total_amp else NA_real_
+
+  # Biphasic detection. A rate ratio > 2 is NOT sufficient on its own: on
+  # single-exponential (one-channel) data the fitter can chase noise into a
+  # spurious low-amplitude "fast" channel with a large k1/k2. Four guards:
+  # (a) model selection must agree (mono rejected: delta AIC bi-mono > 0);
+  # (b) rate separation k1/k2 > 2;
+  # (c) both channels same sign (both decay in the same direction);
+  # (d) the smaller channel is a material fraction (>= 0.15) of the total
+  #     amplitude.
+  # Validated (100 seeds each): true two-channel relaxations pass all four
+  # at min-fraction 0.22-0.28; one-channel data passes at a ~2% false-
+  # positive rate (the genuine identifiability boundary).
+  min_amp_frac <- if (is.finite(phase1_amp) && is.finite(phase2_amp)) {
+    min(phase1_amp, phase2_amp)
+  } else {
+    NA_real_
+  }
+  same_sign <- is.finite(A1_signed) && is.finite(A2_signed) &&
+    (sign(A1_signed) == sign(A2_signed))
+  model_agrees <- is.finite(fit_result$delta_aic_bi_mono) &&
+    fit_result$delta_aic_bi_mono > 0
+  biphasic <- isTRUE(is.finite(rate_ratio) && rate_ratio > 2 &&
+                       model_agrees && same_sign &&
+                       is.finite(min_amp_frac) && min_amp_frac >= 0.15)
 
   # Transition time: when fast channel decays to 1/e
   transition_time <- if (is.finite(k1) && k1 > 0) {
@@ -272,11 +306,6 @@ relaxation_phase_analysis <- function(fit_result, t_max = NULL) {
   } else {
     NA_real_
   }
-
-  # Amplitude fractions
-  total_amp <- A1 + A2
-  phase1_amp <- if (is.finite(total_amp) && total_amp > 0) A1 / total_amp else NA_real_
-  phase2_amp <- if (is.finite(total_amp) && total_amp > 0) A2 / total_amp else NA_real_
 
   # Halflives (in normalised time units, need to convert)
   halflife_phase1 <- if (is.finite(k1) && k1 > 0) log(2) / k1 else NA_real_

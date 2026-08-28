@@ -75,6 +75,14 @@ fits), every citation points at a real passage, and the representation
 is openly theory-laden while the observation is left naked for anyone
 to verify.
 
+The standard is enforced operationally in the relaxation fitter — see
+[`docs/review/fit-biexp-numerical-challenges.md`](docs/review/fit-biexp-numerical-challenges.md),
+the rigorous revisit of `fit_biexp` and its `biphasic` consumer. The
+fitter reports a two-timescale structure only when the data forces it
+(guarded rule: AIC agreement, rate ratio, same sign, amplitude floor),
+and treats a degenerate sample as a boundary probe rather than a
+forced conclusion. Reproducible via `scripts/validate_fit_biexp.py`.
+
 ---
 
 ## Key Results
@@ -111,6 +119,7 @@ The foundry ships a complete review trail — every claim traced to its root cau
 |----------|-----------|
 | [Family-kinds genealogy](docs/review/family-kinds-genealogy.md) | The definitory-apparatus lineage: Wittgenstein (family resemblance, 1953) → Beckner (polytypic classes, 1959) → Sokal & Sneath (operational polythetic groups, 1963) → Mayr → Ghiselin → Paterson → Templeton → de Queiroz → Pigliucci → Kunz → Kull (semiotic species, 2016). Why boundary-challenged concepts are handled as family-resemblance categories and non-instantiating cases as boundary probes. |
 | [Complementarity lineage](docs/review/bohr-complementarity-lineage.md) | The epistemology: Bohr (Light and Life, 1932) → Delbrück → Elsasser/Pattee/Rosen/Stent. Observation is naked, representation is theory-laden, programs need not commute. The realist axiom under test. |
+| [fit_biexp numerical challenges](docs/review/fit-biexp-numerical-challenges.md) | The operational enforcement of the vintage-label standard in the relaxation fitter: the ill-conditioning, the seed-fragile mono/bi boundary, the biphasic-flag bug and its guarded fix, and the degenerate-sampling/noise boundaries as boundary probes. Reproducible via `scripts/validate_fit_biexp.py`. |
 
 ### Build history and synthesis
 

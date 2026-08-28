@@ -158,3 +158,75 @@ test_that("relaxation_phase_analysis: phase1 amplitude > phase2 amplitude", {
     expect_gt(analysis$phase1_amplitude, analysis$phase2_amplitude)
   }
 })
+
+# ==============================================================================
+# RIGOROUS REVISIT (2026-08-28) — biphasic-flag integrity
+# See docs/review/fit-biexp-numerical-challenges.md. The biphasic flag must
+# not contradict the model-selection layer, must not fire on a spurious
+# low-amplitude fast channel, and must still fire on genuine two-channel data.
+# ==============================================================================
+
+
+# ---- biphasic: never contradicts model selection ----
+
+test_that("relaxation_phase_analysis: biphasic requires mono to be rejected", {
+  # If the mono model wins on AIC (delta <= 0), the data does not support two
+  # timescales and biphasic must be FALSE — even if the fitted ratio exceeds 2.
+  for (s in 1:10) {
+    d <- .make_monoexp_data(n = 80, seed = s, noise_sd = 0.001)
+    fits <- fit_biexp(d$t, d$rho)
+    analysis <- relaxation_phase_analysis(fits)
+    if (!is.na(fits$delta_aic_bi_mono) && fits$delta_aic_bi_mono <= 0) {
+      expect_false(analysis$biphasic)
+    }
+  }
+})
+
+
+# ---- biphasic: FALSE on one-channel data (spurious fast channel) ----
+
+test_that("relaxation_phase_analysis: no biphasic claim on one-channel data", {
+  # Single-exponential data is the negative control. A rate-ratio-only rule
+  # fired biphasic=TRUE on ~25% of one-channel seeds (spurious fast channel).
+  # The guarded rule should fire on at most a couple in a fixed seed sweep.
+  n_biphasic <- 0L
+  for (s in 1:10) {
+    d <- .make_monoexp_data(n = 80, seed = s, noise_sd = 0.001)
+    fits <- fit_biexp(d$t, d$rho)
+    analysis <- relaxation_phase_analysis(fits)
+    if (isTRUE(analysis$biphasic)) n_biphasic <- n_biphasic + 1L
+  }
+  expect_lte(n_biphasic, 2L)
+})
+
+
+# ---- biphasic: TRUE on genuine two-channel data ----
+
+test_that("relaxation_phase_analysis: detects genuine biphasic relaxation", {
+  # The guarded rule must not suppress real two-timescale structure.
+  n_biphasic <- 0L
+  for (s in 1:10) {
+    d <- .make_biexp_data(n = 100, seed = s, k1 = 17.7, k2 = 0.47, noise_sd = 0.001)
+    fits <- fit_biexp(d$t, d$rho)
+    analysis <- relaxation_phase_analysis(fits)
+    if (isTRUE(analysis$biphasic)) n_biphasic <- n_biphasic + 1L
+  }
+  expect_gte(n_biphasic, 8L)
+})
+
+
+# ---- phase amplitudes bounded ----
+
+test_that("relaxation_phase_analysis: phase amplitudes bounded in [0, 1]", {
+  for (s in 1:10) {
+    d <- .make_biexp_data(n = 80, seed = s, noise_sd = 0.001)
+    fits <- fit_biexp(d$t, d$rho)
+    analysis <- relaxation_phase_analysis(fits)
+    if (fits$biexponential$converged) {
+      expect_gte(analysis$phase1_amplitude, 0)
+      expect_lte(analysis$phase1_amplitude, 1)
+      expect_gte(analysis$phase2_amplitude, 0)
+      expect_lte(analysis$phase2_amplitude, 1)
+    }
+  }
+})
