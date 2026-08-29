@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Key Results — The Foundry</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: 'DejaVu Serif', Georgia, serif; max-width: 900px;
+       margin: 0 auto; padding: 20px; color: #1a1a1a; line-height: 1.55;
+       background: #fdfdfd; font-size: 11pt; }
+a { color: #2980b9; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.header { background: #2c3e50; color: white; padding: 24px 28px;
+          border-radius: 8px; margin-bottom: 20px; }
+.header h1 { margin: 0 0 4px 0; font-size: 1.5em; font-family: 'DejaVu Sans', sans-serif; }
+.header p { margin: 3px 0; opacity: 0.9; font-size: 0.9em; }
+.header a { color: #9ecbf5; }
+.nav { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+       font-family: 'DejaVu Sans', sans-serif; font-size: 0.9em; }
+.nav a { padding: 4px 12px; background: #ecf0f1; border-radius: 4px;
+         color: #2c3e50; }
+.nav a:hover { background: #d0d6d9; }
+.section { background: #fff; border: 1px solid #e3e8ee; border-radius: 6px;
+           padding: 16px 20px; margin-bottom: 20px; }
+.section h2 { margin-top: 0; color: #2c3e50; border-bottom: 1px solid #2c3e50;
+              padding-bottom: 6px; font-family: 'DejaVu Sans', sans-serif; font-size: 1.2em; }
+.section h3 { color: #34495e; margin-top: 20px; font-family: 'DejaVu Sans', sans-serif; font-size: 1.05em; }
+.descriptive { margin-bottom: 16px; line-height: 1.6; }
+.descriptive p { margin-bottom: 8pt; text-align: justify; }
+.descriptive strong { font-weight: bold; }
+.descriptive em { font-style: italic; }
+.descriptive code { font-family: 'DejaVu Sans Mono', monospace; font-size: 0.9em;
+                    background: #f4f6f8; padding: 0 3px; border-radius: 2px; }
+.descriptive ul { margin: 4px 0 8px 20px; }
+.descriptive li { margin-bottom: 4px; }
+.summary { background: #f0f4f8; padding: 10px 14px; border-left: 4px solid #2c3e50;
+           border-radius: 3px; margin: 10px 0; font-size: 0.92em; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.9em; }
+th, td { border: 1px solid #dde3ea; padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: #2c3e50; color: white; font-weight: 600; font-family: 'DejaVu Sans', sans-serif; }
+tr:nth-child(even) td { background: #f7f9fb; }
+.plot { margin: 12px 0; text-align: center; }
+.plot img { max-width: 100%; height: auto; border: 1px solid #e3e8ee; border-radius: 4px; }
+.plot figcaption { font-size: 0.82em; color: #7f8c8d; margin-top: 4px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px;
+         font-size: 0.78em; font-weight: 600; }
+.badge.pass { background: #d5f5e3; color: #1e8449; }
+.badge.fail { background: #fadbd8; color: #c0392b; }
+.badge.warn { background: #fdebd0; color: #b9770e; }
+.footer { color: #7f8c8d; font-size: 0.82em; text-align: center;
+          padding: 12px; border-top: 1px solid #e3e8ee; margin-top: 8px; }
+.placeholder { color: #7f8c8d; font-style: italic; }
+.mono { font-family: 'DejaVu Sans Mono', monospace; font-size: 0.88em;
+        background: #f4f6f8; padding: 1px 4px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="header"><h1>Key Results — The Foundry</h1><p>The Foundry — computational verification for the framework under review</p><p>Generated: 2026-08-29 16:11 UTC&nbsp;|&nbsp;<a href="https://github.com/phosphene/monograph-review">GitHub</a>&nbsp;|&nbsp;<a href="https://phosphene.github.io/monograph-review/">Pages</a></p></div>
+<div class="nav"><a href="index.html">Index</a><a href="simulacra.html">Simulacra</a><a href="baseline-oracle.html">Baseline Oracle</a><a href="key-results.html">Key Results</a><a href="toy-models.html">Toy Models</a><a href="formula-analysis.html">Formula Analysis</a></div>
+<div class="section"><h2>Key Results — Discriminating Core</h2><div class="descriptive"><p>---</p>
+<p><strong>Status: CONFIRMED on 4/6 longitudinal systems.</strong> Cross-sectional failures are expected — foundry Simulacrum 4 predicted that cross-sectional sampling of a bi-exponential process produces a step/breakpoint, not a bi-exponential signal.</p>
+<p><strong>Status: CONFIRMED.</strong> k₁ > k₂ in all systems. Foundry Simulacrum 9 shows k₂ is always recovered accurately; k₁ may be underestimated when the fast phase is unresolved (LTEE ratio may be a lower bound).</p>
+<p><strong>Status: CONFIRMED 4/4.</strong> High-dependency genes persist more than low-dependency across all systems. Endosymbiont test: high-dep retained 32% vs low-dep 7.2%.</p>
+<p><strong>Status: CONFIRMED.</strong> ~50 documented transitions, 0 counterexamples. Systematic survey compiled in Supplementary Materials.</p>
+<p><strong>Status: CONFIRMED with correct predictor.</strong> When niche-demand mismatch is measured as metabolic network retention (not raw time), it dominates Nₑ. Nₑ becomes non-significant after controlling for niche breadth.</p>
+<p><strong>Status: CONFIRMED.</strong> Same bi-exponential kinetics across DNA, neural tissue, and behavioral evolution. Petanjek et al. independently chose bi-exponential fits in their original paper — published before our framework.</p>
+<p><strong>Original test (binary "positive DD?"):</strong> ❌ Corvids show negative DD, parrots show constant rate.</p>
+<p><strong>Refined test (gradient "DD coefficient vs cultural complexity?"):</strong> ✅ The gradient exists.</p>
+<p><strong>Revised prediction:</strong> Weak culture attenuates negative DD; strong culture produces transient positive DD episodes; human-level culture produces sustained positive DD.</p>
+<p><strong>Status: REFINED.</strong> The sign reversal is graded, not binary. Bird culture is sufficient to attenuate but not fully reverse DD. Homo remains the only lineage with sustained positive DD.</p>
+<p><strong>Status: CONFIRMED.</strong> Irreversibility is structural, not probabilistic. The integration-depth threshold (~5 generations in captivity) predicts when reversal becomes functionally impossible.</p>
+<p>---</p>
+<p>---</p>
+<p><strong>Composite WCI: 76 → 78</strong> (Tier 2, approaching Tier 1 threshold of 80)</p>
+<p>Key gains: empirical support (+10) from 4 new longitudinal systems (P1, P6) and 22-genus PGLS (P3); replicability (+7) from foundry simulacra 9-13; falsifiability (+6) from explicit falsification criteria for all 8 predictions.</p>
+<p>Key limitation: independent uptake remains low (35) — the framework needs bioRxiv posting + GitHub code archive to gain citations.</p></div><table><thead><tr><th>Test</th><th>What it measures</th><th>Key value</th><th>Distinguishes the framework?</th></tr></thead><tbody><tr><td class="mono"><strong>T3</strong></td><td>Endosymbiont biphasic</td><td class="mono">R² = 0.920, threshold_biphasicity = 1.0</td><td>Yes — constant-rate and ratchet predict different shapes</td></tr>
+<tr><td class="mono"><strong>T4</strong></td><td>Niche vs Ne</td><td class="mono">Niche R² = 0.343 vs Ne R² = 0.198</td><td>Yes — drift-only predicts Ne dominates</td></tr>
+<tr><td class="mono"><strong>T5</strong></td><td>Pan-genome fluidity</td><td class="mono">Lifestyle subsumes Ne</td><td>Yes — Ne-only predicts no lifestyle signal</td></tr>
+<tr><td class="mono"><strong>T6</strong></td><td>Gene-loss ordering</td><td class="mono">ρ = 0.955, p = 0.0083</td><td>Yes — random loss predicts no ordering</td></tr>
+<tr><td class="mono"><strong>FM</strong></td><td>Formal model (GLM)</td><td class="mono">dep = +0.84 (p=0.0008), para = -1.86 (p&lt;0.0001)</td><td>Yes — random loss (dep≤0), relaxed selection (para ns)</td></tr>
+<tr><td class="mono"><strong>L3</strong></td><td>Cross-kingdom transfer</td><td class="mono">ρ = 0.755, p = 0.031</td><td>Yes — substrate independence predicts no transfer</td></tr>
+<tr><td class="mono"><strong>T1</strong></td><td>Orobanchaceae PGLS</td><td class="mono">β = -23.5, R² = 0.652, p &lt; 10⁻⁹</td><td>No — relaxed selection predicts same gradient</td></tr>
+<tr><td class="mono"><strong>T2</strong></td><td>Between-family correlation</td><td class="mono">r = -0.934, p = 1.39e-41</td><td>No — also predicted by relaxed selection</td></tr>
+<tr><td class="mono"><strong>T7</strong></td><td>LTEE co-segregation</td><td class="mono">36.4% vs 61.7% (depletion)</td><td>No — hitchhiking confound; suggestive only</td></tr></tbody></table></div><div class="footer"><p><strong>The Foundry</strong> — generated by <span class="mono">scripts/render_pages.R</span> at 2026-08-29 16:11 UTC</p></div>
+</body>
+</html>
+

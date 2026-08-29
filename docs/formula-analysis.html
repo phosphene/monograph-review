@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formula Analysis — The Foundry</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: 'DejaVu Serif', Georgia, serif; max-width: 900px;
+       margin: 0 auto; padding: 20px; color: #1a1a1a; line-height: 1.55;
+       background: #fdfdfd; font-size: 11pt; }
+a { color: #2980b9; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.header { background: #2c3e50; color: white; padding: 24px 28px;
+          border-radius: 8px; margin-bottom: 20px; }
+.header h1 { margin: 0 0 4px 0; font-size: 1.5em; font-family: 'DejaVu Sans', sans-serif; }
+.header p { margin: 3px 0; opacity: 0.9; font-size: 0.9em; }
+.header a { color: #9ecbf5; }
+.nav { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+       font-family: 'DejaVu Sans', sans-serif; font-size: 0.9em; }
+.nav a { padding: 4px 12px; background: #ecf0f1; border-radius: 4px;
+         color: #2c3e50; }
+.nav a:hover { background: #d0d6d9; }
+.section { background: #fff; border: 1px solid #e3e8ee; border-radius: 6px;
+           padding: 16px 20px; margin-bottom: 20px; }
+.section h2 { margin-top: 0; color: #2c3e50; border-bottom: 1px solid #2c3e50;
+              padding-bottom: 6px; font-family: 'DejaVu Sans', sans-serif; font-size: 1.2em; }
+.section h3 { color: #34495e; margin-top: 20px; font-family: 'DejaVu Sans', sans-serif; font-size: 1.05em; }
+.descriptive { margin-bottom: 16px; line-height: 1.6; }
+.descriptive p { margin-bottom: 8pt; text-align: justify; }
+.descriptive strong { font-weight: bold; }
+.descriptive em { font-style: italic; }
+.descriptive code { font-family: 'DejaVu Sans Mono', monospace; font-size: 0.9em;
+                    background: #f4f6f8; padding: 0 3px; border-radius: 2px; }
+.descriptive ul { margin: 4px 0 8px 20px; }
+.descriptive li { margin-bottom: 4px; }
+.summary { background: #f0f4f8; padding: 10px 14px; border-left: 4px solid #2c3e50;
+           border-radius: 3px; margin: 10px 0; font-size: 0.92em; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.9em; }
+th, td { border: 1px solid #dde3ea; padding: 6px 8px; text-align: left; vertical-align: top; }
+th { background: #2c3e50; color: white; font-weight: 600; font-family: 'DejaVu Sans', sans-serif; }
+tr:nth-child(even) td { background: #f7f9fb; }
+.plot { margin: 12px 0; text-align: center; }
+.plot img { max-width: 100%; height: auto; border: 1px solid #e3e8ee; border-radius: 4px; }
+.plot figcaption { font-size: 0.82em; color: #7f8c8d; margin-top: 4px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px;
+         font-size: 0.78em; font-weight: 600; }
+.badge.pass { background: #d5f5e3; color: #1e8449; }
+.badge.fail { background: #fadbd8; color: #c0392b; }
+.badge.warn { background: #fdebd0; color: #b9770e; }
+.footer { color: #7f8c8d; font-size: 0.82em; text-align: center;
+          padding: 12px; border-top: 1px solid #e3e8ee; margin-top: 8px; }
+.placeholder { color: #7f8c8d; font-style: italic; }
+.mono { font-family: 'DejaVu Sans Mono', monospace; font-size: 0.88em;
+        background: #f4f6f8; padding: 1px 4px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="header"><h1>Formula Analysis — The Foundry</h1><p>The Foundry — computational verification for the framework under review</p><p>Generated: 2026-08-29 16:11 UTC&nbsp;|&nbsp;<a href="https://github.com/phosphene/monograph-review">GitHub</a>&nbsp;|&nbsp;<a href="https://phosphene.github.io/monograph-review/">Pages</a></p></div>
+<div class="nav"><a href="index.html">Index</a><a href="simulacra.html">Simulacra</a><a href="baseline-oracle.html">Baseline Oracle</a><a href="key-results.html">Key Results</a><a href="toy-models.html">Toy Models</a><a href="formula-analysis.html">Formula Analysis</a></div>
+<div class="section"><h2>Formula Analysis — Three-Move Derivation</h2><div class="descriptive"><p>> <strong>⚠️ Updated August 2026:</strong> The step function formula ρ(θ) = ρ_sat · H(θ − θ*) has been superseded by the relaxation formula dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂). Foundry simulacra showed the step function was a 3-point artifact (n=3 cannot distinguish step from sigmoid) and the percolation/drift-selection derivation paths did not hold. The formal chain Ising → Landau → Cusp is verified, but describes relaxation dynamics, not a phase transition. See [Economics Extrapolations](economics-extrapolations.md) for the updated formula and predictions.</p>
+<p><strong>Author:</strong> Flow Feel ([@FlowFeel](https://github.com/FlowFeel)) <strong>Date:</strong> August 2026 <strong>License:</strong> MIT</p>
+<p>---</p>
+<p>This document presents the <strong>three-move analysis</strong> for deriving the functional form of the framework's effect. The monograph proposes that the framework's effect on genome retention follows a substrate-shift equation: α(x) = −k_ecol + k_cult · σ((x − x*)/s). The question is whether the data falls on a recognizable curve — and if so, whether that curve matches the theory's prediction.</p>
+<p>The analysis uses three epistemic moves, executed in parallel:</p>
+<p>1. <strong>Ohta (inductive):</strong> Plot ρ vs θ across all systems. Let the data reveal the functional form. 2. <strong>Fisher (decompositional):</strong> Partition Sodalis retention variance into framework + essentiality + drift + hitchhiking. 3. <strong>Wimsatt (triangulation):</strong> Fit candidate functions, compare to the monograph's predicted form.</p>
+<p>---</p>
+<p>---</p>
+<p>Plot the framework's effect size (ρ) against niche dependency parameter (θ) across all systems. θ measures the degree to which the environment (host) provides metabolic requirements — the control parameter. ρ measures how strongly gene-level dependency predicts retention — the order parameter.</p>
+<p><strong>3 comparable ρ-θ points (same metric):</strong></p>
+<p><strong>Key finding:</strong> Sodalis (θ=0.04) and Buchnera (θ=0.50) have nearly identical ρ despite a 12× difference in θ. The framework's effect saturates immediately once symbiosis begins.</p>
+<p><strong>11-point fit (including Orobanchaceae per-species):</strong></p>
+<p>The power law wins on R², but the Orobanchaceae per-species points are noisy (n=6 gene categories per species). The PGLS-corrected point (ρ=0.955) is well above all fitted curves — phylogenetic correction removes shared-ancestry noise that inflates the raw Spearman denominator.</p>
+<p>The three comparable points (LTEE, Sodalis, Buchnera) show a <strong>step function</strong>, not a gradual sigmoid. ρ jumps from ~0 to ~0.35 at the onset of symbiosis and stays there regardless of how deep the dependency goes. The Orobanchaceae PGLS ρ=0.955 suggests the true ceiling is much higher than raw ρ indicates.</p>
+<p>---</p>
+<p>Within the Sodalis system (1,366 genes matched to iJO1366), partition retention variance into components: framework (dependency score), selection (essentiality), drift (baseline), and hitchhiking (residual).</p>
+<p><strong>Logistic regression decomposition:</strong></p>
+<p><strong>Key finding:</strong> Adding essentiality to the framework's measure gives <strong>zero improvement</strong> in AUC (0.656 → 0.656). The framework's measure subsumes essentiality entirely. The genes that are metabolically essential ARE the high-dependency genes — there is no independent selection signal beyond what dependency captures.</p>
+<p>The jump from 34% to 78% between low and mid is the framework signal — it is not gradual but a <strong>step within the system</strong>. Genes with any non-trivial dependency (above 0.01) are retained at roughly twice the rate of zero-dependency genes.</p>
+<p>---</p>
+<p>Compare empirical fits to the monograph's predicted functional forms: 1. Rate function: dC/dt = −k·M·f(I(C)) 2. Substrate-shift: α(x) = −k_ecol + k_cult · σ((x−x*)/s) 3. Cusp catastrophe: S = f(a, b) — irreversibility threshold 4. Autocatalytic closure: Kauffman set</p>
+<p>The sigmoid fit gives: θ* = 0.205, s = 5.48, ρ_max = 0.744. But with only 3 comparable points, the sigmoid's steepness parameter is poorly constrained. The key observation is that s appears very high — the transition is sharp, not gradual.</p>
+<p><strong>The step function interpretation:</strong> All three symbiotic systems show raw ρ ≈ 0.35–0.37 regardless of θ:</p>
+<p>The raw framework's effect is constant across symbiotic systems at different dependency levels. This is consistent with a <strong>first-order phase transition</strong> (discontinuous jump), not a second-order transition (continuous sigmoid).</p>
+<p>The step-function finding maps directly onto physics attractor theory:</p>
+<p>Below θ<em>, the system is in the "free-living" attractor basin (full genome, no effect). Above θ</em>, it jumps to the "symbiotic" attractor basin (reducing genome, effect active). The jump is discontinuous — like water to ice, not like iron cooling through the Curie point.</p>
+<p>This is the cusp catastrophe structure already in the monograph (§S5): the irreversibility threshold IS the basin-switching event. The formula's steepness s → ∞ because the cooperative coupling is very strong — once one gene's dependency triggers retention, it cascades through the network instantly. This is the "magnetic" effect: cooperative alignment, like spins locking into a ferromagnetic domain.</p>
+<p>$$\rho(\theta) = \rho_{\text{sat}} \cdot H(\theta - \theta^*)$$</p>
+<p>Where:</p>
+<p>The monograph's sigmoid α(x) = −k_ecol + k_cult · σ((x−x*)/s) is the smooth version of this step function. In the limit s → ∞, the sigmoid becomes the Heaviside. The data suggests s is very large — the cooperativity parameter is high.</p>
+<p>---</p>
+<p>1. <strong>Only 3 comparable ρ-θ points.</strong> The within-system ρ metric (Spearman of iJO1366 dependency vs binary retention) is only available for LTEE, Sodalis, and Buchnera. Carsonella was attempted but only 4 genes matched — too few for a reliable ρ. More endosymbiont systems require BLAST-based orthology, not gene-name matching.</p>
+<p>2. <strong>Orobanchaceae per-species points are noisy.</strong> Each species has only 6 gene categories, giving very low statistical power. The PGLS-corrected ρ=0.955 is the robust value, but it uses a different metric (cross-species PGLS vs within-system Spearman).</p>
+<p>3. <strong>θ is not directly comparable across domains.</strong> The θ for bacterial endosymbionts (genome ratio or aa pathway fraction) measures something different from the θ for Orobanchaceae (parasitism score). A unified θ metric based on metabolic complementarity would be more rigorous.</p>
+<p>4. <strong>PGLS correction is only available for Orobanchaceae.</strong> If PGLS were applied to Sodalis and Buchnera, the raw ρ≈0.35 might increase toward 0.95 — or it might not. Without PGLS, we cannot distinguish "true saturation at 0.35" from "shared-ancestry noise inflating the denominator."</p>
+<p>5. <strong>The step-function interpretation relies on 2 points (Sodalis + Buchnera).</strong> Two points cannot distinguish a step function from a very steep sigmoid. More intermediate-θ points would resolve this.</p>
+<p>---</p>
+<p>1. <strong>Compute ρ for Hodgkinia, Sulcia, Tremblaya</strong> — requires BLAST-based orthology matching to iJO1366 (gene-name matching fails at extreme reduction). 2. <strong>PGLS-correct Sodalis and Buchnera</strong> — phylogenetic correction for within-system ρ to remove shared-ancestry noise. 3. <strong>Unified θ metric</strong> — compute metabolic complementarity (proportion of metabolic requirements externally provided) from metabolic models, not genome size ratios. 4. <strong>Test the step-function prediction</strong> — if the formula is Heaviside, then a system at θ just above θ* should show the same ρ as a system at θ → 1. Sodalis (θ=0.04) already supports this, but a system at θ=0.01 would be decisive.</p>
+<p>---</p>
+<p>All analysis code is in the repository:</p>
+<p>Data files:</p>
+<p>---</p>
+<p>This analysis extends the foundry's existing test suite (T1–T7, formal model, L3) with a new <strong>formula derivation</strong> track. The Python scripts are supplementary to the R package — they perform data fetching (NCBI API) and analysis that is not yet ported to R. The findings are consistent with:</p>
+<p>The step-function finding (s → ∞ in the sigmoid limit) is a <strong>new result</strong> not in the monograph. It suggests the monograph's sigmoid is correct but its steepness is underestimated — the transition is sharper than predicted. This is consistent with the cusp catastrophe interpretation: the basin switch is discontinuous.</p></div></div><div class="footer"><p><strong>The Foundry</strong> — generated by <span class="mono">scripts/render_pages.R</span> at 2026-08-29 16:11 UTC</p></div>
+</body>
+</html>
+
