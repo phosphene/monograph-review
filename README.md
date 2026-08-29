@@ -54,11 +54,16 @@ of empirical science.
 - **Boundary rule for names.** How much qualification a name requires scales with the breadth of
   its usage. A word that has entered common usage — its namespace is the language itself, wide
   open — may stand unqualified (e.g., evolutionary science). A term bounded within a research
-  program is namespaced to that program. And a term whose users are a peculiar subset —
-  especially one preponderantly overrepresented in frontier-model training data — carries a
-  statistical shadow this review does not endorse: it is refused top-level public use without
-  full qualification, and may be refused entirely (worked case: "substrate", used only as
-  "the manuscript's substrate-independence view (the two kingdoms treated as independent)").
+  program is namespaced to that program. A term whose users are a peculiar subset — especially
+  one preponderantly overrepresented in frontier-model training data — carries a statistical
+  shadow this review does not endorse. Such a term may be quoted from others, but only at a
+  distance: it may be adopted only if tied to an existing usage in public science — an actual
+  research program, never a document under review, never a private sense. Worked case:
+  "substrate" is refused from this review's public vocabulary: no established research program
+  uses it in the sense required here, and the program that uses "substrate independence"
+  prominently — consciousness research (Chalmers; integrated information theory) — is exactly
+  the community this review does not inherit. The L3 competitor is stated in plain public
+  language instead: independence of the two kingdoms predicts no transfer.
 - **Observation as the production of conditions (Wisdom).** Observations are the foundation of
   scientific method because they are the conditions in which statements can be made — and those
   conditions can be reproduced. The reproduction of the conditions is itself observation: to
@@ -216,7 +221,7 @@ oracle; the pipeline must reproduce it within numerical tolerance (0.001).
 | T1: Orobanchaceae PGLS | Plastome genome size vs parasitism depth | β = −23.5 kb/level, R² = 0.652, p < 10⁻⁹ | No — relaxed selection predicts the same gradient |
 | T3: Endosymbiont biphasic | Genome reduction kinetics shape | R² = 0.920, BF = 6.7 (logistic vs exponential) | Yes — constant-rate and ratchet predict different shapes |
 | T6: Gene-loss ordering | Functional dependency vs retention order | ρ = 0.955, exact permutation p = 0.0083 | Yes — random loss predicts no ordering |
-| L3: Cross-kingdom transfer | Plant parameters predict bird morphology | ρ = 0.755, p = 0.031 | Yes — the manuscript's substrate-independence view (the two kingdoms treated as independent) predicts no transfer |
+| L3: Cross-kingdom transfer | Plant parameters predict bird morphology | ρ = 0.755, p = 0.031 | Yes — independence of the two kingdoms predicts no transfer |
 
 ## Documentation
 
