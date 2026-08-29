@@ -78,6 +78,14 @@ test_that("Invariant: a<0, |b|<threshold cusp bifurcates with positive loop area
         info = sprintf("iter %d: a<0 cusp must show hysteresis", i)
       )
       area <- hysteresis_loop_area(cv, eq, seed = 42L)$values$loop_area
+
+      # The proof-level function integrates the analytic outer-root separation
+      # (a<0 path); it must agree with the numeric loop area (regression guard
+      # for the vectorized-integrand fix).
+      proof_area <- prove_hysteresis_loop_area(a, c(-2, 2), n = 200)
+      expect_true(isTRUE(proof_area$verified),
+        info = sprintf("iter %d: a<0 proof verified loop area", i)
+      )
       expect_true(isTRUE(area > 0),
         info = sprintf("iter %d: loop area %.5f must be > 0 when hysteresis", i, area)
       )

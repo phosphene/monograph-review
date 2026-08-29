@@ -161,23 +161,32 @@ prove_hysteresis_loop_area <- function(a = -1, control_range = c(-2, 2),
   }
 
   eq_fn <- make_cusp_equilibrium_fn(a = a)
-  cv <- seq(control_range[1], control_range[2], length.out = n)
-  num <- hysteresis_loop_area(cv, eq_fn, seed = 42L)
-  numeric_area <- num$values$loop_area
 
   # Analytic area: integrate the outer-root separation over the bistable b-range.
   analytic_area <- 0
+  sweep_range <- control_range
   if (a < 0) {
     bcrit <- (2 / (3 * sqrt(3))) * (-a)^(3 / 2)
     lo <- max(control_range[1], -bcrit)
     hi <- min(control_range[2], bcrit)
     if (hi > lo) {
       analytic_area <- stats::integrate(
-        function(b) .cusp_branch_separation(b, a),
+        function(b) vapply(b, .cusp_branch_separation, numeric(1), a = a),
         lower = lo, upper = hi, subdivisions = 200L
       )$value
+      # Focus the numeric sweep on the bistable band (with a margin) so that
+      # narrow cusps (small |a|) are resolved; a wide fixed range misses them
+      # on a coarse grid. The loop lies entirely within the band.
+      sweep_range <- c(
+        max(control_range[1], -1.5 * bcrit),
+        min(control_range[2], 1.5 * bcrit)
+      )
     }
   }
+
+  cv <- seq(sweep_range[1], sweep_range[2], length.out = n)
+  num <- hysteresis_loop_area(cv, eq_fn, seed = 42L)
+  numeric_area <- num$values$loop_area
 
   has_loop <- (a < 0) && (numeric_area > 0)
   agreement <- if (numeric_area > 0) {
