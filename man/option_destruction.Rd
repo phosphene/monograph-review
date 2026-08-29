@@ -27,7 +27,7 @@ value exponentially in time; the framework couples decay to CDI itself.
 \section{Theoretical Context}{
 
 
-The framework Prediction: because option value tracks remaining capacity (1 - CDI),
+the framework's prediction: because option value tracks remaining capacity (1 - CDI),
 and CDI grows deceleratingly, the standard exponential-in-time decay model
 systematically over-estimates early option value and under-estimates late
 remaining value (residuals negative early, positive late).

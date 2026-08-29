@@ -26,7 +26,7 @@ All classes follow DFT axioms:
 \item A6 (check-result): returns structured objects with values + metadata
 }
 
-The base class is \code{vi_dynamics_result}; each module adds a subclass
+The base class is \code{valence_dynamics_result}; each module adds a subclass
 carrying that base in its class vector so the base S3 methods
 (\code{print()}, \code{summary()}, \code{as.data.frame()}) dispatch
 uniformly.

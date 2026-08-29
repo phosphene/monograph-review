@@ -12,7 +12,7 @@ prove_cusp_bifurcation(a, b)
 \item{b}{Numeric. Cubic coefficient \eqn{b}.}
 }
 \value{
-A \code{vi_proof} object.
+A \code{valence_proof} object.
 }
 \description{
 Analytical proof for the cusp catastrophe equilibrium \eqn{x^3+ax+b=0}:

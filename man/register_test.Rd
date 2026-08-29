@@ -10,9 +10,9 @@ register_test(
   data_required = character(0),
   discriminating = FALSE,
   expected_fields = character(0),
-  class = "vi_test_result",
+  class = "valence_test_result",
   statistic_key = NULL,
-  vi_prediction = ""
+  valence_prediction = ""
 )
 }
 \arguments{
@@ -30,12 +30,12 @@ competitors (as opposed to only being consistent with the framework).}
 \item{expected_fields}{Character vector. Value fields the test returns.}
 
 \item{class}{Character. S3 result class to wrap the output in
-(default \code{"vi_test_result"}).}
+(default \code{"valence_test_result"}).}
 
 \item{statistic_key}{Character. Optional name of the raw value field to use
 as the canonical statistic (otherwise auto-detected).}
 
-\item{vi_prediction}{Character. Plain-language the framework's prediction statement.}
+\item{valence_prediction}{Character. Plain-language the framework's prediction statement.}
 }
 \value{
 Invisibly returns the registry entry.
@@ -50,7 +50,7 @@ list of provenance) — the A6 proof-object shape used by the Empirical layer.
 register_test(
   name = "my_test", fn = my_test,
   data_required = "data", discriminating = TRUE,
-  expected_fields = c("rho", "p_value"), class = "vi_ordering_result"
+  expected_fields = c("rho", "p_value"), class = "valence_ordering_result"
 )
 }
 }

@@ -38,7 +38,7 @@ tests whether the post-threshold plateau is ~0.35.
 \section{Theoretical Context}{
 
 
-the framework Formula Prediction: ρ_sat ≈ 0.35 across all substrates. In economics,
+the framework's formula prediction: ρ_sat ≈ 0.35 across all substrates. In economics,
 this means: the correlation between firm-level capability dependency and
 firm survival, measured above the provision threshold, should be ~0.35.
 Not 0.1, not 0.8 — 0.35. This is a parameter-free, substrate-independent

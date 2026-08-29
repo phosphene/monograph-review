@@ -31,7 +31,7 @@ This module implements:
 \section{Theoretical Context}{
 
 
-The framework Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+the framework's prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 rapidly) followed by slow Phase 2 (protected traits resist loss).
 
 Competitors:

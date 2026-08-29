@@ -45,7 +45,7 @@ the first-passage time to a threshold. Adapted from Paper 2's
 \section{Theoretical Context}{
 
 
-The framework Prediction: commitment (CDI) is autocatalytic under logistic drift and
+the framework's prediction: commitment (CDI) is autocatalytic under logistic drift and
 reaches irreversibility (threshold) with probability 1, while volatility is
 damped as commitment grows (\code{sigma0 * (1 - CDI)}). First-passage times are
 the economic analog of time-to-irreversibility in the monograph.

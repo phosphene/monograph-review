@@ -28,7 +28,7 @@ Orobanchaceae, controlling for phylogenetic non-independence via PGLS.
 \section{Theoretical Context}{
 
 
-The framework Prediction D5: plastome size correlates with parasitism level —
+the framework's prediction D5: plastome size correlates with parasitism level —
 organisms committing to deeper parasitic niches lose plastome capacity
 in proportion to commitment depth.
 

@@ -11,7 +11,7 @@ This is modeled via autocatalytic set theory (Kauffman style).
 \section{Theoretical Context}{
 
 
-The framework Prediction: positive diversity-dependence in cultural substrate —
+the framework's prediction: positive diversity-dependence in cultural substrate —
 the Homo inversion (positively diversity-dependent speciation) is the
 empirical signature. Competitor: standard niche-filling predicts
 negatively diversity-dependent (logistic) growth.

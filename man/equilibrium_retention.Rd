@@ -18,7 +18,7 @@ equilibrium_retention(depth, lambda, theta, m0, alpha)
 \item{alpha}{Numeric. Mismatch decay rate.}
 }
 \value{
-vi_equilibrium object.
+valence_equilibrium object.
 }
 \description{
 At equilibrium (long time), retention depends on whether the trait's
@@ -29,7 +29,7 @@ integration depth exceeds the protection threshold:
 }
 }
 \details{
-Returns a vi_equilibrium object per Phosphene R Standards §7.
+Returns a valence_equilibrium object per Phosphene R Standards §7.
 }
 \examples{
 equilibrium_retention(depth = 3, lambda = 0.15, theta = 2.5, m0 = 10, alpha = 0.05)

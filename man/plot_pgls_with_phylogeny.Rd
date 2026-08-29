@@ -27,7 +27,7 @@ margin using ape::plot.phylo.
 \section{Theoretical Context}{
 
 
-The framework Prediction D5: plastome size correlates with parasitism level —
+the framework's prediction D5: plastome size correlates with parasitism level —
 organisms committing to deeper parasitic niches lose plastome capacity
 in proportion to commitment depth. The PGLS lambda parameter corrects
 for phylogenetic non-independence. Competitor: relaxed selection

@@ -27,7 +27,7 @@ for each model, (C) AICc bar chart comparing model fit.
 \section{Theoretical Context}{
 
 
-The framework Prediction: biphasic kinetics (fast Phase 1, slow Phase 2) — the
+the framework's prediction: biphasic kinetics (fast Phase 1, slow Phase 2) — the
 logistic/saturation model should fit best. Competitors: constant rate
 (Lynch 2007, linear model), accelerating (Muller's ratchet, exponential).
 The biphasic shape is unique to the framework's threshold-gated model. This test

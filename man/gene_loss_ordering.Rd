@@ -24,7 +24,7 @@ reduction. Uses exact permutation test (720 permutations of 6 items).
 \section{Theoretical Context}{
 
 
-The framework Prediction: integration-depth determines gene-loss order. Competitor:
+the framework's prediction: integration-depth determines gene-loss order. Competitor:
 random loss predicts no ordering. DOES distinguish the framework from random loss.
 
 What supports the framework: high positive Spearman ρ (deeply integrated → retained).

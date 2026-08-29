@@ -33,7 +33,7 @@ at the trigger year beat exponential decay on AIC?
 \section{Theoretical Context}{
 
 
-the framework Formula Prediction: option value = remaining capacity = (1 - CDI).
+the framework's formula prediction: option value = remaining capacity = (1 - CDI).
 The formula says CDI jumps as a step at θ = 0 (first provision).
 Therefore option value should collapse as a step, not as an
 exponential. The standard theta-decay model (exponential in time)

@@ -21,7 +21,7 @@ than Ne alone, using Bobay & Ochman (2017) data.
 \section{Theoretical Context}{
 
 
-The framework Prediction D3: niche breadth predicts gene loss better than Ne.
+the framework's prediction D3: niche breadth predicts gene loss better than Ne.
 Competitor: drift (Lynch 2007) predicts Ne is primary driver.
 DOES distinguish the framework from drift.
 }

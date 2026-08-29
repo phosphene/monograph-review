@@ -4,19 +4,19 @@
 \alias{empirical_test_classes}
 \title{Empirical Test Result Classes (S3 three-layer pattern)}
 \description{
-S3 class hierarchy for empirical test results in the valence.foundry package.
+S3 class hierarchy for empirical test results in the framework-foundry package.
 Each class follows Phosphene R Standards §7: constructor → validator →
 public helper, plus standard generics \code{print()}, \code{summary()}, and
 \code{as.data.frame()}.
 }
 \details{
-The base class \code{vi_test_result} carries the fields common to every
+The base class \code{valence_test_result} carries the fields common to every
 empirical test:
 \itemize{
 \item \code{test_name}: character. Identifier of the test (e.g. "pgls_orobanchaceae").
 \item \code{statistic}: numeric. Scalar test statistic.
 \item \code{p_value}: numeric in \link{0, 1} (or \code{NA}). Test p-value.
-\item \code{vi_prediction}: character. Plain-language statement of what the framework predicts.
+\item \code{valence_prediction}: character. Plain-language statement of what the framework predicts.
 \item \code{discriminating}: logical. Whether the test distinguishes the framework from
 competitors (as opposed to merely being consistent with the framework).
 \item \code{status}: character. \code{"significant"}, \code{"not_significant"}, or \code{"n/a"}.
@@ -26,12 +26,12 @@ competitors (as opposed to merely being consistent with the framework).
 
 Subclasses extend the base with test-specific scalar fields:
 \itemize{
-\item \code{vi_pgls_result} (T1/T2): \code{beta}, \code{r_squared}, \code{aic}, \code{n}
-\item \code{vi_niche_ne_result} (T4): \code{niche_r_squared}, \code{ne_r_squared}, \code{delta_aic}
-\item \code{vi_fluidity_result} (T5): \code{lifestyle_r_squared}, \code{ne_r_squared}, \code{p_value}
-\item \code{vi_ordering_result} (T6): \code{rho}, \code{p_value}, \code{n_permutations}
-\item \code{vi_transfer_result} (L3): \code{rho}, \code{p_value}, \code{n_null_draws}
-\item \code{vi_cosegregation_result} (T7): \code{observed_pct}, \code{expected_pct}, \code{depletion_ratio}
+\item \code{valence_pgls_result} (T1/T2): \code{beta}, \code{r_squared}, \code{aic}, \code{n}
+\item \code{valence_niche_ne_result} (T4): \code{niche_r_squared}, \code{ne_r_squared}, \code{delta_aic}
+\item \code{valence_fluidity_result} (T5): \code{lifestyle_r_squared}, \code{ne_r_squared}, \code{p_value}
+\item \code{valence_ordering_result} (T6): \code{rho}, \code{p_value}, \code{n_permutations}
+\item \code{valence_transfer_result} (L3): \code{rho}, \code{p_value}, \code{n_null_draws}
+\item \code{valence_cosegregation_result} (T7): \code{observed_pct}, \code{expected_pct}, \code{depletion_ratio}
 }
 }
 \section{Theoretical Context}{

@@ -40,7 +40,7 @@ widens, producing a larger hysteresis loop).
 \section{Theoretical Context}{
 
 
-The framework Prediction: irreversibility emerges discontinuously at the bifurcation.
+the framework's prediction: irreversibility emerges discontinuously at the bifurcation.
 For \code{a >= 0} the system has a single equilibrium (no bifurcation, fully
 reversible, loop area = 0). For \code{a < 0} the system has a cusp (two stable
 equilibria); the loop area grows as \verb{|a|} increases because the cusp

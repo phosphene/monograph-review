@@ -12,7 +12,7 @@ protection threshold, recovery requires disproportionate effort.
 \section{Theoretical Context}{
 
 
-The framework Prediction: irreversibility — substrate-shift creates a bifurcation
+the framework's prediction: irreversibility — substrate-shift creates a bifurcation
 that is difficult to reverse. Competitor: gradual reversibility (standard
 quantitative genetics predicts smooth recovery when selection pressure
 is removed).

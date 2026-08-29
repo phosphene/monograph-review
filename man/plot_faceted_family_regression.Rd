@@ -21,10 +21,10 @@ gradient.
 \section{Theoretical Context}{
 
 
-The framework Prediction D5: the gene-loss gradient replicates across independent
+the framework's prediction D5: the gene-loss gradient replicates across independent
 parasitic plant families. Competitor: stochastic gene loss / relaxed
 selection — both predict the same pattern. This test does NOT distinguish
-The framework from competitors.
+the framework from competitors.
 
 What supports the framework: consistent negative slope across families.
 What refutes the framework: slopes vary in sign or are zero.

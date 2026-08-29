@@ -22,8 +22,11 @@ of initial amplitude.}
 \item{phase1_amplitude}{Numeric. \eqn{A_1 / (A_1 + A_2)}.}
 \item{phase2_amplitude}{Numeric. \eqn{A_2 / (A_1 + A_2)}.}
 \item{rate_ratio}{Numeric. \eqn{k_1 / k_2}.}
-\item{biphasic}{Logical. Whether the rate ratio > 2 (indicating
-clear biphasic separation).}
+\item{biphasic}{Logical. Whether the relaxation is genuinely
+two-timescale: mono rejected by AIC (delta_aic_bi_mono > 0),
+rate ratio > 2, both channels same sign, and the smaller channel
+at least 15\\% of total amplitude (guards against spurious
+low-amplitude fast channels on one-channel data).}
 \item{halflife_phase1}{Numeric. Halflife of fast phase in original time units.}
 \item{halflife_phase2}{Numeric. Halflife of slow phase in original time units.}
 }

@@ -30,7 +30,7 @@ trajectory-shape analysis.
 \section{Theoretical Context}{
 
 
-The framework Prediction: capacity loss in disrupted industries follows a decelerating
+the framework's prediction: capacity loss in disrupted industries follows a decelerating
 (log/logistic/saturating) CDI trajectory — commitment accrues fast early,
 then slows — rather than linear or exponential collapse.
 

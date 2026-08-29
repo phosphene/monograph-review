@@ -22,18 +22,18 @@ threshold_model(depths, lambda, theta, m0, alpha, time, n_steps = 1000L)
 \item{n_steps}{Integer. Number of integration steps. Default 1000.}
 }
 \value{
-vi_threshold_result object containing:
+valence_threshold_result object containing:
 \item{values}{Named list: final_retention, phase rates, biphasicity metrics}
 \item{metadata}{List: parameters, counts, convergence info, full trajectory}
 }
 \description{
 Solves dC_i/dt = -λ × M(t) × C_i × I(d_i < θ) for a panel of traits using
-Euler integration. Returns a vi_threshold_result object with full provenance.
+Euler integration. Returns a valence_threshold_result object with full provenance.
 }
 \section{Theoretical Context}{
 
 
-The framework Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+the framework's prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 at rate proportional to λ×M₀), slow Phase 2 (protected traits remain at 1.0).
 }
 

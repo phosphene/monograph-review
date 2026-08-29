@@ -22,7 +22,7 @@ biphasic prediction — vs constant-rate (exponential) or accelerating.
 \section{Theoretical Context}{
 
 
-The framework Prediction: biphasic kinetics (fast Phase 1, slow Phase 2).
+the framework's prediction: biphasic kinetics (fast Phase 1, slow Phase 2).
 Competitors: constant rate (Lynch 2007), accelerating (Muller's ratchet).
 McCutcheon's metabolic complementarity predicts the same correlation —
 does NOT distinguish the framework from McCutcheon.

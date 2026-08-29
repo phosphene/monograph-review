@@ -2,7 +2,7 @@
 % Please edit documentation in R/cultural_tests.R
 \name{cultural_tests}
 \alias{cultural_tests}
-\title{Cultural evolution empirical tests for the framework foundry}
+\title{Cultural evolution empirical tests for the foundry}
 \description{
 Tests H2 (β mediation), H4 (cross-domain β), H5 (super-exponential growth),
 and H10 (sign reversal) using real cultural data.

@@ -13,7 +13,7 @@ substrate-independent.
 \section{Theoretical Context}{
 
 
-The framework Prediction: integration-depth parameters transfer across kingdoms.
+the framework's prediction: integration-depth parameters transfer across kingdoms.
 Competitor: substrates are independent — no parameter transfer.
 DOES distinguish the framework. This is the strongest test.
 }

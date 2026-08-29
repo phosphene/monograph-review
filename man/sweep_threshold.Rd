@@ -46,7 +46,7 @@ unprotected).
 \section{Theoretical Context}{
 
 
-The framework Prediction: biphasic kinetics — the threshold gate separates protected
+the framework's prediction: biphasic kinetics — the threshold gate separates protected
 traits (d ≥ θ, retention = 1.0) from unprotected traits (d < θ, retention
 → 0). The biphasic signal IS the gate (math-review Issue 3, resolved).
 

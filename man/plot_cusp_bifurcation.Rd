@@ -25,7 +25,7 @@ path (increasing commitment) vs reverse path (decreasing commitment).
 \section{Theoretical Context}{
 
 
-The framework Prediction: irreversibility — substrate-shift creates a bifurcation
+the framework's prediction: irreversibility — substrate-shift creates a bifurcation
 that is difficult to reverse. The cusp catastrophe models this: smooth
 changes in control parameters produce sudden, irreversible jumps.
 Competitor: gradual reversibility (standard quantitative genetics

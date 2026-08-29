@@ -23,7 +23,7 @@ correctly flattened gene-major — see Remark R7).
 \section{Theoretical Context}{
 
 The retention matrix is the empirical basis for \code{empirical_formal_model()}:
-The framework predicts dep > 0 (deeper integration → more retention) and para < 0
+the framework predicts dep > 0 (deeper integration → more retention) and para < 0
 (deeper parasitism → less retention). The competitor (random loss)
 predicts no dep effect. The author's original additive GLM produced the
 wrong sign due to a data-flattening bug (\code{as.vector(t(retention))} is

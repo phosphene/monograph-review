@@ -24,10 +24,10 @@ lose, dark = lost early). Dendrogram optionally shown on column margins.
 \section{Theoretical Context}{
 
 
-The framework Prediction: integration depth determines gene-loss order — deeply
+the framework's prediction: integration depth determines gene-loss order — deeply
 integrated functions (high dependency score) are retained longer.
 Competitor: random loss predicts no ordering. This test DOES distinguish
-The framework from random loss.
+the framework from random loss.
 
 What supports the framework: high Spearman rho (deeply integrated -> retained).
 What refutes the framework: rho near zero (no ordering).

@@ -11,8 +11,12 @@ fit_biexp(t, rho, normalize_t = TRUE)
 
 \item{rho}{Numeric vector. Retention correlation or response variable.}
 
-\item{normalize_t}{Logical. If \code{TRUE} (default), normalise t to
-\link{0, 1} before fitting. This improves numerical stability.}
+\item{normalize_t}{Logical. If \code{TRUE} (default), reported rates are
+per normalised-time unit (t in \link{0, 1}); if \code{FALSE}, rates are
+reported per raw time unit. The fit itself is always performed on
+normalised time (see Fitting Strategy), so model selection and
+convergence are identical for both settings — only the rate scale and
+halflife interpretation differ.}
 }
 \value{
 List with elements:
@@ -56,9 +60,30 @@ bi-exponential for (t, rho) time-series data.
 \section{Fitting Strategy}{
 
 
-Uses \code{nlsLM} (Levenberg-Marquardt from \code{minpack.lm}) if
-available, which is more robust than \code{nls} for exponential models.
-Falls back to \code{nls} with multiple starting-value attempts.
+The two-timescale fit is notoriously ill-conditioned: the fast channel
+decays within the first few sampling intervals, so naive starting values
+routinely fail to converge or collapse both channels onto the slow rate.
+Three defences are layered here:
+
+\enumerate{
+\item \strong{Exponential peeling} produces data-derived starting
+values. The slow phase \eqn{(c_0, A_2, k_2)} is estimated by a
+log-linear regression on the tail (where the fast channel is dead),
+then the fast channel \eqn{(A_1, k_1)} is estimated from the early
+residual. This puts the optimizer in the correct basin on any time
+scale, including after \eqn{t}-normalisation.
+\item \strong{Log-rate reparameterisation}: the fit is performed on
+\eqn{(\log k_1, \log k_2)} so rates are structurally positive and the
+Jacobian never degenerates from negative-rate drift. Coefficients are
+reported on the natural scale.
+\item \strong{Convention fix}: after fitting, the channels are labelled
+so that \eqn{k_1 \ge k_2} (fast/slow hierarchy) regardless of which
+basin the optimizer found.
+}
+
+\code{nlsLM} (Levenberg-Marquardt from \code{minpack.lm}) is used when
+available; otherwise \code{stats::nls} with the log-rate
+parameterisation, which is far more robust than fitting raw rates.
 }
 
 \section{DFT Axioms}{

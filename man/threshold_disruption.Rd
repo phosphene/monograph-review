@@ -28,7 +28,7 @@ piecewise model test at known trigger years.
 \section{Theoretical Context}{
 
 
-The framework Prediction: capability/capacity loss is threshold-gated — reversible
+the framework's prediction: capability/capacity loss is threshold-gated — reversible
 erosion below a trigger, then a correlated cascade once a functionally
 coherent capability module enters "relaxed selection." A piecewise model
 with a breakpoint at the trigger year should beat a smooth linear model.

@@ -28,7 +28,7 @@ which.
 \section{Theoretical Context}{
 
 
-The framework Prediction: positive diversity-dependence in the cultural substrate
+the framework's prediction: positive diversity-dependence in the cultural substrate
 (the Homo inversion). Competitor: standard niche-filling predicts
 negatively diversity-dependent (logistic) growth. This test DOES
 distinguish the framework from niche-filling.

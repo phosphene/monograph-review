@@ -31,7 +31,7 @@ List (A6):
 Generates two matched innovation time series — one with logistic growth
 (feedback = 0, negative DD, niche-filling — the competitor's model) and one
 with autocatalytic growth (feedback = 1, positive DD, the Homo inversion —
-The framework's prediction) — and computes the diversity-dependence slope for each via
+the framework's prediction) — and computes the diversity-dependence slope for each via
 \code{\link[=diversity_dependence_sign]{diversity_dependence_sign()}}. The \emph{contrast} is the difference: positive
 = the Homo inversion signature (autocatalytic DD slope > logistic DD slope).
 }
@@ -43,7 +43,7 @@ rate-vs-N slope flips from negative (logistic) to positive (autocatalytic).
 \section{Theoretical Context}{
 
 
-The framework Prediction: the Homo inversion — positive diversity-dependence (per-
+the framework's prediction: the Homo inversion — positive diversity-dependence (per-
 capita innovation rate increases with diversity N). Competitor: niche-
 filling — negative diversity-dependence (per-capita rate decreases with N).
 Both produce growing time series, but the DD slope has opposite signs. The

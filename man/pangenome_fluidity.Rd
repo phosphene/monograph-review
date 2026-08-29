@@ -21,7 +21,7 @@ free-living) using Dewar et al. (2024) data.
 \section{Theoretical Context}{
 
 
-The framework Prediction: pan-genome openness tracks lifestyle. Competitor: Ne-only
+the framework's prediction: pan-genome openness tracks lifestyle. Competitor: Ne-only
 model. DOES distinguish the framework from Ne-only.
 }
 

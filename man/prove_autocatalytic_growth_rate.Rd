@@ -16,7 +16,7 @@ prove_autocatalytic_growth_rate(r = 1, K = 10, N_max = 5000, n_grid = 200L)
 \item{n_grid}{Integer. Number of grid points.}
 }
 \value{
-A \code{vi_proof} object.
+A \code{valence_proof} object.
 }
 \description{
 For the autocatalytic per-capita rate

@@ -21,7 +21,7 @@ from free-living to obligate (increasing host dependence).
 \section{Theoretical Context}{
 
 
-The framework Prediction: pan-genome openness tracks lifestyle — free-living
+the framework's prediction: pan-genome openness tracks lifestyle — free-living
 bacteria have more open pan-genomes than obligate intracellular
 symbionts. Competitor: Ne-only model predicts Ne drives pan-genome
 size regardless of lifestyle. This test DOES distinguish the framework from

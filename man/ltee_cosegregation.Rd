@@ -23,7 +23,7 @@ binomial test uses alternative = "less" for this reason.
 \section{Theoretical Context}{
 
 
-The framework Prediction: function-loss mutations co-segregate with beneficial
+the framework's prediction: function-loss mutations co-segregate with beneficial
 mutations LESS than chance (passive drift in unused genes — their loss
 is not concentrated near adaptive sweeps). Competitor: independent
 assortment predicts 61.7\% co-segregation. Reported as suggestive due
