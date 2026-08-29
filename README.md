@@ -54,16 +54,16 @@ of empirical science.
 - **Boundary rule for names.** How much qualification a name requires scales with the breadth of
   its usage. A word that has entered common usage — its namespace is the language itself, wide
   open — may stand unqualified (e.g., evolutionary science). A term bounded within a research
-  program is namespaced to that program. A term whose users are a peculiar subset — especially
-  one preponderantly overrepresented in frontier-model training data — carries a statistical
-  shadow this review does not endorse. Such a term may be quoted from others, but only at a
-  distance: it may be adopted only if tied to an existing usage in public science — an actual
-  research program, never a document under review, never a private sense. Worked case:
-  "substrate" is refused from this review's public vocabulary: no established research program
-  uses it in the sense required here, and the program that uses "substrate independence"
-  prominently — consciousness research (Chalmers; integrated information theory) — is exactly
-  the community this review does not inherit. The L3 competitor is stated in plain public
-  language instead: independence of the two kingdoms predicts no transfer.
+  program is namespaced to that program. No word is peculiar in itself: the rule is discipline
+  over our own usage in public communications. A term with a legitimate usage in a research
+  program may be quoted at a distance, fully qualified by naming the program (cell biology:
+  cell-substrate adhesion; biochemistry: enzyme-substrate), but it is flagged as not part of a
+  top-level namespace — not capable of being raised to that level — and in cross-domain research
+  it is not used at the top level at all. Worked case: "substrate" in the sense this review
+  needs belongs to no research program, so the L3 competitor is paraphrased in plain language —
+  "independence of the two kingdoms predicts no transfer" — and the consciousness-research usage
+  ("a biological substrate as the basis for human experience or cognition") is a vague analogy
+  misapplied, mentionable only under derision, never adopted.
 - **Observation as the production of conditions (Wisdom).** Observations are the foundation of
   scientific method because they are the conditions in which statements can be made — and those
   conditions can be reproduced. The reproduction of the conditions is itself observation: to
