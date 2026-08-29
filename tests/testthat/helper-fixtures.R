@@ -12,7 +12,9 @@ library(testthat)
 # Also checks the `.gz` variant: `R CMD build` may gzip data files.
 bundled_data <- function(file) {
   p <- system.file("data", file, package = "valence.foundry")
-  if (nzchar(p)) return(p)
+  if (nzchar(p)) {
+    return(p)
+  }
   system.file("data", paste0(file, ".gz"), package = "valence.foundry")
 }
 has_bundled_data <- function(file) {
@@ -60,7 +62,7 @@ is_data_result <- function(result) {
 # Shared between test-unit-fit-biexp.R and test-unit-relaxation-model.R
 
 .make_biexp_data <- function(n = 40, t_max = 10, c0 = 0.05, A1 = 0.03, k1 = 17.7,
-                              A2 = 0.01, k2 = 0.47, noise_sd = 0.001, seed = 42) {
+                             A2 = 0.01, k2 = 0.47, noise_sd = 0.001, seed = 42) {
   withr::with_seed(seed, {
     t <- seq(0, t_max, length.out = n)
     rho <- c0 + A1 * exp(-k1 * t) + A2 * exp(-k2 * t) + rnorm(n, 0, noise_sd)
@@ -69,7 +71,7 @@ is_data_result <- function(result) {
 }
 
 .make_monoexp_data <- function(n = 40, t_max = 10, c0 = 0.05, A = 0.04, k = 1.0,
-                                 noise_sd = 0.001, seed = 42) {
+                               noise_sd = 0.001, seed = 42) {
   withr::with_seed(seed, {
     t <- seq(0, t_max, length.out = n)
     rho <- c0 + A * exp(-k * t) + rnorm(n, 0, noise_sd)

@@ -29,10 +29,14 @@ Uses the closed-form solution:
 }
 \examples{
 # Single-channel relaxation (k2 = 0)
-relaxation_analytical(t = 0:10, rho0 = 1.0, k1 = 0.5, k2 = 0,
-                      rho1 = 0.3, rho2 = 0.3)
+relaxation_analytical(
+  t = 0:10, rho0 = 1.0, k1 = 0.5, k2 = 0,
+  rho1 = 0.3, rho2 = 0.3
+)
 
 # Two-channel relaxation (k1 >> k2)
-relaxation_analytical(t = 0:100, rho0 = 1.0, k1 = 0.5, k2 = 0.02,
-                      rho1 = 0.3, rho2 = 0.3)
+relaxation_analytical(
+  t = 0:100, rho0 = 1.0, k1 = 0.5, k2 = 0.02,
+  rho1 = 0.3, rho2 = 0.3
+)
 }

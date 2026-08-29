@@ -10,8 +10,8 @@
 #' @param noise_sd Numeric. Default 0.02.
 
 generate_steep_sigmoid <- function(seed = 42L, n = 20L,
-                                    rho_sat = 0.35, theta_star = 0,
-                                    s = 10, noise_sd = 0.02) {
+                                   rho_sat = 0.35, theta_star = 0,
+                                   s = 10, noise_sd = 0.02) {
   withr::with_seed(seed, {
     theta <- seq(-1, 1, length.out = n)
     rho_true <- rho_sat / (1 + exp(-s * (theta - theta_star)))

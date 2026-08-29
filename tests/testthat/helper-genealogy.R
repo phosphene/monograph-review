@@ -3,8 +3,11 @@
 
 .genealogy_dir <- function() {
   d <- system.file("genealogy", package = "valence.foundry")
-  if (file.exists(file.path(d, "generate_ising.R"))) d
-  else file.path(getwd(), "..", "..", "inst", "genealogy")
+  if (file.exists(file.path(d, "generate_ising.R"))) {
+    d
+  } else {
+    file.path(getwd(), "..", "..", "inst", "genealogy")
+  }
 }
 
 source_genealogy <- function(file) {

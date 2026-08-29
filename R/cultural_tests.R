@@ -50,8 +50,11 @@ beta_mediation_test <- function(data, seed = 42L) {
   withr::with_seed(seed, {
     log_N <- data$log_N
     beta <- data$beta
-    log_complexity <- if ("log_technounits" %in% names(data))
-      data$log_technounits else data$log_components
+    log_complexity <- if ("log_technounits" %in% names(data)) {
+      data$log_technounits
+    } else {
+      data$log_components
+    }
 
     # Step 1: N → complexity
     r_N_complex <- cor.test(log_N, log_complexity)
@@ -143,15 +146,15 @@ growth_curve_test <- function(data) {
   t <- data$year_centered
   y <- data$cumulative_patents
 
-  # Linear: y = a*t + b
+  # Linear model: y equals a*t plus b
   lm_lin <- stats::lm(y ~ t)
   aic_lin <- stats::AIC(lm_lin)
 
-  # Quadratic: y = a*t^2 + b*t + c
+  # Quadratic model: y equals a*t^2 plus b*t plus c
   lm_quad <- stats::lm(y ~ t + I(t^2))
   aic_quad <- stats::AIC(lm_quad)
 
-  # Exponential: log(y) = a*t + b
+  # Exponential model: log(y) equals a*t plus b
   lm_exp <- stats::lm(log(y) ~ t)
   aic_exp <- stats::AIC(lm_exp)
 
@@ -168,7 +171,8 @@ growth_curve_test <- function(data) {
       quadratic_positive = quad_coef > 0,
       quadratic_beats_linear = delta_aic_quad_vs_lin > 2,
       best_model = c("linear", "exponential", "quadratic")[
-        which.min(c(aic_lin, aic_exp, aic_quad))],
+        which.min(c(aic_lin, aic_exp, aic_quad))
+      ],
       n_years = nrow(data)
     ),
     metadata = list(

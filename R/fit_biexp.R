@@ -88,7 +88,8 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   n <- length(t)
   if (n < 6) {
     stop("need at least 6 data points for bi-exponential model fitting",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   # Always fit on normalised time to [0, 1]. The model space is closed
@@ -107,12 +108,14 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
 
   # Reporting scale for rates: 1 reports per-normalised-unit rates
   # (normalize_t = TRUE); t_range reports per-raw-time-unit rates
-  # (normalize_t = FALSE): k_raw = k_norm / t_range.
+  # When normalize_t is FALSE, report k_raw = k_norm / t_range.
   report_scale <- if (normalize_t) 1 else t_range
 
   # --- Helper: approximate AIC ---
   aic_val <- function(rss, k, n) {
-    if (rss <= 0 || is.infinite(rss) || is.na(rss)) return(Inf)
+    if (rss <= 0 || is.infinite(rss) || is.na(rss)) {
+      return(Inf)
+    }
     n * log(rss / n) + 2 * k
   }
 
@@ -137,28 +140,40 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   mono_start <- list(c0 = c0_guess, A = A_guess, logk = log(k_guess))
 
   if (requireNamespace("minpack.lm", quietly = TRUE)) {
-    mono_fit <- tryCatch({
-      minpack.lm::nlsLM(rho_s ~ c0 + A * exp(-exp(logk) * t_s),
-                        start = mono_start,
-                        control = minpack.lm::nls.lm.control(
-                          maxiter = 500, ftol = 1e-8, ptol = 1e-8))
-    }, error = function(e) NULL)
+    mono_fit <- tryCatch(
+      {
+        minpack.lm::nlsLM(rho_s ~ c0 + A * exp(-exp(logk) * t_s),
+          start = mono_start,
+          control = minpack.lm::nls.lm.control(
+            maxiter = 500, ftol = 1e-8, ptol = 1e-8
+          )
+        )
+      },
+      error = function(e) NULL
+    )
   } else {
-    mono_fit <- tryCatch({
-      stats::nls(rho_s ~ c0 + A * exp(-exp(logk) * t_s),
-                 start = mono_start,
-                 control = stats::nls.control(
-                   maxiter = 500, minFactor = 1e-8))
-    }, error = function(e) NULL)
+    mono_fit <- tryCatch(
+      {
+        stats::nls(rho_s ~ c0 + A * exp(-exp(logk) * t_s),
+          start = mono_start,
+          control = stats::nls.control(
+            maxiter = 500, minFactor = 1e-8
+          )
+        )
+      },
+      error = function(e) NULL
+    )
   }
 
   if (!is.null(mono_fit)) {
     raw_coef <- stats::coef(mono_fit)
     mono_rss <- sum(stats::residuals(mono_fit)^2)
     mono_aic <- aic_val(mono_rss, 4, n)
-    mono_coef <- list(c0 = unname(raw_coef[["c0"]]),
-                      A = unname(raw_coef[["A"]]),
-                      k = unname(exp(raw_coef[["logk"]])) / report_scale)
+    mono_coef <- list(
+      c0 = unname(raw_coef[["c0"]]),
+      A = unname(raw_coef[["A"]]),
+      k = unname(exp(raw_coef[["logk"]])) / report_scale
+    )
     mono_converged <- TRUE
   }
 
@@ -166,8 +181,10 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   bi_fit <- NULL
   bi_rss <- Inf
   bi_aic <- Inf
-  bi_coef <- list(c0 = NA_real_, A1 = NA_real_, k1 = NA_real_,
-                  A2 = NA_real_, k2 = NA_real_)
+  bi_coef <- list(
+    c0 = NA_real_, A1 = NA_real_, k1 = NA_real_,
+    A2 = NA_real_, k2 = NA_real_
+  )
   bi_converged <- FALSE
 
   # --- Data-derived start via exponential peeling (see Fitting Strategy) ---
@@ -194,21 +211,31 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
       logk2 = log(max(st$k2, 1e-9))
     )
     if (requireNamespace("minpack.lm", quietly = TRUE)) {
-      fit <- tryCatch({
-        minpack.lm::nlsLM(
-          rho_s ~ c0 + A1 * exp(-exp(logk1) * t_s) + A2 * exp(-exp(logk2) * t_s),
-          start = nls_start,
-          control = minpack.lm::nls.lm.control(
-            maxiter = 500, ftol = 1e-8, ptol = 1e-8))
-      }, error = function(e) NULL)
+      fit <- tryCatch(
+        {
+          minpack.lm::nlsLM(
+            rho_s ~ c0 + A1 * exp(-exp(logk1) * t_s) + A2 * exp(-exp(logk2) * t_s),
+            start = nls_start,
+            control = minpack.lm::nls.lm.control(
+              maxiter = 500, ftol = 1e-8, ptol = 1e-8
+            )
+          )
+        },
+        error = function(e) NULL
+      )
     } else {
-      fit <- tryCatch({
-        stats::nls(
-          rho_s ~ c0 + A1 * exp(-exp(logk1) * t_s) + A2 * exp(-exp(logk2) * t_s),
-          start = nls_start,
-          control = stats::nls.control(
-            maxiter = 500, minFactor = 1e-8))
-      }, error = function(e) NULL)
+      fit <- tryCatch(
+        {
+          stats::nls(
+            rho_s ~ c0 + A1 * exp(-exp(logk1) * t_s) + A2 * exp(-exp(logk2) * t_s),
+            start = nls_start,
+            control = stats::nls.control(
+              maxiter = 500, minFactor = 1e-8
+            )
+          )
+        },
+        error = function(e) NULL
+      )
     }
 
     if (!is.null(fit)) {
@@ -233,9 +260,12 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
     # Fast/slow convention: k1 >= k2 (swap channels if the optimizer
     # converged to the mirror-image basin).
     if (bi_coef$k1 < bi_coef$k2) {
-      tmp_k <- bi_coef$k1; tmp_A <- bi_coef$A1
-      bi_coef$k1 <- bi_coef$k2; bi_coef$A1 <- bi_coef$A2
-      bi_coef$k2 <- tmp_k; bi_coef$A2 <- tmp_A
+      tmp_k <- bi_coef$k1
+      tmp_A <- bi_coef$A1
+      bi_coef$k1 <- bi_coef$k2
+      bi_coef$A1 <- bi_coef$A2
+      bi_coef$k2 <- tmp_k
+      bi_coef$A2 <- tmp_A
     }
     bi_converged <- TRUE
   }
@@ -268,7 +298,7 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   }
   # Halflives are physical (raw-time) quantities: halflife = log(2) / k_raw,
   # and k_raw = k_norm / t_range, so halflife = log(2) * t_range / k_norm.
-  k1_norm <- k1 * report_scale   # per-normalised-unit rate
+  k1_norm <- k1 * report_scale # per-normalised-unit rate
   k2_norm <- k2 * report_scale
   k1_halflife <- if (is.finite(k1_norm) && k1_norm > 0) {
     log(2) * t_range / k1_norm
@@ -302,8 +332,10 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
       converged = mono_converged
     ),
     linear = list(
-      coefficients = list(intercept = stats::coef(lm_fit)[[1]],
-                          slope = stats::coef(lm_fit)[[2]]),
+      coefficients = list(
+        intercept = stats::coef(lm_fit)[[1]],
+        slope = stats::coef(lm_fit)[[2]]
+      ),
       fit = lm_fit,
       rss = lm_rss,
       aic = lm_aic
@@ -355,14 +387,15 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   if (length(tail_idx) >= 5) {
     tail_fit <- tryCatch(
       stats::lm(log(y[tail_idx]) ~ t_s[tail_idx]),
-      error = function(e) NULL)
+      error = function(e) NULL
+    )
     if (!is.null(tail_fit)) {
       slope <- stats::coef(tail_fit)[[2]]
       intercept <- stats::coef(tail_fit)[[1]]
       k2_hat <- -unname(slope)
       A2_hat <- exp(unname(intercept))
       if (is.finite(k2_hat) && k2_hat > 0 &&
-          is.finite(A2_hat) && A2_hat > 0) {
+            is.finite(A2_hat) && A2_hat > 0) {
         k2 <- k2_hat
         A2 <- min(A2_hat, max(y) * 1.5)
       }
@@ -378,14 +411,15 @@ fit_biexp <- function(t, rho, normalize_t = TRUE) {
   if (length(pos) >= 2) {
     res_fit <- tryCatch(
       stats::lm(log(res[pos]) ~ t_s[pos]),
-      error = function(e) NULL)
+      error = function(e) NULL
+    )
     if (!is.null(res_fit)) {
       slope <- stats::coef(res_fit)[[2]]
       intercept <- stats::coef(res_fit)[[1]]
       k1_hat <- -unname(slope)
       A1_hat <- exp(unname(intercept))
       if (is.finite(k1_hat) && k1_hat > k2 &&
-          is.finite(A1_hat) && A1_hat > 0) {
+            is.finite(A1_hat) && A1_hat > 0) {
         k1 <- k1_hat
         A1 <- min(A1_hat, max(y) * 1.5)
       }

@@ -15,7 +15,7 @@ test_that("fit_biexp: selects bi-exponential on bi-exponential data", {
 
   expect_equal(fits$best_model, "biexponential")
   expect_true(fits$biexponential$converged)
-  expect_gt(fits$delta_aic_bi_mono, 0)  # bi beats mono
+  expect_gt(fits$delta_aic_bi_mono, 0) # bi beats mono
 })
 
 
@@ -50,7 +50,7 @@ test_that("fit_biexp: linear loses to bi-exponential on bi-exp data", {
   fits <- fit_biexp(d$t, d$rho)
 
   expect_equal(fits$best_model, "biexponential")
-  expect_gt(fits$delta_aic_bi_linear, 0)  # bi beats linear
+  expect_gt(fits$delta_aic_bi_linear, 0) # bi beats linear
 })
 
 
@@ -84,8 +84,10 @@ test_that("fit_biexp: k1 > k2 when fitted (fast/slow hierarchy)", {
   fits <- fit_biexp(d$t, d$rho)
 
   if (fits$biexponential$converged) {
-    expect_gt(fits$biexponential$coefficients$k1,
-              fits$biexponential$coefficients$k2)
+    expect_gt(
+      fits$biexponential$coefficients$k1,
+      fits$biexponential$coefficients$k2
+    )
   }
 })
 
@@ -111,7 +113,7 @@ test_that("fit_biexp: near-perfect recovery with zero noise", {
 
   expect_true(fits$biexponential$converged)
   expect_equal(fits$best_model, "biexponential")
-  expect_gt(fits$delta_aic_bi_mono, 10)  # decisively bi
+  expect_gt(fits$delta_aic_bi_mono, 10) # decisively bi
 })
 
 
@@ -121,14 +123,18 @@ test_that("fit_biexp: return structure is complete", {
   d <- .make_biexp_data(n = 40, noise_sd = 0.001)
   fits <- fit_biexp(d$t, d$rho)
 
-  expect_named(fits, c("biexponential", "monoexponential", "linear",
-                       "best_model", "delta_aic_bi_mono", "delta_aic_bi_linear",
-                       "metadata"))
+  expect_named(fits, c(
+    "biexponential", "monoexponential", "linear",
+    "best_model", "delta_aic_bi_mono", "delta_aic_bi_linear",
+    "metadata"
+  ))
   expect_named(fits$biexponential, c("coefficients", "fit", "rss", "aic", "converged"))
   expect_named(fits$monoexponential, c("coefficients", "fit", "rss", "aic", "converged"))
   expect_named(fits$linear, c("coefficients", "fit", "rss", "aic"))
-  expect_named(fits$metadata, c("n", "normalised", "k1_k2_ratio", "k1_halflife",
-                                 "k2_halflife", "A1_frac", "A2_frac"))
+  expect_named(fits$metadata, c(
+    "n", "normalised", "k1_k2_ratio", "k1_halflife",
+    "k2_halflife", "A1_frac", "A2_frac"
+  ))
 })
 
 # ==============================================================================
@@ -240,8 +246,8 @@ test_that("fit_biexp: decisive bi never rides on a negligible fast channel", {
     d <- .make_monoexp_data(n = 80, seed = s, noise_sd = 0.001)
     fits <- fit_biexp(d$t, d$rho)
     if (fits$best_model == "biexponential" &&
-        !is.na(fits$delta_aic_bi_mono) && fits$delta_aic_bi_mono > 2 &&
-        !is.na(fits$metadata$A1_frac)) {
+          !is.na(fits$delta_aic_bi_mono) && fits$delta_aic_bi_mono > 2 &&
+          !is.na(fits$metadata$A1_frac)) {
       if (fits$metadata$A1_frac >= 0.15) violations <- violations + 1L
     }
   }

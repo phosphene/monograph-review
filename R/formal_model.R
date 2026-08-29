@@ -84,12 +84,14 @@ mismatch_function <- function(t, m0, alpha) {
 #' @examples
 #' \dontrun{
 #' # Single trait
-#' eq <- retention_closed_form(depth = 2, lambda = 0.15, theta = 2.5,
-#'                             m0 = 10, alpha = 0.05, time = 100)
+#' eq <- retention_closed_form(
+#'   depth = 2, lambda = 0.15, theta = 2.5,
+#'   m0 = 10, alpha = 0.05, time = 100
+#' )
 #' print(eq)
 #'
 #' # Multiple traits
-#' eq_vec <- retention_closed_form(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
+#' eq_vec <- retention_closed_form(c(0, 1, 2, 3, 5), 0.15, 2.5, 10, 0.05, 100)
 #' sapply(eq_vec, function(x) x$value)
 #' }
 retention_closed_form <- function(depths, lambda, theta, m0, alpha, time) {
@@ -159,7 +161,7 @@ prove_convergence <- function(depths, lambda, theta, m0, alpha, time,
 
   # Get closed-form solution as ground truth
   cf_results <- retention_closed_form(depths, lambda, theta, m0, alpha, time)
-  cf_values <- cf_results  # retention_closed_form now returns numeric vector
+  cf_values <- cf_results # retention_closed_form now returns numeric vector
 
   # Run Euler at each resolution
   results <- data.frame(
@@ -237,15 +239,6 @@ equilibrium_retention <- function(depth, lambda, theta, m0, alpha) {
   }
 
   value
-
-
-
-
-
-
-
-
-
 }
 
 #' Compute retention probability for a single trait at time T

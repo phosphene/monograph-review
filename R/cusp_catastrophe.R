@@ -80,7 +80,7 @@ cusp_bifurcation_point <- function(a, b) {
 #' @export
 #' @examples
 #' eq_fn <- make_cusp_equilibrium_fn(a = -1)
-#' eq_fn(0.3, 1.0)  # root nearest 1.0 (upper branch)
+#' eq_fn(0.3, 1.0) # root nearest 1.0 (upper branch)
 make_cusp_equilibrium_fn <- function(a = -1) {
   function(b, prev_state) {
     roots <- polyroot(c(b, a, 0, 1))

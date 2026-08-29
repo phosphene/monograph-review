@@ -131,34 +131,26 @@ $$C_i(\infty) = \begin{cases}
 
 ### Pure Function: `retention_closed_form()`
 
-The R implementation follows DFT axioms A1/A2/A6: pure, deterministic, structured result.
+The R implementation follows DFT axioms A1/A2/A6: pure, deterministic.
 
 ```{r, echo=TRUE, eval=FALSE}
 retention_closed_form <- function(depths, lambda, theta, m0, alpha, time) {
   n <- length(depths)
-  results <- vector("list", n)
-  
+  results <- numeric(n)
+
   for (i in seq_len(n)) {
     d <- depths[i]
     protected <- d >= theta
-    
+
     if (protected) {
-      value <- 1.0
-      integrated_mismatch <- 0.0
+      results[i] <- 1.0
     } else {
       # ∫₀ᵀ M(t)dt = M₀/α·(1-e^{-αT})
       integrated_mm <- (m0 / alpha) * (1 - exp(-alpha * time))
-      value <- exp(-lambda * integrated_mm)
-      integrated_mismatch <- integrated_mm
+      results[i] <- exp(-lambda * integrated_mm)
     }
-    
-    params <- list(lambda = lambda, theta = theta, m0 = m0, alpha = alpha, time = time)
-    results[[i]] <- valence_equilibrium(
-      value = value, is_protected = protected,
-      params = params, depth = d, integrated_mismatch = integrated_mm
-    )
   }
-  
+
   results
 }
 ```
@@ -167,13 +159,13 @@ retention_closed_form <- function(depths, lambda, theta, m0, alpha, time) {
 
 ```{r}
 # Protected trait
-eq_prot <- retention_closed_form(5.0, lambda = 0.15, theta = 2.5, m0 = 10, alpha = 0.05, time = 100)
-cat(sprintf("Protected (depth=5.0 >= θ=2.5): retention = %.6f\n", eq_prot$value))
+prot <- retention_closed_form(5.0, lambda = 0.15, theta = 2.5, m0 = 10, alpha = 0.05, time = 100)
+cat(sprintf("Protected (depth=5.0 >= θ=2.5): retention = %.6f\n", prot[1]))
 
 # Unprotected trait
-eq_unprot <- retention_closed_form(1.0, lambda = 0.15, theta = 2.5, m0 = 10, alpha = 0.05, time = 100)
+unprot <- retention_closed_form(1.0, lambda = 0.15, theta = 2.5, m0 = 10, alpha = 0.05, time = 100)
 expected <- exp(-0.15 * 10 / 0.05 * (1 - exp(-0.05 * 100)))
-cat(sprintf("Unprotected (depth=1.0 < θ=2.5): retention = %.6f\n", eq_unprot$value))
+cat(sprintf("Unprotected (depth=1.0 < θ=2.5): retention = %.6f\n", unprot[1]))
 cat(sprintf("Expected analytical value: %.6f\n", expected))
 ```
 
@@ -256,9 +248,9 @@ retentions <- sapply(lambda_vals, function(lam) {
 cat("Monotonicity check (increasing λ → decreasing retention):\n")
 for (i in seq_len(length(lambda_vals) - 1)) {
   cat(sprintf("λ=%.3f → %.3f: retention %.6f → %.6f %s\n",
-              lambda_vals[i], lambda_vals[i+1],
-              retentions[i], retentions[i+1],
-              ifelse(retentions[i+1] < retentions[i], "✓", "✗")))
+              lambda_vals[i], lambda_vals[i + 1],
+              retentions[i], retentions[i + 1],
+              ifelse(retentions[i + 1] < retentions[i], "✓", "✗")))
 }
 ```
 

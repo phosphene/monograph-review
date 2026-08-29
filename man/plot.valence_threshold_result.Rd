@@ -23,7 +23,7 @@ Returns a patchwork ggplot2 composition with:
 }
 \examples{
 \dontrun{
-result <- threshold_model(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
+result <- threshold_model(c(0, 1, 2, 3, 5), 0.15, 2.5, 10, 0.05, 100)
 plot(result)
 }
 }

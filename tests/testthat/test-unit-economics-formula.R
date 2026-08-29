@@ -8,16 +8,20 @@ library(testthat)
 make_step_data <- function(n_pre = 5, n_post = 5, rho_sat = 0.35,
                            noise = 0.01, seed = 42) {
   set.seed(seed)
-  theta <- c(seq(-0.5, -0.05, length.out = n_pre),
-             seq(0, 1, length.out = n_post))
-  rho <- c(rep(0, n_pre) + rnorm(n_pre, 0, noise),
-           rep(rho_sat, n_post) + rnorm(n_post, 0, noise))
+  theta <- c(
+    seq(-0.5, -0.05, length.out = n_pre),
+    seq(0, 1, length.out = n_post)
+  )
+  rho <- c(
+    rep(0, n_pre) + rnorm(n_pre, 0, noise),
+    rep(rho_sat, n_post) + rnorm(n_post, 0, noise)
+  )
   data.frame(system = "test", theta = theta, rho = pmax(0, rho))
 }
 
 make_cdi_step_data <- function(peak = 100, post_cap = 20, noise = 0,
-                                n_pre = 8, n_post = 12,
-                                trigger = 1998, seed = 42) {
+                               n_pre = 8, n_post = 12,
+                               trigger = 1998, seed = 42) {
   set.seed(seed)
   years_pre <- seq(trigger - n_pre, trigger - 1)
   years_post <- seq(trigger, trigger + n_post - 1)
@@ -31,16 +35,18 @@ make_cdi_step_data <- function(peak = 100, post_cap = 20, noise = 0,
   )
 }
 
-#rho_sat_prediction
+# rho_sat_prediction
 
 test_that("rho_sat_prediction returns correct proof object structure", {
   dat <- make_step_data(n_pre = 5, n_post = 5, rho_sat = 0.35)
   result <- rho_sat_prediction(dat, seed = 42)
   expect_true(is.list(result))
   expect_true(all(c("values", "metadata") %in% names(result)))
-  expect_true(all(c("n_systems", "mean_rho_sat", "formula_prediction",
-                    "within_band", "step_wins_share", "mean_delta_aic") %in%
-                  names(result$values)))
+  expect_true(all(c(
+    "n_systems", "mean_rho_sat", "formula_prediction",
+    "within_band", "step_wins_share", "mean_delta_aic"
+  ) %in%
+    names(result$values)))
   expect_equal(result$values$formula_prediction, 0.35, tolerance = 1e-6)
   expect_equal(result$values$n_systems, 1)
   expect_true(is.logical(result$values$within_band))
@@ -78,15 +84,17 @@ test_that("rho_sat_prediction rejects bad data", {
   expect_error(rho_sat_prediction(data.frame(system = "x", theta = 1, rho = 1.5)))
 })
 
-#step_cdi_comparison
+# step_cdi_comparison
 
 test_that("step_cdi_comparison returns correct proof object structure", {
   dat <- make_cdi_step_data()
   result <- step_cdi_comparison(dat, seed = 42)
   expect_true(all(c("values", "metadata") %in% names(result)))
-  expect_true(all(c("n_systems", "step_wins_share", "mean_delta_aic_step_log",
-                    "mean_delta_aic_step_exp", "mean_step_width") %in%
-                  names(result$values)))
+  expect_true(all(c(
+    "n_systems", "step_wins_share", "mean_delta_aic_step_log",
+    "mean_delta_aic_step_exp", "mean_step_width"
+  ) %in%
+    names(result$values)))
   expect_equal(result$values$mean_step_width, 0)
   expect_equal(result$values$n_systems, 1)
 })
@@ -131,14 +139,16 @@ test_that("step_cdi_comparison rejects bad data", {
   )))
 })
 
-#step_option_collapse
+# step_option_collapse
 
 test_that("step_option_collapse returns correct proof object structure", {
   dat <- make_cdi_step_data()
   result <- step_option_collapse(dat, seed = 42)
   expect_true(all(c("values", "metadata") %in% names(result)))
-  expect_true(all(c("n_systems", "step_wins_share", "mean_delta_aic",
-                    "mean_step_collapse_time") %in% names(result$values)))
+  expect_true(all(c(
+    "n_systems", "step_wins_share", "mean_delta_aic",
+    "mean_step_collapse_time"
+  ) %in% names(result$values)))
   expect_equal(result$values$n_systems, 1)
 })
 
@@ -173,7 +183,7 @@ test_that("step_option_collapse handles multiple systems", {
   expect_equal(result$values$n_systems, 2)
 })
 
-#generative_sign_reversal
+# generative_sign_reversal
 
 test_that("generative_sign_reversal returns correct proof object structure", {
   dat <- data.frame(
@@ -183,8 +193,10 @@ test_that("generative_sign_reversal returns correct proof object structure", {
   )
   result <- generative_sign_reversal(dat, seed = 42)
   expect_true(all(c("values", "metadata") %in% names(result)))
-  expect_true(all(c("n_systems", "mean_slope", "positive_slope_share",
-                    "formula_prediction") %in% names(result$values)))
+  expect_true(all(c(
+    "n_systems", "mean_slope", "positive_slope_share",
+    "formula_prediction"
+  ) %in% names(result$values)))
   expect_equal(result$values$n_systems, 1)
 })
 

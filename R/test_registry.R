@@ -41,8 +41,10 @@ print.valence_test_registry_env <- function(x, ...) {
   if (length(nms)) {
     for (nm in nms) {
       e <- x[[nm]]
-      cat(sprintf("  %-28s -> %s (discriminating: %s)\n",
-                  nm, e$class, ifelse(isTRUE(e$discriminating), "yes", "no")))
+      cat(sprintf(
+        "  %-28s -> %s (discriminating: %s)\n",
+        nm, e$class, ifelse(isTRUE(e$discriminating), "yes", "no")
+      ))
     }
   }
   invisible(x)
@@ -226,9 +228,11 @@ register_test <- function(name, fn, data_required = character(0),
   if (!is.character(class) || length(class) != 1) {
     stop("class must be a single character", call. = FALSE)
   }
-  if (!class %in% c("valence_test_result", "valence_pgls_result", "valence_niche_ne_result",
-                    "valence_fluidity_result", "valence_ordering_result",
-                    "valence_transfer_result", "valence_cosegregation_result")) {
+  if (!class %in% c(
+    "valence_test_result", "valence_pgls_result", "valence_niche_ne_result",
+    "valence_fluidity_result", "valence_ordering_result",
+    "valence_transfer_result", "valence_cosegregation_result"
+  )) {
     stop("Unknown result class: ", class, call. = FALSE)
   }
 
@@ -378,8 +382,10 @@ run_all_tests <- function(...) {
 #' @return Invisibly returns `x`.
 #' @export
 print.valence_test_suite <- function(x, ...) {
-  cat("valence_test_suite:", x$n_tests, "tests;",
-      x$n_significant, "significant;", x$n_failed, "failed\n\n")
+  cat(
+    "valence_test_suite:", x$n_tests, "tests;",
+    x$n_significant, "significant;", x$n_failed, "failed\n\n"
+  )
   if (x$n_tests == 0) {
     cat("  (no tests registered)\n")
     return(invisible(x))
@@ -453,7 +459,8 @@ plot.valence_test_suite <- function(x, ...) {
     geom_point(size = 3) +
     geom_text(
       aes(label = sprintf("p = %s", ifelse(is.na(p_value), "NA",
-                                           formatC(p_value, format = "g", digits = 3)))),
+            formatC(p_value, format = "g", digits = 3)
+          ))),
       hjust = -0.2, size = 3, color = "black"
     ) +
     scale_color_manual(
@@ -569,7 +576,10 @@ plot.valence_test_suite <- function(x, ...) {
     data_required = "syndrome", discriminating = TRUE,
     expected_fields = c("p_invariant_higher", "rho_depth_invariance", "binom_p_upper_half"),
     class = "valence_test_result", statistic_key = "rho_depth_invariance",
-    valence_prediction = "invariant (function-converges) elements sit high in integration hierarchy; varying (mechanism-diverges) sit low"
+    valence_prediction = paste0(
+      "invariant (function-converges) elements sit high in integration hierarchy; ",
+      "varying (mechanism-diverges) sit low"
+    )
   )
   # L3 — cross-kingdom transfer
   register_test(
@@ -583,16 +593,20 @@ plot.valence_test_suite <- function(x, ...) {
   register_test(
     name = "beta_mediation_oswalt1973", fn = beta_mediation_test,
     data_required = "data", discriminating = TRUE,
-    expected_fields = c("r_N_beta", "p_N_beta", "r_beta_complexity",
-                        "p_beta_complexity", "mediation_type"),
+    expected_fields = c(
+      "r_N_beta", "p_N_beta", "r_beta_complexity",
+      "p_beta_complexity", "mediation_type"
+    ),
     class = "valence_test_result", statistic_key = "p_N_beta",
     valence_prediction = "β is substrate property; N does not predict β (1973 data)"
   )
   register_test(
     name = "beta_mediation_oswalt1976", fn = beta_mediation_test,
     data_required = "data", discriminating = TRUE,
-    expected_fields = c("r_N_beta", "p_N_beta", "r_beta_complexity",
-                        "p_beta_complexity", "mediation_type"),
+    expected_fields = c(
+      "r_N_beta", "p_N_beta", "r_beta_complexity",
+      "p_beta_complexity", "mediation_type"
+    ),
     class = "valence_test_result", statistic_key = "p_N_beta",
     valence_prediction = "β is substrate property; N does not predict β (1976 data)"
   )
@@ -608,8 +622,10 @@ plot.valence_test_suite <- function(x, ...) {
   register_test(
     name = "uspto_growth", fn = growth_curve_test,
     data_required = "data", discriminating = TRUE,
-    expected_fields = c("quadratic_coefficient", "delta_aic_quad_vs_linear",
-                        "best_model"),
+    expected_fields = c(
+      "quadratic_coefficient", "delta_aic_quad_vs_linear",
+      "best_model"
+    ),
     class = "valence_test_result", statistic_key = "quadratic_coefficient",
     valence_prediction = "β > 1 produces super-exponential (t²) growth"
   )

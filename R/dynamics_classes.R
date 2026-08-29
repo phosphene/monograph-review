@@ -47,7 +47,7 @@ NULL
 #' @return valence_dynamics_result object (unvalidated)
 #' @keywords internal
 new_valence_dynamics_result <- function(values, metadata, test_name, discriminating,
-                                   status) {
+                                        status) {
   structure(
     list(
       values = values,
@@ -112,7 +112,7 @@ validate_valence_dynamics_result <- function(x) {
 #' @return Validated valence_dynamics_result object.
 #' @export
 valence_dynamics_result <- function(values, metadata, test_name = "dynamics",
-                               discriminating = TRUE, status = "pass") {
+                                    discriminating = TRUE, status = "pass") {
   res <- new_valence_dynamics_result(values, metadata, test_name, discriminating, status)
   validate_valence_dynamics_result(res)
 }
@@ -140,7 +140,7 @@ valence_dynamics_result <- function(values, metadata, test_name = "dynamics",
 #' @return valence_autocatalytic_result object (unvalidated)
 #' @keywords internal
 new_valence_autocatalytic_result <- function(values, metadata, test_name,
-                                        discriminating, status) {
+                                             discriminating, status) {
   structure(
     list(
       values = values, metadata = metadata, test_name = test_name,
@@ -160,17 +160,22 @@ validate_valence_autocatalytic_result <- function(x) {
   validate_valence_dynamics_result(x)
 
   vals <- x$values
-  required_vals <- c("diversity_dependence_sign", "per_capita_rate",
-                     "n_species", "time_series")
+  required_vals <- c(
+    "diversity_dependence_sign", "per_capita_rate",
+    "n_species", "time_series"
+  )
   missing_vals <- setdiff(required_vals, names(vals))
   if (length(missing_vals) > 0) {
     stop("Missing required value fields: ",
-         paste(missing_vals, collapse = ", "), call. = FALSE)
+      paste(missing_vals, collapse = ", "),
+      call. = FALSE
+    )
   }
   if (!is.character(vals$diversity_dependence_sign) ||
         !(vals$diversity_dependence_sign %in% c("positive", "negative"))) {
     stop("diversity_dependence_sign must be 'positive' or 'negative'",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
   if (!is.numeric(vals$per_capita_rate)) {
     stop("per_capita_rate must be numeric", call. = FALSE)
@@ -202,17 +207,19 @@ validate_valence_autocatalytic_result <- function(x) {
 #' @return Validated valence_autocatalytic_result object.
 #' @export
 valence_autocatalytic_result <- function(diversity_dependence_sign, per_capita_rate,
-                                    n_species, time_series, metadata = list(),
-                                    test_name = "autocatalytic_set_dynamics",
-                                    discriminating = TRUE, status = "pass") {
+                                         n_species, time_series, metadata = list(),
+                                         test_name = "autocatalytic_set_dynamics",
+                                         discriminating = TRUE, status = "pass") {
   values <- list(
     diversity_dependence_sign = diversity_dependence_sign,
     per_capita_rate = per_capita_rate,
     n_species = n_species,
     time_series = time_series
   )
-  res <- new_valence_autocatalytic_result(values, metadata, test_name,
-                                     discriminating, status)
+  res <- new_valence_autocatalytic_result(
+    values, metadata, test_name,
+    discriminating, status
+  )
   validate_valence_autocatalytic_result(res)
 }
 
@@ -238,7 +245,8 @@ as_valence_autocatalytic_result <- function(results, metadata = NULL) {
   if (is.null(time_series)) time_series <- vals$time_series
   if (is.null(time_series)) {
     stop("results$values must contain innovation_counts or time_series",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   dd_sign <- vals$diversity_dependence_sign
@@ -286,7 +294,7 @@ as_valence_autocatalytic_result <- function(results, metadata = NULL) {
 #' @return valence_cusp_result object (unvalidated)
 #' @keywords internal
 new_valence_cusp_result <- function(values, metadata, test_name, discriminating,
-                               status) {
+                                    status) {
   structure(
     list(
       values = values, metadata = metadata, test_name = test_name,
@@ -306,12 +314,16 @@ validate_valence_cusp_result <- function(x) {
   validate_valence_dynamics_result(x)
 
   vals <- x$values
-  required_vals <- c("has_hysteresis", "max_difference", "loop_area",
-                     "equilibria", "bifurcation_set")
+  required_vals <- c(
+    "has_hysteresis", "max_difference", "loop_area",
+    "equilibria", "bifurcation_set"
+  )
   missing_vals <- setdiff(required_vals, names(vals))
   if (length(missing_vals) > 0) {
     stop("Missing required value fields: ",
-         paste(missing_vals, collapse = ", "), call. = FALSE)
+      paste(missing_vals, collapse = ", "),
+      call. = FALSE
+    )
   }
   if (!is.logical(vals$has_hysteresis) || length(vals$has_hysteresis) != 1L) {
     stop("has_hysteresis must be a single logical", call. = FALSE)
@@ -349,9 +361,9 @@ validate_valence_cusp_result <- function(x) {
 #' @return Validated valence_cusp_result object.
 #' @export
 valence_cusp_result <- function(has_hysteresis, max_difference, loop_area,
-                           equilibria, bifurcation_set, metadata = list(),
-                           test_name = "cusp_catastrophe",
-                           discriminating = TRUE, status = "pass") {
+                                equilibria, bifurcation_set, metadata = list(),
+                                test_name = "cusp_catastrophe",
+                                discriminating = TRUE, status = "pass") {
   values <- list(
     has_hysteresis = has_hysteresis,
     max_difference = max_difference,
@@ -439,7 +451,7 @@ as_valence_cusp_result <- function(results, metadata = NULL) {
 #' @return valence_economics_result object (unvalidated)
 #' @keywords internal
 new_valence_economics_result <- function(values, metadata, test_name,
-                                    discriminating, status) {
+                                         discriminating, status) {
   structure(
     list(
       values = values, metadata = metadata, test_name = test_name,
@@ -459,12 +471,16 @@ validate_valence_economics_result <- function(x) {
   validate_valence_dynamics_result(x)
 
   vals <- x$values
-  required_vals <- c("cdi", "option_value", "stochastic_paths",
-                     "threshold_disruption")
+  required_vals <- c(
+    "cdi", "option_value", "stochastic_paths",
+    "threshold_disruption"
+  )
   missing_vals <- setdiff(required_vals, names(vals))
   if (length(missing_vals) > 0) {
     stop("Missing required value fields: ",
-         paste(missing_vals, collapse = ", "), call. = FALSE)
+      paste(missing_vals, collapse = ", "),
+      call. = FALSE
+    )
   }
   if (!is.numeric(vals$cdi)) {
     stop("cdi must be numeric", call. = FALSE)
@@ -495,17 +511,19 @@ validate_valence_economics_result <- function(x) {
 #' @return Validated valence_economics_result object.
 #' @export
 valence_economics_result <- function(cdi, option_value, stochastic_paths,
-                                threshold_disruption, metadata = list(),
-                                test_name = "economics",
-                                discriminating = TRUE, status = "pass") {
+                                     threshold_disruption, metadata = list(),
+                                     test_name = "economics",
+                                     discriminating = TRUE, status = "pass") {
   values <- list(
     cdi = cdi,
     option_value = option_value,
     stochastic_paths = stochastic_paths,
     threshold_disruption = threshold_disruption
   )
-  res <- new_valence_economics_result(values, metadata, test_name,
-                                 discriminating, status)
+  res <- new_valence_economics_result(
+    values, metadata, test_name,
+    discriminating, status
+  )
   validate_valence_economics_result(res)
 }
 
@@ -524,17 +542,23 @@ valence_economics_result <- function(cdi, option_value, stochastic_paths,
 #' @export
 print.valence_dynamics_result <- function(x, ...) {
   cat("<!> valence.dynamics result:", x$test_name, "\n")
-  cat("    status:", x$status,
-      "| discriminating:", if (isTRUE(x$discriminating)) "yes" else "no", "\n")
+  cat(
+    "    status:", x$status,
+    "| discriminating:", if (isTRUE(x$discriminating)) "yes" else "no", "\n"
+  )
   cat("    values:\n")
   for (nm in names(x$values)) {
     v <- x$values[[nm]]
     if (is.numeric(v) && length(v) > 4L) {
-      cat(sprintf("      %-24s %s [%s values]\n", nm,
-                  fmt_num(v[1]), length(v)))
+      cat(sprintf(
+        "      %-24s %s [%s values]\n", nm,
+        fmt_num(v[1]), length(v)
+      ))
     } else if (is.matrix(v)) {
-      cat(sprintf("      %-24s %s x %s matrix\n", nm,
-                  nrow(v), ncol(v)))
+      cat(sprintf(
+        "      %-24s %s x %s matrix\n", nm,
+        nrow(v), ncol(v)
+      ))
     } else {
       cat(sprintf("      %-24s %s\n", nm, paste(format(v), collapse = ", ")))
     }
@@ -543,7 +567,9 @@ print.valence_dynamics_result <- function(x, ...) {
 }
 
 fmt_num <- function(x) {
-  if (is.na(x)) return("NA")
+  if (is.na(x)) {
+    return("NA")
+  }
   formatC(x, format = "g", digits = 5)
 }
 
@@ -590,7 +616,7 @@ summary.valence_dynamics_result <- function(object, ...) {
 #' @return A one-row data.frame.
 #' @export
 as.data.frame.valence_dynamics_result <- function(x, row.names = NULL,
-                                             optional = FALSE, ...) {
+                                                  optional = FALSE, ...) {
   summary(x)
 }
 
@@ -612,8 +638,10 @@ as.data.frame.valence_dynamics_result <- function(x, row.names = NULL,
 #' @keywords internal
 new_valence_proof <- function(statement, derivation, result, verified, numeric_check) {
   structure(
-    list(statement = statement, derivation = derivation, result = result,
-         verified = verified, numeric_check = numeric_check),
+    list(
+      statement = statement, derivation = derivation, result = result,
+      verified = verified, numeric_check = numeric_check
+    ),
     class = "valence_proof"
   )
 }
@@ -632,7 +660,8 @@ validate_valence_proof <- function(x) {
   missing <- setdiff(required, names(x))
   if (length(missing) > 0) {
     stop("Missing required fields: ", paste(missing, collapse = ", "),
-         call. = FALSE)
+      call. = FALSE
+    )
   }
   if (!is.character(x$statement) || length(x$statement) != 1L) {
     stop("statement must be a single character", call. = FALSE)
@@ -666,7 +695,7 @@ validate_valence_proof <- function(x) {
 #' @return Validated valence_proof object.
 #' @export
 valence_proof <- function(statement, derivation, result = "QED", verified,
-                     numeric_check) {
+                          numeric_check) {
   res <- new_valence_proof(statement, derivation, result, verified, numeric_check)
   validate_valence_proof(res)
 }

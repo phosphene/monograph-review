@@ -26,7 +26,7 @@ test_that("Language β: bootstrap CI lower bound > 1", {
   n_nodes <- 40445
   # Use log-normal to match heavy tail
   degrees <- round(rlnorm(n_nodes, meanlog = log(4), sdlog = 1.5))
-  degrees <- pmax(degrees, 1)  # min degree = 1
+  degrees <- pmax(degrees, 1) # min degree = 1
 
   result <- bootstrap_beta_ci(degrees, n_boot = 500, seed = 42)
 
@@ -69,21 +69,22 @@ test_that("PyPI β: bootstrap CI lower bound > 1", {
   # Simulate right-skewed degree distribution
   n_nodes <- 2000
   degrees <- c(
-    rep(0, 700),    # 35% have 0 deps
-    rep(1, 300),    # 15% have 1
-    rep(2, 300),    # 15% have 2
-    rep(4, 200),    # 10% have 4
-    rep(8, 200),    # 10% have 8
-    rep(14, 150),   # 7.5% have 14
-    rep(30, 100),   # 5% have 30
-    rep(100, 40),   # 2% have 100
-    rep(200, 10)    # 0.5% have 200
+    rep(0, 700), # 35% have 0 deps
+    rep(1, 300), # 15% have 1
+    rep(2, 300), # 15% have 2
+    rep(4, 200), # 10% have 4
+    rep(8, 200), # 10% have 8
+    rep(14, 150), # 7.5% have 14
+    rep(30, 100), # 5% have 30
+    rep(100, 40), # 2% have 100
+    rep(200, 10) # 0.5% have 200
   )
   degrees <- degrees[1:n_nodes]
 
   result <- bootstrap_beta_ci(degrees,
     beta_formula = function(k) mean(k),
-    n_boot = 500, seed = 42)
+    n_boot = 500, seed = 42
+  )
 
   expect_gt(result$values$beta_point, 1)
   expect_gt(result$values$ci_lower, 1)
@@ -94,7 +95,7 @@ test_that("PyPI β: bootstrap CI lower bound > 1", {
 
 test_that("Bootstrap produces valid CI (lower < point < upper)", {
   set.seed(42)
-  degrees <- rpois(100, lambda = 10) + 1  # ensure > 0
+  degrees <- rpois(100, lambda = 10) + 1  # keep degrees positive
 
   result <- bootstrap_beta_ci(degrees, n_boot = 500, seed = 42)
 

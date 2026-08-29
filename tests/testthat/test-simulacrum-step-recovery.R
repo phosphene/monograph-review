@@ -23,8 +23,10 @@ source_simulacrum("generate_percolation.R")
 # ---- Test 1: Recover rho_sat from clean step data ----
 
 test_that("step recovery: recovers rho_sat from clean step data", {
-  sim <- generate_step_function(seed = 42, n_pre = 10, n_post = 10,
-                                 rho_sat = 0.35, theta_star = 0, noise_sd = 0)
+  sim <- generate_step_function(
+    seed = 42, n_pre = 10, n_post = 10,
+    rho_sat = 0.35, theta_star = 0, noise_sd = 0
+  )
   fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
 
   expect_equal(fits$step$rho_sat, 0.35, tolerance = 1e-6)
@@ -36,8 +38,10 @@ test_that("step recovery: recovers rho_sat from clean step data", {
 # ---- Test 2: Recover rho_sat from noisy step data ----
 
 test_that("step recovery: recovers rho_sat from noisy step data", {
-  sim <- generate_step_function(seed = 42, n_pre = 15, n_post = 15,
-                                 rho_sat = 0.35, theta_star = 0, noise_sd = 0.02)
+  sim <- generate_step_function(
+    seed = 42, n_pre = 15, n_post = 15,
+    rho_sat = 0.35, theta_star = 0, noise_sd = 0.02
+  )
   fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
 
   expect_equal(fits$step$rho_sat, 0.35, tolerance = 0.05)
@@ -48,8 +52,10 @@ test_that("step recovery: recovers rho_sat from noisy step data", {
 # ---- Test 3: Distinguish step from steep sigmoid ----
 
 test_that("discrimination: step wins decisively on step data", {
-  step_sim <- generate_step_function(seed = 42, n_pre = 15, n_post = 15,
-                                      rho_sat = 0.35, noise_sd = 0.01)
+  step_sim <- generate_step_function(
+    seed = 42, n_pre = 15, n_post = 15,
+    rho_sat = 0.35, noise_sd = 0.01
+  )
   step_fits <- fit_step(step_sim$metadata$data$theta, step_sim$metadata$data$rho)
 
   expect_equal(step_fits$best_model, "step")
@@ -75,8 +81,10 @@ test_that("null control: no false step detection on flat data", {
 # The threshold depends on network structure (min degree, density).
 
 test_that("percolation: threshold is NOT at zero for general connected network", {
-  sim <- generate_percolation_network(seed = 42, n_nodes = 100,
-                                       p_edge = 0.1, n_provision_levels = 20)
+  sim <- generate_percolation_network(
+    seed = 42, n_nodes = 100,
+    p_edge = 0.1, n_provision_levels = 20
+  )
 
   # First provision (1 node) should NOT create non-empty Z
   # because no node's entire neighborhood fits in a 1-node set
@@ -94,10 +102,14 @@ test_that("percolation: threshold is NOT at zero for general connected network",
 test_that("percolation: threshold varies with network density", {
   # Dense network (more edges) should have HIGHER threshold
   # because nodes have more neighbors, need more provision to cover them
-  sparse <- generate_percolation_network(seed = 42, n_nodes = 50,
-                                           p_edge = 0.05, n_provision_levels = 50)
-  dense <- generate_percolation_network(seed = 42, n_nodes = 50,
-                                          p_edge = 0.3, n_provision_levels = 50)
+  sparse <- generate_percolation_network(
+    seed = 42, n_nodes = 50,
+    p_edge = 0.05, n_provision_levels = 50
+  )
+  dense <- generate_percolation_network(
+    seed = 42, n_nodes = 50,
+    p_edge = 0.3, n_provision_levels = 50
+  )
 
   # Find first non-zero Z for each
   sparse_data <- sparse$metadata$data
@@ -115,9 +127,11 @@ test_that("percolation: threshold varies with network density", {
 
 test_that("rho_sat recovery: consistent across multiple synthetic systems", {
   rho_sats <- replicate(10, {
-    sim <- generate_step_function(seed = sample(1:1000, 1),
-                                   n_pre = 10, n_post = 10,
-                                   rho_sat = 0.35, noise_sd = 0.02)
+    sim <- generate_step_function(
+      seed = sample(1:1000, 1),
+      n_pre = 10, n_post = 10,
+      rho_sat = 0.35, noise_sd = 0.02
+    )
     fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
     fits$step$rho_sat
   })
@@ -129,8 +143,10 @@ test_that("rho_sat recovery: consistent across multiple synthetic systems", {
 # ---- Test 8: Step still wins with moderate noise ----
 
 test_that("discrimination: step wins with moderate noise", {
-  sim <- generate_step_function(seed = 42, n_pre = 20, n_post = 20,
-                                 rho_sat = 0.35, noise_sd = 0.05)
+  sim <- generate_step_function(
+    seed = 42, n_pre = 20, n_post = 20,
+    rho_sat = 0.35, noise_sd = 0.05
+  )
   fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
   expect_equal(fits$best_model, "step")
 })

@@ -73,12 +73,16 @@ NULL
 #' @export
 #' @examples
 #' # Single-channel relaxation (k2 = 0)
-#' relaxation_analytical(t = 0:10, rho0 = 1.0, k1 = 0.5, k2 = 0,
-#'                       rho1 = 0.3, rho2 = 0.3)
+#' relaxation_analytical(
+#'   t = 0:10, rho0 = 1.0, k1 = 0.5, k2 = 0,
+#'   rho1 = 0.3, rho2 = 0.3
+#' )
 #'
 #' # Two-channel relaxation (k1 >> k2)
-#' relaxation_analytical(t = 0:100, rho0 = 1.0, k1 = 0.5, k2 = 0.02,
-#'                       rho1 = 0.3, rho2 = 0.3)
+#' relaxation_analytical(
+#'   t = 0:100, rho0 = 1.0, k1 = 0.5, k2 = 0.02,
+#'   rho1 = 0.3, rho2 = 0.3
+#' )
 relaxation_analytical <- function(t, rho0, k1, k2, rho1, rho2) {
   k <- k1 + k2
   rho_star <- (k1 * rho1 + k2 * rho2) / k
@@ -150,11 +154,13 @@ relaxation_ode_rhs <- function(t, y, parms) {
 #' @examples
 #' \dontrun{
 #' # Default analytical solution
-#' relaxation_simulate(times = seq(0, 100, 1), rho0 = 1.0, k1 = 0.5, k2 = 0.02,
-#'                     rho1 = 0.3, rho2 = 0.3)
+#' relaxation_simulate(
+#'   times = seq(0, 100, 1), rho0 = 1.0, k1 = 0.5, k2 = 0.02,
+#'   rho1 = 0.3, rho2 = 0.3
+#' )
 #' }
 relaxation_simulate <- function(times, rho0, k1, k2, rho1, rho2,
-                                use_deSolve = FALSE) {
+                                use_deSolve = FALSE) {  # nolint: object_name_linter — deSolve is the package name
   if (length(times) < 2) {
     stop("times must have at least 2 elements", call. = FALSE)
   }
@@ -166,10 +172,12 @@ relaxation_simulate <- function(times, rho0, k1, k2, rho1, rho2,
     # Numerical integration via deSolve
     y0 <- c(rho = rho0)
     parms <- list(k1 = k1, k2 = k2, rho1 = rho1, rho2 = rho2)
-    out <- deSolve::ode(y = y0, times = times,
-                        func = relaxation_ode_rhs,
-                        parms = parms,
-                        method = "rk4")
+    out <- deSolve::ode(
+      y = y0, times = times,
+      func = relaxation_ode_rhs,
+      parms = parms,
+      method = "rk4"
+    )
     rho <- out[, "rho"]
     method <- "deSolve"
   } else {
@@ -352,10 +360,12 @@ relaxation_phase_analysis <- function(fit_result, t_max = NULL) {
 #' @export
 #' @examples
 #' \dontrun{
-#' dat <- generate_relaxation_data(seq(0, 10, 0.1), rho0 = 1.0,
-#'                                  k1 = 0.5, k2 = 0.02,
-#'                                  rho1 = 0.3, rho2 = 0.3,
-#'                                  noise_sd = 0.01, seed = 42)
+#' dat <- generate_relaxation_data(seq(0, 10, 0.1),
+#'   rho0 = 1.0,
+#'   k1 = 0.5, k2 = 0.02,
+#'   rho1 = 0.3, rho2 = 0.3,
+#'   noise_sd = 0.01, seed = 42
+#' )
 #' head(dat$data)
 #' }
 generate_relaxation_data <- function(times, rho0, k1, k2, rho1, rho2,

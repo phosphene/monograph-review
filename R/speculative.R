@@ -493,7 +493,7 @@ generate_dd_series <- function(n_steps, innovation_rate, capacity, feedback,
     counts <- numeric(n_steps)
     counts[1] <- 1
     for (t in seq_len(n_steps)[-1]) {
-      n_count <- counts[t - 1]  # nolint: object_name_linter.
+      n_count <- counts[t - 1] # nolint: object_name_linter.
       pc_rate <- innovation_rate * (
         feedback * (0.5 + 0.5 * n_count / (n_count + capacity)) +
           (1 - feedback) * capacity / (n_count + capacity)
@@ -626,7 +626,7 @@ diversity_dependence_contrast <- function(n_steps = 20, innovation_rate = 0.3,
 #' dependence flips from negative (niche-filling) to positive (autocatalytic).
 #' This sweep makes the bifurcation explorable: below the threshold, the
 #' system is niche-filling (competitor); above it, the system is autocatalytic
-#'. The threshold is the endogenous-K bifurcation (Review Item 3).
+#' . The threshold is the endogenous-K bifurcation (Review Item 3).
 #'
 #' @section Risk note:
 #'
@@ -753,7 +753,7 @@ plot_dd_contrast <- function(contrast_result) {
   )
 
   # DD slope data: per-capita rate vs N
-  n_prev <- c(ac[-n], lo[-n])  # nolint: object_name_linter.
+  n_prev <- c(ac[-n], lo[-n]) # nolint: object_name_linter.
   pc_rate <- c(
     diff(ac) / pmax(ac[-n], .Machine$double.xmin),
     diff(lo) / pmax(lo[-n], .Machine$double.xmin)

@@ -73,8 +73,10 @@ test_that("H2b Oswalt 1976: β is stronger predictor than N (partial mediation)"
   result <- beta_mediation_test(data)
 
   # β controlling for N should be stronger than N controlling for β
-  expect_gt(abs(result$values$r_beta_given_N),
-            abs(result$values$r_N_given_beta))
+  expect_gt(
+    abs(result$values$r_beta_given_N),
+    abs(result$values$r_N_given_beta)
+  )
   # β still significant controlling for N
   expect_lt(result$values$p_beta_given_N, 0.001)
 })

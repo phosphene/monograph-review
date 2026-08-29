@@ -27,7 +27,10 @@ test_that("P2: LTEE niche FBA — A6 proof object, timing outcome present", {
   expect_true("first_gen" %in% names(s), info = "outcome merged at registration")
   r <- p2_ltee_niche_fba(s)
   expect_true(validate_result(r))
-  expect_true(all(c("median_first_gen_high_mismatch", "median_first_gen_low_mismatch", "p_earlier_high_mismatch") %in% names(r$values)))
+  expect_true(all(c(
+    "median_first_gen_high_mismatch", "median_first_gen_low_mismatch",
+    "p_earlier_high_mismatch"
+  ) %in% names(r$values)))
 })
 
 test_that("P3: Plastid erosion order — A6 proof object with a priori dependency", {
@@ -36,7 +39,9 @@ test_that("P3: Plastid erosion order — A6 proof object with a priori dependenc
   s <- read.table(f, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
   r <- p3_plastid_erosion_order(s)
   expect_true(validate_result(r))
-  expect_true(all(c("mean_species_rho", "n_species_with_signal", "beta_dependency", "p_dependency") %in% names(r$values)))
+  expect_true(all(c(
+    "mean_species_rho", "n_species_with_signal", "beta_dependency", "p_dependency"
+  ) %in% names(r$values)))
 })
 
 test_that("P4: Echolocation centrality — a priori contrast, predicted direction", {
@@ -60,7 +65,7 @@ test_that("P5: C4 syndrome — invariant elements high in integration hierarchy"
   f <- ap("p5_c4_syndrome.tsv")
   skip_if_not(file.exists(f), "p5 syndrome file not bundled")
   s <- read.table(f, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
-  s <- s[s$level != "Niche", ]  # environmental context, not organismal trait
+  s <- s[s$level != "Niche", ] # environmental context, not organismal trait
   r <- p5_c4_integration_depth(s)
   expect_true(validate_result(r))
   # Structural: invariant elements all in the upper half of the hierarchy

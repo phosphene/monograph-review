@@ -93,13 +93,13 @@ for (n in n_values) {
   n_post <- n - n_pre
   for (seed in seeds) {
     sim <- generate_step_function(seed = seed, n_pre = n_pre, n_post = n_post,
-                                   rho_sat = rho_sat, theta_star = 0,
-                                   noise_sd = noise_sd)
+                                  rho_sat = rho_sat, theta_star = 0,
+                                  noise_sd = noise_sd)
     fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
     cat(sprintf("%d\t%d\t%.4f\t%s\n", n, seed, fits$delta_aic, fits$best_model))
     results_noisy <- rbind(results_noisy,
-      data.frame(n = n, seed = seed, delta_aic = fits$delta_aic,
-                 best_model = fits$best_model, noise_sd = noise_sd))
+                           data.frame(n = n, seed = seed, delta_aic = fits$delta_aic,
+                                      best_model = fits$best_model, noise_sd = noise_sd))
   }
 }
 
@@ -109,8 +109,8 @@ for (n in n_values) {
   step_wins <- sum(sub$best_model == "step")
   delta_gt_2 <- sum(sub$delta_aic > 2)
   cat(sprintf("n=%d: step wins=%d/%d (%.0f%%), delta_aic>2=%d/%d (%.0f%%), mean delta=%.4f\n",
-      n, step_wins, nrow(sub), 100*step_wins/nrow(sub),
-      delta_gt_2, nrow(sub), 100*delta_gt_2/nrow(sub),
+              n, step_wins, nrow(sub), 100*step_wins/nrow(sub),
+              delta_gt_2, nrow(sub), 100*delta_gt_2/nrow(sub),
       mean(sub$delta_aic)))
 }
 
@@ -123,13 +123,13 @@ for (n in n_values) {
   n_post <- n - n_pre
   for (seed in seeds) {
     sim <- generate_step_function(seed = seed, n_pre = n_pre, n_post = n_post,
-                                   rho_sat = rho_sat, theta_star = 0,
-                                   noise_sd = 0)
+                                  rho_sat = rho_sat, theta_star = 0,
+                                  noise_sd = 0)
     fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
     cat(sprintf("%d\t%d\t%.4f\t%s\n", n, seed, fits$delta_aic, fits$best_model))
     results_clean <- rbind(results_clean,
-      data.frame(n = n, seed = seed, delta_aic = fits$delta_aic,
-                 best_model = fits$best_model, noise_sd = 0))
+                           data.frame(n = n, seed = seed, delta_aic = fits$delta_aic,
+                                      best_model = fits$best_model, noise_sd = 0))
   }
 }
 
@@ -139,8 +139,8 @@ for (n in n_values) {
   step_wins <- sum(sub$best_model == "step")
   delta_gt_2 <- sum(sub$delta_aic > 2)
   cat(sprintf("n=%d: step wins=%d/%d (%.0f%%), delta_aic>2=%d/%d (%.0f%%), mean delta=%.4f\n",
-      n, step_wins, nrow(sub), 100*step_wins/nrow(sub),
-      delta_gt_2, nrow(sub), 100*delta_gt_2/nrow(sub),
+              n, step_wins, nrow(sub), 100*step_wins/nrow(sub),
+              delta_gt_2, nrow(sub), 100*delta_gt_2/nrow(sub),
       mean(sub$delta_aic)))
 }
 
@@ -149,16 +149,16 @@ cat("\n=== DEEP DIVE: n=3 with noise_sd=0 (all seeds 1:100) ===\n")
 results_n3_clean <- data.frame()
 for (seed in 1:100) {
   sim <- generate_step_function(seed = seed, n_pre = 1, n_post = 2,
-                                 rho_sat = rho_sat, theta_star = 0,
-                                 noise_sd = 0)
+                                rho_sat = rho_sat, theta_star = 0,
+                                noise_sd = 0)
   fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
   results_n3_clean <- rbind(results_n3_clean,
-    data.frame(seed = seed, delta_aic = fits$delta_aic,
-               best_model = fits$best_model))
+                            data.frame(seed = seed, delta_aic = fits$delta_aic,
+                                       best_model = fits$best_model))
 }
 cat(sprintf("n=3 clean: step wins=%d/100 (%.0f%%), delta_aic>2=%d/100 (%.0f%%), mean delta=%.4f\n",
-    sum(results_n3_clean$best_model == "step"),
-    100*sum(results_n3_clean$best_model == "step")/100,
+            sum(results_n3_clean$best_model == "step"),
+            100*sum(results_n3_clean$best_model == "step")/100,
     sum(results_n3_clean$delta_aic > 2),
     100*sum(results_n3_clean$delta_aic > 2)/100,
     mean(results_n3_clean$delta_aic)))

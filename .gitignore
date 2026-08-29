@@ -23,3 +23,6 @@ results/*.json
 results/*.txt
 results/simulacra/
 !results/session_info.txt
+
+# CI artifacts
+coverage-report.json

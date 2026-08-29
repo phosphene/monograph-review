@@ -8,7 +8,7 @@
 #' @param noise_sd Numeric. Default 0.05.
 
 generate_null_rho <- function(seed = 42L, n = 20L,
-                               rho_baseline = 0.35, noise_sd = 0.05) {
+                              rho_baseline = 0.35, noise_sd = 0.05) {
   withr::with_seed(seed, {
     theta <- seq(-1, 1, length.out = n)
     rho <- rep(rho_baseline, n) + rnorm(n, 0, noise_sd)

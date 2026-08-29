@@ -272,7 +272,7 @@ set.seed(42)
 sres <- stochastic_cdi(mu0 = 0.5, sigma0 = 0.2, cdi_init = 0.01,
                        n_steps = 200L, threshold = 0.8, seed = 42L)
 path <- sres$metadata$path
-range(path)           # within [0, 1]
+range(path)           # values fall in the closed interval 0 to 1
 ```
 
 ```{r econ-plot, fig.width=6, fig.height=4}

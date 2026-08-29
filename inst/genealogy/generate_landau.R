@@ -12,7 +12,7 @@
 #' @return List with data frame: a, M_eq, F_min, T_norm, stage
 
 generate_landau <- function(seed = 42L, n_points = 100L,
-                             a_range = c(-1, 1), b = 1.0, h = 0.0) {
+                            a_range = c(-1, 1), b = 1.0, h = 0.0) {
   withr::with_seed(seed, {
     a_vals <- seq(a_range[1], a_range[2], length.out = n_points)
     M_grid <- seq(-1.5, 1.5, length.out = 200)

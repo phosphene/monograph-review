@@ -227,13 +227,18 @@ plot_faceted_family_regression <- function(data) {
 #' \dontrun{
 #' loaded <- load_endosymbionts()
 #' genus_means <- aggregate(cbind(genome_bp, symbiosis_age_mya) ~ genus,
-#'                          data = loaded$data, FUN = mean)
-#' x <- genus_means$symbiosis_age_mya; y <- genus_means$genome_bp
+#'   data = loaded$data, FUN = mean
+#' )
+#' x <- genus_means$symbiosis_age_mya
+#' y <- genus_means$genome_bp
 #' m_lin <- lm(y ~ x)
 #' m_exp <- nls(y ~ a * exp(-b * x), start = list(a = max(y), b = 0.005))
 #' m_log <- nls(y ~ fl + (cl - fl) / (1 + exp(rate * (x - mid))),
-#'              start = list(fl = min(y)*0.8, cl = max(y)*1.2,
-#'                          rate = 0.02, mid = mean(x)))
+#'   start = list(
+#'     fl = min(y) * 0.8, cl = max(y) * 1.2,
+#'     rate = 0.02, mid = mean(x)
+#'   )
+#' )
 #' plot_model_comparison(genus_means, m_lin, m_exp, m_log)
 #' }
 plot_model_comparison <- function(data, mod_linear, mod_exp, mod_logistic) {
@@ -449,7 +454,8 @@ plot_model_comparison <- function(data, mod_linear, mod_exp, mod_logistic) {
 #' loaded <- load_bobay_ochman()
 #' ne_col <- grep("Ne", names(loaded$data), value = TRUE)[1]
 #' size_col <- grep("genome_size|pan_size|Genome_Size", names(loaded$data),
-#'                  value = TRUE, ignore.case = TRUE)[1]
+#'   value = TRUE, ignore.case = TRUE
+#' )[1]
 #' d <- loaded$data[!is.na(loaded$data[[ne_col]]), ]
 #' mod_ne <- lm(as.numeric(d[[size_col]]) ~ as.numeric(d[[ne_col]]))
 #' mod_niche <- lm(as.numeric(d[[size_col]]) ~ as.numeric(factor(d$lifestyle)))
@@ -903,10 +909,16 @@ plot_retention_trajectory <- function(model_result, depths = NULL) {
   # is a temporal displacement ratio (descriptive); threshold_biphasicity is
   # the genuine biphasic signal (protected − unprotected retention). Fall
   # back gracefully if a field is absent (older proof objects).
-  displacement <- if (!is.null(model_result$values[["early_late_displacement_ratio"]]))
-    unname(model_result$values[["early_late_displacement_ratio"]]) else NA_real_
-  biphasicity <- if (!is.null(model_result$values[["threshold_biphasicity"]]))
-    unname(model_result$values[["threshold_biphasicity"]]) else NA_real_
+  displacement <- if (!is.null(model_result$values[["early_late_displacement_ratio"]])) {
+    unname(model_result$values[["early_late_displacement_ratio"]])
+  } else {
+    NA_real_
+  }
+  biphasicity <- if (!is.null(model_result$values[["threshold_biphasicity"]])) {
+    unname(model_result$values[["threshold_biphasicity"]])
+  } else {
+    NA_real_
+  }
 
   p <- ggplot2::ggplot(traj_df, ggplot2::aes(
     x = .data$time, y = .data$retention,
@@ -1315,8 +1327,10 @@ plot_loglog_growth <- function(counts, catalyst_matrix = NULL,
 #' )
 #' bird_data <- .fixture_bird_morphology
 #' result <- fit_plant_model(plant_data)
-#' plot_cross_kingdom_concordance(plant_data, bird_data,
-#'                                 result$values["slope"])
+#' plot_cross_kingdom_concordance(
+#'   plant_data, bird_data,
+#'   result$values["slope"]
+#' )
 #' }
 plot_cross_kingdom_concordance <- function(plant_data, bird_data, plant_slope) {
   stopifnot(is.data.frame(plant_data))

@@ -14,14 +14,18 @@ source_simulacrum("generate_relaxation.R")
 # Falls back to grid search if nlsLM unavailable
 fit_relaxation <- function(t, rho) {
   n <- length(t)
-  t_s <- t / max(t)  # normalize to [0,1]
+  t_s <- t / max(t) # normalize to [0,1]
 
   # Mono-exponential
-  mono_fit <- tryCatch({
-    nls(rho ~ c0 + A * exp(-k * t_s),
+  mono_fit <- tryCatch(
+    {
+      nls(rho ~ c0 + A * exp(-k * t_s),
         start = list(c0 = min(rho), A = max(rho) - min(rho), k = 1),
-        control = nls.control(maxiter = 200, minFactor = 1e-6))
-  }, error = function(e) NULL)
+        control = nls.control(maxiter = 200, minFactor = 1e-6)
+      )
+    },
+    error = function(e) NULL
+  )
 
   mono_rss <- if (!is.null(mono_fit)) sum(resid(mono_fit)^2) else Inf
   mono_aic <- n * log(mono_rss / n + 1e-10) + 2 * 4
@@ -35,11 +39,15 @@ fit_relaxation <- function(t, rho) {
     list(c0 = min(rho), A1 = (max(rho) - min(rho)) * 0.7, k1 = 10, A2 = (max(rho) - min(rho)) * 0.3, k2 = 0.5)
   )
   for (st in starts) {
-    fit <- tryCatch({
-      nls(rho ~ c0 + A1 * exp(-k1 * t_s) + A2 * exp(-k2 * t_s),
+    fit <- tryCatch(
+      {
+        nls(rho ~ c0 + A1 * exp(-k1 * t_s) + A2 * exp(-k2 * t_s),
           start = st,
-          control = nls.control(maxiter = 500, minFactor = 1e-8))
-    }, error = function(e) NULL)
+          control = nls.control(maxiter = 500, minFactor = 1e-8)
+        )
+      },
+      error = function(e) NULL
+    )
     if (!is.null(fit)) {
       rss <- sum(resid(fit)^2)
       if (rss < bi_rss) {
@@ -59,9 +67,13 @@ fit_relaxation <- function(t, rho) {
     mono = list(fit = mono_fit, aic = mono_aic, rss = mono_rss),
     bi = list(fit = bi_fit, aic = bi_aic, rss = bi_rss),
     linear = list(fit = lm_fit, aic = lin_aic),
-    best = if (bi_aic < mono_aic && bi_aic < lin_aic) "biexponential"
-           else if (mono_aic < lin_aic) "monoexponential"
-           else "linear",
+    best = if (bi_aic < mono_aic && bi_aic < lin_aic) {
+      "biexponential"
+    } else if (mono_aic < lin_aic) {
+      "monoexponential"
+    } else {
+      "linear"
+    },
     delta_aic_bi_mono = mono_aic - bi_aic
   )
 }
@@ -129,9 +141,11 @@ test_that("k varies: different k values produce distinguishable systems", {
 # ---- Test 6: Bi-exp wins on LTEE-like data ----
 
 test_that("LTEE-like: bi-exp wins on two-timescale data", {
-  sim <- generate_biexponential(seed = 42, n = 80, t_max = 56500,
-                                 rho_eq = 0.945, A1 = 0.04, k1 = 17.7,
-                                 A2 = 0.005, k2 = 0.47, noise_sd = 0.002)
+  sim <- generate_biexponential(
+    seed = 42, n = 80, t_max = 56500,
+    rho_eq = 0.945, A1 = 0.04, k1 = 17.7,
+    A2 = 0.005, k2 = 0.47, noise_sd = 0.002
+  )
   fits <- fit_relaxation(sim$metadata$data$t, sim$metadata$data$rho)
 
   expect_equal(fits$best, "biexponential")

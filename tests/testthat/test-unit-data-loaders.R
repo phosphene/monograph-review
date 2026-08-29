@@ -159,7 +159,7 @@ test_that("load_retention_matrix returns valid result", {
   expect_true(is_data_result(result))
   expect_s3_class(result$data, "data.frame")
   expect_equal(result$metadata$name, "retention_matrix")
-  expect_equal(result$metadata$n, 48)  # 8 species x 6 gene categories
+  expect_equal(result$metadata$n, 48) # 8 species x 6 gene categories
   expect_true("species" %in% names(result$data))
   expect_true("parasitism_score" %in% names(result$data))
   expect_true("gene_category" %in% names(result$data))

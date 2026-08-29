@@ -33,7 +33,7 @@ test_that("K_eff: isolated reduces K by η", {
   eta <- 0.487
   Keff <- k_eff_topology(K, C = 0.0, eta = eta)
   expect_equal(Keff, K * (1 - eta))
-  expect_lt(Keff, K * 0.52)  # less than 52%
+  expect_lt(Keff, K * 0.52) # less than 52%
 })
 
 test_that("K_eff: partial connectivity is between K·(1-η) and K", {
@@ -53,7 +53,7 @@ test_that("K_eff: monotonic in C", {
   Cs <- seq(0, 1, by = 0.1)
   Keffs <- sapply(Cs, function(C) k_eff_topology(K, C, eta))
 
-  expect_true(all(diff(Keffs) > 0))  # monotonically increasing
+  expect_true(all(diff(Keffs) > 0)) # monotonically increasing
 })
 
 test_that("K_eff: η = 0.487 matches Derex & Boyd fit", {
@@ -120,7 +120,7 @@ test_that("M(t): mismatch ≈ 0 when r_B < k1", {
   # When r_B < k1, mismatch is negative (relaxation ahead of attractor)
   # Magnitude at t=10: 100*(e^0.1 - e^1) = 100*(1.105 - 2.718) = -161.3
   # This is small relative to the failure regime values
-  expect_lt(abs(M[length(t)]), rho_eq0 * 5)  # much smaller than failure regime
+  expect_lt(abs(M[length(t)]), rho_eq0 * 5) # much smaller than failure regime
 })
 
 test_that("M(t): mismatch grows without bound when r_B >> k1", {

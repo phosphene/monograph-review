@@ -58,12 +58,18 @@ print.valence_threshold_result <- function(x, ...) {
   meta <- x$metadata
   cat("Simulation Summary:\n")
   cat(sprintf("  Total traits:            %d\n", meta$n_traits))
-  cat(sprintf("  Protected (d ≥ θ):       %d (%.1f%%)\n",
-              meta$n_protected, 100 * meta$n_protected / meta$n_traits))
-  cat(sprintf("  Unprotected (d < θ):     %d (%.1f%%)\n",
-              meta$n_unprotected, 100 * meta$n_unprotected / meta$n_traits))
-  cat(sprintf("  Integration steps:       %d (dt = %.6f)\n",
-              meta$n_steps, meta$dt))
+  cat(sprintf(
+    "  Protected (d ≥ θ):       %d (%.1f%%)\n",
+    meta$n_protected, 100 * meta$n_protected / meta$n_traits
+  ))
+  cat(sprintf(
+    "  Unprotected (d < θ):     %d (%.1f%%)\n",
+    meta$n_unprotected, 100 * meta$n_unprotected / meta$n_traits
+  ))
+  cat(sprintf(
+    "  Integration steps:       %d (dt = %.6f)\n",
+    meta$n_steps, meta$dt
+  ))
   cat(sprintf("  Method:                  %s\n", meta$method))
   cat(sprintf("  Converged:               %s\n", ifelse(meta$converged, "yes", "no")))
   cat("\n")
@@ -85,17 +91,21 @@ print.valence_threshold_result <- function(x, ...) {
     cat(sprintf("  Unprotected retention:\n"))
     cat(sprintf("    Mean:      %.6f\n", mean(x$values$final_retention[unprot_idx])))
     cat(sprintf("    SD:        %.6f\n", sd(x$values$final_retention[unprot_idx])))
-    cat(sprintf("    Range:     [%.6f, %.6f]\n",
-                min(x$values$final_retention[unprot_idx]),
-                max(x$values$final_retention[unprot_idx])))
+    cat(sprintf(
+      "    Range:     [%.6f, %.6f]\n",
+      min(x$values$final_retention[unprot_idx]),
+      max(x$values$final_retention[unprot_idx])
+    ))
   }
 
   if (length(prot_idx) > 0) {
     cat(sprintf("  Protected retention:\n"))
     cat(sprintf("    Mean:      %.6f\n", mean(x$values$final_retention[prot_idx])))
-    cat(sprintf("    Range:     [%.6f, %.6f]\n",
-                min(x$values$final_retention[prot_idx]),
-                max(x$values$final_retention[prot_idx])))
+    cat(sprintf(
+      "    Range:     [%.6f, %.6f]\n",
+      min(x$values$final_retention[prot_idx]),
+      max(x$values$final_retention[prot_idx])
+    ))
   }
 
   invisible(x)
@@ -127,7 +137,7 @@ print.valence_threshold_result <- function(x, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#' result <- threshold_model(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
+#' result <- threshold_model(c(0, 1, 2, 3, 5), 0.15, 2.5, 10, 0.05, 100)
 #' summary(result)
 #' }
 summary.valence_threshold_result <- function(object, ...) {
@@ -167,7 +177,7 @@ summary.valence_threshold_result <- function(object, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#' result <- threshold_model(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
+#' result <- threshold_model(c(0, 1, 2, 3, 5), 0.15, 2.5, 10, 0.05, 100)
 #' plot(result)
 #' }
 plot.valence_threshold_result <- function(x, ...) {
@@ -177,7 +187,7 @@ plot.valence_threshold_result <- function(x, ...) {
   params <- x$metadata$params
   meta <- x$metadata
   history <- x$metadata$retention_history
-  depths <- seq_len(ncol(history))  # trait indices as proxy for depths
+  depths <- seq_len(ncol(history)) # trait indices as proxy for depths
 
   # Left panel: Trajectory over time
   time_points <- seq(0, params$time, length.out = nrow(history))
@@ -193,21 +203,29 @@ plot.valence_threshold_result <- function(x, ...) {
   p1 <- ggplot(traj_df, aes(x = time, y = retention, color = protected)) +
     geom_line(alpha = 0.6, size = 0.5) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "gray50", alpha = 0.3) +
-    scale_color_manual(values = c("TRUE" = "#1f77b4", "FALSE" = "#ff7f0e"),
-                       labels = c("Protected", "Unprotected")) +
-    labs(title = "Retention Trajectory",
-         subtitle = sprintf("λ=%.2f, θ=%.2f, M₀=%.2f, α=%.3f, T=%g",
-                           params$lambda, params$theta, params$m0, params$alpha, params$time),
-         x = "Time",
-         y = "Retention Probability",
-         color = "Trait Type") +
+    scale_color_manual(
+      values = c("TRUE" = "#1f77b4", "FALSE" = "#ff7f0e"),
+      labels = c("Protected", "Unprotected")
+    ) +
+    labs(
+      title = "Retention Trajectory",
+      subtitle = sprintf(
+        "λ=%.2f, θ=%.2f, M₀=%.2f, α=%.3f, T=%g",
+        params$lambda, params$theta, params$m0, params$alpha, params$time
+      ),
+      x = "Time",
+      y = "Retention Probability",
+      color = "Trait Type"
+    ) +
     theme_minimal(base_size = 10) +
-    theme(legend.position = "right",
-          legend.title = element_text(size = 8),
-          legend.text = element_text(size = 8))
+    theme(
+      legend.position = "right",
+      legend.title = element_text(size = 8),
+      legend.text = element_text(size = 8)
+    )
 
   # Right panel: Threshold gate (depth vs final retention)
-  depth_vals <- 1:nrow(history)
+  depth_vals <- seq_len(nrow(history))
   gate_df <- data.frame(
     depth = depth_vals,
     retention = x$values$final_retention,
@@ -217,20 +235,28 @@ plot.valence_threshold_result <- function(x, ...) {
   p2 <- ggplot(gate_df, aes(x = depth, y = retention)) +
     geom_point(aes(color = protected), size = 3) +
     geom_hline(yintercept = params$theta, linetype = "dashed", color = "red", alpha = 0.5) +
-    annotate("rect", xmin = Inf, xmax = Inf, ymin = -Inf, ymax = Inf,
-             fill = "blue", alpha = 0.05, inherit.aes = FALSE) +
+    annotate("rect",
+      xmin = Inf, xmax = Inf, ymin = -Inf, ymax = Inf,
+      fill = "blue", alpha = 0.05, inherit.aes = FALSE
+    ) +
     geom_vline(xintercept = params$theta, linetype = "dashed", color = "red") +
-    scale_color_manual(values = c("TRUE" = "#1f77b4", "FALSE" = "#ff7f0e"),
-                       labels = c("Protected", "Unprotected")) +
-    labs(title = "Threshold Gate",
-         subtitle = sprintf("Gate at θ=%.2f", params$theta),
-         x = "Trait Index (proxy for depth)",
-         y = "Final Retention",
-         color = "Type") +
+    scale_color_manual(
+      values = c("TRUE" = "#1f77b4", "FALSE" = "#ff7f0e"),
+      labels = c("Protected", "Unprotected")
+    ) +
+    labs(
+      title = "Threshold Gate",
+      subtitle = sprintf("Gate at θ=%.2f", params$theta),
+      x = "Trait Index (proxy for depth)",
+      y = "Final Retention",
+      color = "Type"
+    ) +
     theme_minimal(base_size = 10) +
-    theme(legend.position = "right",
-          legend.title = element_text(size = 8),
-          legend.text = element_text(size = 8))
+    theme(
+      legend.position = "right",
+      legend.title = element_text(size = 8),
+      legend.text = element_text(size = 8)
+    )
 
   # Combine with patchwork
   p1 / p2 + plot_layout(guides = "collect") &
@@ -251,7 +277,7 @@ plot.valence_threshold_result <- function(x, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#' result <- threshold_model(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
+#' result <- threshold_model(c(0, 1, 2, 3, 5), 0.15, 2.5, 10, 0.05, 100)
 #' as.data.frame(result)
 #' }
 as.data.frame.valence_threshold_result <- function(x, row.names = NULL, optional = FALSE, ...) {
@@ -330,21 +356,29 @@ print.valence_glm_fit <- function(x, ...) {
   cat("\n")
 
   cat("Coefficients:\n")
-  cat(sprintf("  (Intercept):                 %.4f (p = %.4g)\n",
-              vals$intercept, vals$dep_p_value))
-  cat(sprintf("  dependency_score:            %.4f (p = %.4g) %s\n",
-              vals$dep_coefficient, vals$dep_p_value,
-              ifelse(vals$dep_positive, "[framework prediction]", "")))
-  cat(sprintf("  parasitism_score:            %.4f (p = %.4g) %s\n",
-              vals$para_coefficient, vals$para_p_value,
-              ifelse(vals$para_negative, "[framework prediction]", "")))
+  cat(sprintf(
+    "  (Intercept):                 %.4f (p = %.4g)\n",
+    vals$intercept, vals$dep_p_value
+  ))
+  cat(sprintf(
+    "  dependency_score:            %.4f (p = %.4g) %s\n",
+    vals$dep_coefficient, vals$dep_p_value,
+    ifelse(vals$dep_positive, "[framework prediction]", "")
+  ))
+  cat(sprintf(
+    "  parasitism_score:            %.4f (p = %.4g) %s\n",
+    vals$para_coefficient, vals$para_p_value,
+    ifelse(vals$para_negative, "[framework prediction]", "")
+  ))
   cat(sprintf("  Pseudo R² (McFadden):        %.4f\n", vals$pseudo_r_squared))
   cat("\n")
 
   cat("Cross-Kingdom Validation:\n")
   cat(sprintf("  Parasitism level tested:     %g\n", meta$para_for_transfer))
-  cat(sprintf("  Spearman ρ vs bird ranks:    %.4f (p = %.4g)\n",
-              vals$cross_kingdom_rho, vals$cross_kingdom_p))
+  cat(sprintf(
+    "  Spearman ρ vs bird ranks:    %.4f (p = %.4g)\n",
+    vals$cross_kingdom_rho, vals$cross_kingdom_p
+  ))
   cat("\n")
 
   cat("framework Confirmation Status:\n")
@@ -370,16 +404,20 @@ summary.valence_glm_fit <- function(object, ...) {
   meta <- object$metadata
 
   data.frame(
-    metric = c("intercept", "dep_coefficient", "dep_p_value",
-               "para_coefficient", "para_p_value", "pseudo_r_squared",
-               "cross_kingdom_rho", "cross_kingdom_p",
-               "observations", "n_species", "n_gene_categories",
-               "valence_confirmed"),
-    value = c(vals$intercept, vals$dep_coefficient, vals$dep_p_value,
-              vals$para_coefficient, vals$para_p_value, vals$pseudo_r_squared,
-              vals$cross_kingdom_rho, vals$cross_kingdom_p,
-              meta$n, meta$n_species, meta$n_gene_categories,
-              as.numeric(vals$valence_confirmed)),
+    metric = c(
+      "intercept", "dep_coefficient", "dep_p_value",
+      "para_coefficient", "para_p_value", "pseudo_r_squared",
+      "cross_kingdom_rho", "cross_kingdom_p",
+      "observations", "n_species", "n_gene_categories",
+      "valence_confirmed"
+    ),
+    value = c(
+      vals$intercept, vals$dep_coefficient, vals$dep_p_value,
+      vals$para_coefficient, vals$para_p_value, vals$pseudo_r_squared,
+      vals$cross_kingdom_rho, vals$cross_kingdom_p,
+      meta$n, meta$n_species, meta$n_gene_categories,
+      as.numeric(vals$valence_confirmed)
+    ),
     stringsAsFactors = FALSE
   )
 }
@@ -408,14 +446,18 @@ plot.valence_glm_fit <- function(x, ...) {
   observed <- data$retention
 
   # Plot 1: Observed vs Fitted
-  p1 <- ggplot(data.frame(observed = observed, fitted = pred),
-               aes(x = fitted, y = observed)) +
+  p1 <- ggplot(
+    data.frame(observed = observed, fitted = pred),
+    aes(x = fitted, y = observed)
+  ) +
     geom_point(alpha = 0.6, size = 2) +
     geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
-    labs(title = "Observed vs Fitted",
-         subtitle = sprintf("R² = %.4f", x$values$pseudo_r_squared),
-         x = "Fitted Retention",
-         y = "Observed Retention") +
+    labs(
+      title = "Observed vs Fitted",
+      subtitle = sprintf("R² = %.4f", x$values$pseudo_r_squared),
+      x = "Fitted Retention",
+      y = "Observed Retention"
+    ) +
     theme_minimal(base_size = 10)
 
   # Plot 2: Coefficients
@@ -425,20 +467,28 @@ plot.valence_glm_fit <- function(x, ...) {
     p_val = c(x$values$dep_p_value, x$values$para_p_value)
   )
   coef_df$significance <- ifelse(coef_df$p_val < 0.001, "***",
-                                 ifelse(coef_df$p_val < 0.01, "**",
-                                        ifelse(coef_df$p_val < 0.05, "*", "")))
+    ifelse(coef_df$p_val < 0.01, "**",
+      ifelse(coef_df$p_val < 0.05, "*", "")
+    )
+  )
 
   p2 <- ggplot(coef_df, aes(x = term, y = estimate)) +
     geom_col(fill = "#1f77b4", alpha = 0.8) +
-    geom_errorbar(aes(ymin = estimate - 1.96*sqrt(var(glm_fit$coefficients[2])),
-                      ymax = estimate + 1.96*sqrt(var(glm_fit$coefficients[2]))),
-                  width = 0.2) +
+    geom_errorbar(
+      aes(
+        ymin = estimate - 1.96 * sqrt(var(glm_fit$coefficients[2])),
+        ymax = estimate + 1.96 * sqrt(var(glm_fit$coefficients[2]))
+      ),
+      width = 0.2
+    ) +
     geom_hline(yintercept = 0, linetype = "dashed") +
     geom_text(aes(label = significance), vjust = -0.5, size = 5) +
-    labs(title = "Coefficient Estimates",
-         subtitle = "the framework predicts dep > 0, para < 0",
-         x = "Predictor",
-         y = "Coefficient Estimate") +
+    labs(
+      title = "Coefficient Estimates",
+      subtitle = "the framework predicts dep > 0, para < 0",
+      x = "Predictor",
+      y = "Coefficient Estimate"
+    ) +
     theme_minimal(base_size = 10) +
     coord_flip()
 
@@ -463,7 +513,7 @@ as.data.frame.valence_glm_fit <- function(x, row.names = NULL, optional = FALSE,
   data.frame(
     coefficient = c("(Intercept)", "dependency_score", "parasitism_score"),
     estimate = c(vals$intercept, vals$dep_coefficient, vals$para_coefficient),
-    p_value = c(NA, vals$dep_p_value, vals$para_p_value),  # intercept p not computed
+    p_value = c(NA, vals$dep_p_value, vals$para_p_value), # intercept p not computed
     valence_prediction = c(NA, "dep > 0", "para < 0"),
     consistent = c(NA, vals$dep_positive, vals$para_negative),
     stringsAsFactors = FALSE
@@ -524,15 +574,20 @@ plot.valence_equilibrium <- function(x, ...) {
 
   ggplot() +
     geom_point(aes(x = x$depth, y = x$value),
-               color = ifelse(x$is_protected, "blue", "orange"),
-               size = 4) +
+      color = ifelse(x$is_protected, "blue", "orange"),
+      size = 4
+    ) +
     geom_vline(xintercept = x$params$theta, linetype = "dashed", color = "red") +
-    geom_hline(yintercept = ifelse(x$is_protected, 1, exp(-x$params$lambda * x$integrated_mismatch)),
-               linetype = "dotted", color = gray(0.5)) +
-    labs(title = "Equilibrium at Depth",
-         subtitle = sprintf("θ = %.2f, protected = %s", x$params$theta, x$is_protected),
-         x = "Integration Depth",
-         y = "Retention Probability") +
+    geom_hline(
+      yintercept = ifelse(x$is_protected, 1, exp(-x$params$lambda * x$integrated_mismatch)),
+      linetype = "dotted", color = gray(0.5)
+    ) +
+    labs(
+      title = "Equilibrium at Depth",
+      subtitle = sprintf("θ = %.2f, protected = %s", x$params$theta, x$is_protected),
+      x = "Integration Depth",
+      y = "Retention Probability"
+    ) +
     theme_minimal(base_size = 10)
 }
 

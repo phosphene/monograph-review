@@ -71,7 +71,8 @@ test_that("Wikipedia: near saturation (high % of K)", {
   # Wikipedia is the one dataset that approaches K (94.9% in Python fit)
   # The bi-exponential or the framework ODE should win here (not simple exponential)
   wiki_file <- system.file("data", "wikipedia_growth.csv",
-                            package = "valence.foundry")
+    package = "valence.foundry"
+  )
   if (!file.exists(wiki_file)) skip("wikipedia_growth.csv not bundled")
 
   wiki <- utils::read.csv(wiki_file)

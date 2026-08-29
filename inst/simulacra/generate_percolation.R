@@ -8,8 +8,8 @@
 #' @param n_provision_levels Integer. Default 20.
 
 generate_percolation_network <- function(seed = 42L, n_nodes = 100L,
-                                          p_edge = 0.1,
-                                          n_provision_levels = 20L) {
+                                         p_edge = 0.1,
+                                         n_provision_levels = 20L) {
   withr::with_seed(seed, {
     adj <- matrix(0, n_nodes, n_nodes)
     for (i in 1:(n_nodes - 1)) {

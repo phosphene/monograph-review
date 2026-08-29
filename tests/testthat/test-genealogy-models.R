@@ -25,8 +25,10 @@ source_genealogy("generate_drift_selection.R")
 # ---- Stage 1: Ising Model ----
 
 test_that("Ising: produces magnetization data with known Tc", {
-  sim <- generate_ising(seed = 42, L = 8, J = 1.0, h = 0,
-                         n_sweeps = 200, n_temps = 10, T_range = c(1.5, 3.5))
+  sim <- generate_ising(
+    seed = 42, L = 8, J = 1.0, h = 0,
+    n_sweeps = 200, n_temps = 10, T_range = c(1.5, 3.5)
+  )
   data <- sim$metadata$data
 
   expect_equal(nrow(data), 10)
@@ -42,8 +44,10 @@ test_that("Ising: produces magnetization data with known Tc", {
 })
 
 test_that("Ising: magnetization drops near Tc", {
-  sim <- generate_ising(seed = 42, L = 8, J = 1.0, h = 0,
-                         n_sweeps = 300, n_temps = 20, T_range = c(1.0, 4.0))
+  sim <- generate_ising(
+    seed = 42, L = 8, J = 1.0, h = 0,
+    n_sweeps = 300, n_temps = 20, T_range = c(1.0, 4.0)
+  )
   data <- sim$metadata$data
 
   # Near Tc (T_norm = 1), M should be transitioning
@@ -92,7 +96,8 @@ test_that("Cusp: bifurcation set is 4a^3 + 27b^2 = 0", {
   # Grid may not hit it exactly, but should have points near it
   bif_dist <- abs(4 * data$a^3 + 27 * data$b^2)
   expect_true(min(bif_dist) < 0.5,
-              info = "some points should be near the bifurcation set")
+    info = "some points should be near the bifurcation set"
+  )
 })
 
 test_that("Cusp: three equilibria in the cuspidal region", {
@@ -103,15 +108,18 @@ test_that("Cusp: three equilibria in the cuspidal region", {
   inside <- data[data$a < -0.1 & abs(data$b) < 0.05, ]
   if (nrow(inside) > 0) {
     expect_true(any(inside$n_equilibria == 3),
-                info = "at least some points inside cusp should have 3 equilibria")
+      info = "at least some points inside cusp should have 3 equilibria"
+    )
   }
 })
 
 # ---- Stage 5: Drift-Selection Boundary ----
 
 test_that("Drift-selection: retention increases with delta", {
-  sim <- generate_drift_selection(seed = 42, N = 50, n_reps = 200,
-                                   n_delta = 10, delta_range = c(0, 0.05))
+  sim <- generate_drift_selection(
+    seed = 42, N = 50, n_reps = 200,
+    n_delta = 10, delta_range = c(0, 0.05)
+  )
   data <- sim$metadata$data
 
   # Higher delta should have higher retention
@@ -119,8 +127,10 @@ test_that("Drift-selection: retention increases with delta", {
 })
 
 test_that("Drift-selection: rho_sat > 0 (selection creates retention gap)", {
-  sim <- generate_drift_selection(seed = 42, N = 50, n_reps = 200,
-                                   n_delta = 10, delta_range = c(0, 0.05))
+  sim <- generate_drift_selection(
+    seed = 42, N = 50, n_reps = 200,
+    n_delta = 10, delta_range = c(0, 0.05)
+  )
 
   expect_gt(sim$values$rho_sat, 0)
   expect_lt(sim$values$rho_sat, 1)
@@ -167,8 +177,10 @@ test_that("Chain: Landau bifurcation matches cusp bifurcation", {
 # ---- Null Controls ----
 
 test_that("null: Ising with J=0 shows no phase transition", {
-  sim <- generate_ising(seed = 42, L = 8, J = 0.0, h = 0,
-                         n_sweeps = 200, n_temps = 10, T_range = c(1.0, 4.0))
+  sim <- generate_ising(
+    seed = 42, L = 8, J = 0.0, h = 0,
+    n_sweeps = 200, n_temps = 10, T_range = c(1.0, 4.0)
+  )
   data <- sim$metadata$data
 
   # No coupling → no magnetization at any temperature

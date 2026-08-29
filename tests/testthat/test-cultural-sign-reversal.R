@@ -21,17 +21,26 @@ context("Cultural: H10 sign reversal (Van Holstein & Foley 2024)")
 .load_van_holstein_posteriors <- function() {
   base <- file.path(
     "/home/node/.openclaw/workspace/work/marsyas6/papers/valence-ingress",
-    "data/van-holstein/Data_Code_Final")
+    "data/van-holstein/Data_Code_Final"
+  )
 
   configs <- list(
-    list(name = "Broad_NHPP_homo",
-         path = file.path(base, "PyRate/Outputs/Broad_occurrence_level/NHPP/homo_diversity_0_expSp_expEx_HP.log")),
-    list(name = "Broad_NHPP_nonhomo",
-         path = file.path(base, "PyRate/Outputs/Broad_occurrence_level/NHPP/nonhomo_diversity_0_expSp_expEx_HP.log")),
-    list(name = "WoodBoyle_homo",
-         path = file.path(base, "PyRate/Outputs/Wood-Boyle/homo_diversity_0_expSp_expEx_HP.log")),
-    list(name = "WoodBoyle_nonhomo",
-         path = file.path(base, "PyRate/Outputs/Wood-Boyle/nonhomo_diversity_0_expSp_expEx_HP.log"))
+    list(
+      name = "Broad_NHPP_homo",
+      path = file.path(base, "PyRate/Outputs/Broad_occurrence_level/NHPP/homo_diversity_0_expSp_expEx_HP.log")
+    ),
+    list(
+      name = "Broad_NHPP_nonhomo",
+      path = file.path(base, "PyRate/Outputs/Broad_occurrence_level/NHPP/nonhomo_diversity_0_expSp_expEx_HP.log")
+    ),
+    list(
+      name = "WoodBoyle_homo",
+      path = file.path(base, "PyRate/Outputs/Wood-Boyle/homo_diversity_0_expSp_expEx_HP.log")
+    ),
+    list(
+      name = "WoodBoyle_nonhomo",
+      path = file.path(base, "PyRate/Outputs/Wood-Boyle/nonhomo_diversity_0_expSp_expEx_HP.log")
+    )
   )
 
   posteriors <- list()
@@ -49,8 +58,14 @@ context("Cultural: H10 sign reversal (Van Holstein & Foley 2024)")
 }
 
 test_that("H10: Homo shows positive DD speciation (Broad NHPP)", {
-  skip_if_not(file.exists("/home/node/.openclaw/workspace/work/marsyas6/papers/valence-ingress/data/van-holstein/Data_Code_Final/PyRate/Outputs/Broad_occurrence_level/NHPP/homo_diversity_0_expSp_expEx_HP.log"),
-              "Van Holstein data not downloaded")
+  skip_if_not(
+    file.exists(file.path(
+      "/home/node/.openclaw/workspace/work/marsyas6/papers/valence-ingress",
+      "data/van-holstein/Data_Code_Final/PyRate/Outputs",
+      "Broad_occurrence_level/NHPP/homo_diversity_0_expSp_expEx_HP.log"
+    )),
+    "Van Holstein data not downloaded"
+  )
 
   posteriors <- .load_van_holstein_posteriors()
   result <- sign_reversal_test(
@@ -66,8 +81,14 @@ test_that("H10: Homo shows positive DD speciation (Broad NHPP)", {
 })
 
 test_that("H10: non-Homo shows negative DD speciation (Broad NHPP)", {
-  skip_if_not(file.exists("/home/node/.openclaw/workspace/work/marsyas6/papers/valence-ingress/data/van-holstein/Data_Code_Final/PyRate/Outputs/Broad_occurrence_level/NHPP/nonhomo_diversity_0_expSp_expEx_HP.log"),
-              "Van Holstein data not downloaded")
+  skip_if_not(
+    file.exists(file.path(
+      "/home/node/.openclaw/workspace/work/marsyas6/papers/valence-ingress",
+      "data/van-holstein/Data_Code_Final/PyRate/Outputs",
+      "Broad_occurrence_level/NHPP/nonhomo_diversity_0_expSp_expEx_HP.log"
+    )),
+    "Van Holstein data not downloaded"
+  )
 
   posteriors <- .load_van_holstein_posteriors()
   result <- sign_reversal_test(
@@ -83,8 +104,14 @@ test_that("H10: non-Homo shows negative DD speciation (Broad NHPP)", {
 })
 
 test_that("H10: sign reversal confirmed across configurations", {
-  skip_if_not(file.exists("/home/node/.openclaw/workspace/work/marsyas6/papers/valence-ingress/data/van-holstein/Data_Code_Final/PyRate/Outputs/Broad_occurrence_level/NHPP/homo_diversity_0_expSp_expEx_HP.log"),
-              "Van Holstein data not downloaded")
+  skip_if_not(
+    file.exists(file.path(
+      "/home/node/.openclaw/workspace/work/marsyas6/papers/valence-ingress",
+      "data/van-holstein/Data_Code_Final/PyRate/Outputs",
+      "Broad_occurrence_level/NHPP/homo_diversity_0_expSp_expEx_HP.log"
+    )),
+    "Van Holstein data not downloaded"
+  )
 
   posteriors <- .load_van_holstein_posteriors()
 
@@ -98,7 +125,7 @@ test_that("H10: sign reversal confirmed across configurations", {
 
   # Test Wood-Boyle if available
   if (!is.null(posteriors[["WoodBoyle_homo"]]) &&
-      !is.null(posteriors[["WoodBoyle_nonhomo"]])) {
+        !is.null(posteriors[["WoodBoyle_nonhomo"]])) {
     result_wb <- sign_reversal_test(
       posteriors[["WoodBoyle_homo"]],
       posteriors[["WoodBoyle_nonhomo"]],

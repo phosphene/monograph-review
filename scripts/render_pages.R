@@ -170,7 +170,7 @@ md_to_html <- function(md) {
   flush_para()
   if (in_list) html <- c(html, "</ul>")
   # Close any open table
-  if (length(grep("<tbody>$", html[length(html)])) html <- c(html, "</tbody></table>")
+  if (length(grep("<tbody>$", html[length(html)])) > 0) html <- c(html, "</tbody></table>")
 
   paste(html, collapse = "\n")
 }

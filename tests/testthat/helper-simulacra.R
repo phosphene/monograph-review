@@ -3,8 +3,11 @@
 
 .simulacra_dir <- function() {
   d <- system.file("simulacra", package = "valence.foundry")
-  if (file.exists(file.path(d, "generate_step.R"))) d
-  else file.path(getwd(), "..", "..", "inst", "simulacra")
+  if (file.exists(file.path(d, "generate_step.R"))) {
+    d
+  } else {
+    file.path(getwd(), "..", "..", "inst", "simulacra")
+  }
 }
 
 source_simulacrum <- function(file) {

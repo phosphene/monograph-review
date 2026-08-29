@@ -102,9 +102,11 @@ N_VALUES <- c(3, 5, 10, 20, 40)
 test_that("small-n: n=3 discrimination is marginal with noise", {
   step_wins <- 0
   for (seed in SEEDS) {
-    sim <- generate_step_function(seed = seed, n_pre = 1, n_post = 2,
-                                   rho_sat = RHO_SAT, theta_star = THETA_STAR,
-                                   noise_sd = NOISE_SD)
+    sim <- generate_step_function(
+      seed = seed, n_pre = 1, n_post = 2,
+      rho_sat = RHO_SAT, theta_star = THETA_STAR,
+      noise_sd = NOISE_SD
+    )
     fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
     if (fits$best_model == "step") step_wins <- step_wins + 1
   }
@@ -116,9 +118,11 @@ test_that("small-n: n=3 discrimination is marginal with noise", {
 
 test_that("small-n: n=5 reliably discriminates step from sigmoid with noise", {
   for (seed in SEEDS) {
-    sim <- generate_step_function(seed = seed, n_pre = 2, n_post = 3,
-                                   rho_sat = RHO_SAT, theta_star = THETA_STAR,
-                                   noise_sd = NOISE_SD)
+    sim <- generate_step_function(
+      seed = seed, n_pre = 2, n_post = 3,
+      rho_sat = RHO_SAT, theta_star = THETA_STAR,
+      noise_sd = NOISE_SD
+    )
     fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
     expect_equal(fits$best_model, "step")
     # delta_AIC should be decisively > 2 (rule of thumb for strong evidence)
@@ -131,9 +135,11 @@ test_that("small-n: n=5 reliably discriminates step from sigmoid with noise", {
 
 test_that("small-n: n=5 with clean data discriminates perfectly", {
   for (seed in SEEDS) {
-    sim <- generate_step_function(seed = seed, n_pre = 2, n_post = 3,
-                                   rho_sat = RHO_SAT, theta_star = THETA_STAR,
-                                   noise_sd = 0)
+    sim <- generate_step_function(
+      seed = seed, n_pre = 2, n_post = 3,
+      rho_sat = RHO_SAT, theta_star = THETA_STAR,
+      noise_sd = 0
+    )
     fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
     expect_equal(fits$best_model, "step")
     # Clean data: step fits perfectly, sigmoid never can
@@ -147,9 +153,11 @@ test_that("small-n: n=3 with clean data still discriminates", {
   step_wins <- 0
   delta_gt_2 <- 0
   for (seed in 1:100) {
-    sim <- generate_step_function(seed = seed, n_pre = 1, n_post = 2,
-                                   rho_sat = RHO_SAT, theta_star = THETA_STAR,
-                                   noise_sd = 0)
+    sim <- generate_step_function(
+      seed = seed, n_pre = 1, n_post = 2,
+      rho_sat = RHO_SAT, theta_star = THETA_STAR,
+      noise_sd = 0
+    )
     fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
     if (fits$best_model == "step") step_wins <- step_wins + 1
     if (is.infinite(fits$delta_aic) || fits$delta_aic > 2) delta_gt_2 <- delta_gt_2 + 1
@@ -166,9 +174,11 @@ test_that("small-n: n >= 10 reliably discriminates with noise", {
     n_pre <- floor(n / 2)
     n_post <- n - n_pre
     for (seed in SEEDS) {
-      sim <- generate_step_function(seed = seed, n_pre = n_pre, n_post = n_post,
-                                     rho_sat = RHO_SAT, theta_star = THETA_STAR,
-                                     noise_sd = NOISE_SD)
+      sim <- generate_step_function(
+        seed = seed, n_pre = n_pre, n_post = n_post,
+        rho_sat = RHO_SAT, theta_star = THETA_STAR,
+        noise_sd = NOISE_SD
+      )
       fits <- fit_step(sim$metadata$data$theta, sim$metadata$data$rho)
       expect_equal(fits$best_model, "step")
       expect_gt(fits$delta_aic, 2)
