@@ -3,7 +3,7 @@
 **Date:** 2026-08-18  
 **Test:** Does bi-exponential relaxation kinetics appear on non-DNA substrates?  
 **Pipeline:** `scipy.curve_fit` with multi-start optimization, AIC model comparison
-**Script:** `scripts/p6_substrate_independence.py`
+**Script:** `scripts/p6_substrate.py`
 
 ---
 
@@ -142,8 +142,8 @@ The fact that this form appears in:
 
 ## Files
 
-- **Script:** `scripts/p6_substrate_independence.py`
-- **JSON results:** `results/p6-substrate-results.json`
+- **Script:** `scripts/p6_substrate.py`
+- **JSON results:** `results/p6-substrate-results.json` (not generated — digitized data embedded in script)
 - **This report:** `results/p6-substrate-results.md`
 
 ---

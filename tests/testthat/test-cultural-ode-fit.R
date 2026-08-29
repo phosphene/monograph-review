@@ -1,14 +1,14 @@
-# test-cultural-ode-fit.R — VI ODE growth curve fitting
+# test-cultural-ode-fit.R — the framework ODE growth curve fitting
 #
-# Tests the VI model ODE against competing growth models on real cultural
-# accumulation data. The VI ODE (generalized logistic with decay) should:
+# Tests the framework model ODE against competing growth models on real cultural
+# accumulation data. The framework ODE (generalized logistic with decay) should:
 #   1. Confirm r_eff > 0 (generative regime, β > 1)
 #   2. Win or be competitive with simple exponential when near saturation
 #   3. Always beat the quadratic (Gabora) model
 #
 # @section Theoretical Context:
 #
-# VI Prediction: dB/dt = ε·β·B·(1-B/K) - δ·B
+# the framework's prediction: dB/dt = ε·β·B·(1-B/K) - δ·B
 #   - Far from saturation (B << K): reduces to exponential (r·B)
 #   - Near saturation (B → K): logistic saturation dynamics
 #   - Bi-exponential form wins when system approaches carrying capacity
@@ -17,11 +17,11 @@
 
 library(testthat)
 
-context("Cultural: VI ODE growth curve fitting")
+context("Cultural: framework ODE growth curve fitting")
 
 # ---- USPTO patents (1836-2023, 188 years, full population) ----
 
-test_that("USPTO: VI ODE confirms generative regime (r_eff > 0)", {
+test_that("USPTO: framework ODE confirms generative regime (r_eff > 0)", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
@@ -31,14 +31,14 @@ test_that("USPTO: VI ODE confirms generative regime (r_eff > 0)", {
   expect_gt(result$values$r_eff, 0)
 })
 
-test_that("USPTO: VI ODE beats quadratic (Gabora) model", {
+test_that("USPTO: framework ODE beats quadratic (Gabora) model", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
   result <- fit_valence_ode_models(t, B)
 
   # Quadratic model diverges on USPTO (188 years of super-exponential growth)
-  # When quadratic diverges, AIC is NA — VI ODE wins by default
+  # When quadratic diverges, AIC is NA — the framework ODE wins by default
   if (is.na(result$values$quad_aic)) {
     expect_true(!is.na(result$values$aic))
   } else {
@@ -69,9 +69,9 @@ test_that("USPTO: covers at least 180 years", {
 
 test_that("Wikipedia: near saturation (high % of K)", {
   # Wikipedia is the one dataset that approaches K (94.9% in Python fit)
-  # The bi-exponential or VI ODE should win here (not simple exponential)
+  # The bi-exponential or the framework ODE should win here (not simple exponential)
   wiki_file <- system.file("data", "wikipedia_growth.csv",
-                            package = "vi.foundry")
+                            package = "valence.foundry")
   if (!file.exists(wiki_file)) skip("wikipedia_growth.csv not bundled")
 
   wiki <- utils::read.csv(wiki_file)
@@ -81,8 +81,8 @@ test_that("Wikipedia: near saturation (high % of K)", {
 
   # Simple exponential should NOT win (system is near saturation)
   expect_false(result$values$best_model == "exp")
-  # Either biexp, valence_ode, or logistic should win
-  expect_true(result$values$best_model %in% c("biexp", "vi", "logistic"))
+  # Either biexp, the framework ODE, or logistic should win
+  expect_true(result$values$best_model %in% c("biexp", "framework", "logistic"))
 })
 
 # ---- Generative regime confirmation across all datasets ----

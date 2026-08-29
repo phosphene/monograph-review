@@ -5,7 +5,7 @@
 # documented outcome, and returns an A6 proof object.
 
 library(testthat)
-library(vi.foundry)
+library(valence.foundry)
 
 has_pkg <- function(p) requireNamespace(p, quietly = TRUE)
 ap <- function(...) testthat::test_path("..", "..", "data", "a-priori-scores", ...)
@@ -51,7 +51,7 @@ test_that("P4: Echolocation centrality — a priori contrast, predicted directio
   r <- p4_echolocation_centrality(s, centralities, maps$sym_to_prot)
   expect_true(validate_result(r))
   expect_true(r$values$n_convergent > 100, info = "most convergent genes mapped")
-  # VI prediction: convergent < conserved in the domain. Degree is the primary metric.
+  # the framework's prediction: convergent < conserved in the domain. Degree is the primary metric.
   expect_true(r$values$deg$conv_mean < r$values$deg$cons_mean)
   expect_true(r$values$deg$p_conv_less < 0.05, info = "signed prediction holds for degree")
 })

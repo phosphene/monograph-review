@@ -31,7 +31,7 @@ List (A6):
 Generates two matched innovation time series — one with logistic growth
 (feedback = 0, negative DD, niche-filling — the competitor's model) and one
 with autocatalytic growth (feedback = 1, positive DD, the Homo inversion —
-Valence's prediction) — and computes the diversity-dependence slope for each via
+the framework's prediction) — and computes the diversity-dependence slope for each via
 \code{\link[=diversity_dependence_sign]{diversity_dependence_sign()}}. The \emph{contrast} is the difference: positive
 = the Homo inversion signature (autocatalytic DD slope > logistic DD slope).
 }
@@ -43,18 +43,18 @@ rate-vs-N slope flips from negative (logistic) to positive (autocatalytic).
 \section{Theoretical Context}{
 
 
-Valence Prediction: the Homo inversion — positive diversity-dependence (per-
+the framework's prediction: the Homo inversion — positive diversity-dependence (per-
 capita innovation rate increases with diversity N). Competitor: niche-
 filling — negative diversity-dependence (per-capita rate decreases with N).
 Both produce growing time series, but the DD slope has opposite signs. The
-contrast quantifies the difference: positive contrast = valence signature.
+contrast quantifies the difference: positive contrast = the framework signature.
 }
 
 \section{Risk note}{
 
 
 The formula used here (blend of autocatalytic + bounded-logistic) corrects
-a bug in the original toy-realms-plan.md, which proposed
+a bug in the original toy-models-plan.md, which proposed
 \code{r*(feedback + (1-feedback)*N/(N+K))} — a formula that is always positive-DD
 (N/(N+K) is increasing in N, so the blend is always increasing). See the
 comment block above \code{generate_dd_series()} for the full analysis.

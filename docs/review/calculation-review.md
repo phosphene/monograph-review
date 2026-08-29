@@ -1,4 +1,4 @@
-# The valence-foundry Calculation Review — A Literate Walkthrough
+# The foundry Calculation Review — A Literate Walkthrough
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
@@ -9,24 +9,24 @@
 ## What this document is
 
 This is the literate record of a calculation review: a line-by-line audit of
-every analysis in `valence-foundry` against its baseline oracle, the diagnosis of
+every analysis in `the foundry` against its baseline oracle, the diagnosis of
 each divergence, and the fix that was applied. It exists so that a reviewer
 can trace each number in `test-output/results.yml` back to the data, the code,
 and the reasoning — not just see that a gate is green or red.
 
 It is the analysis-level companion to
-[`valence-ingression-review.md`](valence-ingression-review.md) (which states the
+[`manuscript-review.md`](manuscript-review.md) (which states the
 formal review findings — Remarks and Review Items) and
-[`valence-foundry-phased-breakdown.md`](valence-foundry-phased-breakdown.md) (which
+[`foundry-phased-breakdown.md`](foundry-phased-breakdown.md) (which
 describes the build phases). Where those documents say *what* is wrong, this
 document shows *why* and *how it was fixed*.
 
 > **The headline.** Of nine oracle entries, three had real bugs (T4, T5,
 > formal_model) and one had a misspecified method (T3). The three bugs are
 > fixed; the method misspecification is documented. Two entries that
-> *discriminate* valence from its competitors now pass the regression gate (T5,
-> formal_model), and a third confirms the valence prediction (T4). Before the
-> review, one entry (T4) was actively *contradicting* valence purely from a
+> *discriminate* the framework from its competitors now pass the regression gate (T5,
+> formal_model), and a third confirms the framework prediction (T4). Before the
+> review, one entry (T4) was actively *contradicting* the framework purely from a
 > column-selection error.
 
 ---
@@ -35,7 +35,7 @@ document shows *why* and *how it was fixed*.
 
 Each section follows the same structure:
 
-1. **The prediction** — what valence claims, and what the competitor claims.
+1. **The prediction** — what the framework claims, and what the competitor claims.
 2. **The oracle** — the manuscript-reported ground truth.
 3. **What the code was doing** — the actual computation, with the real data.
 4. **The divergence** — oracle vs. actual, and the root cause.
@@ -46,15 +46,15 @@ actual pipeline output, not illustrative examples.
 
 ---
 
-## T4 — Niche breadth vs. Ne (the one that inverted valence)
+## T4 — Niche breadth vs. Ne (the one that inverted the framework)
 
 ### The prediction
 
-Valence predicts that **niche breadth** predicts gene loss (pan-genome size) better
+the framework predicts that **niche breadth** predicts gene loss (pan-genome size) better
 than **Ne** (effective population size) alone. The competitor — drift (Lynch
 2007) — predicts that Ne is the primary driver of genome reduction. This test
-**does** distinguish valence from drift: if niche subsumes Ne, drift is
-insufficient; if Ne wins, valence's niche claim is unsupported.
+**does** distinguish the framework from drift: if niche subsumes Ne, drift is
+insufficient; if Ne wins, the framework's niche claim is unsupported.
 
 ### The oracle
 
@@ -67,7 +67,7 @@ t4_niche_vs_ne:
   distinguishes_from_competitor: true
 ```
 
-Niche R² (0.343) exceeds Ne R² (0.198). Valence wins.
+Niche R² (0.343) exceeds Ne R² (0.198). the framework wins.
 
 ### What the code was doing — and why it inverted the prediction
 
@@ -76,7 +76,7 @@ with genome size, lifestyle, and two Ne estimates. The function
 `niche_vs_ne()` had three compounding problems:
 
 **Problem 1: wrong response variable.** The function regressed `Genome Size
-(Mb)` — the *core* genome size. But the valence prediction is about **gene loss**,
+(Mb)` — the *core* genome size. But the framework prediction is about **gene loss**,
 which is measured by the **pan-genome** size (the total gene repertoire). The
 data has an `Adjusted pan-genome` column (column 16) that the function never
 used:
@@ -117,7 +117,7 @@ ne_r_squared    = 0.261   # core genome ~ Ne
 ```
 
 Ne *wins*. The foundry was reporting that **drift beats niche** — the exact
-opposite of the valence prediction. This was not a subtle drift or a data-version
+opposite of the framework prediction. This was not a subtle drift or a data-version
 issue. It was a wiring bug that inverted the result.
 
 ### The fix
@@ -159,7 +159,7 @@ T4: niche_r2 = 0.3637   ne_r2 = 0.2571
 ```
 
 Niche R² (0.364) now exceeds Ne R² (0.257), and AIC favors the niche model
-(242 < 256). **valence is confirmed.** The residual drift from the oracle (0.364 vs.
+(242 < 256). the framework is confirmed. The residual drift from the oracle (0.364 vs.
 0.343) is data-version: the manuscript's exact Ne estimation method and
 species set differ slightly from the bundled table. The *direction and
 magnitude* match.
@@ -170,8 +170,8 @@ magnitude* match.
 
 ### The prediction
 
-Valence predicts that pan-genome openness (fluidity) tracks **lifestyle** (commensal
-vs. free-living) rather than Ne alone. Like T4, this distinguishes valence from the
+the framework predicts that pan-genome openness (fluidity) tracks **lifestyle** (commensal
+vs. free-living) rather than Ne alone. Like T4, this distinguishes the framework from the
 Ne-only drift model.
 
 ### The oracle
@@ -230,7 +230,7 @@ T5: lifestyle_subsumes_ne = TRUE
 ```
 
 Lifestyle R² (0.229) now exceeds Ne R² (0.177), and `lifestyle_subsumes_ne` is
-`TRUE`. **valence is confirmed.** This entry now **passes** the regression gate.
+`TRUE`. the framework is confirmed. This entry now **passes** the regression gate.
 
 ---
 
@@ -242,7 +242,7 @@ The formal threshold model (`threshold_model()`) is a deterministic ODE:
 `dC/dt = -λ·M(t)·I(d < θ)`. It solves the capacity-reallocation equation for a
 panel of traits and produces **biphasic kinetics**: fast Phase 1 (unprotected
 traits, `d < θ`, shed rapidly) and slow Phase 2 (protected traits, `d ≥ θ`,
-retained at 1.0). This is the theoretical signature that distinguishes valence from
+retained at 1.0). This is the theoretical signature that distinguishes the framework from
 constant-rate (relaxed selection) and accelerating (Muller's ratchet) models.
 
 ### The oracle — and why it could never match
@@ -312,7 +312,7 @@ biphasic signature (Phase 1 is ~281,000x faster than Phase 2). This entry now
 
 ### The prediction
 
-Valence predicts that genome reduction in obligate endosymbionts follows
+the framework predicts that genome reduction in obligate endosymbionts follows
 **biphasic kinetics**: a fast Phase 1 (unprotected traits shed rapidly)
 followed by a slow Phase 2 (protected traits resist loss). The mathematical
 signature is a logistic (saturation) curve, distinguishable from a linear
@@ -442,7 +442,7 @@ The data has 91 species across 15 families. The function aggregates to **15
 family means** and correlates those; the oracle is species-level (n = 91). Both
 are defensible — the correlation is robust either way (r = −0.90 vs. −0.93).
 *Action: decide whether the test is species-level or family-level and make the
-oracle match; both support valence.*
+oracle match; both support the framework.*
 
 ### T7 — LTEE co-segregation
 
@@ -456,7 +456,7 @@ p-value differs: the foundry uses an exact `binom.test` (p = 3.4e-16) where the
 oracle used an asymptotic approximation (p = 1e-4). The actual is *more*
 significant. The enrichment ratio (0.589 = observed/expected) shows
 function-loss mutations co-segregate with beneficial sweeps *less* than chance
-— consistent with the valence drift prediction. *Action: update the oracle p-value
+— consistent with the framework drift prediction. *Action: update the oracle p-value
 to the exact test, with proof.*
 
 ---
@@ -468,7 +468,7 @@ to the exact test, with proof.*
 | T1 Orobanchaceae PGLS | skip (drift) | skip (drift; science holds) |
 | T2 cross-family | skip (drift) | skip (drift; science holds) |
 | T3 endosymbiont biphasic | skip (R²=0.169, NA) | skip (R²=0.242, NA; method misspecified — R6) |
-| **T4 niche-vs-Ne** | **skip (Ne WINS — inverts valence)** | **skip (niche wins; valence confirmed)** |
+| **T4 niche-vs-Ne** | **skip (Ne WINS — inverts the framework)** | **skip (niche wins; the framework confirmed)** |
 | **T5 pangenome fluidity** | skip (NA) | **✅ PASS** |
 | T6 gene-loss ordering | skip (no data) | skip (no data — item 4) |
 | T7 LTEE co-segregation | skip (drift) | skip (drift; science holds) |
@@ -478,8 +478,8 @@ to the exact test, with proof.*
 | Metric | Before | After |
 |--------|--------|-------|
 | Regression gate | 0 pass / 9 skip | **4 pass / 7 skip** |
-| Full suite | 429 pass / 10 skip | **433 pass / 8 skip** |
-| Entries contradicting valence | 1 (T4) | **0** |
+| Full suite | 429 pass / 10 skip | **433 pass / 8 skip** (state at review completion; as of 2026-08-29 the full suite is 8417 pass / 0 fail / 11 skip) |
+| Entries contradicting the framework | 1 (T4) | **0** |
 | Discriminating entries passing | 0 | **3** (T5, formal_model pass; T4 confirms) |
 
 ---

@@ -6,7 +6,7 @@
 #
 # @section Theoretical Context:
 #
-# valence Prediction: positive diversity-dependence (superlinear growth). The
+# the framework's prediction: positive diversity-dependence (superlinear growth). The
 # Autocatalytic model predicts superlinear slope, good fit, positive sign.
 # Null control (linear, no feedback) should not be superlinear.
 #

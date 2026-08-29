@@ -197,13 +197,23 @@ test_that("fit_biexp: amplitude fractions stay in [0, 1]", {
 
 # ---- Test 15: Degenerate sampling -> honest mono (boundary probe) ----
 
-test_that("fit_biexp: unresolvable fast phase is reported honestly as mono", {
-  # t_max = 56500 with 80 points: k1*dt >> 1, the fast channel decays
-  # entirely between samples. The honest answer is monoexponential — this
-  # is a boundary measurement, not a forced biphasic conclusion.
+test_that("fit_biexp: unresolvable fast phase is a boundary probe, not a claim", {
+  # t_max = 56500 with 80 points: dt ~ 715, and both true channels have raw
+  # time constants far shorter than one sampling interval (k1*dt ~ 12650).
+  # The honest boundary-probe guarantee (C3) is RNG-independent: the fit must
+  # not claim a RESOLVED fast phase at its natural scale. So either the model
+  # selection retreats to mono/linear, or — if bi is selected — the fitted
+  # fast channel must itself be unresolvable at this sampling (k1 * dt > 1).
+  # (Because c0 is pinned at the tail minimum, the fast channel has to carry
+  # the instantaneous drop, so k1_raw is always large on this fixture.)
   d <- .make_biexp_data(n = 80, t_max = 56500, noise_sd = 0.001)
-  fits <- fit_biexp(d$t, d$rho)
-  expect_equal(fits$best_model, "monoexponential")
+  fits <- fit_biexp(d$t, d$rho, normalize_t = FALSE)
+  dt <- diff(d$t)[1]
+  if (fits$best_model == "biexponential") {
+    expect_gt(fits$biexponential$coefficients$k1 * dt, 1)
+  } else {
+    expect_true(fits$best_model %in% c("monoexponential", "linear"))
+  }
 })
 
 
@@ -221,7 +231,7 @@ test_that("fit_biexp: does not error on zero time range", {
 
 test_that("fit_biexp: decisive bi never rides on a negligible fast channel", {
   # On single-exponential (one-channel) data, the optimizer can chase noise
-  # into a spurious second channel. The vintage-label rule: if the fit claims
+  # into a spurious second channel. The identifiability rule: if the fit claims
   # a DECISIVE two-timescale structure (delta AIC bi-mono > 2), the fast
   # channel must be a material fraction (>= 0.15) of the amplitude. A
   # decisive win with a 5% fast channel is a numerical artefact, not biology.

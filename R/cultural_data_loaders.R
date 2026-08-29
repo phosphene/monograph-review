@@ -1,4 +1,4 @@
-#' Data loaders for VI cultural evolution datasets
+#' Data loaders for the framework cultural evolution datasets
 #'
 #' Each loader reads from the bundled data/ directory, runs validation,
 #' and returns a structured result object (A6: proof object).

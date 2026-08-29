@@ -136,8 +136,8 @@ than *essential* as the aggregate grows.
 
 ## 6. Where the foundry sits
 
-The foundry's own cross-domain concepts — **valence-seeking, conserved
-core, ordered loss, substrate independence** — are themselves
+The foundry's own cross-domain concepts — **the seeking dynamic, the
+conserved core, ordered loss, substrate independence** — are themselves
 instantial-boundary-challenged. They are family-resemblance categories:
 present in many instances, not essential in all.
 
@@ -156,10 +156,10 @@ The methodological consequence (this is the operational posture):
    "what does this boundary tell us about the concept's domain of
    validity?" — not "the concept is false." This is exactly how the
    fit_biexp degenerate cases are handled (see
-   `valence-foundry-phased-breakdown.md`): an unresolvable fast phase at
+   `foundry-phased-breakdown.md`): an unresolvable fast phase at
    a given sampling scale is a measurement of the boundary, not a
    contradiction of the biphasic pattern.
-4. **The vintage-label standard.** Because the concepts are
+4. **The claim-evidence conformance standard.** Because the concepts are
    boundary-challenged, the *label* must be scrupulously honest about
    what the *contents* establish: every claim reproducible (CI gates,
    baseline oracle), every citation pointing at a real passage, and the

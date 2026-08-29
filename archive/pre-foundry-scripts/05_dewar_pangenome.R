@@ -4,7 +4,7 @@
 # Dewar et al. (2024): Bacterial Lifestyle Shapes Pangenomes
 #
 # Re-analyzes data from Dewar et al. (2024) PNAS 121(21):e2320170121
-# to test valence predictions about lifestyle-dependent genome architecture.
+# to test the framework predictions about lifestyle-dependent genome architecture.
 #
 # Data: Downloaded from https://github.com/AnnaEDewar/pangenome_lifestyle
 # =============================================================================

@@ -37,7 +37,7 @@ class(.valence_test_registry) <- "valence_test_registry_env"
 #' @export
 print.valence_test_registry_env <- function(x, ...) {
   nms <- sort(ls(x))
-  cat("valence test registry:", length(nms), "registered tests\n\n")
+  cat("foundry test registry:", length(nms), "registered tests\n\n")
   if (length(nms)) {
     for (nm in nms) {
       e <- x[[nm]]
@@ -192,14 +192,14 @@ print.valence_test_registry_env <- function(x, ...) {
 #' @param data_required Character vector. Names of the data arguments the test
 #'   needs (e.g. `"data"`, `c("plant_data", "bird_data")`). Use
 #'   `character(0)` for tests that need no external data.
-#' @param discriminating Logical. Whether the test distinguishes valence from
-#'   competitors (as opposed to only being consistent with valence).
+#' @param discriminating Logical. Whether the test distinguishes the framework from
+#'   competitors (as opposed to only being consistent with the framework).
 #' @param expected_fields Character vector. Value fields the test returns.
 #' @param class Character. S3 result class to wrap the output in
 #'   (default `"valence_test_result"`).
 #' @param statistic_key Character. Optional name of the raw value field to use
 #'   as the canonical statistic (otherwise auto-detected).
-#' @param valence_prediction Character. Plain-language valence prediction statement.
+#' @param valence_prediction Character. Plain-language the framework's prediction statement.
 #'
 #' @return Invisibly returns the registry entry.
 #' @export
@@ -249,7 +249,7 @@ register_test <- function(name, fn, data_required = character(0),
 #' List registered tests
 #'
 #' @param discriminating_only Logical. If TRUE, only return tests flagged as
-#'   discriminating (i.e. that distinguish valence from competitors).
+#'   discriminating (i.e. that distinguish the framework from competitors).
 #'
 #' @return data.frame with columns: name, function, data_required,
 #'   discriminating, expected_fields, class.
@@ -399,7 +399,7 @@ print.valence_test_suite <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_test_suite Object
+#' Summary of the framework_test_suite Object
 #'
 #' @param object valence_test_suite object.
 #' @param ... Ignored.
@@ -442,7 +442,7 @@ plot.valence_test_suite <- function(x, ...) {
       statistic = if (is.null(r$statistic)) NA_real_ else as.numeric(r$statistic),
       p_value = if (is.null(r$p_value)) NA_real_ else as.numeric(r$p_value),
       status = r$status,
-      disc = ifelse(isTRUE(r$discriminating), "Distinguishes valence", "Consistent w/ valence"),
+      disc = ifelse(isTRUE(r$discriminating), "Distinguishes the framework", "Consistent with the framework"),
       stringsAsFactors = FALSE
     )
   }))

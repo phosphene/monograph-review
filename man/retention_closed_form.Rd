@@ -20,7 +20,7 @@ retention_closed_form(depths, lambda, theta, m0, alpha, time)
 \item{time}{Numeric. Total time elapsed.}
 }
 \value{
-vi_equilibrium object for each depth (vector of length length(depths)).
+valence_equilibrium object for each depth (vector of length length(depths)).
 }
 \description{
 Computes the analytical solution to dC/dt = -λ·M(t)·C·I(d<θ):

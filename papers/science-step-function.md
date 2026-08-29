@@ -189,11 +189,11 @@ The *Homo* macroevolutionary inversion (10) — speciation rates increasing rath
 
 **Grambank.** 2,467 languages, 195 binary grammatical features (5). Feature dependency = mean absolute pairwise correlation. θ = 1 − (features present / max). ρ = Spearman(feature dependency, feature presence) per language.
 
-All code and data: github.com/phosphene/monograph-review (branch: feature/formula-analysis).
+All code and data: github.com/phosphene/monograph-review (default branch: main).
 
 ## Acknowledgments
 
-We especially thank Ed Phillips of Inferno Labs for the ML and automation infrastructure that enabled parallel NCBI genome fetching across eight endosymbiont genera, the valence-foundry R package and CI/CD pipeline, and the reproducible analysis platform. We also thank Mark Ames, Thomas Barfield, Deborah Barsky, Amanda Brammall, Douglas Causey, Faya Causey, Walton Comer, John Dolan, Nadia Durrani, Gary Feinman, Ian Gilby, Nancy Graham, Robert Hard, John Hawks, Radu Iovita, Mattias Kraemer, Reynard Loki, Curtis Marean, Irina Matuzava, Mark Moffett, Mehmet Özdoğan, Judy Omumbo, Alyssa Ritch, Nina Ritch, Chris Stringer, Peter Turecek, Hassan Ugail, and Bernard Wood for their varied and valuable contributions and encouragement that ultimately led to the production of this work. This work was supported by the Independent Media Institute.
+We especially thank Ed Phillips of Inferno Labs for the ML and automation infrastructure that enabled parallel NCBI genome fetching across eight endosymbiont genera, the foundry R package and CI/CD pipeline, and the reproducible analysis platform. We also thank Mark Ames, Thomas Barfield, Deborah Barsky, Amanda Brammall, Douglas Causey, Faya Causey, Walton Comer, John Dolan, Nadia Durrani, Gary Feinman, Ian Gilby, Nancy Graham, Robert Hard, John Hawks, Radu Iovita, Mattias Kraemer, Reynard Loki, Curtis Marean, Irina Matuzava, Mark Moffett, Mehmet Özdoğan, Judy Omumbo, Alyssa Ritch, Nina Ritch, Chris Stringer, Peter Turecek, Hassan Ugail, and Bernard Wood for their varied and valuable contributions and encouragement that ultimately led to the production of this work. This work was supported by the Independent Media Institute.
 
 ## References
 

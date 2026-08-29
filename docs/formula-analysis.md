@@ -1,6 +1,6 @@
 # Formula Analysis — Three-Move Derivation
 
-> **⚠️ Updated August 2026:** The step function formula ρ(θ) = ρ_sat · H(θ − θ*) has been superseded by the relaxation formula dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂). Foundry simulacra showed the step function was a 3-point artifact (n=3 cannot distinguish step from sigmoid) and the percolation/drift-selection derivation paths did not hold. The formal chain Ising → Landau → Cusp is verified, but describes relaxation dynamics, not a phase transition. See [Economics Extrapolations](economics-extrapolations.html) for the updated formula and predictions.
+> **⚠️ Updated August 2026:** The step function formula ρ(θ) = ρ_sat · H(θ − θ*) has been superseded by the relaxation formula dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂). Foundry simulacra showed the step function was a 3-point artifact (n=3 cannot distinguish step from sigmoid) and the percolation/drift-selection derivation paths did not hold. The formal chain Ising → Landau → Cusp is verified, but describes relaxation dynamics, not a phase transition. See [Economics Extrapolations](economics-extrapolations.md) for the updated formula and predictions.
 
 
 **Author:** Flow Feel ([@FlowFeel](https://github.com/FlowFeel))
@@ -11,12 +11,12 @@
 
 ## What This Is
 
-This document presents the **three-move analysis** for deriving the functional form of the Valence-Ingression effect. The monograph proposes that valence's effect on genome retention follows a substrate-shift equation: α(x) = −k_ecol + k_cult · σ((x − x*)/s). The question is whether the data falls on a recognizable curve — and if so, whether that curve matches the theory's prediction.
+This document presents the **three-move analysis** for deriving the functional form of the framework's effect. The monograph proposes that the framework's effect on genome retention follows a substrate-shift equation: α(x) = −k_ecol + k_cult · σ((x − x*)/s). The question is whether the data falls on a recognizable curve — and if so, whether that curve matches the theory's prediction.
 
 The analysis uses three epistemic moves, executed in parallel:
 
 1. **Ohta (inductive):** Plot ρ vs θ across all systems. Let the data reveal the functional form.
-2. **Fisher (decompositional):** Partition Sodalis retention variance into valence + essentiality + drift + hitchhiking.
+2. **Fisher (decompositional):** Partition Sodalis retention variance into framework + essentiality + drift + hitchhiking.
 3. **Wimsatt (triangulation):** Fit candidate functions, compare to the monograph's predicted form.
 
 ---
@@ -51,7 +51,7 @@ The analysis uses three epistemic moves, executed in parallel:
 
 ### Method
 
-Plot valence effect size (ρ) against niche dependency parameter (θ) across all systems. θ measures the degree to which the environment (host) provides metabolic requirements — the control parameter. ρ measures how strongly gene-level dependency predicts retention — the order parameter.
+Plot the framework's effect size (ρ) against niche dependency parameter (θ) across all systems. θ measures the degree to which the environment (host) provides metabolic requirements — the control parameter. ρ measures how strongly gene-level dependency predicts retention — the order parameter.
 
 ### Results
 
@@ -63,7 +63,7 @@ Plot valence effect size (ρ) against niche dependency parameter (θ) across all
 | Sodalis | 0.044 | 0.353 |
 | Buchnera | 0.500 | 0.372 |
 
-**Key finding:** Sodalis (θ=0.04) and Buchnera (θ=0.50) have nearly identical ρ despite a 12× difference in θ. The valence effect saturates immediately once symbiosis begins.
+**Key finding:** Sodalis (θ=0.04) and Buchnera (θ=0.50) have nearly identical ρ despite a 12× difference in θ. The framework's effect saturates immediately once symbiosis begins.
 
 **11-point fit (including Orobanchaceae per-species):**
 
@@ -88,13 +88,13 @@ The three comparable points (LTEE, Sodalis, Buchnera) show a **step function**, 
 
 ### Method
 
-Within the Sodalis system (1,366 genes matched to iJO1366), partition retention variance into components: valence (dependency score), selection (essentiality), drift (baseline), and hitchhiking (residual).
+Within the Sodalis system (1,366 genes matched to iJO1366), partition retention variance into components: framework (dependency score), selection (essentiality), drift (baseline), and hitchhiking (residual).
 
 ### Results
 
 | Component | Effect size | Metric |
 |-----------|------------|--------|
-| valence (high-dep minus low-dep retention) | +0.398 | Difference in retention rates |
+| framework (high-dep minus low-dep retention) | +0.398 | Difference in retention rates |
 | Selection (essential minus nonessential) | +0.388 | Difference in retention rates |
 | Drift baseline | 0.428 | Overall retention rate |
 
@@ -102,11 +102,11 @@ Within the Sodalis system (1,366 genes matched to iJO1366), partition retention 
 
 | Model | AUC | ΔAUC (above 0.5) |
 |-------|-----|------------------|
-| valence (dependency score) | 0.656 | 0.156 |
+| framework (dependency score) | 0.656 | 0.156 |
 | Essentiality | 0.622 | 0.122 |
-| valence + Essentiality | 0.656 | 0.157 |
+| framework + Essentiality | 0.656 | 0.157 |
 
-**Key finding:** Adding essentiality to valence gives **zero improvement** in AUC (0.656 → 0.656). Valence subsumes essentiality entirely. The genes that are metabolically essential ARE the high-dependency genes — there is no independent selection signal beyond what dependency captures.
+**Key finding:** Adding essentiality to the framework's measure gives **zero improvement** in AUC (0.656 → 0.656). The framework's measure subsumes essentiality entirely. The genes that are metabolically essential ARE the high-dependency genes — there is no independent selection signal beyond what dependency captures.
 
 ### Retention by dependency level
 
@@ -116,7 +116,7 @@ Within the Sodalis system (1,366 genes matched to iJO1366), partition retention 
 | Mid (0.01–0.5) | 78.4% | 37 |
 | High (≥0.5) | 74.6% | 268 |
 
-The jump from 34% to 78% between low and mid is the valence signal — it is not gradual but a **step within the system**. Genes with any non-trivial dependency (above 0.01) are retained at roughly twice the rate of zero-dependency genes.
+The jump from 34% to 78% between low and mid is the framework signal — it is not gradual but a **step within the system**. Genes with any non-trivial dependency (above 0.01) are retained at roughly twice the rate of zero-dependency genes.
 
 ---
 
@@ -142,21 +142,21 @@ The sigmoid fit gives: θ* = 0.205, s = 5.48, ρ_max = 0.744. But with only 3 co
 | Buchnera | 0.50 | 0.372 |
 | Orobanchaceae (pooled) | 0.56 | 0.369 |
 
-The raw valence effect is constant across symbiotic systems at different dependency levels. This is consistent with a **first-order phase transition** (discontinuous jump), not a second-order transition (continuous sigmoid).
+The raw framework's effect is constant across symbiotic systems at different dependency levels. This is consistent with a **first-order phase transition** (discontinuous jump), not a second-order transition (continuous sigmoid).
 
 ### Physics Attractor Mapping
 
 The step-function finding maps directly onto physics attractor theory:
 
-| valence concept | Physics analog |
+| framework concept | Physics analog |
 |------------|---------------|
 | θ (niche dependency) | T/Tc (reduced temperature) |
-| ρ (valence effect) | M (magnetization, order parameter) |
+| ρ (the framework's effect) | M (magnetization, order parameter) |
 | θ* (onset threshold) | Tc (Curie temperature) |
 | ρ_sat (saturation level) | M_sat (saturation magnetization) |
 | Basin switch | First-order phase transition |
 
-Below θ*, the system is in the "free-living" attractor basin (full genome, no valence). Above θ*, it jumps to the "symbiotic" attractor basin (reducing genome, valence active). The jump is discontinuous — like water to ice, not like iron cooling through the Curie point.
+Below θ*, the system is in the "free-living" attractor basin (full genome, no effect). Above θ*, it jumps to the "symbiotic" attractor basin (reducing genome, effect active). The jump is discontinuous — like water to ice, not like iron cooling through the Curie point.
 
 This is the cusp catastrophe structure already in the monograph (§S5): the irreversibility threshold IS the basin-switching event. The formula's steepness s → ∞ because the cooperative coupling is very strong — once one gene's dependency triggers retention, it cascades through the network instantly. This is the "magnetic" effect: cooperative alignment, like spins locking into a ferromagnetic domain.
 

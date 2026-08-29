@@ -22,6 +22,6 @@ observed morphological change ranks for island bird flight-loss.
 Bird morphology data tests the L3 cross-kingdom prediction: plant-derived
 integration-depth parameters predict bird morphological change ordering.
 The competitor (substrates are independent) predicts no transfer. This
-test DOES distinguish valence — it is the strongest test in the monograph.
+test DOES distinguish the framework — it is the strongest test in the monograph.
 }
 

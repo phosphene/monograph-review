@@ -7,7 +7,7 @@ updated: 2026-08-18
 
 # Genealogy Models — Runnable Precursor Environments
 
-Each stage in the mathematical genealogy of the valence formula is implemented as a
+Each stage in the mathematical genealogy of the framework formula is implemented as a
 runnable simulation that **generates data from the equations of that era**.
 The genealogy is not prose — it is executable code that reproduces the
 behavior of each precursor environment.

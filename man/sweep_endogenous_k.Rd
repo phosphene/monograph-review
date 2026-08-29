@@ -41,11 +41,12 @@ feedback = 2/3; the measured bifurcation (from the linear regression in
 \section{Theoretical Context}{
 
 
-Valence Prediction: the Homo inversion is a bifurcation — there is a threshold
+the framework's prediction: the Homo inversion is a bifurcation — there is a threshold
 in cultural complexity (feedback strength) beyond which diversity-
 dependence flips from negative (niche-filling) to positive (autocatalytic).
 This sweep makes the bifurcation explorable: below the threshold, the
-system is niche-filling (competitor); above it, the system is autocatalytic. The threshold is the endogenous-K bifurcation (Review Item 3).
+system is niche-filling (competitor); above it, the system is autocatalytic
+. The threshold is the endogenous-K bifurcation (Review Item 3).
 }
 
 \section{Risk note}{

@@ -1,5 +1,5 @@
 ---
-uri: vi-foundry/standards/inference-packets
+uri: foundry/standards/inference-packets
 title: Inference Packets — Structured Knowledge for Research-Active LLMs
 author: Marsyas + Ed Phil
 status: living

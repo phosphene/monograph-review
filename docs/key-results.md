@@ -1,6 +1,6 @@
 # Key Results — Discriminating Core
 
-## The Six Tests That Distinguish valence
+## The Six Tests That Distinguish the Framework
 
 | Test | Key result | What it rules out |
 |------|-----------|-------------------|
@@ -13,7 +13,7 @@
 
 ---
 
-## P1-P8 Prediction Scorecard (Updated 2026-08-18)
+## P1-P8 Prediction Scorecard (Updated 2026-08-29)
 
 ### P1: Bi-Exponential Kinetics in Longitudinal Data
 

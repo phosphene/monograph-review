@@ -2,7 +2,7 @@
 % Please edit documentation in R/contracts.R
 \name{contracts}
 \alias{contracts}
-\title{Contract validators for valence foundry data}
+\title{Contract validators for the foundry data}
 \description{
 These functions validate inputs at function entry and outputs at exit,
 enforcing the MPI Handoff Blueprint's pure-function contract discipline.

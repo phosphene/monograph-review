@@ -2,17 +2,17 @@
 % Please edit documentation in R/cusp_catastrophe.R
 \name{cusp_catastrophe}
 \alias{cusp_catastrophe}
-\title{Cusp catastrophe model for valence irreversibility thresholds}
+\title{Cusp catastrophe model for the framework irreversibility thresholds}
 \description{
 The cusp catastrophe describes a system where smooth changes in control
-parameters produce sudden, irreversible jumps in state. Valence predicts that
+parameters produce sudden, irreversible jumps in state. The framework predicts that
 capacity reallocation has this property — once a trait crosses the
 protection threshold, recovery requires disproportionate effort.
 }
 \section{Theoretical Context}{
 
 
-Valence Prediction: irreversibility — substrate-shift creates a bifurcation
+the framework's prediction: irreversibility — substrate-shift creates a bifurcation
 that is difficult to reverse. Competitor: gradual reversibility (standard
 quantitative genetics predicts smooth recovery when selection pressure
 is removed).

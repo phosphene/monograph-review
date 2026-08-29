@@ -397,7 +397,7 @@ cat(sprintf("  %d of %d hybrid populations show behavioral scores > morphologica
     sum(hybrid_gaps > 0), length(hybrid_gaps)))
 
 cat("\n  Gradient: surface (0.00) → hybrid (+0.070) → cave (-0.097)\n")
-cat("  Consistent with valence Prediction 2: behavioral change leads at intermediate\n")
+cat("  Consistent with the framework Prediction 2: behavioral change leads at intermediate\n")
 cat("  commitment, morphological change catches up at deep commitment\n")
 cat("  VERDICT: PASS (p = 0.001; but see Lahti alternative in paper)\n")
 
@@ -421,7 +421,7 @@ for (i in 1:3) {
 }
 cat(sprintf("\nAcceleration: %.1f× (from %.0f%% to %.0f%%)\n",
     per_gen_rate[3] / per_gen_rate[2], 100 * per_gen_rate[2], 100 * per_gen_rate[3]))
-cat("  valence prediction: a > 0 (accelerating) ✓\n")
+cat("  the framework prediction: a > 0 (accelerating) ✓\n")
 cat("  Drift/inbreeding: ruled out (Christie et al. 2012: explains 1-4%)\n")
 cat("  Captive-wild trade-off confirmed: high-captive-fitness → only 0.62 wild offspring\n")
 cat("  VERDICT: PASS (2.7× acceleration, inbreeding null ruled out)\n")

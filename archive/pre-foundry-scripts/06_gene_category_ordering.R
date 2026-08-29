@@ -161,7 +161,7 @@ cat("\n========== SUMMARY ==========\n")
 cat(sprintf("Gene categories: %d\n", nrow(gene_categories)))
 cat(sprintf("Spearman rho: %.3f (p = %.4f)\n", sp_cor$estimate, sp_cor$p.value))
 cat(sprintf("Pearson r: %.3f (R² = %.3f)\n", pe_cor$estimate, summary(mod)$r.squared))
-cat(sprintf("valence prediction (positive correlation): %s\n",
+cat(sprintf("the framework prediction (positive correlation): %s\n",
             ifelse(sp_cor$estimate > 0 & sp_cor$p.value < 0.05,
                    "SUPPORTED", "NOT CLEARLY SUPPORTED")))
 cat("NOTE: Retention values are from literature consensus, not\n")

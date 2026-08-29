@@ -1,4 +1,4 @@
-#' Data loaders for valence foundry datasets
+#' Data loaders for the foundry datasets
 #'
 #' Each loader reads from the bundled data/ directory, runs the appropriate
 #' contract validator, and returns a structured result object (A6: proof
@@ -101,7 +101,7 @@ make_result <- function(data, name, source, ...) {
 #'
 #' @section Theoretical Context:
 #'
-#' Tests valence Prediction D5: plastome size correlates with parasitism level.
+#' Tests the framework's prediction D5: plastome size correlates with parasitism level.
 #' Competitor: relaxed selection (Lahti 2009) predicts the same gradient.
 #' This data feeds T1 (PGLS) and T6 (gene-loss ordering).
 #'
@@ -151,10 +151,10 @@ load_orobanchaceae <- function() {
 #'
 #' @section Theoretical Context:
 #'
-#' Tests valence Prediction D5: gene-loss gradient replicates across
+#' Tests the framework's prediction D5: gene-loss gradient replicates across
 #' independently evolved parasitic lineages. Competitor: stochastic gene
 #' loss / relaxed selection — both predict the same pattern. Does NOT
-#' distinguish valence from competitors.
+#' distinguish the framework from competitors.
 #'
 #' @dft
 #' - A1, A6
@@ -192,10 +192,10 @@ load_cross_family_plastomes <- function() {
 #'
 #' @section Theoretical Context:
 #'
-#' Tests valence Prediction: biphasic genome reduction (fast Phase 1, slow
+#' Tests the framework's prediction: biphasic genome reduction (fast Phase 1, slow
 #' Phase 2). Competitors: constant rate (Lynch 2007), accelerating
 #' (Muller's ratchet). McCutcheon's metabolic complementarity predicts
-#' the same correlation — does NOT distinguish valence from McCutcheon.
+#' the same correlation — does NOT distinguish the framework from McCutcheon.
 #'
 #' @dft
 #' - A1, A6
@@ -226,9 +226,9 @@ load_endosymbionts <- function() {
 #'
 #' @section Theoretical Context:
 #'
-#' Tests valence Prediction D3: niche breadth predicts gene loss better than
+#' Tests the framework's prediction D3: niche breadth predicts gene loss better than
 #' Ne alone. Competitor: drift (Lynch 2007) predicts Ne is primary.
-#' DOES distinguish valence from drift.
+#' DOES distinguish the framework from drift.
 #'
 #' @dft
 #' - A1, A6
@@ -257,8 +257,8 @@ load_bobay_ochman <- function() {
 #'
 #' @section Theoretical Context:
 #'
-#' Tests valence Prediction: pan-genome openness tracks lifestyle (commensal
-#' vs free-living). Competitor: Ne-only model. DOES distinguish valence.
+#' Tests the framework's prediction: pan-genome openness tracks lifestyle (commensal
+#' vs free-living). Competitor: Ne-only model. DOES distinguish the framework.
 #'
 #' @dft
 #' - A1, A6
@@ -285,10 +285,10 @@ load_dewar_pangenome <- function() {
 #'
 #' @section Theoretical Context:
 #'
-#' Tests valence L3 Prediction: plant-derived integration-depth parameters
+#' Tests the framework L3 Prediction: plant-derived integration-depth parameters
 #' predict bird morphological change ordering across kingdoms.
 #' Competitor: substrates are independent — no parameter transfer.
-#' DOES distinguish valence. This is the strongest test in the monograph.
+#' DOES distinguish the framework. This is the strongest test in the monograph.
 #'
 #' @dft
 #' - A1, A6
@@ -325,7 +325,7 @@ load_island_birds <- function() {
 #' @section Theoretical Context:
 #
 #' The retention matrix is the empirical basis for `empirical_formal_model()`:
-#' valence predicts dep > 0 (deeper integration → more retention) and para < 0
+#' the framework predicts dep > 0 (deeper integration → more retention) and para < 0
 #' (deeper parasitism → less retention). The competitor (random loss)
 #' predicts no dep effect. The author's original additive GLM produced the
 #' wrong sign due to a data-flattening bug (`as.vector(t(retention))` is

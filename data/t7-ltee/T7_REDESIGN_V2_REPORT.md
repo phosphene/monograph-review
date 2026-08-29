@@ -46,11 +46,11 @@
 | Gene length vs time | 173 | 0.001 | 0.993 | — |
 | Partial ρ (degree\|time, controlling length) | — | −0.190 | — | Negative survives |
 
-**Higher-dependency/degree genes are mutated EARLIER, not later.** This is opposite to the naive VI prediction (high-dependency should be lost last). **Length is NOT the confounder** (ρ = 0.001). The negative correlation survives controlling for gene length.
+**Higher-dependency/degree genes are mutated EARLIER, not later.** This is opposite to the naive framework's prediction (high-dependency should be lost last). **Length is NOT the confounder** (ρ = 0.001). The negative correlation survives controlling for gene length.
 
 ### Test 3: Niche-specific dependency (high-mismatch genes)
 
-Genes essential in rich media but dispensable in glucose minimal (full_dep = 1, LTEE_env_dep = 0) are the highest-mismatch genes under VI — they should be lost first. Only 30 such genes exist in iJO1366; 3 received LoF mutations:
+Genes essential in rich media but dispensable in glucose minimal (full_dep = 1, LTEE_env_dep = 0) are the highest-mismatch genes under the framework — they should be lost first. Only 30 such genes exist in iJO1366; 3 received LoF mutations:
 
 | Gene | Full dep | LTEE-env dep | First LoF gen |
 |------|----------|--------------|---------------|
@@ -58,7 +58,7 @@ Genes essential in rich media but dispensable in glucose minimal (full_dep = 1, 
 | menH (b2263) | 1.0 | 0.0 | 1500 |
 | menC (b2261) | 1.0 | 0.0 | 3000 |
 
-These are lost EARLY (all < 5,000 generations), consistent with VI's high-mismatch-first prediction. But n = 3 is too small for inference.
+These are lost EARLY (all < 5,000 generations), consistent with the framework's high-mismatch-first prediction. But n = 3 is too small for inference.
 
 ## Interpretation
 
@@ -66,14 +66,14 @@ These are lost EARLY (all < 5,000 generations), consistent with VI's high-mismat
 
 1. **Vulnerability (which genes mutate):** The v1 signal (p = 0.030) attenuates to non-significant (p = 0.163) with full mapping. The original result was inflated by mapping bias — only well-characterized metabolic genes were initially matched.
 
-2. **Timing (when genes mutate):** The negative correlation (high-dependency mutated earlier) is REAL and robust (survives improved mapping and length control). This contradicts the simple VI prediction that high-integration traits are shed in the slow (late) phase.
+2. **Timing (when genes mutate):** The negative correlation (high-dependency mutated earlier) is REAL and robust (survives improved mapping and length control). This contradicts the simple framework's prediction that high-integration traits are shed in the slow (late) phase.
 
 3. **What explains early high-dependency loss?** Three candidate explanations:
-   - **(a) High-mismatch genes are early.** VI predicts loss rate ∝ mismatch. Some high-STRING-degree genes (regulatory hubs for unused pathways) may be high-mismatch in the glucose niche. These should be lost early — and ARE (tonB, menH, menC).
-   - **(b) Adaptive loss, not passive drift.** Some high-degree genes are actively lost because their loss is BENEFICIAL in the niche (e.g., genes encoding costly unused functions). Cooper & Lenski's antagonistic pleiotropy. This is Phase 2 directional cost-shedding — VI predicts this, and it happens early.
-   - **(c) The LTEE is a single niche.** The bi-exponential model requires a single niche transition with clear mismatch. The LTEE's glucose medium is one niche; genes lost are those the niche doesn't demand. High-degree genes in the FULL network may be low-mismatch in the glucose niche (their pathways are unused) — so early loss is VI-consistent.
+   - **(a) High-mismatch genes are early.** The framework predicts loss rate ∝ mismatch. Some high-STRING-degree genes (regulatory hubs for unused pathways) may be high-mismatch in the glucose niche. These should be lost early — and ARE (tonB, menH, menC).
+   - **(b) Adaptive loss, not passive drift.** Some high-degree genes are actively lost because their loss is BENEFICIAL in the niche (e.g., genes encoding costly unused functions). Cooper & Lenski's antagonistic pleiotropy. This is Phase 2 directional cost-shedding — the framework predicts this, and it happens early.
+   - **(c) The LTEE is a single niche.** The bi-exponential model requires a single niche transition with clear mismatch. The LTEE's glucose medium is one niche; genes lost are those the niche doesn't demand. High-degree genes in the FULL network may be low-mismatch in the glucose niche (their pathways are unused) — so early loss is framework-consistent.
 
-**The honest conclusion:** The LTEE does NOT cleanly test integration-depth ordering because it lacks the two-phase structure of a real niche transition. It's a single adaptive step to a single environment. The dependency score (iJO1366 full network) measures GLOBAL integration, not NICHE-SPECIFIC mismatch. VI predicts niche-specific mismatch drives loss rate; the LTEE data can only test global integration, which conflates "highly connected in all conditions" with "highly connected in THIS niche."
+**The honest conclusion:** The LTEE does NOT cleanly test integration-depth ordering because it lacks the two-phase structure of a real niche transition. It's a single adaptive step to a single environment. The dependency score (iJO1366 full network) measures GLOBAL integration, not NICHE-SPECIFIC mismatch. The framework predicts niche-specific mismatch drives loss rate; the LTEE data can only test global integration, which conflates "highly connected in all conditions" with "highly connected in THIS niche."
 
 **The refined prediction:** NICHE-SPECIFIC dependency (FBA under the LTEE environment) should predict loss timing — high niche-specific dependency → later loss; low niche-specific dependency → early loss. The test (n=61, ρ=-0.030, p=0.82) shows no signal, but only 61 genes have FBA scores, and the LTEE-environment FBA is a static snapshot.
 
@@ -81,7 +81,7 @@ These are lost EARLY (all < 5,000 generations), consistent with VI's high-mismat
 
 The T7-redesigned test is **informative but inconclusive**:
 - It does NOT confirm integration-depth ordering in the LTEE
-- It does NOT refute VI either (the LTEE is a poor system for this prediction — single niche, single adaptive step, no developmental architecture)
+- It does NOT refute the framework either (the LTEE is a poor system for this prediction — single niche, single adaptive step, no developmental architecture)
 - It DOES eliminate the naive interpretation (high global dependency → late loss is not observed)
 
 **Recommended monograph treatment:** Report the improved mapping (93%), the robust negative timing correlation (ρ = −0.28, p = 0.029), and the honest interpretation: the LTEE tests the FORM (bi-exponential kinetics) well but tests integration-depth ORDERING poorly, because dependency must be measured in the niche, not globally. The integration-depth ordering is confirmed in the systems where it CAN be measured properly (plants: ρ = 0.955; birds: ρ = 0.755; endosymbionts).

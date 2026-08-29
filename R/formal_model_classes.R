@@ -112,7 +112,7 @@ validate_valence_threshold_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_threshold_result
+#' Public helper for the framework_threshold_result
 #'
 #' Public API: combines constructor + validator. Ensures all returned
 #' objects are properly structured before leaving this module.
@@ -147,7 +147,7 @@ valence_threshold_result <- function(values, metadata) {
 #'   \item{cross_kingdom_p}{numeric. Cross-kingdom test p-value}
 #'   \item{dep_positive}{logical. Whether dep_coef > 0}
 #'   \item{para_negative}{logical. Whether para_coef < 0}
-#'   \item{valence_confirmed}{logical. Whether all valence predictions hold}
+#'   \item{valence_confirmed}{logical. Whether all the framework's predictions hold}
 #' @param metadata List. Named list with metadata fields:
 #'   \item{n}{integer. Number of observations}
 #'   \item{n_species}{integer. Number of species}
@@ -230,7 +230,7 @@ validate_valence_glm_fit <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_glm_fit
+#' Public helper for the framework_glm_fit
 #'
 #' Public API: combines constructor + validator.
 #'
@@ -313,7 +313,7 @@ validate_valence_equilibrium <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_equilibrium
+#' Public helper for the framework_equilibrium
 #'
 #' Public API: combines constructor + validator.
 #'

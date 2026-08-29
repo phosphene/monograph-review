@@ -27,11 +27,11 @@ All three centrality metrics, significant in the predicted direction.
 
 ## Reading
 
-**P4 POSITIVE — in VI's predicted direction, once the null is the correct one.**
+**P4 POSITIVE — in the framework's predicted direction, once the null is the correct one.**
 
 The interim read (convergent vs whole-genome: convergent MORE central, p=1.00) was an artifact of the wrong null. Against the right control — conserved machinery in the same functional domain — convergent genes are consistently *less* integrated. This is exactly the integration-depth prediction: the function converges (attractor, protected), the mechanism diverges (modular substrate, free to change). Convergent genes sit at lower centrality than the conserved hearing/developmental kernels.
 
-**The two-component lesson holds again:** raw centrality vs. whole-genome background is not the VI prediction. The VI prediction is about *relative* integration within the functional domain — which is what the conserved control captures. This is the same lesson as E4-revised (global centrality wrong proxy; niche/domain-relative position right).
+**The two-component lesson holds again:** raw centrality vs. whole-genome background is not the framework's prediction. The framework's prediction is about *relative* integration within the functional domain — which is what the conserved control captures. This is the same lesson as E4-revised (global centrality wrong proxy; niche/domain-relative position right).
 
 ## Caveats
 

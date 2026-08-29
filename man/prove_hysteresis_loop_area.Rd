@@ -21,7 +21,7 @@ prove_hysteresis_loop_area(
 \item{tol}{Numeric. Relative tolerance between analytic and numeric area.}
 }
 \value{
-A \code{vi_proof} object.
+A \code{valence_proof} object.
 }
 \description{
 Analytical proof that a cusp (\eqn{a<0}, control swept through the

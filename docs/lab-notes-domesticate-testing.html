@@ -50,11 +50,11 @@ tr:nth-child(even) td { background: #f7f9fb; }
 <div class="header">
 <h1>Lab Notes: Testing the Domesticate Asymmetry</h1>
 <p>What we learned about measuring diversity-dependence in domesticated lineages</p>
-<p>Lab Notes accompanying the valence Framework&nbsp;|&nbsp;Generated: 2026-08-14&nbsp;|&nbsp;<a href="index.html">Valence Foundry</a>&nbsp;|&nbsp;<a href="https://github.com/phosphene/monograph-review">GitHub</a></p>
+<p>Lab Notes accompanying the framework&nbsp;|&nbsp;Generated: 2026-08-14&nbsp;|&nbsp;<a href="index.html">The Foundry</a>&nbsp;|&nbsp;<a href="https://github.com/phosphene/monograph-review">GitHub</a></p>
 </div>
 
 <div class="nav">
-<a href="index.html">← Valence Foundry</a>
+<a href="index.html">← The Foundry</a>
 <a href="economic-extrapolations-viz.html">Economic Extrapolations →</a>
 <a href="inferno-economic-extrapolations.html">INFERNO Scores →</a>
 <a href="revised-domesticate-test.html">Revised Domesticate Test →</a>
@@ -68,7 +68,7 @@ tr:nth-child(even) td { background: #f7f9fb; }
 
 <div class="section">
 <h2>I. The Question</h2>
-<p>The valence framework predicts that positively diversity-dependent (DD) speciation — speciation rates increasing with clade diversity — is unique to lineages that have shifted from ecological to cultural niche exploitation. <em>Homo</em> shows this pattern (+2.06, van Holstein & Foley 2024). Every other vertebrate clade examined shows the standard negative pattern: as niches fill, speciation slows.</p>
+<p>The framework predicts that positively diversity-dependent (DD) speciation — speciation rates increasing with clade diversity — is unique to lineages that have shifted from ecological to cultural niche exploitation. <em>Homo</em> shows this pattern (+2.06, van Holstein & Foley 2024). Every other vertebrate clade examined shows the standard negative pattern: as niches fill, speciation slows.</p>
 <p>The domesticate asymmetry test asks: what about organisms that live in culturally-constructed niches but don't construct them? Domestic sheep, dogs, cattle — they occupy human-made niche space, but they consume it rather than expand it. Do they show the human pattern (positive DD) or the standard vertebrate pattern (negative DD)?</p>
 <p>The paper predicts negative DD for domesticates. We ran the test. The prediction was wrong. This article is about what we learned from that failure.</p>
 </div>
@@ -122,7 +122,7 @@ tr:nth-child(even) td { background: #f7f9fb; }
 <p>Silvestro et al. (2019) document that MCDD false positive rates decrease as the number of clades increases (from 5 to 20). Our 20 "taxa" sheep analysis sits at the upper end of this range, but the "taxa" are PCA groups, not biological species — a distinction the method's validation simulations don't address.</p>
 
 <h3>The diversity unit problem</h3>
-<p>This is the deepest methodological issue. Valence predicts functional niche expansion. PyRate measures species-level speciation/extinction rates. PCA measures genetic drift. These are three different diversity units, and the choice matters.</p>
+<p>This is the deepest methodological issue. The framework predicts functional niche expansion. PyRate measures species-level speciation/extinction rates. PCA measures genetic drift. These are three different diversity units, and the choice matters.</p>
 <table>
 <tr><th>Grouping method</th><th>Taxa</th><th>DD mean</th></tr>
 <tr><td>PCA groups (original)</td><td>19</td><td>0.0013</td></tr>
@@ -138,23 +138,23 @@ tr:nth-child(even) td { background: #f7f9fb; }
 <div class="section">
 <h2>V. What Actually Confirms the Framework</h2>
 <div class="summary">
-<p>The domesticate test was the wrong test. The right test — the one that actually tests valence's central claim — is the human temporal acceleration.</p>
+<p>The domesticate test was the wrong test. The right test — the one that actually tests the framework's central claim — is the human temporal acceleration.</p>
 </div>
-<p>valence's central claim is not just "Homo shows positive DD." It's that <strong>cumulative culture creates a self-amplifying feedback loop</strong> between niche commitment and niche expansion. The prediction is not "positive DD" but <strong>"accelerating positive DD"</strong> — the feedback loop should intensify over time.</p>
+<p>the framework's central claim is not just "Homo shows positive DD." It's that <strong>cumulative culture creates a self-amplifying feedback loop</strong> between niche commitment and niche expansion. The prediction is not "positive DD" but <strong>"accelerating positive DD"</strong> — the feedback loop should intensify over time.</p>
 <table>
 <tr><th>Lineage</th><th>Period</th><th>DD</th><th>Pattern</th></tr>
 <tr><td>Non-Homo hominins</td><td>4.5–0.96 Ma</td><td>−0.18</td><td>Standard niche saturation</td></tr>
 <tr><td>Homo (all)</td><td>2.6–0 Ma</td><td>+2.06</td><td>Strongly positive, accelerating</td></tr>
 </table>
-<p>The transition from negative to strongly positive — a 12-fold swing in DD — is the signature of the substrate shift valence describes. Within Homo, the acceleration continues: the feedback loop (commitment → cultural niche expansion → more commitment) intensifies as cumulative culture accumulates.</p>
+<p>The transition from negative to strongly positive — a 12-fold swing in DD — is the signature of the substrate shift the framework describes. Within Homo, the acceleration continues: the feedback loop (commitment → cultural niche expansion → more commitment) intensifies as cumulative culture accumulates.</p>
 <p>This is the result that should be reported as the primary confirmation of Prediction 3. The domesticate test, as designed, cannot confirm or falsify this prediction because domesticates lack the feedback loop that drives it.</p>
 </div>
 
 <div class="section">
-<h2>valence. Lessons for Future Testing</h2>
+<h2>the framework. Lessons for Future Testing</h2>
 
 <h3>1. Match the diversity unit to the prediction</h3>
-<p>valence predicts functional niche expansion. Tests must use functional diversity units, not genetic drift proxies. Datasets where this is already possible:</p>
+<p>the framework predicts functional niche expansion. Tests must use functional diversity units, not genetic drift proxies. Datasets where this is already possible:</p>
 <ul>
 <li><strong>Fungal enzyme gene loss</strong> (60-82 independent evolutions): function = enzyme presence/absence, binary, measurable</li>
 <li><strong>Parasitic plant continuum</strong> (141 species): function = photosynthesis vs parasitism, measurable</li>
@@ -177,7 +177,7 @@ tr:nth-child(even) td { background: #f7f9fb; }
 <p>The treasure is not in the domesticate test. It's in:</p>
 <ol>
 <li><strong>The human acceleration</strong> (−0.18 → +2.06) — the primary confirmation that cumulative culture drives positive DD through a self-amplifying feedback loop.</li>
-<li><strong>The quantitative predictions that already work</strong> — niche-demand mismatch R² = 0.50–0.65 across parasitic plants, bacteria, endosymbionts. These are where valence's predictions match the data at the right resolution with the right diversity unit.</li>
+<li><strong>The quantitative predictions that already work</strong> — niche-demand mismatch R² = 0.50–0.65 across parasitic plants, bacteria, endosymbionts. These are where the framework's predictions match the data at the right resolution with the right diversity unit.</li>
 <li><strong>The three-step sequence</strong> — documented across Miocene apes, hominins, domesticates, five kingdoms. The behavioral-commitment-precedes-morphology ordering is the framework's most robust prediction.</li>
 <li><strong>The cross-kingdom trajectory convergence</strong> — fungi (60-82 independent evolutions of the same genomic reallocation trajectory), plants (Orobanchaceae continuum), bacteria (Black Queen Hypothesis).</li>
 </ol>
@@ -199,7 +199,7 @@ tr:nth-child(even) td { background: #f7f9fb; }
 </div>
 
 <div class="footer">
-<p>Lab Notes accompanying the Valence-Ingression Framework&nbsp;|&nbsp;Generated August 2026&nbsp;|&nbsp;<a href="https://github.com/phosphene/monograph-review">Source</a>&nbsp;|&nbsp;<a href="index.html">Valence Foundry</a></p>
+<p>Lab Notes accompanying the framework under review&nbsp;|&nbsp;Generated August 2026&nbsp;|&nbsp;<a href="https://github.com/phosphene/monograph-review">Source</a>&nbsp;|&nbsp;<a href="index.html">The Foundry</a></p>
 </div>
 
 </body>

@@ -42,12 +42,21 @@ test_that("predict_bird_ordering returns ranks matching dependency ordering", {
   )
   predicted <- predict_bird_ordering(bird_data, plant_slope = 0.6)
   expect_length(predicted, 8)
-  # Higher dependency → higher predicted rank value → later change
-  # But predicted ranks are relative — check ordering is correct
+  # A positive plant slope transfers the dependency ordering DIRECTLY
+  # (predicted = plant_slope * dep, rank 1 = first to change). The whole
+  # ordering-concordance contract is monotonicity: predicted rank is
+  # non-decreasing in dependency_score (high dep -> changes late -> high
+  # rank). The sign-error bug inverted this; assert the full ordering.
   expect_gt(
     predicted[which(bird_data$dependency_score == 5)],
     predicted[which(bird_data$dependency_score == 0)]
   )
+  # Monotone: order of predicted ranks equals order of dependency scores
+  # (handles ties correctly — the two dep=1.0 entries get average rank 2.5)
+  expect_identical(order(predicted), order(bird_data$dependency_score))
+  # Rank range sanity: values span 1..n (average-rank ties allowed)
+  expect_equal(min(predicted), 1)
+  expect_equal(max(predicted), length(predicted))
 })
 
 test_that("predict_bird_ordering validates bird morphology (contract)", {

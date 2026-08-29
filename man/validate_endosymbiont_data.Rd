@@ -19,10 +19,10 @@ reduction modeling: genome size, host dependency, symbiosis age.
 \section{Theoretical Context}{
 
 
-Endosymbiont data tests valence's biphasic kinetics prediction: fast
+Endosymbiont data tests the framework's biphasic kinetics prediction: fast
 initial genome reduction (Phase 1) followed by slow reduction (Phase 2).
 The competitor (constant-rate, Lynch 2007) predicts linear reduction.
 McCutcheon's metabolic complementarity predicts the same correlation
-as valence — this test does NOT distinguish valence from McCutcheon.
+as the framework — this test does NOT distinguish the framework from McCutcheon.
 }
 

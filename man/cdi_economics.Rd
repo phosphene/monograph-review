@@ -21,7 +21,7 @@ quadratic), mean_spearman_time_cdi}
 (list of trajectory fits), converged}
 }
 \description{
-Converts the valence economics \code{capacity} time series into Commitment/
+Converts the framework economics \code{capacity} time series into Commitment/
 Disintegration Index (CDI) trajectories — \code{CDI = 1 - capacity/peak} — and
 compares the trajectory shape (linear vs log vs quadratic) for each system.
 This is the pure-function adaptation of Paper 1's \code{compute_cdi} and
@@ -30,17 +30,17 @@ trajectory-shape analysis.
 \section{Theoretical Context}{
 
 
-Valence Prediction: capacity loss in disrupted industries follows a decelerating
+the framework's prediction: capacity loss in disrupted industries follows a decelerating
 (log/logistic/saturating) CDI trajectory — commitment accrues fast early,
 then slows — rather than linear or exponential collapse.
 
 Competitor: constant-rate decay (exponential) predicts a linear rate of
 capacity loss and an accelerating CDI in these units. This test DOES
-distinguish valence from constant-rate decay: valence predicts the log or quadratic
+distinguish the framework from constant-rate decay: the framework predicts the log or quadratic
 (decelerating) model wins on AIC across independent industries.
 
-What supports valence: log/quadratic models outperform linear (decelerating CDI).
-What refutes valence: linear or exponential models dominate.
+What supports the framework: log/quadratic models outperform linear (decelerating CDI).
+What refutes the framework: linear or exponential models dominate.
 }
 
 \examples{

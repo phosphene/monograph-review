@@ -369,7 +369,7 @@ test_that("plot_forest_oracle returns a ggplot object", {
     expected = c(-23.5, 0.652, 0.920, 0.955),
     observed = c(-23.5, 0.652, 0.920, 0.955),
     tolerance = c(0.001, 0.001, 0.01, 0.001),
-    supports_vi = c(TRUE, TRUE, TRUE, TRUE),
+    supports_framework = c(TRUE, TRUE, TRUE, TRUE),
     distinguishes = c(FALSE, FALSE, TRUE, TRUE),
     stringsAsFactors = FALSE
   )
@@ -386,7 +386,7 @@ test_that("plot_forest_oracle shows green for pass, red for fail", {
     expected = c(1.0, 1.0),
     observed = c(1.0005, 1.5),
     tolerance = c(0.001, 0.001),
-    supports_vi = c(TRUE, TRUE),
+    supports_framework = c(TRUE, TRUE),
     distinguishes = c(TRUE, TRUE),
     stringsAsFactors = FALSE
   )
@@ -489,7 +489,7 @@ test_that("all viz functions are pure (A1 — no file I/O, no side effects)", {
   # Oracle
   oracle <- data.frame(
     test_name = c("T1"), expected = c(-23.5), observed = c(-23.5),
-    tolerance = c(0.001), supports_vi = c(TRUE), distinguishes = c(FALSE),
+    tolerance = c(0.001), supports_framework = c(TRUE), distinguishes = c(FALSE),
     stringsAsFactors = FALSE
   )
   p12 <- plot_forest_oracle(oracle)
@@ -528,7 +528,7 @@ test_that("plot_forest_oracle handles all-fail oracle", {
     expected = c(-23.5, 0.920, 0.955),
     observed = c(0, 0.5, 0.1),
     tolerance = c(0.001, 0.01, 0.001),
-    supports_vi = c(TRUE, TRUE, TRUE),
+    supports_framework = c(TRUE, TRUE, TRUE),
     distinguishes = c(FALSE, TRUE, TRUE),
     stringsAsFactors = FALSE
   )

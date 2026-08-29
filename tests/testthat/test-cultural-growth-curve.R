@@ -1,9 +1,9 @@
-# test-cultural-growth-curve.R — H5: growth curve and VI ODE fit
+# test-cultural-growth-curve.R — H5: growth curve and the framework ODE fit
 #
 # Tests that cultural accumulation shows:
 #   1. Positive acceleration (quadratic coefficient > 0)
-#   2. VI ODE confirms generative regime (r_eff > 0)
-#   3. VI ODE beats quadratic (Gabora) model
+#   2. the framework ODE confirms generative regime (r_eff > 0)
+#   3. the framework ODE beats quadratic (Gabora) model
 #
 # @dft A1, A6
 
@@ -31,7 +31,7 @@ test_that("H5: data covers at least 150 years", {
   expect_gte(nrow(data), 150)
 })
 
-test_that("H5: VI ODE confirms generative regime (r_eff > 0)", {
+test_that("H5: framework ODE confirms generative regime (r_eff > 0)", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
@@ -41,17 +41,17 @@ test_that("H5: VI ODE confirms generative regime (r_eff > 0)", {
   expect_gt(result$values$r_eff, 0)
 })
 
-test_that("H5: VI ODE beats quadratic (Gabora) model", {
+test_that("H5: framework ODE beats quadratic (Gabora) model", {
   data <- load_uspto_patents()$data
   t <- data$year - min(data$year)
   B <- data$cumulative_patents
   result <- fit_valence_ode_models(t, B)
 
   # Quadratic model often diverges (infinite B) on long time series
-  # When it does, AIC is NA — VI ODE wins by default
-  # When it doesn't, VI ODE should have lower AIC
+  # When it does, AIC is NA — the framework ODE wins by default
+  # When it doesn't, the framework ODE should have lower AIC
   if (is.na(result$values$quad_aic)) {
-    # Quadratic diverged — VI ODE wins by default
+    # Quadratic diverged — the framework ODE wins by default
     expect_true(!is.na(result$values$aic))
   } else {
     expect_lt(result$values$aic, result$values$quad_aic)

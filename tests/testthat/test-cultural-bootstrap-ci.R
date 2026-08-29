@@ -5,7 +5,7 @@
 #
 # @section Theoretical Context:
 #
-# VI Prediction: β > 1 for cultural substrates (language, software, tools).
+# the framework's prediction: β > 1 for cultural substrates (language, software, tools).
 # The bootstrap CI lower bound should be > 1 for all network-based domains.
 #
 # @dft A1, A2, A6

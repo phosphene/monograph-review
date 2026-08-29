@@ -1,5 +1,5 @@
 ---
-uri: vi-foundry/standards/verification-pyramid
+uri: foundry/standards/verification-pyramid
 title: Verification Pyramid Standard — Unit, BDD, and the Integration Gap
 author: Flow + Ed Phil
 status: living

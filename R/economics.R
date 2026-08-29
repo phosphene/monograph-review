@@ -1,12 +1,12 @@
-#' Phase 6: Economics Extension — valence Predictions in Economic Substrates
+#' Phase 6: Economics Extension — the framework's predictions in Economic Substrates
 #'
-#' Pure functions that carry the Valence-Ingression framework's
+#' Pure functions that carry the framework's
 #' integration-depth and commitment dynamics into economic systems:
 #' disruptive industry collapse trajectories, option-value destruction under
 #' lock-in, stochastic first-passage to irreversibility, and threshold-gated
 #' cascade disruption. Each function is DFI-compliant (A1 pure, A2 seeded
 #' determinism, A6 proof object) and mirrors the paper scripts under
-#' `drafts/valence-econ-papers/`.
+#' `drafts/the framework-econ-papers/`.
 #'
 #' @section DFT Axioms:
 #' - A1 (pure-io-separation): every function is pure — data in, data out
@@ -52,7 +52,7 @@ validate_econ_data <- function(data, need_trigger = FALSE) {
 
 #' Compute CDI trajectories for economic systems
 #'
-#' Converts the valence economics `capacity` time series into Commitment/
+#' Converts the framework economics `capacity` time series into Commitment/
 #' Disintegration Index (CDI) trajectories — `CDI = 1 - capacity/peak` — and
 #' compares the trajectory shape (linear vs log vs quadratic) for each system.
 #' This is the pure-function adaptation of Paper 1's `compute_cdi` and
@@ -71,17 +71,17 @@ validate_econ_data <- function(data, need_trigger = FALSE) {
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: capacity loss in disrupted industries follows a decelerating
+#' the framework's prediction: capacity loss in disrupted industries follows a decelerating
 #' (log/logistic/saturating) CDI trajectory — commitment accrues fast early,
 #' then slows — rather than linear or exponential collapse.
 #'
 #' Competitor: constant-rate decay (exponential) predicts a linear rate of
 #' capacity loss and an accelerating CDI in these units. This test DOES
-#' distinguish valence from constant-rate decay: valence predicts the log or quadratic
+#' distinguish the framework from constant-rate decay: the framework predicts the log or quadratic
 #' (decelerating) model wins on AIC across independent industries.
 #'
-#' What supports valence: log/quadratic models outperform linear (decelerating CDI).
-#' What refutes valence: linear or exponential models dominate.
+#' What supports the framework: log/quadratic models outperform linear (decelerating CDI).
+#' What refutes the framework: linear or exponential models dominate.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function, no file I/O
@@ -189,31 +189,31 @@ cdi_economics <- function(data, seed = 42L) {
 #' Models the devaluation of a disrupted industry's option to pivot as a
 #' function of CDI (commitment) rather than calendar time. Adapted from
 #' Paper 1's option-value-decay section: the standard model decays option
-#' value exponentially in time; valence couples decay to CDI itself.
+#' value exponentially in time; the framework couples decay to CDI itself.
 #'
 #' @param data Data frame with columns `system`, `year`, `capacity`.
 #' @param seed Integer. Seed for reproducibility (A2: injectable).
 #'
 #' @return List (A6: proof object):
 #'   \item{values}{Named numeric: n_systems, mean_early_resid, mean_late_resid,
-#'     valence_pattern_share (fraction of systems showing the valence residual pattern),
+#'     valence_pattern_share (fraction of systems showing the framework residual pattern),
 #'     mean_standard_decay_rate}
 #'   \item{metadata}{List: seed, n (systems), per_system, converged}
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: because option value tracks remaining capacity (1 - CDI),
+#' the framework's prediction: because option value tracks remaining capacity (1 - CDI),
 #' and CDI grows deceleratingly, the standard exponential-in-time decay model
 #' systematically over-estimates early option value and under-estimates late
 #' remaining value (residuals negative early, positive late).
 #'
 #' Competitor: standard financial-options / theta-decay model values the pivot
 #' option as a pure exponential in time, independent of commitment. This test
-#' DOES distinguish valence: it predicts a specific residual sign pattern relative
+#' DOES distinguish the framework: it predicts a specific residual sign pattern relative
 #' to the exponential baseline.
 #'
-#' What supports valence: early residuals negative, late residuals positive.
-#' What refutes valence: the opposite or no systematic pattern.
+#' What supports the framework: early residuals negative, late residuals positive.
+#' What refutes the framework: the opposite or no systematic pattern.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function, no file I/O
@@ -314,7 +314,7 @@ option_destruction <- function(data, seed = 42L) {
 #' Stochastic CDI first-passage simulation
 #'
 #' Simulates a single stochastic Commitment/Disintegration Index (CDI) path
-#' under the valence logistic-drift, commitment-damped-volatility SDE and returns
+#' under the framework logistic-drift, commitment-damped-volatility SDE and returns
 #' the first-passage time to a threshold. Adapted from Paper 2's
 #' `simulate_cdi_path` as a pure, seedable function.
 #'
@@ -334,7 +334,7 @@ option_destruction <- function(data, seed = 42L) {
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: commitment (CDI) is autocatalytic under logistic drift and
+#' the framework's prediction: commitment (CDI) is autocatalytic under logistic drift and
 #' reaches irreversibility (threshold) with probability 1, while volatility is
 #' damped as commitment grows (`sigma0 * (1 - CDI)`). First-passage times are
 #' the economic analog of time-to-irreversibility in the monograph.
@@ -342,10 +342,10 @@ option_destruction <- function(data, seed = 42L) {
 #' Competitor: a constant-drift / constant-volatility random walk (Merton-style
 #' baseline) predicts the same mean first-passage time but with hazard that is
 #' constant over time, not increasing with CDI. The logistic-drift + damped
-#' volatility structure DOES distinguish valence from the constant baseline.
+#' volatility structure DOES distinguish the framework from the constant baseline.
 #'
-#' What supports valence: first-passage times that are realistic and hazard that
-#' increases with CDI. What refutes valence: paths that wander without converging
+#' What supports the framework: first-passage times that are realistic and hazard that
+#' increases with CDI. What refutes the framework: paths that wander without converging
 #' to the threshold.
 #'
 #' @dft
@@ -451,17 +451,17 @@ stochastic_cdi <- function(mu0, sigma0, cdi_init = 0.01, dt = 0.01,
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: capability/capacity loss is threshold-gated — reversible
+#' the framework's prediction: capability/capacity loss is threshold-gated — reversible
 #' erosion below a trigger, then a correlated cascade once a functionally
 #' coherent capability module enters "relaxed selection." A piecewise model
 #' with a breakpoint at the trigger year should beat a smooth linear model.
 #'
 #' Competitor: smooth, single-regime decay (constant-rate) predicts a piecewise
-#' model adds no predictive value. This test DOES distinguish valence: it predicts a
+#' model adds no predictive value. This test DOES distinguish the framework: it predicts a
 #' material ΔAIC and a steeper post-trigger slope.
 #'
-#' What supports valence: piecewise AIC < linear AIC and late/early slope ratio > 1.
-#' What refutes valence: no improvement from the piecewise model.
+#' What supports the framework: piecewise AIC < linear AIC and late/early slope ratio > 1.
+#' What refutes the framework: no improvement from the piecewise model.
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure function, no file I/O

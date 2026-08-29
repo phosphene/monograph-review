@@ -2,7 +2,7 @@
 
 **Authors:** Jan Ritch-Frel, Ed Phillips
 
-This document audits the gap between the formal claims of the valence framework and the computational implementation in the valence-foundry R package. It covers: which R functions implement which equations, whether the tests test the right things, whether the monograph numbers trace back to foundry outputs, and the remaining gaps.
+This document audits the gap between the formal claims of the framework under review and the computational implementation in the foundry R package. It covers: which R functions implement which equations, whether the tests test the right things, whether the monograph numbers trace back to foundry outputs, and the remaining gaps.
 
 ---
 
@@ -175,7 +175,7 @@ The ρ formula derivation is primarily in Python. The R package contains the for
 
 4. **ρ formula not in R.** The three-move analysis (Ohta, Fisher, Wimsatt) that derives ρ(θ) = ρ_sat · H(θ − θ*) is in Python, not R. The R package tests the formula's predictions but does not replicate the derivation.
 
-5. **θ* = 0 not directly tested.** The percolation proof is formal, not computational. A simulacrum that tests whether the valence effect activates at θ = 0.001 (vs. requiring θ > 0.1) would test the prediction directly.
+5. **θ* = 0 not directly tested.** The percolation proof is formal, not computational. A simulacrum that tests whether the framework's effect activates at θ = 0.001 (vs. requiring θ > 0.1) would test the prediction directly.
 
 6. **Null controls not systematically verified.** Each simulacrum defines a null control in the oracle YAML, but we have not audited whether every null control test is implemented and passing. The oracle describes the null control criteria, but test coverage needs verification.
 
@@ -210,4 +210,4 @@ The ρ formula derivation is primarily in Python. The R package contains the for
 | Cross-platform reproducibility | ⚠️ Not tested |
 | Economics real-data test | ❌ Not done |
 
-The valence-foundry is a well-designed verification layer with a correct ODE implementation, proper simulacra design, and an honest regression gate. The critical gaps are the T1–T5 data drift and the T6/L3 missing data — once these are resolved, the regression gate will enforce all monograph values automatically. The ρ formula derivation is a secondary gap: the formula is consistent with the data and the economic tests test its predictions, but the derivation itself is not replicated in the R package.
+The foundry is a well-designed verification layer with a correct ODE implementation, proper simulacra design, and an honest regression gate. The critical gaps are the T1–T5 data drift and the T6/L3 missing data — once these are resolved, the regression gate will enforce all monograph values automatically. The ρ formula derivation is a secondary gap: the formula is consistent with the data and the economic tests test its predictions, but the derivation itself is not replicated in the R package.

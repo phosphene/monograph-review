@@ -40,7 +40,7 @@ NULL
 #' @param values List. Named list of numeric/logical module outputs.
 #' @param metadata List. Named list with provenance (params, seed, converged...).
 #' @param test_name Character. Name of the originating test / module.
-#' @param discriminating Logical. Whether the result distinguishes valence from the
+#' @param discriminating Logical. Whether the result distinguishes the framework from the
 #'   competitor model (distinct sign or pattern predicted).
 #' @param status Character. Outcome status: "pass", "fail", or "inconclusive".
 #'
@@ -98,7 +98,7 @@ validate_valence_dynamics_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_dynamics_result
+#' Public helper for the framework_dynamics_result
 #'
 #' Public API: combines constructor + validator. Base-class instantiation is
 #' rare (subclasses are preferred) but permitted for generic dynamics results.
@@ -185,7 +185,7 @@ validate_valence_autocatalytic_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_autocatalytic_result
+#' Public helper for the framework_autocatalytic_result
 #'
 #' Public API: combines constructor + validator. Fields are supplied directly
 #' so callers can construct a validated result from computed quantities.
@@ -332,7 +332,7 @@ validate_valence_cusp_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_cusp_result
+#' Public helper for the framework_cusp_result
 #'
 #' Public API: combines constructor + validator.
 #'
@@ -479,7 +479,7 @@ validate_valence_economics_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_economics_result
+#' Public helper for the framework_economics_result
 #'
 #' Public API: combines constructor + validator.
 #'
@@ -653,7 +653,7 @@ validate_valence_proof <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_proof
+#' Public helper for the framework_proof
 #'
 #' Public API: combines constructor + validator.
 #'

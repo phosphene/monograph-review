@@ -7,7 +7,7 @@ prior: phosphene/react-d3-hotload-test-demo (2014)
 descendant: docs/review/cross-filter-dashboard.html (2026)
 ---
 
-# D3 Genealogy: From phosphene to Valence Foundry
+# D3 Genealogy: From phosphene to The Foundry
 
 ## The Prior
 
@@ -48,7 +48,7 @@ The dashboards themselves — `BarSingleSelectDC`, `HeatMapFilteringDC`, `NasDas
 
 The cross-filter dashboard at `docs/review/cross-filter-dashboard.html` and its implementation module `docs/review/js/cross-filter.js` trace a direct lineage to the 2014 phosphene repo:
 
-| Trait | phosphene (2014) | valence-foundry (2026) |
+| Trait | phosphene (2014) | the foundry (2026) |
 |-------|-----------------|-------------------|
 | Spec style | Jasmine `describe`/`it`/`expect` | Jasmine `describe`/`it`/`expect` |
 | Test file naming | `Component-test.js` | `d3-dashboard.spec.js` |
@@ -107,7 +107,7 @@ This is the phosphene tradition: test-informed, not test-driven. The spec doesn'
 | Test runner | `docs/test-runner.html` | Jasmine standalone, loads real module |
 | Interactive explorer | `docs/review/interactive-simulation.html` | Slider-based bi-exponential explorer |
 | Simulation review (R) | `scripts/render_simulation_review.R` | ggplot2 + patchwork figures |
-| Python export | `lib/python/grn/scripts/export_grn_results.py` | JSON data pipeline |
+| Python export | `scripts/genealogy/generate_upcycle.py` | JSON data pipeline |
 
 ## Prior Repository
 
@@ -125,4 +125,4 @@ The repo is MIT licensed and preserved as-is from 2014.
 
 ---
 
-*This document is part of the Valence Foundry genealogy series — tracing the lineage of ideas, methods, and code through the projects that shaped them.*
+*This document is part of the Foundry genealogy series — tracing the lineage of ideas, methods, and code through the projects that shaped them.*

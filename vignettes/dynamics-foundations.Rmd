@@ -1,5 +1,5 @@
 ---
-title: "Dynamics Foundations of the Valence Foundry"
+title: "Dynamics Foundations of the The Foundry"
 author: "Ed Phillips, Jan Ritch-Frel, Flow Feel"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -25,7 +25,7 @@ library(ggplot2)
 ## Overview
 
 This document gives the mathematical foundations of the **dynamics module** of
-the valence (Valence-Ingression) framework. Three families of dynamics are treated:
+the framework (the framework) framework. Three families of dynamics are treated:
 
 1. The **cusp catastrophe** — how a bistable equilibrium `x³ + ax + b = 0`
    produces hysteresis and irreversibility.
@@ -156,7 +156,7 @@ $$\frac{df}{dN} = \frac{r}{2}\,\frac{d}{dN}\!\left(\frac{N}{N+K}\right)
 The per-capita rate is **monotonically increasing** — the "Homo inversion".
 By contrast the logistic per-capita rate $g(N)=r(1-N/K)$ has
 $dg/dN = -r/K < 0$: niche-filling predicts a *decreasing* per-capita rate.
-This sign flip is exactly what distinguishes valence from its competitor.
+This sign flip is exactly what distinguishes the framework from its competitor.
 
 ```{r dd-sign}
 dd_proof <- prove_dd_sign(r = 1, K = 10, N_max = 100, n_grid = 100)
@@ -245,7 +245,7 @@ $[0,1]$.
 ### 4.2 Option-value decay
 
 Standard options theory decays the value of the pivot option exponentially in
-*time*; valence couples decay to *commitment*: because remaining capacity is
+*time*; the framework couples decay to *commitment*: because remaining capacity is
 $1 - \text{CDI}$, the option value falls monotonically as CDI rises.
 
 ```{r econ-opt}
@@ -309,4 +309,4 @@ The dynamics module is mathematically closed at three levels:
 
 Because the proofs fix *signs and structure* rather than magnitudes, their
 conclusions transfer across kingdoms while the specifics are per-system — the
-central epistemology of the valence framework.
+central epistemology of the framework.

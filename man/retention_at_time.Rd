@@ -20,7 +20,7 @@ retention_at_time(depth, lambda, theta, m0, alpha, time)
 \item{time}{Numeric. Time elapsed.}
 }
 \value{
-vi_equilibrium object.
+valence_equilibrium object.
 }
 \description{
 C_i(T) = 1 if d_i >= θ (protected)
@@ -28,5 +28,5 @@ C_i(T) = exp(-λ × ∫₀ᵀ M(t)dt) if d_i < θ (shed)
 where ∫₀ᵀ M(t)dt = M₀/α × (1 - exp(-αT))
 }
 \details{
-Returns a vi_equilibrium object per Phosphene R Standards §7.
+Returns a valence_equilibrium object per Phosphene R Standards §7.
 }

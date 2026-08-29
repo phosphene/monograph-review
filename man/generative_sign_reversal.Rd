@@ -33,7 +33,7 @@ finite-resource substrates (manufacturing, retail).
 \section{Theoretical Context}{
 
 
-VI Formula Prediction: on generative substrates, the attractor dynamics
+the framework's formula prediction: on generative substrates, the attractor dynamics
 reverse. Instead of capacity loss (negative diversity-dependence), you get
 capacity expansion (positive diversity-dependence). Each innovation creates
 new niches. More firms → more niches → more firms. The opposite of

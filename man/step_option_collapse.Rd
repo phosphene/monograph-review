@@ -26,14 +26,14 @@ the standard exponential-decay baseline.
 }
 \details{
 Where \code{option_destruction()} tests a residual sign pattern
-(qualitative VI prediction), this function tests the specific
+(qualitative the framework's prediction), this function tests the specific
 functional form (quantitative formula prediction): does a step
 at the trigger year beat exponential decay on AIC?
 }
 \section{Theoretical Context}{
 
 
-VI Formula Prediction: option value = remaining capacity = (1 - CDI).
+the framework's formula prediction: option value = remaining capacity = (1 - CDI).
 The formula says CDI jumps as a step at θ = 0 (first provision).
 Therefore option value should collapse as a step, not as an
 exponential. The standard theta-decay model (exponential in time)

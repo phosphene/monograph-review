@@ -7,7 +7,7 @@ library(stats)
 cat("================================================================\n")
 cat("ANALYSIS 1: LOGISTIC REGRESSION — Full Gene × Species Matrix\n")
 cat("Does dependency score MODULATE the effect of parasitism on gene\n")
-cat("retention? This is the actual valence prediction, not a rank correlation.\n")
+cat("retention? This is the actual the framework prediction, not a rank correlation.\n")
 cat("================================================================\n\n")
 
 # Build the full gene × species matrix
@@ -93,7 +93,7 @@ cat(sprintf("  Pseudo-R² (McFadden): %.4f\n\n",
 # The interaction term tests: does the rate of loss with increasing parasitism
 # depend on the gene's dependency score?
 m4 <- glm(frac_retained ~ dep_score * parasitism, data = df, family = quasibinomial())
-cat("MODEL 4: frac_retained ~ dep_score * parasitism (THE valence TEST)\n")
+cat("MODEL 4: frac_retained ~ dep_score * parasitism (THE framework TEST)\n")
 s4 <- summary(m4)
 for (i in 1:nrow(s4$coefficients)) {
   cat(sprintf("  %-25s %.4f (SE %.4f), p = %.4f\n",
@@ -224,4 +224,4 @@ for (cat_name in c("ndh", "rpo/psa", "psb", "atp", "rpl/rps")) {
 cat("\nThe key behavior: at parasitism=0, everything is retained (all ~1.0).\n")
 cat("As parasitism increases, LOW-dependency genes drop FASTER than HIGH.\n")
 cat("At parasitism=4, only genes with dep_score≥3 have >50% retention.\n")
-cat("This IS the valence prediction: shedding rate ∝ mismatch / integration depth.\n")
+cat("This IS the the framework prediction: shedding rate ∝ mismatch / integration depth.\n")

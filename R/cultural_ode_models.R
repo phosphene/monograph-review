@@ -1,26 +1,26 @@
-#' VI ODE growth curve models for cumulative culture
+#' the framework ODE growth curve models for cumulative culture
 #'
-#' Implements the VI coupled system (Equations 1-3 of §9 revised):
+#' Implements the framework coupled system (Equations 1-3 of §9 revised):
 #'   dB/dt = ε·β·B·(1 - B/K) - δ_B·B + J(B,t) + I(B,S)
 #'   dρ/dt = -k₁(ρ - ρ₁(B)) - k₂(ρ - ρ₂(B))
 #'   dS/dt = L_s(ρ)·T·A(B) - μ_s·S
 #'
 #' For the growth-curve fitting (B only, far from saturation):
-#'   dB/dt = r·B·(1 - B/K) - δ·B   [VI ODE: generalized logistic with decay]
+#'   dB/dt = r·B·(1 - B/K) - δ·B   [the framework ODE: generalized logistic with decay]
 #'
 #' @section Models fitted:
-#'   1. VI ODE (generalized logistic): r·B·(1-B/K) - δ·B
+#'   1. the framework ODE (generalized logistic): r·B·(1-B/K) - δ·B
 #'   2. Simple exponential: r·B
 #'   3. Quadratic (Gabora): γ·B²/2
 #'   4. Logistic (standard): r·B·(1-B/K)
-#'   5. Double exponential (bi-exponential, VI relaxation form)
+#'   5. Double exponential (bi-exponential, the framework relaxation form)
 #'
 #' @dft A1, A2, A6
 #'
 #' @name valence_ode_models
 NULL
 
-#' Analytical solution for VI ODE (generalized logistic with decay)
+#' Analytical solution for the framework ODE (generalized logistic with decay)
 #'
 #' dB/dt = r·B·(1 - B/K) - δ·B = (r-δ)·B - (r/K)·B²
 #' This is a logistic with effective growth rate r_eff = r-δ and
@@ -79,7 +79,7 @@ logistic_solution <- function(t, K, r, t0) {
 
 #' Double exponential (bi-exponential) solution: A1·exp(-k1·t) + A2·exp(-k2·t) + C
 #'
-#' This is the VI relaxation form with two timescales.
+#' This is the framework relaxation form with two timescales.
 #'
 #' @param t Numeric vector.
 #' @param A1 Fast component amplitude.
@@ -127,7 +127,7 @@ mismatch_equation <- function(t, rho_eq0, r_B, k1) {
   rho_eq0 * (exp(r_B * t) - exp(k1 * t))
 }
 
-#' Fit VI ODE and competing models to growth curve data
+#' Fit the framework ODE and competing models to growth curve data
 #'
 #' @param t Numeric vector. Time points (0-indexed).
 #' @param B Numeric vector. Cumulative counts.
@@ -138,7 +138,7 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
   withr::with_seed(seed, {
     results <- list()
 
-    # 1. VI ODE (generalized logistic with decay)
+    # 1. the framework ODE (generalized logistic with decay)
     # Try multiple starting points for robustness
     fit_res <- tryCatch({
       best_fit <- NULL
@@ -260,7 +260,7 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
       n * log(log_rss / n) + 2 * log_npar
     } else NA
 
-    # 5. Double exponential (bi-exponential, VI relaxation)
+    # 5. Double exponential (bi-exponential, the framework relaxation)
     biexp_fit <- tryCatch({
       stats::optim(
         par = c(A1 = max(B)/2, k1 = 0.1, A2 = -max(B), k2 = 0.01, C = max(B)),
@@ -289,7 +289,7 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
     } else NA
 
     # Compile results
-    aics <- c(vi = aic, exp = exp_aic, quad = quad_aic,
+    aics <- c(framework = aic, exp = exp_aic, quad = quad_aic,
               logistic = log_aic, biexp = biexp_aic)
     aics <- aics[!is.na(aics)]
     best_model <- names(which.min(aics))
@@ -297,7 +297,7 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
 
     list(
       values = list(
-        # VI ODE
+        # the framework ODE
         r = unname(fit_res$par["r"]),
         K = unname(fit_res$par["K"]),
         delta = unname(fit_res$par["delta"]),
@@ -325,7 +325,7 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
         all_aic = aics,
         delta_aic = delta_aic,
         best_model = best_model,
-        delta_aic = if ("valence" %in% names(delta_aic)) delta_aic["valence"] else NA,
+        delta_aic = if ("framework" %in% names(delta_aic)) delta_aic["framework"] else NA,
         beats_exp = !is.na(aic) && !is.na(exp_aic) && aic < exp_aic,
         # Generative regime check
         r_eff_positive = !is.na(rss) &&

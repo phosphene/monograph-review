@@ -27,12 +27,9 @@ the GLM for cross-kingdom prediction (default 3 = "deep commitment").}
 contract consistency.}
 }
 \value{
-List (A6):
-\item{values}{Named numeric: intercept, dep_coefficient, dep_p_value,
-para_coefficient, para_p_value, pseudo_r_squared, cross_kingdom_rho,
-cross_kingdom_p, dep_positive, para_negative, valence_confirmed}
-\item{metadata}{List: n, n_species, n_gene_categories, method, seed,
-para_for_transfer}
+valence_glm_fit object containing:
+\item{values}{GLM coefficients, p-values, cross-kingdom metrics, the framework confirmation flags}
+\item{metadata}{Sample sizes, method description, fitted glm object}
 }
 \description{
 Fits \code{retention ~ dependency_score + parasitism_score} (quasibinomial GLM)
@@ -42,23 +39,12 @@ and correlating the predicted ordering with observed morphological-change
 ranks (Spearman).
 }
 \details{
-This is the empirical formal model — the corrected version of the author's
-original GLM from \code{archive/pre-foundry-scripts/run_formal_model.R}. The
-author's script had a data-flattening bug (\code{as.vector(t(retention))} is
-species-major; \code{rep(dep_scores, each = 8)} is gene-major) that scrambled
-\code{dep} and \code{retention}, producing the wrong sign on \code{dep} (−0.83 instead
-of +0.84). With the corrected dataset (\code{load_retention_matrix()}), the
-GLM confirms valence: \code{dep > 0} (p < 0.001), \code{para < 0} (p < 0.001),
-cross-kingdom ρ = +0.755. See Remark R7 and
-\code{docs/review/formal-model-reproduction.md}.
-
-The theoretical companion is \code{\link[=threshold_model]{threshold_model()}} (the deterministic ODE
-simulation, which does not fit data and cannot fail empirically).
+Returns a valence_glm_fit object per Phosphene R Standards §7.
 }
 \section{Theoretical Context}{
 
 
-Valence Prediction: \code{dep > 0} (deeper integration → higher retention),
+the framework's prediction: \code{dep > 0} (deeper integration → higher retention),
 \code{para < 0} (deeper parasitism → lower retention), and cross-kingdom
 ρ > 0 (plant-derived model predicts bird ordering).
 
@@ -71,7 +57,6 @@ substrate-independence (ρ ≈ 0 or negative).
 plant <- load_retention_matrix()
 bird <- load_island_birds()
 result <- empirical_formal_model(plant$data, bird$data)
-result$values$dep_coefficient  # ~ +0.84 (valence predicts > 0)
-result$values$cross_kingdom_rho  # ~ +0.755
+print(result)
 }
 }

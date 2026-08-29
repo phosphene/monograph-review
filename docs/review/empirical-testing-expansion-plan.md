@@ -1,4 +1,4 @@
-# valence-foundry Empirical-Testing Expansion Plan
+# the foundry Empirical-Testing Expansion Plan
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
@@ -182,7 +182,7 @@ Document the exact schema (`time`, `species_count`) and the target source
 regression-gate entry that `skip()`s until data is bundled.
 
 **Blast radius.** `R/autocatalytic_set.R` (wrapper), `R/data_loaders.R` (loader),
-`baseline/oracle.yml` (entry, `supports_vi`/`distinguishes`), `pipeline.yml`,
+`baseline/oracle.yml` (entry, `supports_framework`/`distinguishes`), `pipeline.yml`,
 `scripts/run_pipeline.R`, `tests/testthat/test-regression-baseline.R`,
 `tests/testthat/test-unit-autocatalytic.R` (wrapper unit test on a fixture).
 

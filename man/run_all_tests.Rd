@@ -12,11 +12,11 @@ different data must be run individually with \code{run_test()}; supply only
 arguments that are valid for all tests here.}
 }
 \value{
-vi_test_suite object.
+valence_test_suite object.
 }
 \description{
 Runs every registered test, collects the S3 result objects into a
-\code{vi_test_suite}, and returns it. Tests that error are captured and reported
+\code{valence_test_suite}, and returns it. Tests that error are captured and reported
 as failed entries rather than aborting the run.
 }
 \examples{

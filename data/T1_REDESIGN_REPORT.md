@@ -6,7 +6,7 @@
 
 **Redesigned T1:** Does the dependency-retention relationship strengthen with parasitism depth? Test via interaction model: `retention ~ dependency × parasitism_depth`.
 
-- **VI prediction:** Interaction significant — dependency ranking becomes MORE predictive at deeper parasitism (more reallocation → sharper dep-ordered loss)
+- **The framework's prediction:** Interaction significant — dependency ranking becomes MORE predictive at deeper parasitism (more reallocation → sharper dep-ordered loss)
 - **Relaxed selection:** No interaction — genes degrade proportional to selective constraint regardless of dependency
 
 ## Data

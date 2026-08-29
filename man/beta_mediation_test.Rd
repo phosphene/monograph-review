@@ -15,6 +15,6 @@ beta_mediation_test(data, seed = 42L)
 List (A6: proof object) with values and metadata.
 }
 \description{
-VI predicts: β predicts complexity; N does NOT predict β; N drops
+the framework predicts: β predicts complexity; N does NOT predict β; N drops
 to non-significant (or weakens) when controlling for β.
 }

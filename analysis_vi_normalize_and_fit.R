@@ -1,11 +1,11 @@
 #!/usr/bin/env Rscript
 # =============================================================================
-# Normalize VI data sets to common (retention, time) space and fit exponential decay.
+# Normalize the framework data sets to common (retention, time) space and fit exponential decay.
 # Test whether the rate constant k is universal or substrate-specific.
 # =============================================================================
 
 cat("================================================================\n")
-cat("  VI DATA NORMALIZATION & EXPONENTIAL DECAY FITTING\n")
+cat("  DATA NORMALIZATION & EXPONENTIAL DECAY FITTING\n")
 cat("  Mono-exponential, bi-exponential, linear - AIC comparison\n")
 cat("  Test: Is k universal across systems?\n")
 cat("================================================================\n\n")

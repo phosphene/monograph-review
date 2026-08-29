@@ -16,21 +16,21 @@ mutator_vs_nonmutator_p, depletion_ratio), metadata.
 \description{
 Tests whether metabolic function loss in the LTEE co-segregates with
 beneficial mutations LESS than expected by chance — consistent with
-passive drift in unused genes (valence prediction). The observed proportion
+passive drift in unused genes (the framework's prediction). The observed proportion
 (36.4\%) is depleted relative to the chance expectation (61.7\%); the
 binomial test uses alternative = "less" for this reason.
 }
 \section{Theoretical Context}{
 
 
-Valence Prediction: function-loss mutations co-segregate with beneficial
+the framework's prediction: function-loss mutations co-segregate with beneficial
 mutations LESS than chance (passive drift in unused genes — their loss
 is not concentrated near adaptive sweeps). Competitor: independent
 assortment predicts 61.7\% co-segregation. Reported as suggestive due
 to hitchhiking confound.
 
-What supports valence: observed co-segregation is significantly LOWER than
-expected by chance (depletion_ratio < 1). What refutes valence: observed
+What supports the framework: observed co-segregation is significantly LOWER than
+expected by chance (depletion_ratio < 1). What refutes the framework: observed
 rate equals or exceeds expected rate.
 }
 

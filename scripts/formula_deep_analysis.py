@@ -272,7 +272,7 @@ if popt_sqrt is not None:
     ax.plot(theta_fine, sqrtfunc(theta_fine, *popt_sqrt), 'c-', alpha=0.3, label=f'√θ R²={sqrt_r2:.2f}')
 
 ax.set_xlabel('θ (niche dependency parameter)', fontsize=11)
-ax.set_ylabel('ρ (valence effect size)', fontsize=11)
+ax.set_ylabel('ρ (framework effect size)', fontsize=11)
 ax.set_title('A. All Data: ρ vs θ with Candidate Formulas', fontsize=12)
 ax.legend(fontsize=8, loc='upper left')
 ax.set_xlim(-0.05, 1.05)
@@ -295,8 +295,8 @@ if popt_sig3 is not None:
     ax.annotate(f'θ* = {theta_star:.3f}\n(Critical point)', 
                 (theta_star, 0.5), textcoords="offset points", xytext=(15, 0), fontsize=9, color='red')
     # Shade the "phases"
-    ax.axvspan(0, theta_star, alpha=0.1, color='blue', label='Disordered\n(valence absent)')
-    ax.axvspan(theta_star, 1, alpha=0.1, color='red', label='Ordered\n(valence present)')
+    ax.axvspan(0, theta_star, alpha=0.1, color='blue', label='Disordered\n(framework effect absent)')
+    ax.axvspan(theta_star, 1, alpha=0.1, color='red', label='Ordered\n(framework effect present)')
 
 ax.set_xlabel('θ (control parameter — analog of temperature)', fontsize=11)
 ax.set_ylabel('ρ (order parameter — analog of magnetization)', fontsize=11)
@@ -403,7 +403,7 @@ if popt_sig3 is not None:
   R² = {sig3_r2:.3f}
   
   Mapping to monograph:
-  - ρ_max = {popt_sig3[2]:.3f} → k_cult (amplitude of valence effect)
+  - ρ_max = {popt_sig3[2]:.3f} → k_cult (amplitude of framework effect)
   - θ* = {popt_sig3[1]:.3f} → x* (critical threshold, substrate-shift point)
   - s = {popt_sig3[0]:.2f} → s (steepness, cooperativity)
   
@@ -462,11 +462,11 @@ for name, r2, n in fits_summary:
 
 print(f"\nKey finding:")
 if popt_sig3 is not None and sig3_r2 > 0.7:
-    print(f"  Sigmoid fit R²={sig3_r2:.3f} — valence effect follows a phase-transition curve")
+    print(f"  Sigmoid fit R²={sig3_r2:.3f} — the framework effect follows a phase-transition curve")
     print(f"  θ* = {popt_sig3[1]:.3f} is the critical dependency threshold")
     print(f"  This IS the physics attractor form Jan intuited")
 elif popt_power is not None and power_r2 > 0.7:
-    print(f"  Power law fit R²={power_r2:.3f} — valence effect follows a power law")
+    print(f"  Power law fit R²={power_r2:.3f} — the framework effect follows a power law")
     print(f"  Exponent {popt_power[1]:.3f} — sublinear, approaching saturation")
     print(f"  Consistent with sigmoid at low resolution, but no explicit threshold")
 

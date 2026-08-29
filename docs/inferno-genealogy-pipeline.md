@@ -1,7 +1,7 @@
 ---
 uri: valence-foundry/inferno-genealogy-pipeline
 title: INFERNO Labs Genealogy Pipeline — Design Document
-author: Valence Foundry Engineering
+author: The Foundry Engineering
 status: design
 version: 1.0.0
 updated: 2026-08-18
@@ -9,7 +9,7 @@ updated: 2026-08-18
 
 # INFERNO Labs Genealogy Pipeline — Design Document
 
-> **T15:** Transposition of the valence genealogy chain into a registered, versioned, DOI-trackable pipeline under the INFERNO Labs framework.
+> **T15:** Transposition of the framework genealogy chain into a registered, versioned, DOI-trackable pipeline under the INFERNO Labs framework.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ updated: 2026-08-18
 
 ### 1.1 What This Is
 
-The valence relaxation formula `dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)` is the endpoint of a formal chain spanning four stages:
+The relaxation formula `dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)` is the endpoint of a formal chain spanning four stages:
 
 | Stage | Name | Domain | Code | Status |
 |-------|------|--------|------|--------|
@@ -205,14 +205,14 @@ Stages 4 and 5 are archived (falsified) but still registered. Their manifests in
 - `n_nodes` (int): Network size
 - `p_edge` (float): Edge probability
 - `theta` (float): Provision threshold
-- `falsification_ref`: `valence-foundry/inst/results/T2-percolation-results.json`
+- `falsification_ref`: `inst/results/T2-percolation-results.json`
 
 **Stage 5 — Drift-Selection:**
 - `N` (int): Population size (default 100)
 - `n_reps` (int): Replicates per δ (default 1000)
 - `n_delta` (int): Number of δ values (default 20)
 - `delta_range` (list[float]): `[δ_min, δ_max]` (default `[0.0, 0.1]`)
-- `falsification_ref`: `valence-foundry/inst/results/T2-rho-sat-results.json`
+- `falsification_ref`: `inst/results/T2-rho-sat-results.json`
 
 ---
 
@@ -359,12 +359,12 @@ Each stage includes a `zenodo.json` file in its directory:
     }
   ],
   "title": "INFERNO Labs — Genealogy Stage 1: Ising Model Simulation",
-  "description": "Metropolis Monte Carlo simulation of the 2D Ising model on a 16×16 lattice. Part of the valence relaxation formula genealogy chain: Ising → Landau → Cusp → Relaxation. Output: magnetization vs temperature for 20 temperature points. Seed: 42, deterministic.",
+  "description": "Metropolis Monte Carlo simulation of the 2D Ising model on a 16×16 lattice. Part of the relaxation formula genealogy chain: Ising → Landau → Cusp → Relaxation. Output: magnetization vs temperature for 20 temperature points. Seed: 42, deterministic.",
   "keywords": [
     "ising model",
     "metropolis monte carlo",
     "statistical physics",
-    "valence relaxation formula",
+    "the relaxation formula",
     "genealogy chain",
     "inferno labs"
   ],
@@ -624,7 +624,7 @@ The falsified stages (4, 5) are not discarded — they are **registered archives
   "falsification": {
     "claim": "ρ_sat ≈ 0.35 is a universal constant",
     "tested_by": "T2 simulation campaign",
-    "evidence": "valence-foundry/inst/results/T2-rho-sat-results.json",
+    "evidence": "inst/results/T2-rho-sat-results.json",
     "result": "ρ_sat varies from ~0.0 to ~0.99. Closest match: 0.247 (N=1000, δ=[0,0.05]).",
     "conclusion": "Not supported. ρ_sat is not universal."
   }
@@ -753,7 +753,7 @@ class ManifestSigner:
 | Developer signing keys | Pre-release verification | Individual developer machines | Per-developer |
 
 The public key is distributed with the pipeline:
-- In `valence-foundry/keys/pipeline_verify.pub`
+- In `keys/pipeline_verify.pub`
 - In the Zenodo deposit metadata
 - In the GitHub release notes
 
@@ -845,7 +845,7 @@ An attacker who modifies any stage's output will be detected because:
 | Relaxation results (reference) | `results/genealogy-relaxation-results.json` |
 | R package (original tests) | `R/`, `tests/testthat/` |
 | Ticket queue | `docs/ticket-queue.md` |
-| Pipeline manifest schema | `valence-foundry/schemas/pipeline-manifest-schema.json` |
+| Pipeline manifest schema | `schemas/pipeline-manifest-schema.json` |
 | Zenodo guide | https://developers.zenodo.org |
 | WCI scoring standard | `TOOLS.md` (workspace root) |
 | INFERNO Labs framework | `docs/inferno-testing-plan.md` |

@@ -4,12 +4,12 @@
 #
 # @section Theoretical Context:
 #
-# VI Prediction 1: K_eff(C) = K·(1 - η·(1 - C)) where η = 0.487 (Derex & Boyd)
+# the framework's prediction 1: K_eff(C) = K·(1 - η·(1 - C)) where η = 0.487 (Derex & Boyd)
 #   - C=1 (fully connected): K_eff = K (no loss)
 #   - C=0 (isolated): K_eff = K·0.513 (47% reduction)
 #   - Partial connectivity preserves β-diversity
 #
-# VI Prediction 2: When r_B > k1, mismatch grows (failure regime)
+# the framework's prediction 2: When r_B > k1, mismatch grows (failure regime)
 #   - r_B = ε·β (cultural acceleration rate)
 #   - k1 = fast biological relaxation rate
 #   - M(t) ≈ ρ_eq · (exp(r_B·t) - exp(k1·t))
@@ -90,7 +90,7 @@ test_that("Mismatch: failure regime when r_B > k1", {
 
 test_that("Mismatch: modern human culture is in failure regime", {
   # r_B ≈ 0.22 (PyPI rate) >> k1 ≈ 0.01-0.1 (biological plasticity)
-  # This is the VI prediction for evolutionary mismatch
+  # This is the framework's prediction for evolutionary mismatch
   result <- mismatch_regime_test(r_B = 0.22, k1 = 0.05, k2 = 0.001)
   expect_equal(result$values$regime, "failure")
   expect_true(result$values$mismatch_grows)

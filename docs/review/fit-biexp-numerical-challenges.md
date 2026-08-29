@@ -8,7 +8,7 @@
 > This is the rigorous revisit of the bi-exponential relaxation fitter that
 > sits on one side of the cross-program biphasic pair (endosymbiont genome
 > reduction × physiological relaxation kinetics). The standard applied here is
-> the vintage-label one: the bottle must say what is in it, and the contents
+> the claim-evidence conformance one: the bottle must say what is in it, and the contents
 > must be reproducible by anyone who clones the repo. Where the fitter cannot
 > resolve a two-timescale structure, the honest output is a boundary probe —
 > "this pattern is not resolvable at this sampling scale" — not a forced
@@ -121,11 +121,18 @@ resolvable only if \(k_1 \cdot \Delta t \lesssim 1\). For \(t_\max = 56500\),
 \(k_1 \Delta t \approx 2.2\) at \(n=80\) — the fast phase is dead between
 samples.
 
-**The behaviour.** The fitter now reports `best_model = "monoexponential"`
-here — the honest answer. This is exactly the Kull-style boundary probe from
-the family-kinds discipline: a non-instantiating case is not a refutation of
-biphasic structure, it is a measurement that *at this sampling scale the fast
-phase is not resolvable*. Locked by T15.
+**The behaviour.** At this sampling the fast phase is dead between samples.
+The fit's honest output is a **boundary probe**: it either retreats to
+mono/linear, or — if the AIC model selection still prefers bi (seed- and
+noise-dependent at this boundary) — it reports a fast channel that is itself
+unresolvable at this sampling scale (fitted \(k_1 \Delta t > 1\), i.e. a time
+constant shorter than one sampling interval). Either way it does **not** claim
+a *resolved* two-timescale structure. This is exactly the Kull-style boundary
+probe from the family-kinds discipline: a non-instantiating case is not a
+refutation of biphasic structure, it is a measurement that *at this sampling
+scale the fast phase is not resolvable*. Locked by T15 (asserts the
+boundary-probe guarantee, not a specific model-selection winner — which is
+seed-dependent at this boundary).
 
 ### C4 — The noise boundary: when structure stops being separable
 
@@ -162,7 +169,7 @@ low-noise count), which documents the boundary without over-constraining.
 | T12 | Determinism (DFT A2) |
 | T13 | Halflife is a physical raw-time quantity |
 | T14 | Amplitude fractions bounded in [0,1] |
-| T15 | Degenerate sampling → honest mono (boundary probe, C3) |
+| T15 | Degenerate sampling → boundary probe: mono/linear, or unresolvable fast channel (k1·dt > 1) (C3) |
 | T16 | Zero time-range guard |
 | T17 | Identifiability boundary: decisive bi requires a material channel (C1) |
 | T18 | Noise boundary: bi selection rate falls with noise (C4) |
@@ -200,7 +207,7 @@ makes the biphasic pattern "largely irrefutable at the level of observation."
 For that agreement to mean anything, this half must be reproducible and must
 not over-claim. The guarded `biphasic` rule is the foundry saying, in effect:
 we will report a two-timescale structure only when the data forces it — and
-when the data does not, we say so. That is the vintage label, applied to the
+when the data does not, we say so. That is the claim-evidence conformance, applied to the
 bottle that produces the numbers.
 
 See also [`family-kinds-genealogy.md`](family-kinds-genealogy.md) for the

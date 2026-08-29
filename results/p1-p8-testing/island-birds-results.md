@@ -122,6 +122,8 @@ The muscle mass dataset (8,890 specimens) contains:
 
 ## Data Files
 
+*Note: The island-birds data directory (`data/island-birds/`) is not present in this repository. Large data files are stored in `FlowFeel/woodchipper-data`. The analysis script `scripts/island_birds_pgls.py` exists in this repo.*
+
 | File | Path | Size |
 |------|------|------|
 | Population-level data | `data/island-birds/processed/population_data.csv` | 93 KB |

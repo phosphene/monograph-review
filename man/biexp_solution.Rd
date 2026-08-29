@@ -20,5 +20,5 @@ biexp_solution(t, A1, k1, A2, k2, C)
 \item{C}{Asymptote.}
 }
 \description{
-This is the VI relaxation form with two timescales.
+This is the framework relaxation form with two timescales.
 }

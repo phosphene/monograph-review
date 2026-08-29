@@ -44,7 +44,7 @@ function-loss mutations also appear in that same lineage?
   of beneficial mutations).
 - **The difference (36.4% vs 61.7%) is significant (p = 0.0001).**
 
-**Why this supports VI.** The VI prediction is that genes unused in the lab
+**Why this supports the framework.** The framework's prediction is that genes unused in the lab
 environment are under no selection. Their loss-of-function mutations should
 drift passively — meaning they are *less likely* to co-segregate with the
 beneficial mutations that drive lineage fixation. If every gene were under
@@ -84,7 +84,7 @@ cites this as an explicit caveat: the null model is misspecified for an
 asexual population.
 
 **Bottom line.** Hitchhiking is the confound that prevents T7 from
-discriminating VI from independent assortment. The result is suggestive but
+discriminating the framework from independent assortment. The result is suggestive but
 not definitive.
 
 ---
@@ -161,7 +161,7 @@ coefficient estimates are the same as the binomial GLM, but the standard errors
 are scaled by √φ, making the inference more conservative.
 
 **T6 application.** The quasibinomial GLM tests whether integration-depth (dep)
-positively predicts retention (the VI prediction) and parasitism level (para)
+positively predicts retention (the framework's prediction) and parasitism level (para)
 negatively predicts retention (unprotected genes are shed). The results:
 - dep coefficient: +0.84 (p = 0.0008) — deeper integration → higher retention
 - para coefficient: -1.86 (p < 0.0001) — more parasitic → lower retention
@@ -181,7 +181,7 @@ matrix confirms:
 - para coefficient: -1.8644 (p < 0.0001)
 - pseudo-R² = 0.5515
 - cross-kingdom ρ = +0.7545 (p = 0.0305)
-- Result: VI confirmed (dep positive, para negative).
+- Result: the framework's prediction confirmed (dep positive, para negative).
 
 ---
 
@@ -201,12 +201,12 @@ slope) predict the ordering of bird morphological changes with ρ = 0.755
 measures whether the *rank order* of trait loss in plants predicts the *rank
 order* of morphological change in birds. It does **not** measure whether the
 rate of loss is the same. The oracle explicitly states: "Ordering transfers
-across kingdoms; rate does not." This is the key prediction of the VI model:
+across kingdoms; rate does not." This is the key prediction of the framework:
 the hierarchy of integration-depth (which traits are most protected) is
 conserved across deep evolutionary time, but the actual rate of loss depends
 on lineage-specific parameters (Ne, mutation rate, selection pressure).
 
-**Why this distinguishes VI from alternatives.** A model where substrates are
+**Why this distinguishes the framework from alternatives.** A model where substrates are
 completely independent (i.e., plant gene loss and bird morphology are driven
 by different mechanisms) predicts ρ ≈ 0. The observed ρ = 0.755 with p =
 0.031 rejects the independent-substrates null. It does not, however, tell us
@@ -290,7 +290,7 @@ kingdoms; rate does not."
 
 ## Summary table: T6, T7, L3 tests
 
-| Test | Statistic | Value | p-value | Supports VI? | Distinguishes? |
+| Test | Statistic | Value | p-value | Supports the framework? | Distinguishes? |
 |------|-----------|-------|---------|-------------|----------------|
 | T6 (ordering) | Spearman ρ | 0.955 | 0.0083 (perm) | Yes | Yes (from random) |
 | T6 (GLM) | Pseudo-R² | 0.82 | 0.0001 | Yes | Yes |

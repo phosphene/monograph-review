@@ -27,7 +27,7 @@ List (A6): values (has_hysteresis, max_difference, n_control_values,
 forward_states, reverse_states, control_values), metadata.
 }
 \description{
-Valence predicts that the forward path (increasing commitment) differs from
+the framework predicts that the forward path (increasing commitment) differs from
 the reverse path (decreasing commitment) — this is the hallmark of
 irreversibility in the cusp catastrophe.
 }

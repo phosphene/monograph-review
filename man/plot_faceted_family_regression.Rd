@@ -21,13 +21,13 @@ gradient.
 \section{Theoretical Context}{
 
 
-Valence Prediction D5: the gene-loss gradient replicates across independent
+the framework's prediction D5: the gene-loss gradient replicates across independent
 parasitic plant families. Competitor: stochastic gene loss / relaxed
 selection — both predict the same pattern. This test does NOT distinguish
-Valence from competitors.
+the framework from competitors.
 
-What supports valence: consistent negative slope across families.
-What refutes valence: slopes vary in sign or are zero.
+What supports the framework: consistent negative slope across families.
+What refutes the framework: slopes vary in sign or are zero.
 }
 
 \examples{

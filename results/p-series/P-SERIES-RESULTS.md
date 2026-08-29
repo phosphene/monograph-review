@@ -45,7 +45,7 @@
 | ρ degree vs timing (full set) | −0.189 | 0.011 | 198 |
 | ρ degree vs timing (low-mismatch only) | −0.027 | 0.834 (n.s.) | 178 |
 
-**Reading:** LTEE confirms what T7-v2 already showed — this is the **wrong system** for integration-depth ordering. The high-mismatch set is tiny (n = 3: tonB, menH, menC, all lost < 5000 gen, consistent with VI), and the degree-timing correlation is negative (high degree lost earlier), which contradicts the naive integration-depth prediction but is consistent with LTEE's single-niche, single-adaptive-step structure. The monograph's honest position already holds: LTEE confirms the *bi-exponential form* (E3), not the *integration-depth ordering*.
+**Reading:** LTEE confirms what T7-v2 already showed — this is the **wrong system** for integration-depth ordering. The high-mismatch set is tiny (n = 3: tonB, menH, menC, all lost < 5000 gen, consistent with the framework), and the degree-timing correlation is negative (high degree lost earlier), which contradicts the naive integration-depth prediction but is consistent with LTEE's single-niche, single-adaptive-step structure. The monograph's honest position already holds: LTEE confirms the *bi-exponential form* (E3), not the *integration-depth ordering*.
 
 **Monograph significance:** No change. LTEE stays as form-confirmation. Directs the ordering claim to endosymbionts (P1), plastids (P3), echolocation (P4), C4 (P5) — where the corrected metric applies.
 
@@ -76,7 +76,7 @@
 | Gate | Result | Notes |
 |------|--------|-------|
 | Integration (incl. P-series) | 13 pass, 0 fail | P-series proof objects valid |
-| Unit | 15 fail / 550 pass | **Pre-existing** — fit_biexp, predict_bird_ordering, relaxation_phase_analysis failures in unmodified files (git-clean). Not caused by P-series. |
+| Unit | 15 fail / 550 pass | **Pre-existing at INFERNO 79 (2026-08-24)** — resolved since; current gate (2026-08-29): 8417 pass / 0 fail / 11 skipped. The `fit_biexp`, `predict_bird_ordering`, `relaxation_phase_analysis` failures were in unmodified files (git-clean) and not caused by P-series. |
 | P-series direct | 5/5 computed | P1–P5 results in `results/p-series/` (P1, P4, P5 positive; P2 wrong-system confirm; P3 continuous ordering) |
 
 ---
@@ -95,7 +95,7 @@
 | Eigenvector | 0.0536 | 0.0616 | **0.0018** | 0.10 | 145/77 |
 | Closeness | 0.3598 | 0.3732 | **0.0005** | 0.47 | 145/77 |
 
-**Reading:** **P4 POSITIVE.** Against the correct null, convergent genes are consistently *less* integrated than conserved machinery in the same domain — exactly VI's prediction (function converges, mechanism diverges). The interim read (convergent > whole-genome, p=1.00) was the wrong-null artifact. Same lesson as E4-revised: global centrality is the wrong proxy; domain-relative position is the VI prediction. Full doc: `results/p-series/P4-RESULTS.md`.
+**Reading:** **P4 POSITIVE.** Against the correct null, convergent genes are consistently *less* integrated than conserved machinery in the same domain — exactly the framework's prediction (function converges, mechanism diverges). The interim read (convergent > whole-genome, p=1.00) was the wrong-null artifact. Same lesson as E4-revised: global centrality is the wrong proxy; domain-relative position is the framework's prediction. Full doc: `results/p-series/P4-RESULTS.md`.
 
 ---
 
@@ -103,7 +103,7 @@
 
 **Question:** Does the C4 syndrome show function-converges/mechanism-diverges, coded by the C4 literature itself?
 
-**Design:** Christin & Osborne (2014, *New Phytol* 204:1146) Table 1's six-level deconstruction (Niche > Physiology > Function > Character > Characteristic > Component) — the C4 field's own integration hierarchy, not VI's. Shared/varying coding from the same text: functions “present in all C4 plants,” characters “vary among C4 lineages,” components “repeatedly co-opted.” Niche excluded (environmental context) → 5 levels.
+**Design:** Christin & Osborne (2014, *New Phytol* 204:1146) Table 1's six-level deconstruction (Niche > Physiology > Function > Character > Characteristic > Component) — the C4 field's own integration hierarchy, not the framework's. Shared/varying coding from the same text: functions “present in all C4 plants,” characters “vary among C4 lineages,” components “repeatedly co-opted.” Niche excluded (environmental context) → 5 levels.
 
 **Results:**
 

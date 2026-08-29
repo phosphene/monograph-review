@@ -1,0 +1,476 @@
+---
+title: "Exploring the framework in Toy Models"
+author: "Ed Phillips"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Exploring the framework in Toy Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 4.5
+)
+library(valence.foundry)
+```
+
+## Scientific motivation
+
+The empirical tests in the the foundry are blocked on data (Review Items 4–6:
+gene-category data, island-bird morphology, hominin/economic time series).
+The formal model is a theoretical ODE that cannot fail — it simulates the framework's
+equation and produces the framework's prediction by construction. Between these lies a
+gap: a layer that lets a reader *explore* the consequences of the framework across
+parameter space and hypothetical substrates, without claiming empirical test.
+
+The **toy models** fill this gap. Each realm is a self-contained "what if"
+world with a simulator, a set of dials, and a visualization. They ask: *if the framework
+were true, what would we expect to see in worlds we have not measured?* The
+answer sharpens the predictions and, when the data arrives, makes the
+empirical tests more discriminating.
+
+This is **not** empirical testing. The realms do not source new data, do not
+claim to corroborate the framework, and do not replace the blocked empirical work. Each
+realm names the experiment that would convert it from speculative to
+empirical. See `docs/review/toy-models-plan.md` for the full execution plan.
+
+## Method overview
+
+| Realm | What it explores | Reuses | Status |
+|-------|-----------------|--------|--------|
+| 1. Genome reduction | The threshold gate as a control parameter | `threshold_model()` | Built |
+| 2. Irreversibility | Hysteresis loop area vs. cusp parameter `a` | `cusp_hysteresis_check()` | Planned |
+| 3. *Homo* inversion | Diversity-dependence sign flip | `generate_autocatalytic_set()` | Planned |
+| 4. Cross-kingdom | When model transfer beats sign-only transfer | `empirical_formal_model()` | Planned |
+
+## Realm 1 — The threshold gate
+
+### What it explores
+
+The threshold gate is the heart of the framework's biphasic prediction. The formal model
+([`threshold_model()`](../reference/threshold_model.html)) integrates:
+
+$$\frac{dC_i}{dt} = -\lambda \cdot M(t) \cdot C_i \cdot \mathbb{1}(d_i < \theta)$$
+
+where $C_i$ is the retention probability of trait $i$, $M(t) = M_0 e^{-\alpha t}$
+is the decaying niche-demand mismatch, $d_i$ is the trait's integration depth,
+and $\theta$ is the protection threshold. Traits with $d_i \geq \theta$ are
+protected (retention = 1.0); traits with $d_i < \theta$ are shed
+(retention $\to 0$).
+
+The **biphasic signal** is the gate itself: protected traits retain at 1.0
+while unprotected traits shed to ~0, producing a sharp contrast
+(`threshold_biphasicity` ≈ 1.0). This is the real biphasic signature — not
+the temporal displacement ratio (math-review Issue 3, resolved).
+
+This realm makes the gate *visible* as a control parameter. By sweeping
+$\theta$ across a grid, we can watch the gate open (biphasicity → 1) when
+$\theta$ separates protected from unprotected traits, and close (biphasicity
+→ 0) when $\theta$ is below the minimum depth (all protected) or above the
+maximum depth (all unprotected).
+
+### Worked example
+
+Consider a hypothetical organism with five traits at integration depths
+`r paste(c(0, 1, 2, 3, 5), collapse = ", ")`. We sweep $\theta$ from 0 to 6:
+
+```{r sweep}
+result <- sweep_threshold(
+  depths = c(0, 1, 2, 3, 5),
+  theta_grid = seq(0, 6, by = 0.25)
+)
+```
+
+The sweep returns a data frame with one row per $\theta$ value:
+
+```{r sweep-head}
+head(result$values$sweep, 8)
+```
+
+The peak biphasicity is `r result$values$peak_biphasicity` at
+$\theta = `r result$values$peak_theta`$. This is where the gate is maximally
+open — the cleanest separation between protected and unprotected traits.
+
+```{r plot-gate, fig.alt = "Threshold gate: biphasicity vs theta. The gate opens at theta > 0, stays at 1.0 through the interior, and closes at theta > 5."}
+plot_threshold_gate(result)
+```
+
+The shaded region is the "gate open" zone — the parameter range where the framework's
+biphasic prediction is active. The vertical dashed lines mark each trait's
+depth; the gate composition changes at each one.
+
+### What this teaches
+
+1. **The biphasic signal IS the gate.** The `threshold_biphasicity` metric
+   captures the protected-vs-unprotected contrast. It is 1.0 whenever both
+   classes are non-empty, and 0 when one class is empty. This is the signal
+   the math-review (Issue 3) identified as the real biphasic signature — not
+   the temporal displacement ratio.
+
+2. **The gate is a step function.** The biphasicity rises sharply from 0 to 1
+   as $\theta$ crosses the minimum depth, stays at 1 through the interior,
+   and falls sharply to 0 as $\theta$ crosses the maximum depth. The gate is
+   binary — it is either open or closed.
+
+3. **The R6 method-misspecification is visceral.** A cross-sectional
+   regression across organisms with *different* $\theta$ values would see
+   noise, not a logistic — which is exactly why T3 fails on real
+   endosymbiont data. Different lineages have different thresholds (different
+   dependency architectures, different parasitism levels), so pooling them
+   cross-sectionally destroys the within-lineage biphasic signal.
+
+### Skewing the dependency architecture
+
+The gate's shape depends on the dependency architecture. A uniform
+architecture (`c(0, 1, 2, 3, 5)`) opens the gate gradually. A skewed
+architecture — many shallow traits, few deep — changes the composition:
+
+```{r skewed}
+skewed <- sweep_threshold(
+  depths = c(0, 0, 0, 1, 5, 5),
+  theta_grid = seq(0, 6, by = 0.25)
+)
+plot_threshold_gate(skewed)
+```
+
+The gate still opens and closes, but the protected/unprotected counts change
+differently. At $\theta = 0.5$, three traits are unprotected (the three at
+depth 0) and three are protected — a different composition from the uniform
+case.
+
+### The experiment that would fill this realm
+
+A real organism with a known dependency architecture (gene categories +
+integration-depth scores) and a measured retention trajectory across a
+parasitism/commitment gradient. The $\theta$-sweep would then be calibrated
+against real data, and the gate's $\theta$ would be an empirical estimate,
+not a dial. The foundry's `empirical_formal_model()` (Remark R7) is a step
+in this direction — it fits the retention matrix to estimate $dep$ and $para$
+effects — but the full gate calibration requires gene-category data (Item 4).
+
+## Realm 2 — Irreversibility
+
+### What it explores
+
+Irreversibility is the framework's sharpest departure from gradual reversibility. The
+[cusp catastrophe](../reference/cusp_hysteresis_check.html) models a system
+where smooth changes in a control parameter produce sudden, irreversible
+jumps in state. The cusp equilibrium is:
+
+$$x^3 + a \cdot x + b = 0$$
+
+where $x$ is the state, $a$ is the splitting factor, and $b$ is the normal
+factor. For $a < 0$, the system has two stable equilibria (a cusp); crossing
+the bifurcation set ($4a^3 + 27b^2 = 0$) forces a jump. For $a \geq 0$, there
+is a single equilibrium (no bifurcation, fully reversible).
+
+The **hysteresis loop area** quantifies irreversibility: if you sweep $b$
+forward (increasing) then reverse (decreasing), the forward and reverse paths
+enclose a loop. The area of that loop is zero for a reversible system ($a \geq
+0$) and positive for an irreversible system ($a < 0$), growing as $|a|$
+increases.
+
+### Worked example
+
+We sweep the cusp parameter $a$ from 1 (no bifurcation) through 0 (the
+bifurcation point) to $-2$ (deep in the cusp region), computing the loop
+area at each value:
+
+```{r sweep-irrev}
+irrev <- sweep_cusp_irreversibility(
+  a_grid = seq(1, -2, by = -0.1),
+  control_values = seq(-2, 2, length.out = 100)
+)
+```
+
+The sweep returns a data frame with one row per $a$ value:
+
+```{r irrev-head}
+head(irrev$values$sweep, 6)
+tail(irrev$values$sweep, 6)
+```
+
+The peak loop area is `r round(irrev$values$peak_loop_area, 3)` at $a =
+`r irrev$values$peak_a` — the most negative $a$ in the grid, where the cusp
+region is widest.
+
+```{r plot-irrev, fig.alt = "Irreversibility sweep: loop area vs a. The area is 0 for a >= 0 and rises for a < 0, showing irreversibility emerging at the bifurcation."}
+plot_irreversibility_sweep(irrev)
+```
+
+The shaded region is the cusp region ($a < 0$) — where the framework's irreversibility
+prediction is active. The dashed line marks the bifurcation ($a = 0$). For
+$a \geq 0$, the loop area is exactly 0 (the system is fully reversible). For
+$a < 0$, the loop area rises as $|a|$ grows — the cusp region widens, and the
+hysteresis loop grows.
+
+### What this teaches
+
+1. **Irreversibility is quantitative, not boolean.** `cusp_hysteresis_check()`
+   returns a boolean (`has_hysteresis`), but the loop area is a continuous
+   measure of *how much* irreversibility there is. A system at $a = -0.5$ has
+   a small loop; a system at $a = -2$ has a large one.
+
+2. **Irreversibility emerges at the bifurcation.** The loop area is exactly 0
+   for $a \geq 0$ and rises discontinuously for $a < 0$. This is the
+   bifurcation — the point where the framework predicts irreversibility emerges.
+
+3. **The loop area is robust to the path.** The loop area is the same
+   regardless of which branch you start on (the loop encloses the same area
+   either way). This makes the metric reliable: it depends only on the system
+   ($a$), not on the observer's starting point.
+
+### The experiment that would fill this realm
+
+A real system (a lineage, an ecosystem, an economy) where the control
+parameter (parasitism depth, commitment, complexity) has been ramped both up
+and down, with the state (genome size, capacity, diversity) measured at each
+point. The loop area would then be an empirical quantity. No such experiment
+exists for capacity reallocation; the realm makes this absence visible — the
+reader can see exactly what data would count as the test.
+
+## Realm 3 — The Homo inversion
+
+### What it explores
+
+The *Homo* inversion is the framework's signature theoretical contribution:
+the prediction that, after a substrate shift, innovations generate further
+innovations faster than they are lost — *positive diversity-dependence* (the
+per-capita innovation rate increases with diversity $N$). This is distinct
+from standard niche-filling, where the per-capita rate *decreases* with $N$
+(negative diversity-dependence, logistic growth).
+
+This realm makes the DD sign flip *visible*. It generates two matched
+diversity time series — one autocatalytic (positive DD, the *Homo* inversion)
+and one logistic (negative DD, niche-filling) — and overlays them. Both
+trajectories grow (positive growth direction), but their per-capita-rate-vs-$N$
+slopes have opposite signs: that is the *Homo* inversion.
+
+It also explores the **endogenous-K bifurcation** (Review Item 3): the
+prediction that there is a threshold in cultural complexity beyond which DD
+flips from negative (niche-filling) to positive (autocatalytic). Sweeping the
+feedback parameter shows this flip.
+
+### Risk note: the corrected feedback formula
+
+The execution plan (`docs/review/toy-models-plan.md`) proposed the per-capita
+rate formula $r \times (\text{feedback} + (1-\text{feedback}) \times N/(N+K))$,
+intended to interpolate between logistic (feedback = 0, negative DD) and
+autocatalytic (feedback = 0.5, positive DD). **This formula is wrong**: at
+feedback = 0 it gives $r \times N/(N+K)$, whose derivative w.r.t. $N$ is
+$rK/(N+K)^2 > 0$ — always positive DD. The function $N/(N+K)$ is *increasing*
+in $N$, so the blend is always increasing; it cannot produce negative DD at
+any feedback value.
+
+The workaround blends two bounded functions — one increasing (autocatalytic),
+one decreasing (bounded logistic):
+
+$$\text{pc\_rate} = r \times [\text{feedback} \times (0.5 + 0.5 N/(N+K)) + (1-\text{feedback}) \times K/(N+K)]$$
+
+The analytical derivative is $rK/(N+K)^2 \times (1.5\,\text{feedback} - 1)$:
+negative for feedback $< 2/3$ (niche-filling), positive for feedback $> 2/3$
+(*Homo* inversion), zero at feedback $= 2/3$ (the bifurcation). At feedback = 1
+this reduces to $r(0.5 + 0.5N/(N+K))$, exactly matching the existing
+`generate_autocatalytic_set()` dynamics (verified: identical time series).
+
+### Worked example: the contrast
+
+```{r dd-contrast}
+contrast <- diversity_dependence_contrast(n_steps = 20, capacity = 30)
+```
+
+The autocatalytic DD slope is `r round(contrast$values$autocatalytic_dd_slope, 6)`
+(positive — the *Homo* inversion); the logistic DD slope is
+`r round(contrast$values$logistic_dd_slope, 6)` (negative — niche-filling). The
+contrast is `r round(contrast$values$contrast, 6)` — positive, confirming the
+The framework signature.
+
+```{r plot-dd-contrast, fig.alt = "Two-panel plot: left shows autocatalytic and logistic trajectories both growing; right shows per-capita rate vs N with opposite slopes (autocatalytic increasing, logistic decreasing)."}
+plot_dd_contrast(contrast)
+```
+
+The left panel shows both trajectories growing — they look similar. The right
+panel reveals the difference: the autocatalytic per-capita rate *increases*
+with $N$ (green, positive slope), while the logistic per-capita rate
+*decreases* with $N$ (red, negative slope). That slope flip is the *Homo*
+inversion.
+
+### Worked example: the endogenous-K sweep
+
+```{r dd-sweep}
+dd_sweep <- sweep_endogenous_k(feedback_grid = seq(0, 1, by = 0.05))
+```
+
+The sweep shows the DD sign flipping from negative to positive:
+
+```{r dd-sweep-table}
+head(dd_sweep$values$sweep, 8)
+tail(dd_sweep$values$sweep, 8)
+```
+
+The theoretical bifurcation is at feedback = `r round(dd_sweep$values$bifurcation_feedback, 4)`
+(2/3); the measured bifurcation (where the linear regression slope crosses
+zero) is `r round(dd_sweep$values$measured_bifurcation_feedback, 4)` — very
+close to the theoretical value.
+
+### What this teaches
+
+1. **The DD sign is the *Homo* inversion signature.** Both logistic and
+   autocatalytic growth produce growing time series — growth direction alone
+   cannot distinguish them. The per-capita-rate-vs-$N$ slope is the
+   discriminator: positive = *Homo* inversion, negative = niche-filling.
+
+2. **The bifurcation is quantitative.** The DD slope doesn't just flip; it
+   crosses zero continuously. The endogenous-K bifurcation is a threshold in
+   cultural complexity (the feedback parameter), and the sweep shows exactly
+   where it is (feedback $\approx 2/3$).
+
+3. **The measured bifurcation is approximate.** The linear regression in
+   `diversity_dependence_sign()` fits a linear approximation to a nonlinear
+   per-capita-rate function. The sign is reliable, but the exact crossing
+   point may differ slightly from the theoretical $2/3$. This is documented as
+   a known limitation.
+
+### The experiment that would fill this realm
+
+A hominin (or any cultural-species) diversification time series spanning the
+putative complexity threshold: innovation counts or cultural-variant counts
+through time, long enough to estimate the per-capita-rate-vs-diversity slope
+on both sides of the threshold. No such dataset exists; the realm makes the
+prediction and its data requirement concrete.
+
+## Realm 4 — The cross-kingdom transfer
+
+### What it explores
+
+The cross-kingdom transfer is the monograph's strongest claim: a model fit to
+one kingdom (plants) predicts the ordering in another (birds). But the
+foundry's `transfer_test()` transfers only the slope *sign* — ranking
+discards magnitude by construction (math-review Issue 7). And the empirical
+GLM (`empirical_formal_model()`) forces all birds to the same parasitism
+level, which makes *its* transfer sign-only too: when para is constant,
+$\text{rank}(\text{logistic}(a + b \cdot \text{dep} + c \cdot \text{const})) =
+\text{rank}(\text{dep})$ if $b > 0$.
+
+This realm asks: **when would the full model (both coefficients + the
+logistic link) transfer genuinely more than the sign alone?** Answer: when
+the target kingdom has *varying* parasitism scores, so the model can use its
+para coefficient to modulate predictions — information the sign-only transfer
+(which ignores para) cannot access.
+
+### Risk note: why this is speculative
+
+The synthetic bird data has *varying* parasitism scores — this is what makes
+the model transfer differ from the sign-only transfer. The **real** bird data
+(`island_bird_morphology.csv`) has no parasitism column, so
+`empirical_formal_model()` forces all birds to the same para level, making its
+transfer sign-only by construction. This realm is therefore speculative: it
+shows what the transfer *could* look like with richer target-kingdom data, not
+what it does look like with the data we have.
+
+### Worked example: model vs sign-only at low noise
+
+```{r glm-transfer}
+d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
+transfer <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
+```
+
+The model-transfer rho is `r round(transfer$values$model_rho, 4)`; the
+sign-only-transfer rho is `r round(transfer$values$sign_only_rho, 4)`. The
+model advantage is `r round(transfer$values$model_advantage, 4)` — positive,
+confirming the model outperforms the sign at low noise. The GLM recovers the
+dep coefficient as `r round(transfer$values$dep_coefficient, 4)` (true: 0.8)
+and the para coefficient as `r round(transfer$values$para_coefficient, 4)`
+(true: -0.5).
+
+### Worked example: the noise sweep
+
+```{r transfer-sweep}
+transfer_sweep <- sweep_transfer_robustness(
+  noise_grid = seq(0, 0.3, by = 0.05)
+)
+```
+
+```{r transfer-sweep-table}
+transfer_sweep$values$sweep
+```
+
+The sign-only rho is flat at `r round(transfer_sweep$values$sweep$sign_only_rho[1], 4)`
+across all noise levels — it depends only on the dep sign, which doesn't flip.
+The model rho starts at `r round(transfer_sweep$values$sweep$model_rho[1], 4)`
+(zero noise) and degrades to `r round(tail(transfer_sweep$values$sweep$model_rho, 1), 4)`
+(at noise = 0.3), converging to the sign-only rho. The low-noise advantage is
+`r round(transfer_sweep$values$low_noise_advantage, 4)`; convergence occurs at
+noise = `r round(transfer_sweep$values$convergence_noise, 4)`.
+
+```{r plot-transfer-sweep, fig.alt = "Plot of noise vs rho, showing the model-transfer curve starting high and degrading down to the flat sign-only-transfer line."}
+plot_transfer_breakdown(transfer_sweep)
+```
+
+The gap between the two curves is the *information lost to ranking* (Issue 7):
+the magnitude the sign-only transfer discards. As noise increases, the gap
+closes — the model degrades to the sign.
+
+### What this teaches
+
+1. **Ranking discards magnitude (Issue 7), visible as a gap.** The sign-only
+   transfer is flat across noise (it only needs the sign); the model transfer
+   degrades (its coefficient estimates get noisier). The gap is the magnitude
+   information the sign-only transfer throws away.
+
+2. **The model transfer is not unconditionally superior.** At extreme noise
+   (beyond the default grid, e.g. 0.4–0.5), the model's noisy para
+   coefficient injects noise that the sign-only transfer avoids — the model
+   can dip *below* the sign-only transfer. The model pays a noise penalty for
+   using the para coefficient. This is an honest finding: the model transfer
+   outperforms only when the GLM coefficients are well-estimated.
+
+3. **The real bird data makes the empirical transfer sign-only.** With no
+   parasitism column in the real bird data, `empirical_formal_model()` forces
+   all birds to the same para level — making the empirical transfer
+   sign-only by construction. Richer target-kingdom data (with varying
+   parasitism) would let the model transfer genuinely outperform.
+
+### The experiment that would fill this realm
+
+A real target-kingdom dataset with *varying* parasitism/commitment scores
+(not just dependency scores): e.g., bird morphology data with a per-species
+parasitism or commitment-level column, or a third substrate (economic
+specialization) with varying commitment. The GLM transfer would then be
+empirical, and the model-vs-sign gap would be a real, testable quantity —
+not a synthetic one. The foundry now has the plant data (R7) and the bird
+data (bundled); the varying-parasitism column is the open empirical frontier.
+
+## Limitations
+
+The toy models are **theoretical exploration, not empirical test**:
+
+- They do not source new data.
+- They do not claim to corroborate the framework.
+- They do not replace the blocked empirical work (Items 4–6).
+- The sweep uses the default ODE parameters ($\lambda = 0.15$, $M_0 = 10$,
+  $\alpha = 0.05$, $t = 100$); with different parameters, the unprotected
+  traits may not fully shed, and the biphasicity would be less than 1.0 in
+  the interior. The gate shape (0 → contrast → 0) is robust, but the
+  plateau height is parameter-dependent.
+
+## Interpretation guide
+
+| What you see | What it means |
+|-------------|---------------|
+| Biphasicity = 0 at $\theta = 0$ | All traits protected — no contrast (gate closed) |
+| Biphasicity = 1 in the interior | Gate open — clean separation between protected and unprotected |
+| Biphasicity = 0 at $\theta > \max(d)$ | All traits unprotected — no contrast (gate closed) |
+| Vertical dashed lines | Trait depths — gate composition changes here |
+| Peak $\theta$ | The threshold that maximally separates the two classes |
+
+The key insight: **the threshold gate is the biphasic signal**. When the
+gate is open (both classes exist), the framework's biphasic prediction is active. When
+the gate is closed (one class empty), there is no biphasic contrast. This is
+why T3's cross-sectional regression fails — it pools organisms with different
+gates, averaging the contrast away.

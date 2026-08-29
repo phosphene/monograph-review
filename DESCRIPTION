@@ -1,6 +1,6 @@
 Type: Package
 Package: valence.foundry
-Title: Valence Foundry — Production-Grade R Artifacts for the Valence-Ingression Monograph
+Title: The Foundry — Production-Grade R Artifacts for the Monograph Review
 Version: 0.1.0
 Authors@R: c(
     person("Ed", "Phillips", role = c("aut", "cre"),
@@ -10,7 +10,7 @@ Authors@R: c(
     person("Flow", "Feel", role = "aut",
            email = "flow@ind.media", comment = c(GitHub = "FlowFeel"))
   )
-Description: Production-grade R artifacts for testing Valence-Ingression
+Description: Production-grade R artifacts for testing the monograph's
     framework predictions. Provides PGLS comparative methods, integration-depth
     ordering tests, biphasic genome reduction models, cross-kingdom parameter
     transfer, formal dynamical model (threshold-gated capacity reallocation),

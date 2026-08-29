@@ -29,7 +29,7 @@ gene-major, one row per species-gene pair).
 The retention matrix is the empirical data for the formal model: it
 records plastid-gene retention (0–1) for 8 Orobanchaceae species across a
 parasitism gradient (0–4) and 6 gene categories with dependency scores
-(0–5). Valence predicts: higher dependency → higher retention (dep > 0);
+(0–5). The framework predicts: higher dependency → higher retention (dep > 0);
 deeper parasitism → lower retention (para < 0). The competitor (random
 loss) predicts no dep effect. The author's original GLM produced the wrong
 sign because of a data-flattening bug (Remark R7); this validator guards

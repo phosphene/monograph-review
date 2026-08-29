@@ -1,6 +1,6 @@
 #' Empirical Test Result Classes (S3 three-layer pattern)
 #'
-#' S3 class hierarchy for empirical test results in the valence-foundry package.
+#' S3 class hierarchy for empirical test results in the framework-foundry package.
 #' Each class follows Phosphene R Standards §7: constructor → validator →
 #' public helper, plus standard generics `print()`, `summary()`, and
 #' `as.data.frame()`.
@@ -11,9 +11,9 @@
 #' - `test_name`: character. Identifier of the test (e.g. "pgls_orobanchaceae").
 #' - `statistic`: numeric. Scalar test statistic.
 #' - `p_value`: numeric in [0, 1] (or `NA`). Test p-value.
-#' - `valence_prediction`: character. Plain-language statement of what valence predicts.
-#' - `discriminating`: logical. Whether the test distinguishes valence from
-#'   competitors (as opposed to merely being consistent with valence).
+#' - `valence_prediction`: character. Plain-language statement of what the framework predicts.
+#' - `discriminating`: logical. Whether the test distinguishes the framework from
+#'   competitors (as opposed to merely being consistent with the framework).
 #' - `status`: character. `"significant"`, `"not_significant"`, or `"n/a"`.
 #' - `values`: list. Test-specific value fields (the raw result `values`).
 #' - `metadata`: list. Provenance and bookkeeping fields.
@@ -101,7 +101,7 @@ NULL
   cat(sprintf("%s\n", strrep("=", nchar(cls))))
   cat(sprintf("  Test:          %s\n", x$test_name))
   cat(sprintf("  Discriminating:%s\n",
-              ifelse(isTRUE(x$discriminating), " yes (distinguishes valence)", " no (consistent w/ valence)")))
+              ifelse(isTRUE(x$discriminating), " yes (distinguishes the framework)", " no (consistent with the framework)")))
   cat(sprintf("  Status:        %s\n", x$status))
   if (!is.null(x$metadata$n)) {
     cat(sprintf("  n:             %s\n", x$metadata$n))
@@ -127,8 +127,8 @@ NULL
 #' @param test_name Character. Test identifier.
 #' @param statistic Numeric. Test statistic.
 #' @param p_value Numeric. Test p-value (or NA).
-#' @param valence_prediction Character. What valence predicts.
-#' @param discriminating Logical. Whether the test distinguishes valence.
+#' @param valence_prediction Character. What the framework predicts.
+#' @param discriminating Logical. Whether the test distinguishes the framework.
 #' @param status Character. Significant / not_significant / n/a.
 #' @param values List. Test-specific value fields.
 #' @param metadata List. Provenance fields.
@@ -198,7 +198,7 @@ validate_valence_test_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_test_result
+#' Public helper for the framework_test_result
 #'
 #' Combines constructor + validator. This is the public entry point for
 #' constructing a base empirical result object.
@@ -234,7 +234,7 @@ print.valence_test_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_test_result Object
+#' Summary of the framework_test_result Object
 #'
 #' @param object valence_test_result object.
 #' @param ... Ignored.
@@ -309,7 +309,7 @@ validate_valence_pgls_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_pgls_result
+#' Public helper for the framework_pgls_result
 #'
 #' @param test_name,statistic,p_value,valence_prediction,discriminating,status,values,metadata
 #'   Base fields.
@@ -343,7 +343,7 @@ print.valence_pgls_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_pgls_result Object
+#' Summary of the framework_pgls_result Object
 #'
 #' @param object valence_pgls_result object.
 #' @param ... Ignored.
@@ -418,7 +418,7 @@ validate_valence_niche_ne_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_niche_ne_result
+#' Public helper for the framework_niche_ne_result
 #'
 #' @param test_name,statistic,p_value,valence_prediction,discriminating,status,values,metadata
 #'   Base fields.
@@ -451,7 +451,7 @@ print.valence_niche_ne_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_niche_ne_result Object
+#' Summary of the framework_niche_ne_result Object
 #'
 #' @param object valence_niche_ne_result object.
 #' @param ... Ignored.
@@ -522,7 +522,7 @@ validate_valence_fluidity_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_fluidity_result
+#' Public helper for the framework_fluidity_result
 #'
 #' @param test_name,statistic,p_value,valence_prediction,discriminating,status,values,metadata
 #'   Base fields.
@@ -554,7 +554,7 @@ print.valence_fluidity_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_fluidity_result Object
+#' Summary of the framework_fluidity_result Object
 #'
 #' @param object valence_fluidity_result object.
 #' @param ... Ignored.
@@ -624,7 +624,7 @@ validate_valence_ordering_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_ordering_result
+#' Public helper for the framework_ordering_result
 #'
 #' @param test_name,statistic,p_value,valence_prediction,discriminating,status,values,metadata
 #'   Base fields.
@@ -656,7 +656,7 @@ print.valence_ordering_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_ordering_result Object
+#' Summary of the framework_ordering_result Object
 #'
 #' @param object valence_ordering_result object.
 #' @param ... Ignored.
@@ -726,7 +726,7 @@ validate_valence_transfer_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_transfer_result
+#' Public helper for the framework_transfer_result
 #'
 #' @param test_name,statistic,p_value,valence_prediction,discriminating,status,values,metadata
 #'   Base fields.
@@ -758,7 +758,7 @@ print.valence_transfer_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_transfer_result Object
+#' Summary of the framework_transfer_result Object
 #'
 #' @param object valence_transfer_result object.
 #' @param ... Ignored.
@@ -832,7 +832,7 @@ validate_valence_cosegregation_result <- function(x) {
   invisible(x)
 }
 
-#' Public helper for valence_cosegregation_result
+#' Public helper for the framework_cosegregation_result
 #'
 #' @param test_name,statistic,p_value,valence_prediction,discriminating,status,values,metadata
 #'   Base fields.
@@ -865,7 +865,7 @@ print.valence_cosegregation_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_cosegregation_result Object
+#' Summary of the framework_cosegregation_result Object
 #'
 #' @param object valence_cosegregation_result object.
 #' @param ... Ignored.

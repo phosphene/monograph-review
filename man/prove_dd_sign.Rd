@@ -16,7 +16,7 @@ prove_dd_sign(r = 1, K = 10, N_max = 50, n_grid = 100L)
 \item{n_grid}{Integer. Number of grid points.}
 }
 \value{
-A \code{vi_proof} object.
+A \code{valence_proof} object.
 }
 \description{
 Analytical proof that for autocatalytic growth

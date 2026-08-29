@@ -4,7 +4,7 @@
 
 **Original T2 (non-discriminating):** Does the plastome-size-vs-parasitism gradient replicate across 9 independent origins? Everyone predicts this — relaxed selection, neutral evolution, niche construction all predict smaller genomes in more dependent lineages.
 
-**Redesigned T2:** Does the same dependency ranking predict gene-loss ORDER across independent parasitic lineages? If VI is correct, the ordering should be consistent across families — ndh lost first, then rpo, then psa/psb, then atp, then rpl/rps. Relaxed selection has no reason to predict the same ordering across lineages with different evolutionary histories.
+**Redesigned T2:** Does the same dependency ranking predict gene-loss ORDER across independent parasitic lineages? If the framework is correct, the ordering should be consistent across families — ndh lost first, then rpo, then psa/psb, then atp, then rpl/rps. Relaxed selection has no reason to predict the same ordering across lineages with different evolutionary histories.
 
 ## Data Needed
 

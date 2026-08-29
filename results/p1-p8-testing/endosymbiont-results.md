@@ -1,5 +1,7 @@
 # Endosymbiont Genome Reduction Analysis: Comprehensive Results
 
+> **Superseded in part.** This is the original first-pass analysis (22 genera). The predictor comparison in §2 (time vs Nₑ) was superseded by the corrected niche-demand-mismatch analysis in `results/p1-p8-testing/p5-retest-results.md` — time since symbiosis is the wrong predictor (the relaxation formula depends on niche-demand mismatch, not elapsed time); mismatch beats Nₑ (bootstrap 99.6%). The integration-depth analysis (§4) remains valid support. A priori two-component results: `results/p-series/P-SERIES-RESULTS.md`.
+
 ## Dataset Summary
 - **22 endosymbiont genera** across Gammaproteobacteria, Betaproteobacteria, Alphaproteobacteria, and Bacteroidetes
 - Genome sizes range: 0.1120 – 3.5000 Mb

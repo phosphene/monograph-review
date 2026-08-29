@@ -6,7 +6,7 @@
 #
 # @section Theoretical Context:
 #
-# VI Prediction: β > 1 → positive diversity-dependent speciation;
+# the framework's prediction: β > 1 → positive diversity-dependent speciation;
 # β < 1 → negative diversity-dependent speciation. This is the sign reversal.
 # The Van Holstein & Foley (2024) data confirms this empirically.
 #

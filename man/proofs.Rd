@@ -6,7 +6,7 @@
 \description{
 Pure analytical + numeric proofs (DFT axioms A1 pure-io-separation, A2
 determinism, A6 check-result) for the dynamics module. Each returns a
-\code{vi_proof} object carrying the statement, a LaTeX-like derivation,
+\code{valence_proof} object carrying the statement, a LaTeX-like derivation,
 an outcome, a logical verification flag, and a numeric corroboration.
 }
 \details{

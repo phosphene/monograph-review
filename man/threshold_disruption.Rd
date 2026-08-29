@@ -28,17 +28,17 @@ piecewise model test at known trigger years.
 \section{Theoretical Context}{
 
 
-Valence Prediction: capability/capacity loss is threshold-gated — reversible
+the framework's prediction: capability/capacity loss is threshold-gated — reversible
 erosion below a trigger, then a correlated cascade once a functionally
 coherent capability module enters "relaxed selection." A piecewise model
 with a breakpoint at the trigger year should beat a smooth linear model.
 
 Competitor: smooth, single-regime decay (constant-rate) predicts a piecewise
-model adds no predictive value. This test DOES distinguish valence: it predicts a
+model adds no predictive value. This test DOES distinguish the framework: it predicts a
 material ΔAIC and a steeper post-trigger slope.
 
-What supports valence: piecewise AIC < linear AIC and late/early slope ratio > 1.
-What refutes valence: no improvement from the piecewise model.
+What supports the framework: piecewise AIC < linear AIC and late/early slope ratio > 1.
+What refutes the framework: no improvement from the piecewise model.
 }
 
 \examples{

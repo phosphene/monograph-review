@@ -14,10 +14,10 @@ against, and how results map to scientific claims.
 Every exported function has standard roxygen2 documentation *plus* a
 `@section Theoretical Context:` block that states:
 
-1. **What valence prediction this function tests** (or supports)
+1. **What framework prediction this function tests** (or supports)
 2. **What competing framework predicts differently** (relaxed selection,
    Muller's ratchet, drift)
-3. **What result would support vs. refute valence**
+3. **What result would support vs. refute the framework**
 
 Example:
 
@@ -31,7 +31,7 @@ Example:
 #'
 #' @section Theoretical Context:
 #'
-#' valence predicts that transcriptomic commitment narrows the expressed gene
+#' the framework predicts that transcriptomic commitment narrows the expressed gene
 #' repertoire in an ordered fashion (integration-depth dependent). CDI
 #' (negative Shannon entropy) measures this narrowing. A higher CDI
 #' (less negative) indicates a narrower transcriptome.
@@ -40,8 +40,8 @@ Example:
 #' random gene loss, not ordered. CDI alone cannot distinguish ordered
 #' from random loss — that requires `gene_category_spearman()`.
 #'
-#' CDI is necessary but not sufficient for valence claims. A significant CDI
-#' change without integration-depth ordering is consistent with valence but
+#' CDI is necessary but not sufficient for the framework claims. A significant CDI
+#' change without integration-depth ordering is consistent with the framework but
 #' does not confirm it.
 compute_cdi <- function(counts, normalize = "size_factor") { ... }
 ```
@@ -59,17 +59,17 @@ Every foundry package has a vignette (`vignettes/` directory) that provides:
 Vignette structure:
 
 ```markdown
-# valence.stats: Testing Vestigial Information Predictions
+# integration-stats: Testing Integration-Depth Predictions
 
 ## Scientific Motivation
 
-Valence predicts that transcriptomic commitment follows integration-depth
+the framework predicts that transcriptomic commitment follows integration-depth
 ordering: deeply integrated functions resist loss more than shallowly
 integrated ones. This is testable via RNA-seq data...
 
 ## Function Map
 
-| Function | valence Prediction Tested | Competitor Prediction |
+| Function | framework Prediction Tested | Competitor Prediction |
 |----------|---------------------|----------------------|
 | `compute_cdi()` | Transcriptome narrows under commitment | No prediction (measurement only) |
 | `gene_category_spearman()` | Ordered narrowing by integration depth | Random loss (relaxed selection) |
@@ -108,7 +108,7 @@ output: html_document
 
 ## Background
 
-CTVT is a 6,000-year-old clonal transmissible cancer. Valence predicts...
+CTVT is a 6,000-year-old clonal transmissible cancer. the framework predicts...
 
 ## Data
 
@@ -131,13 +131,13 @@ spearman_result <- gene_category_spearman(fc, ranks)
 ```
 
 The Spearman rho is `r spearman_result$spearman_rho` (p = `r spearman_result$p_value`).
-Valence predicts a negative rho (deeper genes retained more). The observed
+the framework predicts a negative rho (deeper genes retained more). The observed
 value is `r ifelse(spearman_result$spearman_rho < 0, "consistent with", "opposite to")`
-Valence's prediction.
+The framework's prediction.
 
 ## Interpretation
 
-[What the results mean for valence, honestly stated]
+[What the results mean for the framework, honestly stated]
 
 ## Limitations
 
@@ -159,9 +159,9 @@ structure, and data provenance. Literate documentation adds:
 ## File Locations
 
 ```
-packages/valence.stats/
+packages/integration-stats/
 ├── vignettes/
-│   └── vi-stats.Rmd           # Package vignette (Layer 2)
+│   └── relaxation-stats.Rmd           # Package vignette (Layer 2)
 ├── inst/
 │   └── examples/
 │       ├── run_ctvt_analysis.R      # Executable script

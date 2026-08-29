@@ -46,7 +46,7 @@ unprotected).
 \section{Theoretical Context}{
 
 
-Valence Prediction: biphasic kinetics — the threshold gate separates protected
+the framework's prediction: biphasic kinetics — the threshold gate separates protected
 traits (d ≥ θ, retention = 1.0) from unprotected traits (d < θ, retention
 → 0). The biphasic signal IS the gate (math-review Issue 3, resolved).
 
@@ -57,7 +57,7 @@ cross-sectional regression across organisms with \emph{different} θ would see
 noise, not a logistic — which is exactly why T3 fails on real data.
 
 Competitors: constant rate (no gate, no biphasicity), accelerating (no
-gate). The biphasic gate is unique to valence's threshold-gated model.
+gate). The biphasic gate is unique to the framework's threshold-gated model.
 }
 
 \examples{

@@ -1,4 +1,4 @@
-# The valence-foundry Math Review — Implementation vs. Mathematics vs. Claims
+# The foundry Math Review — Implementation vs. Mathematics vs. Claims
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
@@ -11,7 +11,7 @@ heading below is tagged with its resolution.
 
 ## What this document is
 
-A line-by-line audit of the mathematics in `valence-foundry`: for each analysis
+A line-by-line audit of the mathematics in `the foundry`: for each analysis
 function, does the **implementation** correctly realize the **mathematics** it
 claims to, and do the **claims** (in docstrings, the oracle, and the review)
 actually follow from that math? This is a different cut from
@@ -68,7 +68,7 @@ which is significant precisely *because* the observed count is below expectation
 | `alternative = "greater"` would match the claim | `alternative = "less"` is used |
 
 The result — function-loss mutations are **depleted** near beneficial sweeps —
-is in fact *consistent* with the valence drift prediction (unused genes drift, so
+is in fact *consistent* with the framework drift prediction (unused genes drift, so
 their loss mutations are not concentrated near adaptive sweeps). But the
 function's documentation, the `enrichment_ratio` name, and the oracle framing
 all describe the opposite of what the code computes.
@@ -93,7 +93,7 @@ The naming and documentation must be corrected to match the math. Either:
 
 The model header states:
 
-> The valence formal model: dC_i/dt = -λ × M(t) × I(d_i < θ)
+> The framework's formal model: dC_i/dt = -λ × M(t) × I(d_i < θ)
 
 This is a **linear** ODE in C (no C factor on the right-hand side). Its
 solution would be `C(T) = 1 - λ·∫M dt`, which for the oracle parameters gives:

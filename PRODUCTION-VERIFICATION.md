@@ -1,37 +1,37 @@
 # Production Formal Model Verification Guide
 
-This document describes how to verify the production-quality upgrade of the Valence Foundry formal model module.
+This document describes how to verify the production-quality upgrade of The Foundry formal model module.
 
 ## Changes Summary
 
 ### New Files Created
 
-1. **R/formal_model_classes.R** (12,086 bytes)
+1. **R/formal_model_classes.R** (12,142 bytes)
    - Three-layer S3 class design per Phosphene R Standards §7
    - `new_valence_threshold_result()` / `validate_valence_threshold_result()` / `valence_threshold_result()`
    - `new_valence_glm_fit()` / `validate_valence_glm_fit()` / `valence_glm_fit()`
    - `new_valence_equilibrium()` / `validate_valence_equilibrium()` / `valence_equilibrium()`
 
-2. **R/formal_model_methods.R** (19,191 bytes)
+2. **R/formal_model_methods.R** (19,456 bytes)
    - `print.valence_threshold_result()` - human-readable console output
    - `summary.valence_threshold_result()` - tidy data.frame for programmatic access
    - `plot.valence_threshold_result()` - patchwork ggplot2 composition
    - `as.data.frame.valence_threshold_result()` - export for CSV/piping
    - Same pattern for `valence_glm_fit` and `valence_equilibrium` classes
 
-3. **tests/testthat/test-invariants-formal-model.R** (18,572 bytes)
+3. **tests/testthat/test-invariants-formal-model.R** (19,558 bytes)
    - 10 invariant properties tested across ~1,000 random parameter combinations
    - Covers: retention bounds, protection gate, monotonicity, convergence, conservation
    - Property-based testing with `withr::with_seed(42)`
 
-4. **vignettes/mathematical-foundations.Rmd** (11,191 bytes)
+4. **vignettes/mathematical-foundations.Rmd** (11,196 bytes)
    - Literate proof connecting ODE → closed-form → code → convergence proof
    - Section-by-step derivation of analytical solution
    - Visualization of biphasic kinetics
 
 ### Modified Files
 
-1. **R/formal_model.R** (19,122 bytes)
+1. **R/formal_model.R** (18,878 bytes)
    - Added `retention_closed_form()` - analytical solution
    - Added `prove_convergence()` - numerical vs analytical comparison
    - Updated `equilibrium_retention()` - returns valence_equilibrium class
@@ -46,17 +46,16 @@ This document describes how to verify the production-quality upgrade of the Vale
 
 ## Verification Commands
 
-Run these commands from the valence-foundry repository root:
+Run these commands from the repository root:
 
 ```bash
 # Step 1: Install dependencies and document package
-cd lib/python  # or valence-foundry root if running from there
 Rscript -e 'devtools::document()'
 
 # Step 2: Run all tests (existing + new invariants)
 Rscript -e 'devtools::test(filter = "formal-model")'
 
-# Expected output: all 598+ existing tests pass + new invariant tests pass
+# Expected output: all 8,417 existing assertions pass (0 failing, 11 skipped) + new invariant tests pass
 
 # Step 3: Full package check
 Rscript -e 'devtools::check()'
@@ -163,7 +162,7 @@ git commit -m "feat(formal-model): S3 classes, closed-form proofs, invariant tes
 
 ## Success Criteria
 
-✅ All 598+ existing tests pass
+✅ All 8,417 existing assertions pass (0 failing, 11 skipped)
 ✅ 10 new invariant tests pass (~10,000 property checks)
 ✅ `devtools::check()` reports no errors, warnings, notes
 ✅ Vignette renders successfully
@@ -176,6 +175,6 @@ git commit -m "feat(formal-model): S3 classes, closed-form proofs, invariant tes
 Once verified:
 
 1. Merge to main branch via PR
-2. Update dependency versions in parent repos that reference valence-foundry
+2. Update dependency versions in parent repos that reference the foundry
 3. Consider publishing to Posit Package Manager for team-wide use
 4. Update README.md to reflect new S3 methods and proof capabilities

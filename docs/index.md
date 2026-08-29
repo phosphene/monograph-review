@@ -1,8 +1,8 @@
-# Valence Foundry — Index
+# The Foundry — Index
 
 ## What This Is
 
-The foundry is the testing infrastructure for the Valence-Ingression relaxation formula. It contains:
+The foundry is the testing infrastructure for the relaxation formula of the framework under review. It contains:
 
 1. **Simulacra** — synthetic data tests that verify the statistical pipeline
 2. **Empirical tests** — real data analyses testing predictions P1-P8
@@ -44,8 +44,9 @@ The foundry is the testing infrastructure for the Valence-Ingression relaxation 
 | LTEE analysis | `data/t7-ltee/T7_ANALYSIS_REPORT.md` |
 | Sodalis partition | `data/t7-ltee/T7_SODALIS_RESULTS.md` |
 
-## Current State (2026-08-18)
+## Current State (2026-08-29)
 
+- **Full test suite:** 8417 passed, 0 failed, 11 skipped (verified 2026-08-29)
 - **8/8 original simulacra:** PASS
 - **4/5 new simulacra (9-13):** PASS (S9 partial: k₂ accurate, k₁ hard when fast phase unresolved)
 - **6/8 predictions confirmed:** P1, P2, P3, P4, P6, P8

@@ -1,6 +1,6 @@
 #' Formal dynamical model of threshold-gated capacity reallocation
 #'
-#' The valence formal model: dC_i/dt = -λ × M(t) × C_i × I(d_i < θ)
+#' The framework formal model: dC_i/dt = -λ × M(t) × C_i × I(d_i < θ)
 #'
 #' NOTE: the C_i factor (current retention) is essential — without it the ODE
 #' is linear (dC/dt = -λM) whose solution C(T) = 1 - λ∫M dt goes negative;
@@ -23,13 +23,13 @@
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+#' the framework's prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 #' rapidly) followed by slow Phase 2 (protected traits resist loss).
 #'
 #' Competitors:
 #' - Constant rate (relaxed selection, Lahti 2009): predicts linear reduction
 #' - Accelerating (Muller's ratchet): predicts accelerating reduction
-#' - The biphasic (logistic/saturation) shape is unique to valence's threshold-gated model
+#' - The biphasic (logistic/saturation) shape is unique to the framework's threshold-gated model
 #'
 #' @dft
 #' - A1 (pure-io-separation): pure math, no I/O
@@ -302,7 +302,7 @@ retention_at_time <- function(depth, lambda, theta, m0, alpha, time) {
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+#' the framework's prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 #' at rate proportional to λ×M₀), slow Phase 2 (protected traits remain at 1.0).
 #'
 #' @dft A1, A2, A6
@@ -450,12 +450,12 @@ phase_transition_time <- function(m0, alpha, threshold_fraction = 0.1) {
 #'   contract consistency.
 #'
 #' @return valence_glm_fit object containing:
-#'   \item{values}{GLM coefficients, p-values, cross-kingdom metrics, valence confirmation flags}
+#'   \item{values}{GLM coefficients, p-values, cross-kingdom metrics, the framework confirmation flags}
 #'   \item{metadata}{Sample sizes, method description, fitted glm object}
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: `dep > 0` (deeper integration → higher retention),
+#' the framework's prediction: `dep > 0` (deeper integration → higher retention),
 #' `para < 0` (deeper parasitism → lower retention), and cross-kingdom
 #' ρ > 0 (plant-derived model predicts bird ordering).
 #'
@@ -506,7 +506,7 @@ empirical_formal_model <- function(plant_data, bird_data,
   cross_kingdom_rho <- as.numeric(ct$estimate)
   cross_kingdom_p <- ct$p.value
 
-  # valence predictions
+  # the framework's predictions
   dep_positive <- dep_coef > 0
   para_negative <- para_coef < 0
   valence_confirmed <- dep_positive && para_negative && cross_kingdom_rho > 0
