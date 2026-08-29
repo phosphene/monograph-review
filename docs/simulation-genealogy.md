@@ -40,15 +40,15 @@ The dashboards used dc.js cross-filtering: brush a range on one chart, watch the
 
 ## Phase 2: Simulation as Epistemic Instrument (framework simulacra, 2025)
 
-The framework under review introduced simulacra — simulations that test theoretical claims. The `inst/simulacra/` directory in the foundry contains generative scripts:
+The framework under review introduced simulacra — simulations that test theoretical claims. The foundry contains generative scripts across several directories:
 
-- `generate_relaxation.R` — simulate bi-exponential decay from known parameters
-- `generate_cross_kingdom.R` — simulate cross-kingdom gene transfer
-- `generate_cusp.R` — simulate cusp catastrophe dynamics
-- `generate_drift_selection.R` — simulate drift vs selection balance
-- `generate_ising.py` — simulate Ising model phase transitions
-- `generate_landau.py` — simulate Landau theory energy landscapes
-- `generate_upcycle.py` — simulate upcycling dynamics
+- `inst/simulacra/generate_relaxation.R` — simulate bi-exponential decay from known parameters
+- `inst/simulacra/generate_cross_kingdom.R` — simulate cross-kingdom gene transfer
+- `inst/genealogy/generate_cusp.R` — simulate cusp catastrophe dynamics
+- `inst/genealogy/generate_drift_selection.R` — simulate drift vs selection balance
+- `inst/genealogy/generate_ising.R` — simulate Ising model phase transitions
+- `inst/genealogy/generate_landau.R` — simulate Landau theory energy landscapes
+- `scripts/genealogy/generate_upcycle.py` — simulate upcycling dynamics
 
 These are not design probes. They are **epistemic instruments**. Each simulacrum asks: if the theory is correct, what should we observe? The simulation produces a prediction. The prediction faces empirical data. If they match, the theory gains support. If they don't, the theory fails.
 

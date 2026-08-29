@@ -96,7 +96,7 @@ Percolation link broken (T5). Cusp catastrophe still valid as the potential land
 **Depends on:** T11 (include relaxation stage in the port).
 
 ### T13: Update R package for relaxation formula
-**Problem:** R package has 22 source files, 31 test files, ~9,000 lines, 443 tests passing. Core modules reference the old step-function formula:
+**Problem:** R package has 28 source files, 38 test files, ~12,700 lines, 8417 tests passing. Core modules reference the old step-function formula:
 - `fit_step.R` fits the step function — needs `fit_biexp.R` equivalent
 - `formal_model.R` implements the threshold model — needs relaxation ODE
 - `economics_formula.R` may reference old formula
@@ -108,7 +108,7 @@ Percolation link broken (T5). Cusp catastrophe still valid as the potential land
 2. Add `fit_biexp.R` alongside `fit_step.R` (don't remove — keep for reproducibility)
 3. Add `relaxation_model.R` alongside `formal_model.R`
 4. Update tests: add bi-exp tests, keep step-function tests as regression
-5. Verify 443 tests still pass; add new tests for relaxation formula
+5. Verify 8417 tests still pass; add new tests for relaxation formula
 
 **Output:** Updated R package, all tests green, relaxation formula supported.
 **Effort:** Large.

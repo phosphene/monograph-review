@@ -107,7 +107,7 @@ This is the phosphene tradition: test-informed, not test-driven. The spec doesn'
 | Test runner | `docs/test-runner.html` | Jasmine standalone, loads real module |
 | Interactive explorer | `docs/review/interactive-simulation.html` | Slider-based bi-exponential explorer |
 | Simulation review (R) | `scripts/render_simulation_review.R` | ggplot2 + patchwork figures |
-| Python export | `lib/python/grn/scripts/export_grn_results.py` | JSON data pipeline |
+| Python export | `scripts/genealogy/generate_upcycle.py` | JSON data pipeline |
 
 ## Prior Repository
 

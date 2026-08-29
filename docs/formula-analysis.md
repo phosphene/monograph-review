@@ -1,6 +1,6 @@
 # Formula Analysis — Three-Move Derivation
 
-> **⚠️ Updated August 2026:** The step function formula ρ(θ) = ρ_sat · H(θ − θ*) has been superseded by the relaxation formula dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂). Foundry simulacra showed the step function was a 3-point artifact (n=3 cannot distinguish step from sigmoid) and the percolation/drift-selection derivation paths did not hold. The formal chain Ising → Landau → Cusp is verified, but describes relaxation dynamics, not a phase transition. See [Economics Extrapolations](economics-extrapolations.html) for the updated formula and predictions.
+> **⚠️ Updated August 2026:** The step function formula ρ(θ) = ρ_sat · H(θ − θ*) has been superseded by the relaxation formula dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂). Foundry simulacra showed the step function was a 3-point artifact (n=3 cannot distinguish step from sigmoid) and the percolation/drift-selection derivation paths did not hold. The formal chain Ising → Landau → Cusp is verified, but describes relaxation dynamics, not a phase transition. See [Economics Extrapolations](economics-extrapolations.md) for the updated formula and predictions.
 
 
 **Author:** Flow Feel ([@FlowFeel](https://github.com/FlowFeel))

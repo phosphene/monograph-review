@@ -48,22 +48,30 @@ public scientific language:
 
 ## How to Reproduce
 
+Local R is available (see [Development Environment](docs/development-environment.md) for the non-standard R location, first-time setup, and current gate results).
+
 ```bash
 # Clone and enter
 git clone [https://github.com/phosphene/monograph-review](https://github.com/phosphene/monograph-review).git
 cd monograph-review
 
-# Restore the R environment (exact package versions)
-renv::restore()
+# Set up local R (miniforge R 4.5.3 + minpack.lm) — see docs/development-environment.md
+export PATH="$HOME/.openclaw/tools/miniforge3/bin:$PATH"
+R CMD INSTALL --no-docs --no-multiarch --with-keep-source .
 
-# Run all gates (lint → unit tests → simulacra → integration → regression → check)
+# Run all gates (unit → simulacra → integration → regression)
 make all
 
 # Or run individual gates
-make unit          # Pure unit tests — mathematical correctness, no Docker
-make integration   # Full pipeline on real data via Docker simulacrum stack
+make unit          # Pure unit tests — mathematical correctness
+make integration   # Full pipeline on real data
 make regression    # Compare all results to the baseline oracle
 ```
+
+> Note: the suite's canonical runner is `run_tests.R` (`Rscript run_tests.R <gate>`).
+> This repo does not currently carry a `renv` lockfile; CI pins its environment via
+> the `rocker/tidyverse:4.5.3` container and `setup-r-deps` action. Local runs use
+> the miniforge R plus `minpack.lm`. See [Development Environment](docs/development-environment.md).
 
 ---
 

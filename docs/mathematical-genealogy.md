@@ -253,7 +253,7 @@ The Landau-Lifshitz equation provides the **dynamical form** of the relaxation f
 
 **Status: FALSIFIED.** The percolation model predicted a discontinuous transition at θ* = 0, with ρ jumping from 0 to ρ_sat at the first provision. This is not supported by the data. The relaxation model shows that ρ evolves **continuously** over time, not as a step function of provision depth. The transition is a relaxation process, not a percolation threshold crossing.
 
-**Code preserved at:** `valence-foundry/scripts/genealogy/generate_percolation.py` (ported from `valence-foundry/inst/genealogy/generate_percolation.R`). The R originals are in `valence-foundry/inst/genealogy/reference/`.
+**Code preserved at:** `scripts/genealogy/generate_percolation.py` (ported from `inst/genealogy/generate_percolation.R`). The R original is at `inst/simulacra/generate_percolation.R`.
 
 **What was learned:** The percolation hypothesis was a natural first guess — the dependency network structure suggests that once the host provides any metabolic requirement, the organism should immediately lose the genes for producing it. What the percolation model missed is that gene loss is a **kinetic** process, not an instantaneous one. The relaxation formula captures the kinetics that the percolation model ignored.
 
@@ -263,7 +263,7 @@ The Landau-Lifshitz equation provides the **dynamical form** of the relaxation f
 
 **Status: FALSIFIED.** The Wright-Fisher simulation (T2) tested ρ_sat across a range of population sizes and selection coefficients. The value ρ_sat ≈ 0.35 was not recovered — the simulation produced ρ_sat values ranging from ~0.0 to ~0.99 depending on parameters, with the closest match being 0.247 (N=1000, δ=[0,0.05]). The ρ_sat ≈ 0.35 claim is not supported by the simulation.
 
-**Code preserved at:** `valence-foundry/scripts/genealogy/generate_drift_selection.py` and `valence-foundry/scripts/genealogy/measure_rho_sat.py` (ported from R). The R originals are in `valence-foundry/inst/genealogy/reference/`.
+**Code preserved at:** `scripts/genealogy/generate_drift_selection.py` and `inst/genealogy/measure_rho_sat.R` (ported from R). The R originals are in `inst/genealogy/`.
 
 **What was learned:** The drift-selection boundary hypothesis attempted to explain the observed ρ values as a population-genetic equilibrium. The simulation showed that ρ is not a universal constant but depends on the population-genetic parameters. The relaxation formula, which does not require a universal ρ_sat, is a better fit to the data. The equilibrium values ρ₁ and ρ₂ in the relaxation formula are **system-specific**, not universal.
 
@@ -326,14 +326,14 @@ Each step is a **formal identity**, not an analogy:
 
 ### Simulation Verification (T11)
 
-The relaxation formula has been tested in simulation. The results (`valence-foundry/inst/results/genealogy-relaxation-results.json`) confirm:
+The relaxation formula has been tested in simulation. The results (`inst/results/genealogy-relaxation-results.json`) confirm:
 
 - **Ground truth:** k₁ = 5.0, k₂ = 0.3, k₁/k₂ = 16.7
 - **Parameter recovery:** k₁ recovered within 9.4% error, k₂ within 13.9% error
 - **Model comparison:** ΔAIC (bi-exp vs mono-exp) = −89.99 — the bi-exponential model is decisively preferred over the mono-exponential null
 - **Pass criterion:** ΔAIC < −4 (met: ΔAIC = −90)
 
-The simulation generates bi-exponential data from known parameters, adds noise, and tests whether the fitter can recover the ground truth and distinguish bi-exp from mono-exp. The code is at `valence-foundry/inst/genealogy/generate_relaxation.py` with matching R simulacra at `valence-foundry/inst/simulacra/generate_relaxation.R`.
+The simulation generates bi-exponential data from known parameters, adds noise, and tests whether the fitter can recover the ground truth and distinguish bi-exp from mono-exp. The code is at `inst/genealogy/generate_relaxation.py` with matching R simulacra at `inst/simulacra/generate_relaxation.R`.
 
 ### What the Formula Means
 

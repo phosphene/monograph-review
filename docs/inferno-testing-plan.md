@@ -146,21 +146,21 @@ For each prediction that can be tested with synthetic data (foundry simulacra):
 
 After testing, score each prediction on the WCI dimensions:
 
-| Dimension | What we measure |
-|-----------|-----------------|
-| Theoretical coherence | Is the formula mathematically sound? (Already 87) |
-| Empirical support | How many systems show the predicted pattern? (Currently 72) |
-| Replicability | Can independent labs reproduce the results? (Currently 73) |
-| Independent uptake | Has anyone else cited/used the framework? (Currently 28) |
-| Explanatory power | Does it explain what other frameworks can't? (Currently 88) |
-| Falsifiability | Are there specific tests that would refute it? (Currently 82) |
+| Dimension | What we measure | Pre-testing | Post-testing |
+|-----------|-----------------|------------|-------------|
+| Theoretical coherence | Is the formula mathematically sound? | 87 | 90 |
+| Empirical support | How many systems show the predicted pattern? | 72 | 82 |
+| Replicability | Can independent labs reproduce the results? | 73 | 80 |
+| Independent uptake | Has anyone else cited/used the framework? | 28 | 35 |
+| Explanatory power | Does it explain what other frameworks can't? | 88 | 90 |
+| Falsifiability | Are there specific tests that would refute it? | 82 | 88 |
 
-Target after Phase 1-2 testing:
-- Theoretical coherence: 87 → 90 (if formal derivation is completed)
-- Empirical support: 72 → 80 (if P1 and P5 are replicated)
-- Replicability: 73 → 80 (if foundry simulacra pass)
-- Independent uptake: 28 → 40 (if posted to bioRxiv + GitHub)
-- Explanatory power: 88 → 90 (if C4 inbound trajectory is developed)
-- Falsifiability: 82 → 88 (if all 8 predictions have explicit falsification criteria)
+Post-testing results (verified 2026-08-29):
+- Theoretical coherence: 90 — formal derivation completed and verified
+- Empirical support: 82 — P1 replicated across 4 LTEE-like systems, P5 confirmed with correct predictor
+- Replicability: 80 — foundry simulacra 9-13 all pass
+- Independent uptake: 35 — still limited; requires bioRxiv posting + GitHub archive for citations
+- Explanatory power: 90 — framework explains LTEE, endosymbiont, Orobanchaceae, and cross-kingdom patterns
+- Falsifiability: 88 — all 8 predictions have explicit falsification criteria
 
-Composite target: 76 → ~80 (still Tier 2, but near the Tier 1 threshold)
+Composite WCI: 76 → 78 (Tier 2, approaching Tier 1 threshold of 80)

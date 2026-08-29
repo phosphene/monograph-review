@@ -217,4 +217,4 @@ The irreversibility operates through two mechanisms that correspond to the two c
 
 ---
 
-*Analysis script: `drafts/valence-ingress/scripts/p8_reintroduction_analysis.py`*
+*Analysis script: `scripts/p8_irreversibility.py`*

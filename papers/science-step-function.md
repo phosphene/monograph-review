@@ -189,7 +189,7 @@ The *Homo* macroevolutionary inversion (10) — speciation rates increasing rath
 
 **Grambank.** 2,467 languages, 195 binary grammatical features (5). Feature dependency = mean absolute pairwise correlation. θ = 1 − (features present / max). ρ = Spearman(feature dependency, feature presence) per language.
 
-All code and data: github.com/phosphene/monograph-review (branch: feature/formula-analysis).
+All code and data: github.com/phosphene/monograph-review (default branch: main).
 
 ## Acknowledgments
 

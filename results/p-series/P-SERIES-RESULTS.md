@@ -76,7 +76,7 @@
 | Gate | Result | Notes |
 |------|--------|-------|
 | Integration (incl. P-series) | 13 pass, 0 fail | P-series proof objects valid |
-| Unit | 15 fail / 550 pass | **Pre-existing** — fit_biexp, predict_bird_ordering, relaxation_phase_analysis failures in unmodified files (git-clean). Not caused by P-series. |
+| Unit | 15 fail / 550 pass | **Pre-existing at INFERNO 79 (2026-08-24)** — resolved since; current gate (2026-08-29): 8417 pass / 0 fail / 11 skipped. The `fit_biexp`, `predict_bird_ordering`, `relaxation_phase_analysis` failures were in unmodified files (git-clean) and not caused by P-series. |
 | P-series direct | 5/5 computed | P1–P5 results in `results/p-series/` (P1, P4, P5 positive; P2 wrong-system confirm; P3 continuous ordering) |
 
 ---

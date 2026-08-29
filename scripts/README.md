@@ -14,7 +14,7 @@
 
 ## Data Dependencies
 
-- `p5_niche_mismatch.py` and `endosymbiont_pgls.py` require data in `drafts/valence-ingress/data/endosymbionts/`
+- `p5_niche_mismatch.py` and `endosymbiont_pgls.py` are legacy scripts that reference the old `drafts/valence-ingress/` data directory (now archived). Endosymbiont data is at `data/endosymbiont_genome_data.tsv` and `data/endosymbiont_rho_results.json`. The scripts may need path updates to run.
 - `island_birds_pgls.py` requires Wright 2016 dataset in `data/island-birds/`
 - `p6_substrate.py` and `p8_irreversibility.py` have all data embedded
 - `simulacra_9_13.py` generates synthetic data internally
@@ -37,7 +37,9 @@
 
 All scripts use `python3` (Python 3.10+). Dependencies: numpy, scipy, statsmodels, matplotlib, scikit-learn.
 
-For the uv workspace:
+From the repository root:
 ```bash
-cd lib/python && uv run python ../../valence-foundry/scripts/<script>.py
+python3 scripts/<script>.py
 ```
+
+(Python 3.10+ required; dependencies: numpy, scipy, statsmodels, matplotlib, scikit-learn.)
