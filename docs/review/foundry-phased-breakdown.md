@@ -13,21 +13,25 @@ tracked here is the review's items 4–6.
 
 ## At a glance
 
+Verified locally (R 4.5.3, miniforge, 2026-08-29, after the NAMESPACE fix —
+see [`development-environment.md`](../development-environment.md)).
+
 | Gate | Files | Cases | Status |
 |------|------:|------:|--------|
-| Unit (`make unit`) | 10 | 309 expectations | ✅ green |
-| Simulacra (`make simulacra`) | 5 | 107 expectations | ✅ green |
-| Integration (`make integration`) | 1 | 13 expectations (1 skip) | ✅ green |
-| Regression (`make regression`) | 1 | 4 pass / 7 skips | ⚠️ items 4–6 |
-| **Full suite** | **17** | **433 pass / 0 fail / 8 skip** | ✅ no failures |
+| Unit (`make unit`) | 14 | 671 pass / 1 skip | ✅ green |
+| Simulacra (`make simulacra`) | 9 | 266 pass | ✅ green |
+| Integration (`make integration`) | 1 | 13 pass / 1 skip | ✅ green |
+| Regression (`make regression`) | 1 | 15 pass / 7 skips | ⚠️ items 4–6 |
+| **Full suite** | **38** | **8417 pass / 0 fail / 11 skip** | ✅ no failures |
 
 Coverage gate (CI, `unit` job): ≥ 80%, enforced. Lint (`lintr`): non-blocking
 advisory in CI. R CMD check (`check` job): `error_on = "error"`.
 
-The 8 skips are not failures: 1 integration skip is the Postgres round-trip
+The 11 skips are not failures: 1 integration skip is the Postgres round-trip
 (requires `RUN_DB_INTEGRATION=true` / the Docker stack); 7 regression skips are
 2 missing datasets (items 4–5), 4 data-version drift where the science holds
-(item 6), and 1 method misspecification (T3, R6).
+(item 6), and 1 method misspecification (T3, R6); the remaining skips are a
+plot-render and a pipeline stage exercised elsewhere.
 
 ---
 
@@ -61,8 +65,9 @@ The 8 skips are not failures: 1 integration skip is the Postgres round-trip
   data loaders and contracts.
 - Every function returns an **A6 proof object** (`values` + `metadata` with
   seed, n, convergence, elapsed); `validate_result()` enforces the contract.
-- `test-unit-*.R` — 10 files, 309 expectations. Pure math, contracts,
-  determinism. No Docker, no filesystem.
+- `test-unit-*.R` — 14 files, 671 pass / 1 skip (as of 2026-08-29; the
+  phase originally built 10 files / 309 expectations, since grown). Pure
+  math, contracts, determinism. No Docker, no filesystem.
 
 **Status:** complete (green).
 
@@ -76,9 +81,11 @@ synthetic data, and proving they do *not* recover under the null.
   `generate_autocatalytic`), sourced into the test process via
   [`helper-simulacra.R`](../../tests/testthat/helper-simulacra.R) (DFT A5: real
   in-process fakes, not mocks).
-- `test-simulacrum-*.R` — 5 files, 107 expectations. Each: generate from known
-  θ\*, run the pipeline, assert θ̂ falls in the 95% CI of θ\*; then generate
-  from a null and assert the pipeline does *not* recover (specificity).
+- `test-simulacrum-*.R` — 9 files, 266 pass (as of 2026-08-29; the phase
+  originally built 5 files / 107 expectations, since grown). Each: generate
+  from known θ\*, run the pipeline, assert θ̂ falls in the 95% CI of θ\*;
+  then generate from a null and assert the pipeline does *not* recover
+  (specificity).
 - `baseline/simulacra-oracle.yml` — the known true parameters the simulacra
   must recover.
 

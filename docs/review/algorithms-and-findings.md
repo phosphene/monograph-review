@@ -812,19 +812,22 @@ case is partially made and the path to completing it is known.**
 
 ## Appendix — Gate status and provenance
 
+Verified locally (R 4.5.3, miniforge, 2026-08-29, after the NAMESPACE fix —
+see [`development-environment.md`](../development-environment.md)).
+
 | Gate | Files | Cases | Status |
 |------|------:|------:|--------|
-| Unit | 11 | 461 (1 skip) | ✅ green |
-| Simulacra | 5 | 109 | ✅ green |
-| Integration | 1 | 13 (1 skip) | ✅ green |
+| Unit | 14 | 671 pass / 1 skip | ✅ green |
+| Simulacra | 9 | 266 pass | ✅ green |
+| Integration | 1 | 13 pass / 1 skip | ✅ green |
 | Regression | 1 | 15 pass / 7 skip | ⚠️ items 4–6, R6 |
-| **Full suite** | **18** | **598 pass / 0 fail / 9 skip** | ✅ no failures |
+| **Full suite** | **38** | **8417 pass / 0 fail / 11 skip** | ✅ no failures |
 
-The 9 skips: 1 integration (Postgres round-trip, requires Docker stack); 7
+The 11 skips: 1 integration (Postgres round-trip, requires Docker stack); 7
 regression (2 missing datasets — Items 4–5; 4 data-version drift where the
-science holds — Item 6; 1 method misspecification — T3, R6); 1 unit (a
-context warning guard). None are failures;
-all report exact reasons.
+science holds — Item 6; 1 method misspecification — T3, R6); the remaining
+skips are a plot-render and a pipeline stage exercised elsewhere. None are
+failures; all report exact reasons.
 
 | Oracle entry | Distinguishes the framework? | Status |
 |---|---|---|

@@ -478,7 +478,7 @@ to the exact test, with proof.*
 | Metric | Before | After |
 |--------|--------|-------|
 | Regression gate | 0 pass / 9 skip | **4 pass / 7 skip** |
-| Full suite | 429 pass / 10 skip | **433 pass / 8 skip** |
+| Full suite | 429 pass / 10 skip | **433 pass / 8 skip** (state at review completion; as of 2026-08-29 the full suite is 8417 pass / 0 fail / 11 skip) |
 | Entries contradicting the framework | 1 (T4) | **0** |
 | Discriminating entries passing | 0 | **3** (T5, formal_model pass; T4 confirms) |
 
