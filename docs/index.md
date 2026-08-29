@@ -1,8 +1,8 @@
-# Valence Foundry — Index
+# The Foundry — Index
 
 ## What This Is
 
-The foundry is the testing infrastructure for the Valence-Ingression relaxation formula. It contains:
+The foundry is the testing infrastructure for the relaxation formula of the framework under review. It contains:
 
 1. **Simulacra** — synthetic data tests that verify the statistical pipeline
 2. **Empirical tests** — real data analyses testing predictions P1-P8

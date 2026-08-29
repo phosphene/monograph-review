@@ -6,7 +6,7 @@
 **Trigger:** the merged-main CI run (`d572c43`, run 33198990411) — the first
 full-suite coverage run to reach the cross-kingdom unit test.
 
-> This is the operational form of the vintage-label standard, applied to a
+> This is the operational form of the claim-evidence conformance standard, applied to a
 > sign convention. The CI did not fail because the test was wrong; it failed
 > because the *code contradicted its own documentation and its own simulacrum*.
 > Once the gate finally ran the whole suite, the contradiction was
@@ -39,7 +39,7 @@ knew the correct direction, and all three were contradicted by the negation:
 > `rank(a*x) = rank(x)` for any a > 0 ... a positive plant slope yields the
 > same ordering as dependency_score itself.
 
-The code negated; the documentation said direct. A vintage-label violation:
+The code negated; the documentation said direct. A claim-evidence conformance violation:
 label and contents disagreed on the most important property of the function.
 
 **(b) The plant fixture.** `fit_plant_model`'s own fixture is
@@ -95,7 +95,7 @@ The same merged-main run surfaced a second failure: `test-unit-fit-biexp.R`
 T15 asserted that a degenerate sample (`t_max = 56500`) *reports mono*. The
 real-R fitter selects bi on that seed. That test had been validated against
 **Python's** RNG (`numpy.default_rng(42)`), not R's Mersenne-Twister — a
-vintage-label violation of the same family: asserting R behavior without
+claim-evidence conformance violation of the same family: asserting R behavior without
 running R. The fix (PR #3) asserts the RNG-independent boundary-probe
 guarantee instead: mono/linear, *or* a selected bi whose fitted fast channel
 is itself unresolvable at that sampling (`k1·dt > 1`) — true by the math

@@ -17,7 +17,7 @@ Osborne), rationale.}
 List (A6 proof object): values + metadata.
 }
 \description{
-Does the C4 photosynthesis syndrome show the VI integration-depth signature?
+Does the C4 photosynthesis syndrome show the framework integration-depth signature?
 Christin & Osborne (2014, New Phytol) provide (a) a hierarchical
 deconstruction of the C4 syndrome into phenotypic levels (Table 1: Niche >
 Physiology > Function > Character > Characteristic > Component) and
@@ -27,9 +27,9 @@ independently of their taxonomic origin" while the underlying CHARACTERS
 sets" of components, with components "repeatedly co-opted."
 }
 \details{
-VI prediction: the shared/invariant elements sit HIGHER in the integration
+the framework's prediction: the shared/invariant elements sit HIGHER in the integration
 hierarchy (function converges = protected attractor), the varying elements
 sit LOWER (mechanism diverges = modular substrate). Both the hierarchy and
 the shared/varying coding come from the independent C4 literature, not from
-VI — the test is whether they align.
+the framework — the test is whether they align.
 }

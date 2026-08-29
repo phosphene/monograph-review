@@ -15,9 +15,9 @@ Loads morphological change rankings for island bird flight-loss traits.
 \section{Theoretical Context}{
 
 
-Tests valence L3 Prediction: plant-derived integration-depth parameters
+Tests the framework L3 Prediction: plant-derived integration-depth parameters
 predict bird morphological change ordering across kingdoms.
 Competitor: substrates are independent — no parameter transfer.
-DOES distinguish valence. This is the strongest test in the monograph.
+DOES distinguish the framework. This is the strongest test in the monograph.
 }
 

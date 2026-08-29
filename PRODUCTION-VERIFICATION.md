@@ -1,6 +1,6 @@
 # Production Formal Model Verification Guide
 
-This document describes how to verify the production-quality upgrade of the Valence Foundry formal model module.
+This document describes how to verify the production-quality upgrade of The Foundry formal model module.
 
 ## Changes Summary
 
@@ -46,11 +46,11 @@ This document describes how to verify the production-quality upgrade of the Vale
 
 ## Verification Commands
 
-Run these commands from the valence-foundry repository root:
+Run these commands from the foundry repository root:
 
 ```bash
 # Step 1: Install dependencies and document package
-cd lib/python  # or valence-foundry root if running from there
+cd lib/python  # or the foundry root if running from there
 Rscript -e 'devtools::document()'
 
 # Step 2: Run all tests (existing + new invariants)
@@ -176,6 +176,6 @@ git commit -m "feat(formal-model): S3 classes, closed-form proofs, invariant tes
 Once verified:
 
 1. Merge to main branch via PR
-2. Update dependency versions in parent repos that reference valence-foundry
+2. Update dependency versions in parent repos that reference the foundry
 3. Consider publishing to Posit Package Manager for team-wide use
 4. Update README.md to reflect new S3 methods and proof capabilities

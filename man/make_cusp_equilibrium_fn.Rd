@@ -27,7 +27,7 @@ Issue 4, resolved in Phase 3).
 \section{Theoretical Context}{
 
 
-Valence Prediction: irreversibility — the cusp catastrophe's fold bifurcation
+The framework Prediction: irreversibility — the cusp catastrophe's fold bifurcation
 produces path-dependent equilibria. For \code{a < 0}, the system has two stable
 equilibria separated by an unstable one; crossing the bifurcation set
 (\verb{4a^3 + 27b^2 = 0}) forces a sudden jump to the other branch. The branch-

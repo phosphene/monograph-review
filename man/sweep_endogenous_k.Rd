@@ -41,7 +41,7 @@ feedback = 2/3; the measured bifurcation (from the linear regression in
 \section{Theoretical Context}{
 
 
-Valence Prediction: the Homo inversion is a bifurcation — there is a threshold
+The framework Prediction: the Homo inversion is a bifurcation — there is a threshold
 in cultural complexity (feedback strength) beyond which diversity-
 dependence flips from negative (niche-filling) to positive (autocatalytic).
 This sweep makes the bifurcation explorable: below the threshold, the

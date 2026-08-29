@@ -4,7 +4,7 @@
 \alias{empirical_test_classes}
 \title{Empirical Test Result Classes (S3 three-layer pattern)}
 \description{
-S3 class hierarchy for empirical test results in the vi-foundry package.
+S3 class hierarchy for empirical test results in the valence.foundry package.
 Each class follows Phosphene R Standards §7: constructor → validator →
 public helper, plus standard generics \code{print()}, \code{summary()}, and
 \code{as.data.frame()}.
@@ -16,9 +16,9 @@ empirical test:
 \item \code{test_name}: character. Identifier of the test (e.g. "pgls_orobanchaceae").
 \item \code{statistic}: numeric. Scalar test statistic.
 \item \code{p_value}: numeric in \link{0, 1} (or \code{NA}). Test p-value.
-\item \code{vi_prediction}: character. Plain-language statement of what VI predicts.
-\item \code{discriminating}: logical. Whether the test distinguishes VI from
-competitors (as opposed to merely being consistent with VI).
+\item \code{vi_prediction}: character. Plain-language statement of what the framework predicts.
+\item \code{discriminating}: logical. Whether the test distinguishes the framework from
+competitors (as opposed to merely being consistent with the framework).
 \item \code{status}: character. \code{"significant"}, \code{"not_significant"}, or \code{"n/a"}.
 \item \code{values}: list. Test-specific value fields (the raw result \code{values}).
 \item \code{metadata}: list. Provenance and bookkeeping fields.

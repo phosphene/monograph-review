@@ -33,7 +33,7 @@ logistic transition width.
 \section{Theoretical Context}{
 
 
-VI Formula Prediction: s → ∞ — the transition width is zero. In economic
+the framework Formula Prediction: s → ∞ — the transition width is zero. In economic
 terms, capacity collapse is a step at the provision threshold, not a
 gradual curve. The standard logistic or exponential decay models are
 wrong: they predict a finite transition width. The formula predicts

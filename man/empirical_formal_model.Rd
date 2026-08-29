@@ -48,7 +48,7 @@ author's script had a data-flattening bug (\code{as.vector(t(retention))} is
 species-major; \code{rep(dep_scores, each = 8)} is gene-major) that scrambled
 \code{dep} and \code{retention}, producing the wrong sign on \code{dep} (−0.83 instead
 of +0.84). With the corrected dataset (\code{load_retention_matrix()}), the
-GLM confirms valence: \code{dep > 0} (p < 0.001), \code{para < 0} (p < 0.001),
+GLM confirms the framework: \code{dep > 0} (p < 0.001), \code{para < 0} (p < 0.001),
 cross-kingdom ρ = +0.755. See Remark R7 and
 \code{docs/review/formal-model-reproduction.md}.
 
@@ -58,7 +58,7 @@ simulation, which does not fit data and cannot fail empirically).
 \section{Theoretical Context}{
 
 
-Valence Prediction: \code{dep > 0} (deeper integration → higher retention),
+The framework Prediction: \code{dep > 0} (deeper integration → higher retention),
 \code{para < 0} (deeper parasitism → lower retention), and cross-kingdom
 ρ > 0 (plant-derived model predicts bird ordering).
 
@@ -71,7 +71,7 @@ substrate-independence (ρ ≈ 0 or negative).
 plant <- load_retention_matrix()
 bird <- load_island_birds()
 result <- empirical_formal_model(plant$data, bird$data)
-result$values$dep_coefficient  # ~ +0.84 (valence predicts > 0)
+result$values$dep_coefficient  # ~ +0.84 (the framework predicts > 0)
 result$values$cross_kingdom_rho  # ~ +0.755
 }
 }

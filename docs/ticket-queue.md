@@ -5,7 +5,7 @@ status: living
 updated: 2026-08-18
 ---
 
-# Valence Foundry — Ticket Queue
+# The Foundry — Ticket Queue
 
 ## Design Principles
 

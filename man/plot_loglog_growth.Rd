@@ -28,13 +28,13 @@ which.
 \section{Theoretical Context}{
 
 
-Valence Prediction: positive diversity-dependence in the cultural substrate
+The framework Prediction: positive diversity-dependence in the cultural substrate
 (the Homo inversion). Competitor: standard niche-filling predicts
 negatively diversity-dependent (logistic) growth. This test DOES
-distinguish valence from niche-filling.
+distinguish the framework from niche-filling.
 
-What supports valence: log-log slope > 1 (superlinear growth).
-What refutes valence: log-log slope <= 1 (linear or sublinear).
+What supports the framework: log-log slope > 1 (superlinear growth).
+What refutes the framework: log-log slope <= 1 (linear or sublinear).
 }
 
 \examples{

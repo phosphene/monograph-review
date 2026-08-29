@@ -28,7 +28,7 @@ improved gene-name-to-b-number mapping (93\% coverage via STRING aliases
 \section{Theoretical Context}{
 
 
-VI Prediction: genes with high niche-specific dependency should be
+the framework's prediction: genes with high niche-specific dependency should be
 preserved longer (lost LATER, in the slow k2 phase); low-dependency
 genes should be lost early (fast k1 phase).
 
@@ -38,10 +38,10 @@ dependency. Cooper & Lenski (2000) antagonistic pleiotropy predicts
 HIGH-dependency genes LOST EARLY when their loss is beneficial in the
 niche (directional cost-shedding).
 
-What supports VI: positive timing_rho (high dependency lost later).
-What refutes VI: negative timing_rho (high dependency lost earlier) —
+What supports the framework: positive timing_rho (high dependency lost later).
+What refutes the framework: negative timing_rho (high dependency lost earlier) —
 though this is ALSO consistent with Phase 2 directional cost-shedding
-(VI predicts high-MISMATCH genes lost early, and high global dependency
+(the framework predicts high-MISMATCH genes lost early, and high global dependency
 can coincide with high niche-mismatch).
 }
 

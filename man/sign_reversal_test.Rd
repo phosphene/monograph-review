@@ -17,6 +17,6 @@ sign_reversal_test(homo_gl, nonhomo_gl, config = "unknown")
 List (A6: proof object).
 }
 \description{
-VI predicts: Homo (β > 1) has positive DD speciation;
+the framework predicts: Homo (β > 1) has positive DD speciation;
 non-Homo (β < 1) has negative DD speciation.
 }

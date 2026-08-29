@@ -27,16 +27,16 @@ margin using ape::plot.phylo.
 \section{Theoretical Context}{
 
 
-Valence Prediction D5: plastome size correlates with parasitism level —
+The framework Prediction D5: plastome size correlates with parasitism level —
 organisms committing to deeper parasitic niches lose plastome capacity
 in proportion to commitment depth. The PGLS lambda parameter corrects
 for phylogenetic non-independence. Competitor: relaxed selection
 (Lahti et al. 2009) predicts the same gradient through a different
 mechanism.
 
-What supports valence: significant negative beta (parasitism -> smaller plastome).
-What refutes valence: no correlation, or positive correlation.
-This test does NOT distinguish valence from relaxed selection.
+What supports the framework: significant negative beta (parasitism -> smaller plastome).
+What refutes the framework: no correlation, or positive correlation.
+This test does NOT distinguish the framework from relaxed selection.
 }
 
 \examples{

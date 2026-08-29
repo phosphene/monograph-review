@@ -27,12 +27,12 @@ ordering from integration depth).
 \section{Theoretical Context}{
 
 
-Valence Prediction: integration-depth parameters transfer across kingdoms.
+The framework Prediction: integration-depth parameters transfer across kingdoms.
 Competitor: substrates are independent — no parameter transfer. This
-test DOES distinguish valence. This is the strongest test in the monograph.
+test DOES distinguish the framework. This is the strongest test in the monograph.
 
-What supports valence: bird ordering predicted by plant-derived slope matches
-observed ordering (high Spearman rho). What refutes valence: no match
+What supports the framework: bird ordering predicted by plant-derived slope matches
+observed ordering (high Spearman rho). What refutes the framework: no match
 (rho near zero).
 }
 

@@ -28,16 +28,16 @@ Orobanchaceae, controlling for phylogenetic non-independence via PGLS.
 \section{Theoretical Context}{
 
 
-Valence Prediction D5: plastome size correlates with parasitism level —
+The framework Prediction D5: plastome size correlates with parasitism level —
 organisms committing to deeper parasitic niches lose plastome capacity
 in proportion to commitment depth.
 
 Competitor: relaxed selection (Lahti et al. 2009) predicts the same
 gradient through a different mechanism (stabilizing selection relaxes
-proportional to parasitism depth). This test does NOT distinguish valence
+proportional to parasitism depth). This test does NOT distinguish the framework
 from relaxed selection — caveat in paper §12.1.2.
 
-What supports valence: significant negative beta (parasitism → smaller plastome).
-What refutes valence: no correlation, or positive correlation.
+What supports the framework: significant negative beta (parasitism → smaller plastome).
+What refutes the framework: no correlation, or positive correlation.
 }
 

@@ -255,7 +255,7 @@ for i, (t, r) in enumerate(zip(theta_3, rho_3)):
     ax.annotate(labels[i], (t, r), textcoords="offset points", xytext=(8, 8), fontsize=9)
 
 ax.set_xlabel('θ (niche dependency)', fontsize=11)
-ax.set_ylabel('ρ (valence effect)', fontsize=11)
+ax.set_ylabel('ρ (framework effect)', fontsize=11)
 ax.set_title('Model Comparison: Step vs Sigmoid\n(3 comparable points)', fontsize=12)
 ax.legend(fontsize=9)
 ax.grid(True, alpha=0.3)

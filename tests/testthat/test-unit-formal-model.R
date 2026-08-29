@@ -163,13 +163,13 @@ test_that("empirical_formal_model returns A6 proof object", {
 
 test_that("empirical_formal_model recovers positive dep on synthetic data", {
   result <- empirical_formal_model(.synthetic_retention, .synthetic_bird)
-  expect_gt(result$values$dep_coefficient, 0)  # valence predicts dep > 0
+  expect_gt(result$values$dep_coefficient, 0)  # the framework predicts dep > 0
   expect_true(result$values$dep_positive)
 })
 
 test_that("empirical_formal_model recovers negative para on synthetic data", {
   result <- empirical_formal_model(.synthetic_retention, .synthetic_bird)
-  expect_lt(result$values$para_coefficient, 0)  # valence predicts para < 0
+  expect_lt(result$values$para_coefficient, 0)  # the framework predicts para < 0
   expect_true(result$values$para_negative)
 })
 
@@ -179,7 +179,7 @@ test_that("empirical_formal_model is deterministic (A2 — no RNG)", {
   expect_equal(r1$values, r2$values)
 })
 
-test_that("empirical_formal_model confirms valence on real retention matrix", {
+test_that("empirical_formal_model confirms the framework on real retention matrix", {
   skip_if_not(
     has_bundled_data("orobanchaceae_retention_matrix.tsv"),
     "Retention matrix not bundled"
@@ -193,7 +193,7 @@ test_that("empirical_formal_model confirms valence on real retention matrix", {
   bird <- load_island_birds()
   result <- empirical_formal_model(plant$data, bird$data)
 
-  # valence predictions (Remark R7): corrected flattening gives the right signs
+  # the framework's predictions (Remark R7): corrected flattening gives the right signs
   expect_gt(result$values$dep_coefficient, 0)
   expect_lt(result$values$para_coefficient, 0)
   expect_gt(result$values$cross_kingdom_rho, 0)

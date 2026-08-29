@@ -25,13 +25,13 @@ interval whiskers shown for the observed proportion.
 \section{Theoretical Context}{
 
 
-Valence Prediction: function-loss mutations co-segregate with beneficial
+The framework Prediction: function-loss mutations co-segregate with beneficial
 mutations (passive drift in unused genes). Competitor: independent
 assortment predicts 61.7\% co-segregation. Reported as suggestive due
 to hitchhiking confound.
 
-What supports valence: observed co-segregation is significantly lower than
-expected by chance. What refutes valence: observed rate equals or exceeds
+What supports the framework: observed co-segregation is significantly lower than
+expected by chance. What refutes the framework: observed rate equals or exceeds
 expected rate.
 }
 

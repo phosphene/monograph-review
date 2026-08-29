@@ -101,7 +101,7 @@ print.valence_threshold_result <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_threshold_result Object
+#' Summary of the framework_threshold_result Object
 #'
 #' Returns a tidy data.frame summarizing key metrics. Useful for programmatic
 #' access and comparison across multiple simulations.
@@ -334,10 +334,10 @@ print.valence_glm_fit <- function(x, ...) {
               vals$intercept, vals$dep_p_value))
   cat(sprintf("  dependency_score:            %.4f (p = %.4g) %s\n",
               vals$dep_coefficient, vals$dep_p_value,
-              ifelse(vals$dep_positive, "[valence PREDICTION]", "")))
+              ifelse(vals$dep_positive, "[framework prediction]", "")))
   cat(sprintf("  parasitism_score:            %.4f (p = %.4g) %s\n",
               vals$para_coefficient, vals$para_p_value,
-              ifelse(vals$para_negative, "[valence PREDICTION]", "")))
+              ifelse(vals$para_negative, "[framework prediction]", "")))
   cat(sprintf("  Pseudo R² (McFadden):        %.4f\n", vals$pseudo_r_squared))
   cat("\n")
 
@@ -347,7 +347,7 @@ print.valence_glm_fit <- function(x, ...) {
               vals$cross_kingdom_rho, vals$cross_kingdom_p))
   cat("\n")
 
-  cat("valence Confirmation Status:\n")
+  cat("framework Confirmation Status:\n")
   cat(sprintf("  dep > 0:                      %s\n", ifelse(vals$dep_positive, "✓ YES", "✗ NO")))
   cat(sprintf("  para < 0:                     %s\n", ifelse(vals$para_negative, "✓ YES", "✗ NO")))
   cat(sprintf("  ρ > 0:                        %s\n", ifelse(vals$cross_kingdom_rho > 0, "✓ YES", "✗ NO")))
@@ -356,7 +356,7 @@ print.valence_glm_fit <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_glm_fit Object
+#' Summary of the framework_glm_fit Object
 #'
 #' Returns a tidy data.frame of model diagnostics.
 #'
@@ -436,7 +436,7 @@ plot.valence_glm_fit <- function(x, ...) {
     geom_hline(yintercept = 0, linetype = "dashed") +
     geom_text(aes(label = significance), vjust = -0.5, size = 5) +
     labs(title = "Coefficient Estimates",
-         subtitle = "valence predicts dep > 0, para < 0",
+         subtitle = "the framework predicts dep > 0, para < 0",
          x = "Predictor",
          y = "Coefficient Estimate") +
     theme_minimal(base_size = 10) +
@@ -493,7 +493,7 @@ print.valence_equilibrium <- function(x, ...) {
   invisible(x)
 }
 
-#' Summary of valence_equilibrium Object
+#' Summary of the framework_equilibrium Object
 #'
 #' @param object valence_equilibrium object.
 #' @param ... Ignored.

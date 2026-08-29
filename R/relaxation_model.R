@@ -1,6 +1,6 @@
 #' Relaxation formula model: ODE simulation of biphasic decay
 #'
-#' Implements the valence relaxation formula:
+#' Implements the framework relaxation formula:
 #' \deqn{\frac{d\rho}{dt} = -k_1(\rho - \rho_1) - k_2(\rho - \rho_2)}
 #' where \eqn{\rho} is the retention correlation, \eqn{k_1, k_2} are rate
 #' constants for two independent relaxation channels, and \eqn{\rho_1, \rho_2}
@@ -38,7 +38,7 @@
 #'
 #' The relaxation formula has the same mathematical form as the
 #' Landau-Lifshitz equation \eqn{dM/dt = -\partial F/\partial M}:
-#' both describe gradient descent in a potential well. The valence formula
+#' both describe gradient descent in a potential well. The framework formula
 #' \eqn{d\rho/dt = -k_1(\rho - \rho_1) - k_2(\rho - \rho_2)} is the
 #' discrete two-channel version of the Landau-Lifshitz continuous
 #' relaxation.

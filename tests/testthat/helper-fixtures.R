@@ -1,4 +1,4 @@
-# helper-fixtures.R — Shared test fixtures for valence foundry
+# helper-fixtures.R — Shared test fixtures for the foundry
 #
 # DFT A5: Real in-process fakes, not mocks.
 # fake_data_loader returns real dataframes from in-memory fixtures.

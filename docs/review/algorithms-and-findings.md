@@ -1,4 +1,4 @@
-# The valence-foundry Algorithms, Applications, and Findings — A Formal Survey
+# The foundry Algorithms, Applications, and Findings — A Formal Survey
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
@@ -8,11 +8,11 @@
 
 ## What this document is
 
-This is the formal, literate survey of the `valence-foundry` computational pipeline:
+This is the formal, literate survey of the `the foundry` computational pipeline:
 what each algorithm *is*, what prediction it *tests*, what competing hypothesis
 it *distinguishes against*, and — once the math, the implementation, and the
 claims have been reconciled — what the results actually *indicate* about the
-Valence-Ingression framework.
+framework under review.
 
 It is written to be read in one pass by a reader who has not run the code. Each
 section presents an algorithm's mathematical structure, its implementation, the
@@ -30,7 +30,7 @@ claims:
   implementation against the claims (seven issues, all resolved).
 - [`refactoring-plan.md`](refactoring-plan.md) — the three-phase execution plan
   that resolved those issues, with an execution log and exit-gate evidence.
-- [`valence-ingression-review.md`](valence-ingression-review.md) — the critical
+- [`manuscript-review.md`](manuscript-review.md) — the critical
   review of the monograph and the foundry (Remarks R1–R6, Review Items 1–6).
 
 Where those documents give the *evidence*, this document gives the *reading*.
@@ -47,14 +47,14 @@ capacity-reallocation sub-prediction applied to plastome reduction,
 endosymbiont genome reduction, gene-loss ordering, LTEE function-loss
 co-segregation, niche-vs-Ne, pan-genome fluidity, and cross-kingdom parameter
 transfer (Remark R3). A reader should not conclude that a green foundry
-"confirms valence" in its broadest form. The foundry confirms (or fails to confirm)
+"confirms the framework" in its broadest form. The foundry confirms (or fails to confirm)
 the *capacity-reallocation-by-integration-depth* mechanism, in the
 genome-reduction domain.
 
 Throughout, **"corroborate"** means "the data is consistent with the
 prediction"; **"discriminate"** means "the competing hypothesis predicts a
-different pattern, so the result actually favours valence over the competitor." A
-test can corroborate valence without discriminating it (T1, T2, T7) — that is
+different pattern, so the result actually favours the framework over the competitor." A
+test can corroborate the framework without discriminating it (T1, T2, T7) — that is
 not a weakness of the test, it is a property of the prediction.
 
 ---
@@ -162,7 +162,7 @@ is whether the world cooperates.
 The foundry implements seven empirical tests (T1–T7) plus one cross-kingdom
 transfer test (L3). Each tests a facet of the integration-depth /
 capacity-reallocation prediction against published data. They are ordered here
-by what they can *establish*: first the tests that **discriminate** valence from a
+by what they can *establish*: first the tests that **discriminate** the framework from a
 named competitor, then those that merely **corroborate**.
 
 ### T6 — Gene-loss ordering (integration-depth ρ)
@@ -182,7 +182,7 @@ parametric test at this sample size — asymptotic approximations are unreliable
 for n = 6.
 
 **What it would show.** A high positive ρ (deeply integrated → retained) with
-a small permutation p refutes random loss and supports valence. ρ ≈ 0 supports the
+a small permutation p refutes random loss and supports the framework. ρ ≈ 0 supports the
 competitor.
 
 **The result.** The oracle records ρ = 0.955 (Orobanchaceae) and 0.986
@@ -221,7 +221,7 @@ positive *a*, the plant slope *magnitude* is discarded — only the slope *sign*
 transfers. So the test is really an **ordering-concordance** test: "does bird
 observed_rank agree with dependency_score?" This is weaker than "plant
 parameters predict bird ordering," and it is now documented as such. It still
-distinguishes valence from substrate-independence (a positive plant slope yielding
+distinguishes the framework from substrate-independence (a positive plant slope yielding
 concordant bird ordering is not predicted by the competitor), but the strength
 of the claim is calibrated.
 
@@ -239,10 +239,10 @@ transfer) means the result, when it runs, will be read correctly.
 
 ### T4 — Niche breadth vs. Ne
 
-**The prediction.** valence predicts that **niche breadth** predicts gene loss
+**The prediction.** the framework predicts that **niche breadth** predicts gene loss
 (pan-genome size) better than **Ne** (effective population size) alone. The
 competitor — drift (Lynch 2007) — predicts Ne is the primary driver. This
-**discriminates** valence from drift: if niche subsumes Ne, drift is insufficient.
+**discriminates** the framework from drift: if niche subsumes Ne, drift is insufficient.
 
 **The algorithm.** `niche_vs_ne()` fits two models on the same complete-case
 subset of the Bobay & Ochman (2017) data (153 bacterial species):
@@ -261,31 +261,31 @@ niche_r² = 0.364    ne_r² = 0.257
 AIC_niche = 242.3   AIC_ne = 255.9    (n = 140)
 ```
 
-Niche R² exceeds Ne R², and AIC favours the niche model by 13.6. **valence is
+Niche R² exceeds Ne R², and AIC favours the niche model by 13.6. **the framework is
 confirmed.** This is one of the most important results in the foundry because
 it is a discriminating test that actually runs on real data.
 
 **The history (calculation-review).** This test was previously *inverting* the
-Valence prediction. The function regressed the *core* genome size (not the pan-
+The framework's prediction. The function regressed the *core* genome size (not the pan-
 genome), encoded lifestyle as `as.numeric(factor())` (an arbitrary integer
 per category — meaningless), and let `grep("Ne")` pick the first of two Ne
 columns. On the raw scale this reported Ne R² = 0.26 > niche R² = 0.13 — the
-exact opposite of valence, purely from a wiring bug. The fix (pan-genome response,
+exact opposite of the framework, purely from a wiring bug. The fix (pan-genome response,
 factor encoding, anchored grep, log scale, complete cases) turned it into a
 clean confirmation.
 
 **What this indicates.** Drift (Ne) is *not sufficient* to explain pan-genome
 size variation in this dataset; niche/lifestyle carries independent explanatory
-power. This is a genuine point in valence's favour and against the pure-drift
+power. This is a genuine point in the framework's favour and against the pure-drift
 account. The residual drift from the oracle (0.364 vs. 0.343) is data-version
 (the exact Ne estimation method and species set differ slightly); the direction
 and magnitude match.
 
 ### T5 — Pan-genome fluidity
 
-**The prediction.** valence predicts that pan-genome openness (fluidity) tracks
+**The prediction.** the framework predicts that pan-genome openness (fluidity) tracks
 **lifestyle** (commensal vs. free-living) rather than Ne alone. Like T4, this
-discriminates valence from the Ne-only drift model.
+discriminates the framework from the Ne-only drift model.
 
 **The algorithm.** `pangenome_fluidity()` fits `pangenome_fluidity ~ lifestyle`
 (factor) and `pangenome_fluidity ~ Ne` on the Dewar et al. (2024) data (126
@@ -298,7 +298,7 @@ lifestyle_subsumes_ne = TRUE
 lifestyle_r² = 0.229    ne_r² = 0.177
 ```
 
-Lifestyle R² exceeds Ne R². **valence is confirmed.** This entry **passes** the
+Lifestyle R² exceeds Ne R². **the framework is confirmed.** This entry **passes** the
 regression gate.
 
 **The history.** This was a one-character bug: `grep("Ne")` matched the
@@ -310,19 +310,19 @@ model was always fine; only the comparison was broken.
 **What this indicates.** Consistent with T4: lifestyle/niche structure
 explains pan-genome openness beyond what Ne alone can. Two independent
 datasets (Bobay & Ochman; Dewar) now agree that niche subsumes Ne. This is the
-foundry's most robust empirical point for valence over drift.
+foundry's most robust empirical point for the framework over drift.
 
 ### T3 — Endosymbiont biphasic genome reduction
 
-**The prediction.** valence predicts that genome reduction in obligate endosymbionts
+**The prediction.** the framework predicts that genome reduction in obligate endosymbionts
 follows **biphasic kinetics** (fast Phase 1, slow Phase 2), whose logistic
 shape is distinguishable from constant-rate (linear) or accelerating (ratchet)
-decay. This discriminates valence from both competitors.
+decay. This discriminates the framework from both competitors.
 
 **The algorithm.** `endosymbiont_biphasic()` aggregates 367 endosymbiont
 genomes to 10 genus means, then fits three models of `genome_bp ~
 symbiosis_age_mya`: linear (constant rate), exponential (constant-rate
-competitor), and logistic (biphasic/valence). R² is computed as 1 − RSS/TSS;
+competitor), and logistic (biphasic)/. R² is computed as 1 − RSS/TSS;
 k1/k2 is the ratio of the logistic curve's decline rate at the youngest vs.
 oldest observed ages; the Bayes factor comes from BIC (logistic vs. best
 competitor).
@@ -359,10 +359,10 @@ result.
 
 ### T1 — Orobanchaceae plastome PGLS
 
-**The prediction.** valence predicts that plastome size correlates with parasitism
+**The prediction.** the framework predicts that plastome size correlates with parasitism
 level — deeper parasitic commitment → more capacity reallocation → smaller
 plastome. The competitor (relaxed selection, Lahti 2009) predicts the *same*
-gradient through a different mechanism. This test **corroborates** valence but does
+gradient through a different mechanism. This test **corroborates** the framework but does
 not **discriminate** it.
 
 **The algorithm.** `pgls_orobanchaceae()` fits a phylogenetic generalized
@@ -385,9 +385,9 @@ sample differs (Review Item 6 — data-version drift, science holds).
 
 **What this indicates.** There is a robust, significant, phylogeny-corrected
 gradient: more parasitic lineages have smaller plastomes. This is consistent
-with valence — but because relaxed selection predicts the same gradient, it cannot
-*favour* valence over the competitor. It is necessary-but-not-sufficient evidence:
-Valence requires this gradient, but so does the competitor. The discriminating
+with the framework — but because relaxed selection predicts the same gradient, it cannot
+*favour* the framework over the competitor. It is necessary-but-not-sufficient evidence:
+The framework requires this gradient, but so does the competitor. The discriminating
 evidence must come from elsewhere (T4, T5, T6, L3, or the formal model).
 
 ### T2 — Cross-family plastome replication
@@ -423,17 +423,17 @@ scoped.
 
 **What this indicates.** The gradient is robust to aggregation — it appears at
 the family level across independent origins, not just within one clade. Like
-T1, this is consistent with valence but does not discriminate it. The per-family
+T1, this is consistent with the framework but does not discriminate it. The per-family
 slope analysis (the true "replication" test) remains a deferred method-design
 task (small n per family).
 
 ### T7 — LTEE function-loss co-segregation
 
-**The prediction.** valence predicts that metabolic function loss in the LTEE
+**The prediction.** the framework predicts that metabolic function loss in the LTEE
 co-segregates with beneficial mutations **less than** expected by chance —
 consistent with passive drift in unused genes (their loss is not concentrated
 near adaptive sweeps). The competitor (independent assortment) predicts 61.7%
-co-segregation. This corroborates valence but does not discriminate it (both
+co-segregation. This corroborates the framework but does not discriminate it (both
 predict depletion near chance).
 
 **The algorithm.** `ltee_cosegregation()` takes published LTEE summary data
@@ -462,9 +462,9 @@ oracle used an asymptotic approximation.
 
 **What this indicates.** Function-loss mutations are *depleted* near beneficial
 sweeps — they are not hitchhiking with adaptations. This is consistent with the
-Valence drift account (unused genes drift; their loss is not tied to adaptive
+The framework's drift account (unused genes drift; their loss is not tied to adaptive
 events). It is reported as *suggestive* due to a hitchhiking confound and an
-arbitrary window, and it does not discriminate valence from independent assortment
+arbitrary window, and it does not discriminate the framework from independent assortment
 on the null. It is a real pattern, honestly weak.
 
 ---
@@ -479,7 +479,7 @@ yet on the empirical systems they ultimately target.
 
 ### Autocatalytic set dynamics — the *Homo* inversion
 
-**The prediction.** After a substrate shift, valence predicts that innovations
+**The prediction.** After a substrate shift, the framework predicts that innovations
 generate further innovations faster than they are lost — **positive diversity-
 dependence**: the per-capita innovation rate *increases* with standing
 diversity N. This is the *Homo* macroevolutionary inversion (positively
@@ -509,7 +509,7 @@ filling model, not the Homo inversion. The `is_superlinear` proxy (log-log
 slope > 1) conflated *early acceleration* with *positive diversity-dependence*
 — logistic growth is superlinear early but negatively DD throughout. So the
 simulacrum was, perversely, generating the *competitor's* dynamics while
-claiming to test valence's.
+claiming to test the framework's.
 
 The generator was rewritten to **bounded autocatalytic growth**:
 dN/dt = r·N·(0.5 + 0.5·N/(N+K)), whose per-capita rate r·(0.5 + 0.5·N/(N+K))
@@ -538,7 +538,7 @@ theoretical contribution (the endogenous-K account of the Homo inversion) is
 
 ### Cusp catastrophe — irreversibility
 
-**The prediction.** valence predicts that capacity reallocation is **irreversible**:
+**The prediction.** the framework predicts that capacity reallocation is **irreversible**:
 once a trait crosses the protection threshold, recovery requires
 disproportionate effort. The cusp catastrophe formalizes this as
 **hysteresis** — the forward path (increasing commitment) differs from the
@@ -592,7 +592,7 @@ framework that is ready for real data.
 
 ### The economics extension
 
-**The prediction.** valence's integration-depth and commitment dynamics are
+**The prediction.** the framework's integration-depth and commitment dynamics are
 *substrate-independent* — they should appear in economic systems too:
 disruptive industry collapse trajectories, option-value destruction under
 lock-in, stochastic first-passage to irreversibility, and threshold-gated
@@ -617,7 +617,7 @@ drafts under `drafts/valence-econ-papers/`.
 **What this indicates.** The economics module is the framework's claim that
 its dynamics generalize beyond biology. The functions are implemented and unit-
 tested, but (like the autocatalytic and cusp modules) they are not yet wired
-to a regression-gate dataset. They demonstrate that the valence dynamical
+to a regression-gate dataset. They demonstrate that the framework dynamical
 predictions are *expressible* in economic substrate — a scope claim — without
 yet *establishing* them empirically. This is prospective evidence: the
 instruments exist, the experiments are not yet run.
@@ -651,28 +651,28 @@ every case where the data allows a test.
 
 ---
 
-## Part V — The speculative toy realms
+## Part V — The speculative toy models
 
 The empirical tests are blocked on data (Items 4–6). The formal model is a
 theoretical ODE that cannot fail. Between these lies a gap the foundry fills
 without external data: a layer of **speculative simulation** — four "toy
-realms" that let a reader *explore* the consequences of the valence framework
+realms" that let a reader *explore* the consequences of the framework under review
 across parameter space and hypothetical substrates. They do not source new
-data, do not claim to corroborate valence, and do not replace the blocked empirical
-work. They make valence's predictions *explorable* — "if valence were true, what would
+data, do not claim to corroborate the framework, and do not replace the blocked empirical
+work. They make the framework's predictions *explorable* — "if the framework were true, what would
 we expect to see in worlds we have not measured?" — and sharpen the
 predictions for when the data arrives.
 
 The realms are implemented in `R/speculative.R` (12 exported functions), with
-56 unit tests and a 4-section vignette (`vignettes/exploring-toy-realms.Rmd`).
+56 unit tests and a 4-section vignette (`vignettes/exploring-toy-models.Rmd`).
 The full execution plan is in
-[`toy-realms-plan.md`](toy-realms-plan.md) (all 4 phases complete).
+[`toy-models-plan.md`](toy-models-plan.md) (all 4 phases complete).
 
 | Realm | What it explores | Key finding |
 |-------|-----------------|-------------|
 | 1. Genome-reduction | The threshold gate: how retention collapses as parasitism crosses the protection threshold θ | The gate is sharp — below θ, retention collapses to ~0; above, ~1. Fixed a latent edge-case bug in `threshold_model()` (all-protected θ ≤ min(depths) → NaN). |
 | 2. Irreversibility | The cusp catastrophe: how hysteresis loop area grows as the system crosses the bifurcation (a < 0) | Loop area is robust to `initial_state` — depends only on the system (a), not the observer's starting point. Irreversibility is quantitative (loop area), not boolean. |
-| 3. *Homo* inversion | The diversity-dependence sign flip: positive DD (autocatalytic, valence) vs negative DD (logistic, niche-filling) | The plan's proposed feedback formula was **wrong** (always positive-DD). Corrected formula bifurcates at feedback = 2/3; measured at 0.666. The *Homo* inversion is a DD sign flip, not just a growth direction. |
+| 3. *Homo* inversion | The diversity-dependence sign flip: positive DD (autocatalytic, framework) vs negative DD (logistic, niche-filling) | The plan's proposed feedback formula was **wrong** (always positive-DD). Corrected formula bifurcates at feedback = 2/3; measured at 0.666. The *Homo* inversion is a DD sign flip, not just a growth direction. |
 | 4. Cross-kingdom transfer | Model vs sign-only transfer: when does the full GLM (dep + para) outperform the sign alone? | Issue 7 (ranking discards magnitude) is visible as a **gap between two curves**. Model outperforms at low noise, converges at high noise, dips below at extreme noise. The real bird data makes the empirical transfer sign-only by construction (no varying para). |
 
 ### What the realms are not
@@ -695,7 +695,7 @@ test yet:
    testable quantity.
 3. **The *Homo* inversion is a DD sign flip** (Realm 3). When data arrives,
    the per-capita-rate-vs-diversity slope — not the growth direction — is the
-   discriminator. Positive slope = valence; negative = niche-filling.
+   discriminator. Positive slope = framework; negative = niche-filling.
 4. **The cross-kingdom transfer is sign-only with current data** (Realm 4).
    The real bird data has no varying parasitism, so the empirical transfer is
    sign-only by construction. Richer target-kingdom data (with varying
@@ -704,7 +704,7 @@ test yet:
 
 ---
 
-## Part valence — Synthesis: what the results indicate
+## Synthesis: what the results indicate
 
 ### What the foundry establishes
 
@@ -715,7 +715,7 @@ the foundry establishes four things with confidence:
    integration, and regression gates. The deterministic math (PGLS, biphasic
    kinetics, threshold model, autocatalytic set, cusp detection, contracts) is
    verified exactly. The formal model's ODE is correctly integrated and its
-   docstring now matches the equation it solves. The speculative toy realms
+   docstring now matches the equation it solves. The speculative toy models
    (4 realms, 56 unit tests) extend the math into explorable parameter space.
 
 2. **Method validity on synthetic data.** All five simulacra recover known
@@ -724,11 +724,11 @@ the foundry establishes four things with confidence:
    The methods are calibrated instruments.
 
 3. **Empirical corroboration of three discriminating predictions.** Three tests
-   that *distinguish* valence from a named competitor now run on real data and
-   favour valence:
+   that *distinguish* the framework from a named competitor now run on real data and
+   favour the framework:
    - **T4 (niche vs. Ne):** niche R² (0.364) > Ne R² (0.257), AIC favours niche
      by 13.6. Drift is insufficient; niche structure carries independent
-     explanatory power. *(Was inverting valence before the bug fix.)*
+     explanatory power. *(Was inverting the framework before the bug fix.)*
    - **T5 (pan-genome fluidity):** lifestyle R² (0.229) > Ne R² (0.177).
      Lifestyle subsumes Ne. *(Was returning NA before the grep fix.)*
    - **Formal model:** the threshold gate produces `threshold_biphasicity = 1.0`
@@ -741,8 +741,8 @@ the foundry establishes four things with confidence:
    exactly which entries diverge and why, citing the review items that own each
    fix. Seven entries `skip()` with precise actual-vs-expected reasons; none
    hide a contradiction. Before the review, one entry (T4) was actively
-   *contradicting* valence from a wiring bug; that is now fixed, and zero entries
-   contradict valence.
+   *contradicting* the framework from a wiring bug; that is now fixed, and zero entries
+   contradict the framework.
 
 ### What the foundry does *not* establish
 
@@ -769,9 +769,9 @@ Equally important is what the foundry cannot yet claim:
   has no parameter estimates from real systems (Review Item 3).
 
 - **T1, T2, T7 corroborate but do not discriminate.** They are consistent with
-  Valence but equally consistent with relaxed selection, stochastic loss, or
+  the framework but equally consistent with relaxed selection, stochastic loss, or
   independent assortment. They are necessary-but-not-sufficient; they cannot
-  favour valence over the competitors.
+  favour the framework over the competitors.
 
 ### What the results indicate for the framework
 
@@ -781,7 +781,7 @@ Reading the evidence honestly, three things stand out:
 support in the genome-reduction domain — specifically against drift.** Two
 independent datasets (Bobay & Ochman; Dewar) now agree that niche/lifestyle
 structure explains pan-genome variation *beyond* Ne (T4, T5). This is a
-genuine point in valence's favour: pure drift is insufficient. The formal model
+genuine point in the framework's favour: pure drift is insufficient. The formal model
 shows the threshold gate produces the predicted biphasic split exactly. The
 mechanism is not merely plausible — it is corroborated where it can be tested
 against a competitor that predicts otherwise.
@@ -826,12 +826,12 @@ science holds — Item 6; 1 method misspecification — T3, R6); 1 unit (a
 context warning guard). None are failures;
 all report exact reasons.
 
-| Oracle entry | Distinguishes valence? | Status |
+| Oracle entry | Distinguishes the framework? | Status |
 |---|---|---|
 | T1 Orobanchaceae PGLS | no | skip (drift; science holds) |
 | T2 cross-family | no | skip (drift; science holds) |
 | T3 endosymbiont biphasic | **yes** | skip (method misspecification — R6) |
-| T4 niche-vs-Ne | **yes** | skip (drift; **valence confirmed** — niche subsumes Ne) |
+| T4 niche-vs-Ne | **yes** | skip (drift; the framework confirmed — niche subsumes Ne) |
 | T5 pan-genome fluidity | **yes** | ✅ **passing** |
 | T6 gene-loss ordering | **yes** | skip (no data — Item 4) |
 | T7 LTEE co-segregation | no | skip (drift; science holds) |

@@ -24,8 +24,8 @@ register_test(
 needs (e.g. \code{"data"}, \code{c("plant_data", "bird_data")}). Use
 \code{character(0)} for tests that need no external data.}
 
-\item{discriminating}{Logical. Whether the test distinguishes VI from
-competitors (as opposed to only being consistent with VI).}
+\item{discriminating}{Logical. Whether the test distinguishes the framework from
+competitors (as opposed to only being consistent with the framework).}
 
 \item{expected_fields}{Character vector. Value fields the test returns.}
 
@@ -35,7 +35,7 @@ competitors (as opposed to only being consistent with VI).}
 \item{statistic_key}{Character. Optional name of the raw value field to use
 as the canonical statistic (otherwise auto-detected).}
 
-\item{vi_prediction}{Character. Plain-language VI prediction statement.}
+\item{vi_prediction}{Character. Plain-language the framework's prediction statement.}
 }
 \value{
 Invisibly returns the registry entry.

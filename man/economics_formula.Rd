@@ -19,7 +19,7 @@ in cross-sectional economic data. The relaxation functions in
 \code{fit_biexp.R} and \code{relaxation_model.R} test the temporal dynamics.
 
 The qualitative functions (\code{cdi_economics}, \code{option_destruction},
-\code{stochastic_cdi}, \code{threshold_disruption}) test whether VI's directional
+\code{stochastic_cdi}, \code{threshold_disruption}) test whether the framework's directional
 predictions hold. These functions test whether the formula's exact
 shape and constants hold. Both layers are valuable — the qualitative
 layer doesn't become redundant when the quantitative layer is added.

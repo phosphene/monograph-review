@@ -1,4 +1,4 @@
-#' Per-file coverage report for the Valence Foundry package.
+#' Per-file coverage report for the framework Foundry package.
 #'
 #' Computes package coverage with covr::package_coverage() and prints a
 #' per-file breakdown (lines covered / total / percent, ascending) so the

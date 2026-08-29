@@ -4,7 +4,7 @@
 # These tests verify that each stage produces data from the actual
 # equations of that era, and that the chain is compositional.
 #
-# The chain: Ising → Landau → Cusp → Percolation → Drift-Selection → valence Formula
+# The chain: Ising → Landau → Cusp → Percolation → Drift-Selection → the framework formula
 #
 # DFT Axioms:
 # - A1 (pure-io-separation): generators are pure functions
@@ -126,7 +126,7 @@ test_that("Drift-selection: rho_sat > 0 (selection creates retention gap)", {
   expect_lt(sim$values$rho_sat, 1)
 })
 
-# ---- Compositional Chain: Ising → Landau → Cusp → valence ----
+# ---- Compositional Chain: Ising → Landau → Cusp → the framework ----
 
 test_that("Chain: Ising data is consistent with Landau mean-field", {
   ising <- generate_ising(seed = 42, L = 8, n_sweeps = 300, n_temps = 15, T_range = c(1.0, 4.0))

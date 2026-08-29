@@ -2,7 +2,7 @@
 % Please edit documentation in R/cultural_ode_models.R
 \name{fit_vi_ode_models}
 \alias{fit_vi_ode_models}
-\title{Fit VI ODE and competing models to growth curve data}
+\title{Fit the framework ODE and competing models to growth curve data}
 \usage{
 fit_vi_ode_models(t, B, seed = 42L)
 }
@@ -17,5 +17,5 @@ fit_vi_ode_models(t, B, seed = 42L)
 List (A6: proof object) with values and metadata.
 }
 \description{
-Fit VI ODE and competing models to growth curve data
+Fit the framework ODE and competing models to growth curve data
 }

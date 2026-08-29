@@ -1,5 +1,5 @@
 ---
-title: "Mathematical Foundations of the valence Formal Model"
+title: "Mathematical Foundations of the framework Formal Model"
 author: "Ed Phillips, Jan Ritch-Frel, Flow Feel"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -24,7 +24,7 @@ library(ggplot2)
 
 ## Overview
 
-This document provides the mathematical foundations of the Valence-Ingression framework's formal model — a threshold-gated capacity reallocation ordinary differential equation (ODE). We will:
+This document provides the mathematical foundations of the framework's formal model — a threshold-gated capacity reallocation ordinary differential equation (ODE). We will:
 
 1. State the governing ODE and derive its closed-form solution
 2. Show how the code implements both analytical and numerical solutions
@@ -38,7 +38,7 @@ All functions follow **Phosphene R Standards** §7 (S3 three-layer design) and t
 
 ## 1. The Governing ODE
 
-The valence formal model describes trait retention probability $C_i(t)$ as a function of time:
+The framework formal model describes trait retention probability $C_i(t)$ as a function of time:
 
 $$\frac{dC_i}{dt} = -\lambda \times M(t) \times C_i \times I(d_i < \theta)$$
 
@@ -328,7 +328,7 @@ ggplot(df, aes(x = depth, y = retention, color = protected)) +
 To reproduce these results:
 
 ```bash
-cd lib/python  # or valence-foundry root for R
+cd lib/python  # or the foundry root for R
 Rscript -e 'devtools::test(filter = "formal-model")'
 Rscript -e 'devtools::document()'
 Rscript -e 'rmarkdown::render("vignettes/mathematical-foundations.Rmd")'
@@ -348,7 +348,7 @@ Rscript -e 'rmarkdown::render("vignettes/mathematical-foundations.Rmd")'
 - Phosphene R Standards: `docs/standards/PHOSPHENE_R_STANDARDS.md`
 - DFT Axioms: Deterministic Functional Testing framework
 - Lahti DC (2009): Relaxed selection and constant-rate loss models
-- Original valence paper: Valence-Ingression Framework monograph
+- Original the manuscript: the framework under review monograph
 
 ---
 

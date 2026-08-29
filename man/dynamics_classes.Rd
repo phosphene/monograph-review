@@ -5,7 +5,7 @@
 \title{Dynamics Module Result Classes (S3 three-layer pattern)}
 \description{
 Implements Phosphene R Standards §7: constructor → validator → helper
-for the dynamics module of vi.foundry.
+for the dynamics module of valence.foundry.
 }
 \details{
 The dynamics module models three phenomena:

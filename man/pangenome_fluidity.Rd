@@ -21,7 +21,7 @@ free-living) using Dewar et al. (2024) data.
 \section{Theoretical Context}{
 
 
-Valence Prediction: pan-genome openness tracks lifestyle. Competitor: Ne-only
-model. DOES distinguish valence from Ne-only.
+The framework Prediction: pan-genome openness tracks lifestyle. Competitor: Ne-only
+model. DOES distinguish the framework from Ne-only.
 }
 

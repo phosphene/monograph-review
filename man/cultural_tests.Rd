@@ -2,7 +2,7 @@
 % Please edit documentation in R/cultural_tests.R
 \name{cultural_tests}
 \alias{cultural_tests}
-\title{Cultural evolution empirical tests for VI foundry}
+\title{Cultural evolution empirical tests for the framework foundry}
 \description{
 Tests H2 (β mediation), H4 (cross-domain β), H5 (super-exponential growth),
 and H10 (sign reversal) using real cultural data.
@@ -10,7 +10,7 @@ and H10 (sign reversal) using real cultural data.
 \section{Theoretical Context}{
 
 
-VI Prediction: β (branching factor) is a substrate property that:
+the framework's prediction: β (branching factor) is a substrate property that:
 \enumerate{
 \item Does NOT depend on population size (H2)
 \item Varies by domain, with cultural substrates > 1 (H4)

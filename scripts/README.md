@@ -1,4 +1,4 @@
-# Valence Foundry Scripts
+# The Foundry Scripts
 
 ## P1-P8 Testing Scripts
 

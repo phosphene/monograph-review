@@ -8,7 +8,7 @@
 > This is the rigorous revisit of the bi-exponential relaxation fitter that
 > sits on one side of the cross-program biphasic pair (endosymbiont genome
 > reduction × physiological relaxation kinetics). The standard applied here is
-> the vintage-label one: the bottle must say what is in it, and the contents
+> the claim-evidence conformance one: the bottle must say what is in it, and the contents
 > must be reproducible by anyone who clones the repo. Where the fitter cannot
 > resolve a two-timescale structure, the honest output is a boundary probe —
 > "this pattern is not resolvable at this sampling scale" — not a forced
@@ -207,7 +207,7 @@ makes the biphasic pattern "largely irrefutable at the level of observation."
 For that agreement to mean anything, this half must be reproducible and must
 not over-claim. The guarded `biphasic` rule is the foundry saying, in effect:
 we will report a two-timescale structure only when the data forces it — and
-when the data does not, we say so. That is the vintage label, applied to the
+when the data does not, we say so. That is the claim-evidence conformance, applied to the
 bottle that produces the numbers.
 
 See also [`family-kinds-genealogy.md`](family-kinds-genealogy.md) for the

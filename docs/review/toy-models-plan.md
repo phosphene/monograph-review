@@ -1,29 +1,29 @@
 ---
-title: "Toy Realms: A Speculative Simulation Capacity — Execution Plan"
+title: "Toy Models: A Speculative Simulation Capacity — Execution Plan"
 author: "Ed Phillips ([@phosphene](https://github.com/phosphene))"
 date: 2025-08-10
 license: MIT
 ---
 
-# Toy Realms — Execution Plan
+# Toy Models — Execution Plan
 
 > **Status: COMPLETE — all 4 realms built, tested, and documented.**
 > Phases 1–4 are implemented in `R/speculative.R` (12 exported functions),
 > with 56 unit tests in `test-unit-speculative.R` and a 4-section vignette
-> (`vignettes/exploring-toy-realms.Rmd`). Suite green (598 pass / 0 fail / 9 skip).
+> (`vignettes/exploring-toy-models.Rmd`). Suite green (598 pass / 0 fail / 9 skip).
 > Each realm surfaced a finding or bug; see the per-phase risk sections below.
 
 > **What this is.** An execution plan for building a speculative simulation
-> capacity — four "toy realms" that let a reader *explore* the consequences
-> of the valence framework across parameter space and hypothetical substrates.
+> capacity — four "toy models" that let a reader *explore* the consequences
+> of the framework under review across parameter space and hypothetical substrates.
 > This is the actionable companion to the proposal in
 > [`modeling-sim-viz-review.md`](modeling-sim-viz-review.md) Part III. It
 > takes the proposal's four realms and turns them into phased, shippable
 > work with concrete functions, files, tests, and exit criteria.
 >
-> **What this is not.** An empirical test. The toy realms do not source new
-> data, do not claim to corroborate valence, and do not replace the blocked
-> empirical work (Items 4–6). They are theoretical exploration — "if valence
+> **What this is not.** An empirical test. The toy models do not source new
+> data, do not claim to corroborate the framework, and do not replace the blocked
+> empirical work (Items 4–6). They are theoretical exploration — "if the framework
 > were true, what would we expect to see in worlds we have not measured?"
 > — that sharpens the predictions for when the data arrives.
 
@@ -31,11 +31,11 @@ license: MIT
 
 The empirical tests are blocked on data (Items 4–6). The formal model is a
 theoretical ODE that cannot fail. Between these lies a gap the foundry can
-fill without external data: a layer that makes valence's predictions *explorable*.
+fill without external data: a layer that makes the framework's predictions *explorable*.
 The existing simulacra generators already produce synthetic data from known
 parameters; the viz layer already plots trajectories, bifurcations, and
 growth curves. What is missing is a unifying **exploratory** layer that wraps
-these into parameterized toy realms — each a self-contained "what if" world
+these into parameterized toy models — each a self-contained "what if" world
 with a simulator, a set of dials, and a visualization.
 
 This plan builds that layer in four phases, one per realm, each independently
@@ -43,7 +43,7 @@ shippable. The suite stays green between phases.
 
 ## The honesty boundary (read first)
 
-| The toy realms ARE | The toy realms ARE NOT |
+| The toy models ARE | The toy models ARE NOT |
 |--------------------|------------------------|
 | Theoretical exploration across parameter space | Empirical tests |
 | Built from existing, validated components | New data collection |
@@ -65,7 +65,7 @@ exactly what dataset would test each prediction.
 | 4 | Cross-kingdom transfer explorer | `generate_cross_kingdom_data()`, `transfer_test()` | GLM-transfer wrapper, transfer-breakdown viz | Medium | Yes (builds on R7) |
 
 **Suggested order:** 1 → 2 → 3 → 4. Realm 1 is simplest and exercises the
-threshold gate (the heart of valence). Realm 2 adds one new metric
+threshold gate (the heart of the framework). Realm 2 adds one new metric
 (`hysteresis_loop_area`). Realm 3 adds the DD contrast and the endogenous-K
 bifurcation (Review Item 3). Realm 4 builds on the R7 finding (the corrected
 GLM) and is the richest. Each phase's exit gate is: suite green + the realm's
@@ -76,7 +76,7 @@ viz renders + a unit test asserts the exploration contract.
 ```
 R/speculative.R              ← new module: all 4 realms' exploration functions
 inst/toy_realms/             ← (optional) self-contained realm scripts
-vignettes/exploring-toy-realms.Rmd  ← Layer 2 literate vignette
+vignettes/exploring-toy-models.Rmd  ← Layer 2 literate vignette
 tests/testthat/test-unit-speculative.R  ← contract tests
 ```
 
@@ -101,7 +101,7 @@ loosen; push λ and watch Phase 1 compress.
 
 ### What it teaches
 
-The threshold gate is the heart of valence's biphasic prediction. Seeing it
+The threshold gate is the heart of the framework's biphasic prediction. Seeing it
 respond to θ across a sweep builds the intuition that the biphasic signal is
 *the gate* (math-review Issue 3, resolved), not the displacement ratio. It
 also makes the R6 method-misspecification visceral: a cross-sectional
@@ -138,7 +138,7 @@ sweep_threshold <- function(depths, theta_grid, lambda = 0.15,
 plot_threshold_gate <- function(sweep_result) { ... }
 ```
 
-**`vignettes/exploring-toy-realms.Rmd`** — Section 1: "The threshold gate."
+**`vignettes/exploring-toy-models.Rmd`** — Section 1: "The threshold gate."
 
 ### Exit criteria  ✅ all met
 
@@ -177,7 +177,7 @@ large) and watch irreversibility emerge.
 
 ### What it teaches
 
-Irreversibility is valence's sharpest departure from gradual reversibility. The
+Irreversibility is the framework's sharpest departure from gradual reversibility. The
 explorer shows that irreversibility is *quantitative* (loop area), not just
 boolean (`has_hysteresis`), and that it emerges discontinuously at the
 bifurcation. It also makes the data requirement honest: no real
@@ -262,7 +262,7 @@ empirical experiment exists.
 
 Given a growth model (autocatalytic vs. logistic) and a diversification time
 series, simulate the diversity-dependence sign and visualize the *contrast*
-between valence (positive DD, the *Homo* inversion) and the competitor (negative
+between the framework (positive DD, the *Homo* inversion) and the competitor (negative
 DD, niche-filling). The reader can toggle the growth model and watch
 `diversity_dependence_sign` flip, and explore the endogenous-K bifurcation
 (Review Item 3) by sweeping the cultural-feedback parameter.
@@ -292,7 +292,7 @@ species-through-time series for *Homo* spanning the threshold).
 ```r
 #' Compute the diversity-dependence contrast: the difference in per-capita-
 #' rate-vs-N slope between autocatalytic (positive DD) and logistic (negative
-#' DD) growth on matched time series. Positive = valence signature; negative =
+#' DD) growth on matched time series. Positive = framework signature; negative =
 #' competitor.
 #'
 #' @param n_steps Integer. Time series length.
@@ -490,7 +490,7 @@ note of `sweep_transfer_robustness()` and in vignette Section 4.
 
 ## Cross-cutting: the vignette
 
-`vignettes/exploring-toy-realms.Rmd` is the Layer 2 deliverable. It follows
+`vignettes/exploring-toy-models.Rmd` is the Layer 2 deliverable. It follows
 the structure required by [`docs/standards/LITERATE_DOCS.md`](../standards/LITERATE_DOCS.md):
 
 1. **Scientific motivation** — why exploration matters when empirical data is
@@ -548,7 +548,7 @@ have unit tests, and the vignette section renders.
 ## Findings surfaced by implementation
 
 Each realm surfaced a finding or bug that sharpened the understanding of the
-Valence framework's testability:
+the framework's testability:
 
 | Realm | Finding |
 |-------|---------|

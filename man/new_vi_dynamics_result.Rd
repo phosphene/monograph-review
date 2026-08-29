@@ -13,7 +13,7 @@ new_vi_dynamics_result(values, metadata, test_name, discriminating, status)
 
 \item{test_name}{Character. Name of the originating test / module.}
 
-\item{discriminating}{Logical. Whether the result distinguishes VI from the
+\item{discriminating}{Logical. Whether the result distinguishes the framework from the
 competitor model (distinct sign or pattern predicted).}
 
 \item{status}{Character. Outcome status: "pass", "fail", or "inconclusive".}

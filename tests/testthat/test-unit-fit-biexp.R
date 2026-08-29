@@ -231,7 +231,7 @@ test_that("fit_biexp: does not error on zero time range", {
 
 test_that("fit_biexp: decisive bi never rides on a negligible fast channel", {
   # On single-exponential (one-channel) data, the optimizer can chase noise
-  # into a spurious second channel. The vintage-label rule: if the fit claims
+  # into a spurious second channel. The identifiability rule: if the fit claims
   # a DECISIVE two-timescale structure (delta AIC bi-mono > 2), the fast
   # channel must be a material fraction (>= 0.15) of the amplitude. A
   # decisive win with a 5% fast channel is a numerical artefact, not biology.

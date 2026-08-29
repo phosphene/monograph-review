@@ -44,7 +44,7 @@ plant noise, model_rho > sign_only_rho. As noise increases, they converge.
 \section{Theoretical Context}{
 
 
-Valence Prediction: the full model (dep + para, logistic) transfers across
+The framework Prediction: the full model (dep + para, logistic) transfers across
 kingdoms — a plant-derived model predicts bird ordering. Competitor:
 substrate-independence (rho ~= 0). Issue 7: ranking discards magnitude,
 so the sign-only transfer is the weakest form of cross-kingdom transfer.

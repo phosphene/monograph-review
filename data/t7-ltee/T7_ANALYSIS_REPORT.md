@@ -6,7 +6,7 @@
 
 **Redesigned T7:** Does metabolic dependency score (from FBA knockout of iJO1366) predict which genes accumulate loss-of-function mutations first in the LTEE?
 
-- **VI prediction:** High-dependency genes should be lost LATER (preserved longer, under stronger functional constraint from downstream genes)
+- **The framework's prediction:** High-dependency genes should be lost LATER (preserved longer, under stronger functional constraint from downstream genes)
 - **Relaxed selection (Lahti):** Selective constraint (dN/dS) should predict — genes under weaker selection go first, regardless of dependency
 - **Neutral (Lynch):** Mutation rate × Ne should predict — effectively random with respect to dependency
 
@@ -27,7 +27,7 @@
 
 ## Results
 
-| Test | N | Statistic | p-value | Direction | VI Prediction |
+| Test | N | Statistic | p-value | Direction | the framework's prediction |
 |------|---|-----------|---------|-----------|---------------|
 | 1. dep vs time-to-first-ANY-mutation | 1,458 | ρ = -0.039 | 0.137 | Weak negative | Positive (LATER) |
 | 2. dep vs time-to-first-LoF | 62 | ρ = -0.254 | 0.047 | Negative (earlier) | Positive (LATER) |
@@ -37,15 +37,15 @@
 
 ## Interpretation
 
-**Mixed signal.** The redesigned T7 produces partial, inconsistent support for VI:
+**Mixed signal.** The redesigned T7 produces partial, inconsistent support for the framework:
 
-- **Test 3 is the strongest signal:** Genes that accumulate mutations have significantly LOWER dependency scores than unmutated genes (p=0.030). This is consistent with VI: highly depended-upon genes are under stronger purifying selection and resist mutation.
+- **Test 3 is the strongest signal:** Genes that accumulate mutations have significantly LOWER dependency scores than unmutated genes (p=0.030). This is consistent with the framework: highly depended-upon genes are under stronger purifying selection and resist mutation.
 - **Tests 1 and 2 go the WRONG direction:** High-dependency genes are mutated EARLIER, not later (ρ negative). This may reflect the fact that essential genes are larger targets (more base pairs = higher mutation probability), or that the LTEE environment directly selects for loss of specific high-cost functions.
 - **Tests 4 and 5 show weak/no signal:** Essential vs nonessential timing is not significantly different.
 
 **Critical limitation — gene mapping:** Only 31% of LTEE mutations mapped to iJO1366 b-numbers. The unmapped genes are enriched for y-genes (hypothetical/poorly characterized) and systematic names that may not be in the iJO1366 annotation. A more complete mapping (via EcoCyc or RegulonDB) would improve power.
 
-**Why this is still better than original T7:** The original T7 tested co-segregation with sweeps in an asexual system where the null model was incoherent. The redesigned test asks a meaningful question (does dependency predict mutation timing?) with a proper null model. The answer is mixed, but the test is at least informative — it can in principle distinguish VI from alternatives.
+**Why this is still better than original T7:** The original T7 tested co-segregation with sweeps in an asexual system where the null model was incoherent. The redesigned test asks a meaningful question (does dependency predict mutation timing?) with a proper null model. The answer is mixed, but the test is at least informative — it can in principle distinguish the framework from alternatives.
 
 ## Files
 

@@ -18,7 +18,7 @@ new_vi_glm_fit(values, metadata)
 \item{cross_kingdom_p}{numeric. Cross-kingdom test p-value}
 \item{dep_positive}{logical. Whether dep_coef > 0}
 \item{para_negative}{logical. Whether para_coef < 0}
-\item{vi_confirmed}{logical. Whether all VI predictions hold}}
+\item{vi_confirmed}{logical. Whether all the framework's predictions hold}}
 
 \item{metadata}{List. Named list with metadata fields:
 \item{n}{integer. Number of observations}

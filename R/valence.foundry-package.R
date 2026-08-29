@@ -1,6 +1,6 @@
-#' valence.foundry: Production-Grade R Artifacts for the Valence-Ingression Monograph
+#' valence.foundry: Production-Grade R Artifacts for the framework Monograph
 #'
-#' Provides the full empirical pipeline for the Valence-Ingression
+#' Provides the full empirical pipeline for the framework
 #' framework monograph — PGLS comparative methods, integration-depth
 #' ordering tests, biphasic genome reduction models, cross-kingdom
 #' parameter transfer, and the formal dynamical model of threshold-gated

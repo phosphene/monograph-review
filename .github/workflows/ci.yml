@@ -1,4 +1,4 @@
-name: Valence Foundry CI
+name: The Foundry CI
 
 on:
   push:
@@ -152,8 +152,8 @@ jobs:
           test -f docs/simulacra.html
           test -f docs/baseline-oracle.html
           test -f docs/key-results.html
-          test -f docs/toy-realms.html
-          grep -q "Toy Realms" docs/toy-realms.html
+          test -f docs/toy-models.html
+          grep -q "Toy Models" docs/toy-models.html
           grep -q "Simulacra" docs/simulacra.html
           echo "Pages HTML verified: 5 pages present"
       - name: Commit regenerated pages to main

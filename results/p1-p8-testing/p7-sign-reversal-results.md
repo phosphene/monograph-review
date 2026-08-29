@@ -174,7 +174,7 @@ Several factors may explain why positive DD is not observed in cultural bird lin
 
 4. **Ecological constraints remain primary:** Even in cognitively advanced birds, ecological limits (food availability, nesting sites, competition) still constrain diversity. Culture does not generate unlimited new niche space in the way that *Homo*'s technology did.
 
-### 7.2 Implications for the Valence Ingress framework
+### 7.2 Implications for the framework under review
 
 The failure of P7 suggests that **sign reversal on generative substrates is not automatic** — it requires a threshold of cultural niche construction that birds have not reached. This is consistent with the framework's predictions if:
 

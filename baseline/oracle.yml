@@ -3,8 +3,8 @@
 # Every value is the manuscript-reported result. Tolerance is absolute.
 # When results diverge, either update the baseline with proof or fix the regression.
 #
-# supports_vi: does the result support the valence prediction?
-# distinguishes_from_competitor: does the result distinguish valence from the named competitor?
+# supports_framework: does the result support the framework prediction?
+# distinguishes_from_competitor: does the result distinguish the framework from the named competitor?
 #   (false = competitor predicts the same pattern; caveat required)
 
 t1_orobanchaceae_pgls:
@@ -16,7 +16,7 @@ t1_orobanchaceae_pgls:
     p_value: 1.25e-9
     n_species: 12
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: false
   caveat: "Relaxed selection predicts the same gradient. Caveat in paper §12.1.2."
 
@@ -28,7 +28,7 @@ t2_cross_family:
     n: 15              # family-level (15 families), not species-level (91)
     p_value: 1.39e-41
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: false
   caveat: "Also predicted by relaxed selection on photosynthetic genes."
 
@@ -40,7 +40,7 @@ t3_endosymbiont_biphasic:
     k1_k2_ratio: 19.0
     bayes_factor: 6.7          # logistic vs exponential
   tolerance: 0.01
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: true
   caveat: "n=10 genera; sensitivity to individual data points not fully tested."
 
@@ -51,7 +51,7 @@ t4_niche_vs_ne:
     niche_r_squared: 0.343
     ne_r_squared: 0.198
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: true
   caveat: null
 
@@ -61,7 +61,7 @@ t5_pangenome_fluidity:
   values:
     lifestyle_subsumes_ne: true
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: true
   caveat: null
 
@@ -76,7 +76,7 @@ t6_gene_loss_ordering:
     quasibinomial_p: 0.0001
     pseudo_r_squared: 0.82
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: true
   caveat: null
 
@@ -88,7 +88,7 @@ t7_ltee_cosegregation:
     expected_pct: 61.7
     p_value: 0.0001
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: false
   caveat: "Hitchhiking confound; arbitrary window; misspecified null. Reported as suggestive."
 
@@ -109,7 +109,7 @@ formal_model:
     early_late_displacement_ratio: 280980.5944134
     threshold_biphasicity: 1.0
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: true
   caveat: "Deterministic ODE outputs (final_retention = [~0, ~0, ~0, 1, 1] for depths [0,1,2,3,5] with theta=2.5). Not empirical — see T3 for the empirical biphasic test."
 
@@ -138,7 +138,7 @@ empirical_formal_model:
     para_negative: true
     valence_confirmed: true
   tolerance: 0.001
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: true
   caveat: "Empirical GLM fit to the 8x6 retention matrix (corrected flattening, Remark R7). Bird data: n=15 skeletal structures from Wright 2016 raw data (2,238 specimens, 23 species). The foundry's theoretical ODE (threshold_model) is the companion simulation; this is the empirical test that can fail."
 
@@ -149,6 +149,6 @@ cross_kingdom_l3:
     bird_rho: 0.7881263
     bird_p: 0.0004828
   tolerance: 0.01
-  supports_vi: true
+  supports_framework: true
   distinguishes_from_competitor: true
   caveat: "Ordering transfers across kingdoms; rate does not. n=15 skeletal structures from Wright 2016 raw data (2,238 specimens, 23 species). Bird dependency scores assigned by functional anatomy; observed ranks from actual island-vs-mainland log ratios. Plant-derived slope sign (negated for rank direction) predicts bird ordering."

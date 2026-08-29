@@ -15,7 +15,7 @@ Loads pangenome fluidity and lifestyle data from Dewar et al. (2024).
 \section{Theoretical Context}{
 
 
-Tests valence Prediction: pan-genome openness tracks lifestyle (commensal
-vs free-living). Competitor: Ne-only model. DOES distinguish valence.
+Tests the framework's prediction: pan-genome openness tracks lifestyle (commensal
+vs free-living). Competitor: Ne-only model. DOES distinguish the framework.
 }
 

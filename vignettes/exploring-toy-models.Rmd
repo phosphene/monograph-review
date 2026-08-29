@@ -1,10 +1,10 @@
 ---
-title: "Exploring valence in Toy Realms"
+title: "Exploring the framework in Toy Models"
 author: "Ed Phillips"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Exploring valence in Toy Realms}
+  %\VignetteIndexEntry{Exploring the framework in Toy Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,23 +21,23 @@ library(valence.foundry)
 
 ## Scientific motivation
 
-The empirical tests in the valence-foundry are blocked on data (Review Items 4–6:
+The empirical tests in the the foundry are blocked on data (Review Items 4–6:
 gene-category data, island-bird morphology, hominin/economic time series).
-The formal model is a theoretical ODE that cannot fail — it simulates valence's
-equation and produces valence's prediction by construction. Between these lies a
-gap: a layer that lets a reader *explore* the consequences of valence across
+The formal model is a theoretical ODE that cannot fail — it simulates the framework's
+equation and produces the framework's prediction by construction. Between these lies a
+gap: a layer that lets a reader *explore* the consequences of the framework across
 parameter space and hypothetical substrates, without claiming empirical test.
 
-The **toy realms** fill this gap. Each realm is a self-contained "what if"
-world with a simulator, a set of dials, and a visualization. They ask: *if valence
+The **toy models** fill this gap. Each realm is a self-contained "what if"
+world with a simulator, a set of dials, and a visualization. They ask: *if the framework
 were true, what would we expect to see in worlds we have not measured?* The
 answer sharpens the predictions and, when the data arrives, makes the
 empirical tests more discriminating.
 
 This is **not** empirical testing. The realms do not source new data, do not
-claim to corroborate valence, and do not replace the blocked empirical work. Each
+claim to corroborate the framework, and do not replace the blocked empirical work. Each
 realm names the experiment that would convert it from speculative to
-empirical. See `docs/review/toy-realms-plan.md` for the full execution plan.
+empirical. See `docs/review/toy-models-plan.md` for the full execution plan.
 
 ## Method overview
 
@@ -52,7 +52,7 @@ empirical. See `docs/review/toy-realms-plan.md` for the full execution plan.
 
 ### What it explores
 
-The threshold gate is the heart of valence's biphasic prediction. The formal model
+The threshold gate is the heart of the framework's biphasic prediction. The formal model
 ([`threshold_model()`](../reference/threshold_model.html)) integrates:
 
 $$\frac{dC_i}{dt} = -\lambda \cdot M(t) \cdot C_i \cdot \mathbb{1}(d_i < \theta)$$
@@ -100,7 +100,7 @@ open — the cleanest separation between protected and unprotected traits.
 plot_threshold_gate(result)
 ```
 
-The shaded region is the "gate open" zone — the parameter range where valence's
+The shaded region is the "gate open" zone — the parameter range where the framework's
 biphasic prediction is active. The vertical dashed lines mark each trait's
 depth; the gate composition changes at each one.
 
@@ -157,7 +157,7 @@ effects — but the full gate calibration requires gene-category data (Item 4).
 
 ### What it explores
 
-Irreversibility is valence's sharpest departure from gradual reversibility. The
+Irreversibility is the framework's sharpest departure from gradual reversibility. The
 [cusp catastrophe](../reference/cusp_hysteresis_check.html) models a system
 where smooth changes in a control parameter produce sudden, irreversible
 jumps in state. The cusp equilibrium is:
@@ -203,7 +203,7 @@ region is widest.
 plot_irreversibility_sweep(irrev)
 ```
 
-The shaded region is the cusp region ($a < 0$) — where valence's irreversibility
+The shaded region is the cusp region ($a < 0$) — where the framework's irreversibility
 prediction is active. The dashed line marks the bifurcation ($a = 0$). For
 $a \geq 0$, the loop area is exactly 0 (the system is fully reversible). For
 $a < 0$, the loop area rises as $|a|$ grows — the cusp region widens, and the
@@ -218,7 +218,7 @@ hysteresis loop grows.
 
 2. **Irreversibility emerges at the bifurcation.** The loop area is exactly 0
    for $a \geq 0$ and rises discontinuously for $a < 0$. This is the
-   bifurcation — the point where valence predicts irreversibility emerges.
+   bifurcation — the point where the framework predicts irreversibility emerges.
 
 3. **The loop area is robust to the path.** The loop area is the same
    regardless of which branch you start on (the loop encloses the same area
@@ -258,7 +258,7 @@ feedback parameter shows this flip.
 
 ### Risk note: the corrected feedback formula
 
-The execution plan (`docs/review/toy-realms-plan.md`) proposed the per-capita
+The execution plan (`docs/review/toy-models-plan.md`) proposed the per-capita
 rate formula $r \times (\text{feedback} + (1-\text{feedback}) \times N/(N+K))$,
 intended to interpolate between logistic (feedback = 0, negative DD) and
 autocatalytic (feedback = 0.5, positive DD). **This formula is wrong**: at
@@ -288,7 +288,7 @@ The autocatalytic DD slope is `r round(contrast$values$autocatalytic_dd_slope, 6
 (positive — the *Homo* inversion); the logistic DD slope is
 `r round(contrast$values$logistic_dd_slope, 6)` (negative — niche-filling). The
 contrast is `r round(contrast$values$contrast, 6)` — positive, confirming the
-Valence signature.
+The framework signature.
 
 ```{r plot-dd-contrast, fig.alt = "Two-panel plot: left shows autocatalytic and logistic trajectories both growing; right shows per-capita rate vs N with opposite slopes (autocatalytic increasing, logistic decreasing)."}
 plot_dd_contrast(contrast)
@@ -448,10 +448,10 @@ data (bundled); the varying-parasitism column is the open empirical frontier.
 
 ## Limitations
 
-The toy realms are **theoretical exploration, not empirical test**:
+The toy models are **theoretical exploration, not empirical test**:
 
 - They do not source new data.
-- They do not claim to corroborate valence.
+- They do not claim to corroborate the framework.
 - They do not replace the blocked empirical work (Items 4–6).
 - The sweep uses the default ODE parameters ($\lambda = 0.15$, $M_0 = 10$,
   $\alpha = 0.05$, $t = 100$); with different parameters, the unprotected
@@ -470,7 +470,7 @@ The toy realms are **theoretical exploration, not empirical test**:
 | Peak $\theta$ | The threshold that maximally separates the two classes |
 
 The key insight: **the threshold gate is the biphasic signal**. When the
-gate is open (both classes exist), valence's biphasic prediction is active. When
+gate is open (both classes exist), the framework's biphasic prediction is active. When
 the gate is closed (one class empty), there is no biphasic contrast. This is
 why T3's cross-sectional regression fails — it pools organisms with different
 gates, averaging the contrast away.

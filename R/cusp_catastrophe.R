@@ -1,13 +1,13 @@
-#' Cusp catastrophe model for valence irreversibility thresholds
+#' Cusp catastrophe model for the framework irreversibility thresholds
 #'
 #' The cusp catastrophe describes a system where smooth changes in control
-#' parameters produce sudden, irreversible jumps in state. Valence predicts that
+#' parameters produce sudden, irreversible jumps in state. The framework predicts that
 #' capacity reallocation has this property — once a trait crosses the
 #' protection threshold, recovery requires disproportionate effort.
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: irreversibility — substrate-shift creates a bifurcation
+#' the framework's prediction: irreversibility — substrate-shift creates a bifurcation
 #' that is difficult to reverse. Competitor: gradual reversibility (standard
 #' quantitative genetics predicts smooth recovery when selection pressure
 #' is removed).
@@ -63,7 +63,7 @@ cusp_bifurcation_point <- function(a, b) {
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: irreversibility — the cusp catastrophe's fold bifurcation
+#' the framework's prediction: irreversibility — the cusp catastrophe's fold bifurcation
 #' produces path-dependent equilibria. For `a < 0`, the system has two stable
 #' equilibria separated by an unstable one; crossing the bifurcation set
 #' (`4a^3 + 27b^2 = 0`) forces a sudden jump to the other branch. The branch-
@@ -96,7 +96,7 @@ make_cusp_equilibrium_fn <- function(a = -1) {
 
 #' Check for hysteresis (path dependence)
 #'
-#' valence predicts that the forward path (increasing commitment) differs from
+#' the framework predicts that the forward path (increasing commitment) differs from
 #' the reverse path (decreasing commitment) — this is the hallmark of
 #' irreversibility in the cusp catastrophe.
 #'

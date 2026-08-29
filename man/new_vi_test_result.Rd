@@ -22,9 +22,9 @@ new_vi_test_result(
 
 \item{p_value}{Numeric. Test p-value (or NA).}
 
-\item{vi_prediction}{Character. What VI predicts.}
+\item{vi_prediction}{Character. What the framework predicts.}
 
-\item{discriminating}{Logical. Whether the test distinguishes VI.}
+\item{discriminating}{Logical. Whether the test distinguishes the framework.}
 
 \item{status}{Character. Significant / not_significant / n/a.}
 

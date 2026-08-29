@@ -44,7 +44,7 @@ and a linear null model on AIC.
 \details{
 This is the relaxation-formula fitter, complementing the step-function
 fitter in \code{fit_step.R}. The bi-exponential model captures the
-two-timescale relaxation dynamics predicted by the VI relaxation formula
+two-timescale relaxation dynamics predicted by the framework relaxation formula
 \eqn{d\rho/dt = -k_1(\rho - \rho_1) - k_2(\rho - \rho_2)}.
 
 The step-function fitter (\code{fit_step.R}) is preserved for

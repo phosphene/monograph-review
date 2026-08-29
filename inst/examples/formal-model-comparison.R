@@ -125,9 +125,9 @@ cat("================================================================\n\n")
 fit_a0 <- glm(retention ~ dep + para, data = df_bug, family = quasibinomial())
 s_a0   <- summary(fit_a0)
 cat(sprintf("  intercept = %+.3f  (p = %.4f)\n", coef(fit_a0)[1], s_a0$coefficients[1,4]))
-cat(sprintf("  dep       = %+.3f  (p = %.4f)  <- valence predicts > 0  [WRONG SIGN]\n",
+cat(sprintf("  dep       = %+.3f  (p = %.4f)  <- the framework predicts > 0  [WRONG SIGN]\n",
     coef(fit_a0)[2], s_a0$coefficients[2,4]))
-cat(sprintf("  para      = %+.3f  (p = %.4f)  <- valence predicts < 0  [ns]\n",
+cat(sprintf("  para      = %+.3f  (p = %.4f)  <- the framework predicts < 0  [ns]\n",
     coef(fit_a0)[3], s_a0$coefficients[3,4]))
 cat(sprintf("  pseudo-R² = %.3f\n", 1 - fit_a0$deviance / fit_a0$null.deviance))
 rho_a0 <- cor(rank(predict(fit_a0, data.frame(dep = bird_dep, para = rep(3, 8)),
@@ -147,9 +147,9 @@ cat("================================================================\n\n")
 fit_a <- glm(retention ~ dep + para, data = df, family = quasibinomial())
 s_a   <- summary(fit_a)
 cat(sprintf("  intercept = %+.3f  (p = %.4f)\n", coef(fit_a)[1], s_a$coefficients[1,4]))
-cat(sprintf("  dep       = %+.3f  (p = %.4f)  <- valence predicts > 0  [CORRECT, sig]\n",
+cat(sprintf("  dep       = %+.3f  (p = %.4f)  <- the framework predicts > 0  [CORRECT, sig]\n",
     coef(fit_a)[2], s_a$coefficients[2,4]))
-cat(sprintf("  para      = %+.3f  (p = %.4f)  <- valence predicts < 0  [CORRECT, sig]\n",
+cat(sprintf("  para      = %+.3f  (p = %.4f)  <- the framework predicts < 0  [CORRECT, sig]\n",
     coef(fit_a)[3], s_a$coefficients[3,4]))
 cat(sprintf("  pseudo-R² = %.3f\n", 1 - fit_a$deviance / fit_a$null.deviance))
 rho_a <- cor(rank(predict(fit_a, data.frame(dep = bird_dep, para = rep(3, 8)),
@@ -286,4 +286,4 @@ cat("\n  ROOT CAUSE: as.vector(t(retention)) is species-major;\n")
 cat("  rep(dep_scores, each=8) is gene-major. The mismatch shuffles\n")
 cat("  dep <-> retention, producing the wrong sign. Fix: as.vector(retention).\n")
 cat("\n  With the fix, the additive GLM (Model A) gives dep = +0.84 (p=0.0008),\n")
-cat("  para p < 0.0001, cross-kingdom ρ = +0.755 — all matching valence predictions.\n")
+cat("  para p < 0.0001, cross-kingdom ρ = +0.755 — all matching the framework's predictions.\n")

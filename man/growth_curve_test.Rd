@@ -14,5 +14,5 @@ List (A6: proof object).
 }
 \description{
 Fits linear, exponential, and quadratic models; compares via AIC.
-VI predicts: quadratic beats linear (positive acceleration).
+the framework predicts: quadratic beats linear (positive acceleration).
 }

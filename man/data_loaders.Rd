@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_loaders.R
 \name{data_loaders}
 \alias{data_loaders}
-\title{Data loaders for valence foundry datasets}
+\title{Data loaders for the foundry datasets}
 \description{
 Each loader reads from the bundled data/ directory, runs the appropriate
 contract validator, and returns a structured result object (A6: proof

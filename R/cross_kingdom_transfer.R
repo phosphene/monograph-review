@@ -8,9 +8,9 @@
 #'
 #' @section Theoretical Context:
 #'
-#' valence Prediction: integration-depth parameters transfer across kingdoms.
+#' the framework's prediction: integration-depth parameters transfer across kingdoms.
 #' Competitor: substrates are independent — no parameter transfer.
-#' DOES distinguish valence. This is the strongest test.
+#' DOES distinguish the framework. This is the strongest test.
 #'
 #' @dft A1, A2, A6
 #'

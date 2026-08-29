@@ -1,5 +1,5 @@
 ---
-uri: vi-foundry/standards/llm-war-stories
+uri: foundry/standards/llm-war-stories
 title: LLM War Stories — Capabilities, Constraints, and Craft
 author: Marsyas + Ed Phil
 status: living
@@ -37,13 +37,13 @@ know the tool better than if you'd read the manual.
 
 ## Part I — Demonstrated Capabilities (The Chainsaw for Branches)
 
-These were observed in practice during the VI Foundry evolution paper work,
+These were observed in practice during the Foundry evolution paper work,
 August 2026. Each is a talent natural to LLM inference — not a technique
 that was trained in, but a capacity that emerges from the model's design.
 
 ### 1. Genealogical Search
 
-**What happened:** Given a target formula (the VI relaxation formula),
+**What happened:** Given a target formula (the relaxation formula),
 asked "which scientists came closest to this?" The bot mapped the space
 of approaches around the concept and ranked proximity with genuine
 discrimination — not just listing everyone who worked on related math,
@@ -456,7 +456,7 @@ scenario is the falsification test — it derives an observable
 consequence and checks it. If you don't have a BDD scenario testing
 emergent behavior, you have a gap in your verification pyramid.
 
-**Documented in:** `vi-foundry/docs/standards/verification-pyramid.md`
+**Documented in:** `foundry/docs/standards/verification-pyramid.md`
 
 ---
 

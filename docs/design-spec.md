@@ -5,7 +5,7 @@ status: draft
 updated: 2026-08-18
 ---
 
-# Valence Foundry — Design Specification
+# The Foundry — Design Specification
 
 ## Architectural Principles
 
@@ -35,7 +35,7 @@ Every function is:
 
 | Module | Responsibility | Files |
 |--------|---------------|-------|
-| `inst/simulacra/` | Synthetic data generators (valence claims) | one per generator |
+| `inst/simulacra/` | Synthetic data generators (framework claims) | one per generator |
 | `inst/genealogy/` | Synthetic data generators (precursor environments) | one per generator |
 | `R/` | Package exports, fitters, analyzers, formal model | one per concern |
 | `tests/testthat/` | AAA tests, parametrized, null controls | one per simulacrum/genealogy stage |
@@ -54,7 +54,7 @@ Every function is:
 
 Each generator is a single file containing one function.
 
-### Simulacra (valence claims)
+### Simulacra (framework claims)
 
 | File | Function | Tests | Claim tested |
 |------|----------|-------|-------------|
@@ -140,13 +140,13 @@ Tests sweep across:
 ## Compositional Chain
 
 ```
-Ising (MC) → Landau (mean-field) → Cusp (bifurcation) → ... → valence (step)
+Ising (MC) → Landau (mean-field) → Cusp (bifurcation) → ... → framework (step)
 ```
 
 Each arrow is a mapping. The chain is tested by:
 1. Each stage produces data from its own equations (genealogy tests)
 2. Each stage's data, fed to the next stage's analyzer, produces consistent results (chain tests — T4, T6)
-3. The final stage (valence step) is tested directly (step recovery simulacrum)
+3. The final stage (framework step) is tested directly (step recovery simulacrum)
 
 ### Current gaps in the chain
 
@@ -154,7 +154,7 @@ Each arrow is a mapping. The chain is tested by:
 |-----|---------|--------|
 | Cusp → Percolation | Stage 3 → Stage 4 | T9: "structural analogy" — make formal or drop |
 | Percolation → Drift-selection | Stage 4 → Stage 5 | No connection claimed |
-| Drift-selection → valence | Stage 5 → Stage 6 | T2: does WF produce ρ_sat ≈ 0.35? |
+| Drift-selection → framework | Stage 5 → Stage 6 | T2: does WF produce ρ_sat ≈ 0.35? |
 
 ---
 

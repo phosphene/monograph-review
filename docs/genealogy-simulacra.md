@@ -1,5 +1,5 @@
 ---
-uri: vi-foundry/docs/genealogy-simulacra
+uri: foundry/docs/genealogy-simulacra
 title: Genealogy Simulacra — Natural Language Walkthrough of the Mathematical Chain
 author: Flow
 status: living
@@ -96,7 +96,7 @@ described what happens when the system is NOT at equilibrium:
 The system relaxes toward the nearest minimum of F. The rate of
 relaxation is proportional to how far the system is from equilibrium —
 the gradient of the free energy. This is the Landau-Lifshitz relaxation
-equation, and it is the direct ancestor of the VI relaxation formula.
+equation, and it is the direct ancestor of the relaxation formula.
 
 When written with TWO relaxation channels — fast (low-integration traits)
 and slow (deeply integrated traits) — the Landau-Lifshitz equation
@@ -106,7 +106,7 @@ becomes:
 
 The bi-exponential. The same formula used in chemistry since the 1880s,
 in physics since the 1930s, in pharmacology since the 1950s, and in MRI
-since the 1980s. The VI insight: evolution IS a relaxation process.
+since the 1980s. The insight: evolution IS a relaxation process.
 
 **What the test verifies:** Below Tc (a = −2.0), the equilibrium
 magnetization is near ±1.0 (the two minima). An external field
@@ -147,7 +147,7 @@ landscape). Thom saw it topologically: the number of equilibria is
 determined by the shape of the potential, and the shape changes as
 parameters cross the bifurcation set.
 
-For the VI framework, the cusp describes where the relaxation landscape
+For the framework, the cusp describes where the relaxation landscape
 becomes bistable — where the system has a choice between two equilibria.
 Niche commitment is the parameter change that pushes the system across
 the cusp boundary, from one equilibrium to another. The relaxation
@@ -195,7 +195,7 @@ The same mathematical form is standard in:
 - Pharmacokinetics: two-compartment models (since the 1950s)
 - MRI: T2 tissue relaxation (since the 1980s)
 
-Every pharmacist and radiologist uses this formula. The VI insight
+Every pharmacist and radiologist uses this formula. The insight
 is that evolution uses it too.
 
 **What the test verifies:** At t = 0, the formula returns ρ_eq + A₁ + A₂.

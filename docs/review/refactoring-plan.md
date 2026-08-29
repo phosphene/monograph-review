@@ -1,4 +1,4 @@
-# valence-foundry Math Refactoring Plan
+# the foundry Math Refactoring Plan
 
 **Author:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026

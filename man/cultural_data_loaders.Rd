@@ -2,7 +2,7 @@
 % Please edit documentation in R/cultural_data_loaders.R
 \name{cultural_data_loaders}
 \alias{cultural_data_loaders}
-\title{Data loaders for VI cultural evolution datasets}
+\title{Data loaders for the framework cultural evolution datasets}
 \description{
 Each loader reads from the bundled data/ directory, runs validation,
 and returns a structured result object (A6: proof object).

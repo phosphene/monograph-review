@@ -8,7 +8,7 @@ plot_forest_oracle(oracle_results)
 }
 \arguments{
 \item{oracle_results}{Data frame. Must contain columns: test_name,
-expected, observed, tolerance, supports_vi (logical), and
+expected, observed, tolerance, supports_framework (logical), and
 distinguishes (logical).}
 }
 \value{
@@ -39,7 +39,7 @@ oracle <- data.frame(
   expected = c(-23.5, 0.652, 0.920, 0.955),
   observed = c(-23.5, 0.652, 0.920, 0.955),
   tolerance = c(0.001, 0.001, 0.01, 0.001),
-  supports_vi = c(TRUE, TRUE, TRUE, TRUE),
+  supports_framework = c(TRUE, TRUE, TRUE, TRUE),
   distinguishes = c(FALSE, FALSE, TRUE, TRUE)
 )
 plot_forest_oracle(oracle)

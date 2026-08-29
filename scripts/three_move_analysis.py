@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 Three-Move Analysis: Ohta (inductive) + Fisher (decompositional) + Wimsatt (triangulation)
-Goal: Arrive at the functional form of valence — the formula.
+Goal: Arrive at the functional form of the framework effect — the formula.
 
 Move 1 (Ohta): Plot ρ vs θ across all systems. Let data reveal functional form.
-Move 2 (Fisher): Partition Sodalis variance into valence + drift + hitchhiking + selection.
+Move 2 (Fisher): Partition Sodalis variance into framework effect + drift + hitchhiking + selection.
 Move 3 (Wimsatt): Fit candidate functions, compare to monograph's predicted form.
 """
 
@@ -255,7 +255,7 @@ if popt_thresh is not None:
 
 ax.set_xlabel('θ (niche dependency parameter)', fontsize=12)
 ax.set_ylabel('ρ (dependency-retention Spearman)', fontsize=12)
-ax.set_title('Move 1 (Ohta): ρ vs θ — Does valence effect increase with niche dependency?', fontsize=13)
+ax.set_title('Move 1 (Ohta): ρ vs θ — Does the framework effect increase with niche dependency?', fontsize=13)
 ax.legend(fontsize=9)
 ax.set_xlim(-0.05, 1.0)
 ax.set_ylim(-0.15, 1.1)
@@ -391,7 +391,7 @@ print(f"  Retained: {sodalis_df['retention'].sum()} ({sodalis_df['retention'].me
 print(f"  Lost: {(1-sodalis_df['retention']).sum()} ({(1-sodalis_df['retention']).mean()*100:.1f}%)")
 
 # Partition variance in retention
-# Component 1: valence (dependency score)
+# Component 1: framework effect (dependency score)
 # Component 2: Essentiality (selection proxy)
 # Component 3: Network centrality (integration proxy)
 # Component 4: Random (unexplained)
@@ -399,10 +399,10 @@ print(f"  Lost: {(1-sodalis_df['retention']).sum()} ({(1-sodalis_df['retention']
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 
-# valence component: dependency score
-valence_rho, valence_p = stats.spearmanr(sodalis_df['dependency_score'], sodalis_df['retention'])
+# framework-effect component: dependency score
+framework_rho, framework_p = stats.spearmanr(sodalis_df['dependency_score'], sodalis_df['retention'])
 print(f"\n--- Variance Partition ---")
-print(f"valence component (dependency score): ρ={valence_rho:.3f}, p={valence_p:.6f}")
+print(f"framework-effect component (dependency score): ρ={framework_rho:.3f}, p={framework_p:.6f}")
 
 # Essentiality component
 if 'essential' in sodalis_df.columns:
@@ -418,24 +418,24 @@ if 'essential' in sodalis_df.columns:
     print(f"  Nonessential retention rate: {noness_retained:.3f}")
 
 # Logistic regression: decompose
-# Model 1: valence only (dependency score)
+# Model 1: framework effect only (dependency score)
 # Model 2: Essentiality only
-# Model 3: valence + Essentiality
+# Model 3: framework effect + Essentiality
 # Compare AUC to see unique contribution
 
 features = {}
 if 'dependency_score' in sodalis_df.columns:
-    features['valence'] = sodalis_df[['dependency_score']].fillna(0)
+    features['framework_effect'] = sodalis_df[['dependency_score']].fillna(0)
 if 'ess_binary' in sodalis_df.columns:
     features['Ess'] = sodalis_df[['ess_binary']].fillna(0)
 if 'dependency_score' in sodalis_df.columns and 'ess_binary' in sodalis_df.columns:
-    features['valence+Ess'] = sodalis_df[['dependency_score', 'ess_binary']].fillna(0)
+    features['framework_effect+Ess'] = sodalis_df[['dependency_score', 'ess_binary']].fillna(0)
 
 # Add centrality if available
 cent_cols = [c for c in sodalis_df.columns if 'degree' in c.lower() or 'between' in c.lower() or 'eigen' in c.lower()]
 if cent_cols:
     features['Centrality'] = sodalis_df[cent_cols].fillna(0)
-    features['valence+Ess+Cent'] = sodalis_df[['dependency_score', 'ess_binary'] + cent_cols].fillna(0)
+    features['framework_effect+Ess+Cent'] = sodalis_df[['dependency_score', 'ess_binary'] + cent_cols].fillna(0)
 
 print(f"\nLogistic regression decomposition:")
 print(f"{'Model':25s} {'AUC':>6s} {'ΔAUC':>6s}")
@@ -453,23 +453,23 @@ for name, X in features.items():
     except Exception as e:
         print(f"{name:25s} FAILED: {e}")
 
-# Fisher-style partition: ΔG = α·valence + β·drift + γ·hitchhiking + δ·selection
+# Fisher-style partition: ΔG = α·framework + β·drift + γ·hitchhiking + δ·selection
 # In Sodalis:
 # - Total retention rate = observed
-# - valence component = what dependency score explains above baseline
-# - Selection component = what essentiality explains above valence
+# - framework-effect component = what dependency score explains above baseline
+# - Selection component = what essentiality explains above the framework effect
 # - Drift = baseline expectation (random loss)
-# - Hitchhiking = residual after valence + selection (could be position effect)
+# - Hitchhiking = residual after framework effect + selection (could be position effect)
 
 total_retention = sodalis_df['retention'].mean()
 # Random expectation: if loss is random, retention = fraction of genes retained
 # Actually, the "drift" component is the baseline retention rate
-# valence component: genes with high dependency (top quartile) should be retained more
+# framework-effect component: genes with high dependency (top quartile) should be retained more
 q75 = sodalis_df['dependency_score'].quantile(0.75)
 q25 = sodalis_df['dependency_score'].quantile(0.25)
 high_dep_retention = sodalis_df[sodalis_df['dependency_score'] >= q75]['retention'].mean()
 low_dep_retention = sodalis_df[sodalis_df['dependency_score'] <= q25]['retention'].mean()
-valence_effect = high_dep_retention - low_dep_retention
+framework_effect = high_dep_retention - low_dep_retention
 
 if 'ess_binary' in sodalis_df.columns:
     ess_retention = sodalis_df[sodalis_df['ess_binary']==1]['retention'].mean()
@@ -480,11 +480,11 @@ else:
 
 print(f"\n--- Fisher Partition (effect sizes) ---")
 print(f"Total retention rate: {total_retention:.3f}")
-print(f"valence effect (high-dep minus low-dep retention): {valence_effect:.3f}")
+print(f"framework effect (high-dep minus low-dep retention): {framework_effect:.3f}")
 if selection_effect is not None:
     print(f"Selection effect (ess minus noness retention): {selection_effect:.3f}")
 print(f"Drift baseline: {total_retention:.3f} (random expectation)")
-print(f"Residual (hitchhiking + unexplained): {total_retention - valence_effect - (selection_effect or 0):.3f}")
+print(f"Residual (hitchhiking + unexplained): {total_retention - framework_effect - (selection_effect or 0):.3f}")
 
 # --- Plot 2: Retention by dependency quintile with partition ---
 fig, ax = plt.subplots(1, 1, figsize=(8, 6))
@@ -499,7 +499,7 @@ ax.bar(range(n_bins), quintile_retention['mean'], color='steelblue', edgecolor='
 ax.axhline(y=total_retention, color='red', linestyle='--', label=f'Baseline ({total_retention:.3f})')
 ax.set_xlabel('Dependency Score Bin', fontsize=12)
 ax.set_ylabel('Retention Rate', fontsize=12)
-ax.set_title('Move 2 (Fisher): Sodalis Retention by Dependency Level\nVI effect = High - Low', fontsize=13)
+ax.set_title('Move 2 (Fisher): Sodalis Retention by Dependency Level\nframework effect = High - Low', fontsize=13)
 ax.set_xticks(range(n_bins))
 ax.set_xticklabels(quintile_retention.index)
 for i, (mean, count) in enumerate(zip(quintile_retention['mean'], quintile_retention['count'])):
@@ -598,13 +598,13 @@ If the empirical ρ(θ) is sigmoidal with threshold θ*:
   
 This IS the physics attractor form. The "magnetism" Jan intuited is the
 order-parameter transition: below θ* the system is in the "disordered" 
-(valence doesn't discriminate, ρ≈0) state; above θ* it's in the "ordered"
-(valence discriminates, ρ→ρ_max) state. The steepness s measures how sharp
+(the framework doesn't discriminate, ρ≈0) state; above θ* it's in the "ordered"
+(the framework discriminates, ρ→ρ_max) state. The steepness s measures how sharp
 the phase transition is.
 
 The monograph's α(x) = -k_ecol + k_cult·σ((x-x*)/s) has the SAME structure:
-- k_ecol = negative baseline (ecological regime, valence absent)
-- k_cult = positive amplitude (cultural regime, valence present)  
+- k_ecol = negative baseline (ecological regime, framework effect absent)
+- k_cult = positive amplitude (cultural regime, framework effect present)  
 - σ = sigmoid gate (phase transition)
 - x* = critical point (Curie temperature analog)
 - s = steepness (cooperativity parameter)
@@ -623,7 +623,7 @@ ax1.plot(theta_fine, slope * theta_fine + intercept, 'b--', alpha=0.5, label=f'L
 if popt_sigmoid is not None:
     ax1.plot(theta_fine, sigmoid(theta_fine, *popt_sigmoid), 'r-', alpha=0.5, label=f'Sigmoid R²={sigmoid_r2:.2f}')
 ax1.set_xlabel('θ (niche dependency)')
-ax1.set_ylabel('ρ (valence effect)')
+ax1.set_ylabel('ρ (framework effect)')
 ax1.set_title('Move 1 (Ohta): ρ vs θ')
 ax1.legend(fontsize=8)
 ax1.grid(True, alpha=0.3)
@@ -634,7 +634,7 @@ ax2.bar(range(n_bins), quintile_retention['mean'], color='steelblue', edgecolor=
 ax2.axhline(y=total_retention, color='red', linestyle='--', label=f'Baseline {total_retention:.2f}')
 ax2.set_xlabel('Dependency Bin')
 ax2.set_ylabel('Retention Rate')
-ax2.set_title('Move 2 (Fisher): Sodalis\nVI effect partition')
+ax2.set_title('Move 2 (Fisher): Sodalis\nframework-effect partition')
 ax2.set_xticks(range(n_bins))
 ax2.set_xticklabels(quintile_retention.index, fontsize=7)
 ax2.legend(fontsize=8)
@@ -668,7 +668,7 @@ results = {
     },
     'move2_fisher': {
         'total_retention': total_retention,
-        'valence_effect': valence_effect,
+        'framework_effect': framework_effect,
         'selection_effect': selection_effect,
         'quintile_retention': quintile_retention.to_dict(),
     },

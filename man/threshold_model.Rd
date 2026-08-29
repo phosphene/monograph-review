@@ -33,7 +33,7 @@ Euler integration. Returns a vi_threshold_result object with full provenance.
 \section{Theoretical Context}{
 
 
-Valence Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
+The framework Prediction: biphasic kinetics — fast Phase 1 (unprotected traits shed
 at rate proportional to λ×M₀), slow Phase 2 (protected traits remain at 1.0).
 }
 

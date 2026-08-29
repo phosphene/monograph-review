@@ -4,7 +4,7 @@ owner: edphos
 status: living
 updated: 2026-08-21
 prior: phosphene/react-d3-hotload-test-demo (2014)
-lineage: phosphene dashboards → valence simulacra → cross-filter dashboard
+lineage: phosphene dashboards → framework simulacra → cross-filter dashboard
 descendant: docs/review/cross-filter-dashboard.html (2026)
 ---
 
@@ -12,7 +12,7 @@ descendant: docs/review/cross-filter-dashboard.html (2026)
 
 ## The Claim
 
-The cross-filter dashboard is not just a visualization. It's a **simulation proving ground** — the latest in a lineage of simulations used to test theoretical claims before they face empirical data. This genealogy traces how simulation evolved from a design tool in the phosphene D3 work to an epistemic instrument in the valence framework.
+The cross-filter dashboard is not just a visualization. It's a **simulation proving ground** — the latest in a lineage of simulations used to test theoretical claims before they face empirical data. This genealogy traces how simulation evolved from a design tool in the phosphene D3 work to an epistemic instrument in the framework under review.
 
 ## The Lineage
 
@@ -20,7 +20,7 @@ The cross-filter dashboard is not just a visualization. It's a **simulation prov
 phosphene D3 dashboards (2014) — simulation as design probe
         │
         ▼
-Valence simulacra (2025) — simulation as epistemic instrument
+Framework simulacra (2025) — simulation as epistemic instrument
         │
         ▼
 Cross-filter dashboard (2026) — simulation as proving ground
@@ -38,9 +38,9 @@ The dashboards used dc.js cross-filtering: brush a range on one chart, watch the
 
 **The test-informed connection:** The specs (Karma + Jasmine) simulated the component's behavior: "when given this data, does it render this many elements?" The test was a simulation of the component's contract. The spec was the proving ground for the implementation.
 
-## Phase 2: Simulation as Epistemic Instrument (valence simulacra, 2025)
+## Phase 2: Simulation as Epistemic Instrument (framework simulacra, 2025)
 
-The valence framework introduced simulacra — simulations that test theoretical claims. The `inst/simulacra/` directory in valence-foundry contains generative scripts:
+The framework under review introduced simulacra — simulations that test theoretical claims. The `inst/simulacra/` directory in the foundry contains generative scripts:
 
 - `generate_relaxation.R` — simulate bi-exponential decay from known parameters
 - `generate_cross_kingdom.R` — simulate cross-kingdom gene transfer
@@ -108,9 +108,9 @@ The spec is the proving ground for the simulation. The simulation is the proving
 
 ## The Deep Principle
 
-Simulation has always served a dual role: it **designs** (what should this be?) and it **proves** (is this claim true?). The phosphene dashboards were design simulations. The valence simulacra were epistemic simulations. The cross-filter dashboard is both — and that unification is the contribution.
+Simulation has always served a dual role: it **designs** (what should this be?) and it **proves** (is this claim true?). The phosphene dashboards were design simulations. The framework simulacra were epistemic simulations. The cross-filter dashboard is both — and that unification is the contribution.
 
-The genealogy reveals that "proving ground" is the right metaphor. A proving ground is where you test something before you deploy it. The phosphene tradition proved the design. The valence tradition proves the theory. The dashboard proves both — and it does it in the browser, interactively, with the spec watching.
+The genealogy reveals that "proving ground" is the right metaphor. A proving ground is where you test something before you deploy it. The phosphene tradition proved the design. The framework tradition proves the theory. The dashboard proves both — and it does it in the browser, interactively, with the spec watching.
 
 ## Artifacts
 
@@ -118,12 +118,12 @@ The genealogy reveals that "proving ground" is the right metaphor. A proving gro
 |----------|-------|---------------|
 | phosphene `Counter-test.js` (2014) | Design probe | Component renders correctly |
 | phosphene dc.js dashboards (2014) | Design probe | Cross-filter produces insight |
-| valence simulacra `generate_relaxation.R` (2025) | Epistemic | Bi-exponential recovers its own params |
-| valence genealogy Stage 6 (2025) | Epistemic | ΔAIC = −89.99, param recovery 9-14% |
+| framework simulacra `generate_relaxation.R` (2025) | Epistemic | Bi-exponential recovers its own params |
+| framework genealogy Stage 6 (2025) | Epistemic | ΔAIC = −89.99, param recovery 9-14% |
 | `cross-filter.js` `generateTrajectory()` (2026) | Proving ground | Bi-exponential runs in-browser, spec-verified |
 | `d3-dashboard.spec.js` (2026) | Proving ground | 38 specs test the real simulation module |
 | `cross-filter-dashboard.html` (2026) | Proving ground | Interactive simulation + cross-filter |
 
 ---
 
-*This document is part of the Valence Foundry genealogy series. The prior is phosphene (2014). The methodology is simulation as proving ground. The inheritance: design probe + epistemic instrument = proving ground.*
+*This document is part of the Foundry genealogy series. The prior is phosphene (2014). The methodology is simulation as proving ground. The inheritance: design probe + epistemic instrument = proving ground.*

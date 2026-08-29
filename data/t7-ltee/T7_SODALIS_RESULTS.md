@@ -11,7 +11,7 @@
 
 The LTEE (*E. coli* K-12 in glucose minimal medium, 60K generations) is a **free-living adaptation** system, not a genome reduction system. Gene loss is driven by neutral drift + hitchhiking, not by dependency-ordered reallocation toward a simpler niche. Ten integration measures tested across 40 statistical tests — all null.
 
-Sodalis meets VI's preconditions:
+Sodalis meets the framework's preconditions:
 1. **Partner-defined niche** — tsetse fly host provides nutrients, stable environment
 2. **Active genome reduction** — 1,183 pseudogenes, 49% non-coding DNA
 3. **Directional process** — converging on obligate symbiosis, not adapting to a flask
@@ -63,13 +63,13 @@ Sodalis meets VI's preconditions:
 
 | Measure | Retained mean | Lost mean | p | Direction |
 |---------|--------------|-----------|---|-----------|
-| FBA full | 0.341 | 0.087 | <0.0001 | ✓ VI |
-| FBA LTEE | 0.308 | 0.044 | <0.0001 | ✓ VI |
-| PPI degree | 77.7 | 60.4 | <0.0001 | ✓ VI |
-| PPI betweenness | 0.0007 | 0.0006 | <0.0001 | ✓ VI |
-| Metabolic eigen | 0.025 | 0.022 | 0.0006 | ✓ VI |
-| Metabolic degree | 186.5 | 174.8 | 0.016 | ✓ VI |
-| Composite | 0.273 | 0.204 | <0.0001 | ✓ VI |
+| FBA full | 0.341 | 0.087 | <0.0001 | ✓ |
+| FBA LTEE | 0.308 | 0.044 | <0.0001 | ✓ |
+| PPI degree | 77.7 | 60.4 | <0.0001 | ✓ |
+| PPI betweenness | 0.0007 | 0.0006 | <0.0001 | ✓ |
+| Metabolic eigen | 0.025 | 0.022 | 0.0006 | ✓ |
+| Metabolic degree | 186.5 | 174.8 | 0.016 | ✓ |
+| Composite | 0.273 | 0.204 | <0.0001 | ✓ |
 
 **Note:** PPI eigenvector shows reversed direction (retained 0.0077 < lost 0.0093). This is because lost genes include central hubs from alternative metabolic pathways (unnecessary to symbiont) that score high on eigenvector centrality. This is the only anomaly — all other measures, including the composite, are in the correct direction.
 
@@ -86,11 +86,11 @@ The contrast is unambiguous. Same measures, same model, same integration scores.
 
 ## Interpretation
 
-**VI discriminates in Sodalis but not in the LTEE because Sodalis is undergoing directional genome reduction toward a partner-defined niche.** The host provides metabolites, the symbiont loses biosynthetic pathways, and the order of loss is predicted by integration depth — genes with more dependents are retained longer.
+**The framework discriminates in Sodalis but not in the LTEE because Sodalis is undergoing directional genome reduction toward a partner-defined niche.** The host provides metabolites, the symbiont loses biosynthetic pathways, and the order of loss is predicted by integration depth — genes with more dependents are retained longer.
 
 The LTEE is adapting to a simple environment, not reducing toward a partner. Gene loss is a byproduct of drift + hitchhiking, not dependency-ordered reallocation. Integration depth does not predict which genes are lost.
 
-This **marks the boundary of VI's applicability**: the theory predicts gene loss in systems converging on symbiotic/parasitic niche dependence, not in free-living organisms under relaxed selection.
+This **marks the boundary of the framework's applicability**: the theory predicts gene loss in systems converging on symbiotic/parasitic niche dependence, not in free-living organisms under relaxed selection.
 
 ## Limitations
 

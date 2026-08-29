@@ -1,7 +1,7 @@
 ---
 uri: valence-foundry/inferno-genealogy-pipeline
 title: INFERNO Labs Genealogy Pipeline — Design Document
-author: Valence Foundry Engineering
+author: The Foundry Engineering
 status: design
 version: 1.0.0
 updated: 2026-08-18
@@ -9,7 +9,7 @@ updated: 2026-08-18
 
 # INFERNO Labs Genealogy Pipeline — Design Document
 
-> **T15:** Transposition of the valence genealogy chain into a registered, versioned, DOI-trackable pipeline under the INFERNO Labs framework.
+> **T15:** Transposition of the framework genealogy chain into a registered, versioned, DOI-trackable pipeline under the INFERNO Labs framework.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ updated: 2026-08-18
 
 ### 1.1 What This Is
 
-The valence relaxation formula `dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)` is the endpoint of a formal chain spanning four stages:
+The relaxation formula `dρ/dt = −k₁(ρ − ρ₁) − k₂(ρ − ρ₂)` is the endpoint of a formal chain spanning four stages:
 
 | Stage | Name | Domain | Code | Status |
 |-------|------|--------|------|--------|
@@ -359,12 +359,12 @@ Each stage includes a `zenodo.json` file in its directory:
     }
   ],
   "title": "INFERNO Labs — Genealogy Stage 1: Ising Model Simulation",
-  "description": "Metropolis Monte Carlo simulation of the 2D Ising model on a 16×16 lattice. Part of the valence relaxation formula genealogy chain: Ising → Landau → Cusp → Relaxation. Output: magnetization vs temperature for 20 temperature points. Seed: 42, deterministic.",
+  "description": "Metropolis Monte Carlo simulation of the 2D Ising model on a 16×16 lattice. Part of the relaxation formula genealogy chain: Ising → Landau → Cusp → Relaxation. Output: magnetization vs temperature for 20 temperature points. Seed: 42, deterministic.",
   "keywords": [
     "ising model",
     "metropolis monte carlo",
     "statistical physics",
-    "valence relaxation formula",
+    "the relaxation formula",
     "genealogy chain",
     "inferno labs"
   ],

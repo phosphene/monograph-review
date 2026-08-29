@@ -38,7 +38,7 @@ tests whether the post-threshold plateau is ~0.35.
 \section{Theoretical Context}{
 
 
-VI Formula Prediction: ρ_sat ≈ 0.35 across all substrates. In economics,
+the framework Formula Prediction: ρ_sat ≈ 0.35 across all substrates. In economics,
 this means: the correlation between firm-level capability dependency and
 firm survival, measured above the provision threshold, should be ~0.35.
 Not 0.1, not 0.8 — 0.35. This is a parameter-free, substrate-independent
@@ -52,7 +52,7 @@ parameters govern economic disruption, the same boundary should appear.
 Competitor: no existing economic theory predicts a universal constant for
 the retention-survival correlation. Standard disruption theory (Christensen)
 predicts qualitative displacement, not a quantitative saturation value.
-This test DOES distinguish the VI formula from qualitative alternatives:
+This test DOES distinguish the framework formula from qualitative alternatives:
 it makes a specific numerical prediction that no other theory makes.
 
 What supports the formula: mean_rho_sat ∈ \link{0.25, 0.45} and step wins on AIC.

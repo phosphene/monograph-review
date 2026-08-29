@@ -101,7 +101,7 @@ test_that("ltee_cosegregation depletion ratio < 1 (depletion, not enrichment)", 
 # === T7-v2: ltee_dependency_ordering — dependency predicts loss timing ===
 
 test_that("ltee_dependency_ordering returns positive rho for positive ordering", {
-  # High dependency -> lost LATER (positive ordering, VI-consistent)
+  # High dependency -> lost LATER (positive ordering, framework-consistent)
   timing <- c(b1 = 100, b2 = 500, b3 = 3000, b4 = 10000, b5 = 50000)
   dependency <- c(b1 = 0, b2 = 0, b3 = 0.5, b4 = 0.9, b5 = 1.0)
   result <- ltee_dependency_ordering(timing, dependency, seed = 42)

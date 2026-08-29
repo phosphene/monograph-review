@@ -13,5 +13,5 @@ cross_domain_beta_test(data)
 List (A6: proof object).
 }
 \description{
-VI predicts: cultural substrates have β > 1; non-cultural have β < 1.
+the framework predicts: cultural substrates have β > 1; non-cultural have β < 1.
 }

@@ -17,17 +17,17 @@ gene_loss_ordering(data, seed = 42L, n_perm = 720L)
 List (A6): values (spearman_rho, permutation_p, pseudo_r_squared), metadata.
 }
 \description{
-Tests valence's prediction that gene categories with higher functional
+Tests the framework's prediction that gene categories with higher functional
 dependency (integration depth) are retained longer during genome
 reduction. Uses exact permutation test (720 permutations of 6 items).
 }
 \section{Theoretical Context}{
 
 
-Valence Prediction: integration-depth determines gene-loss order. Competitor:
-random loss predicts no ordering. DOES distinguish valence from random loss.
+The framework Prediction: integration-depth determines gene-loss order. Competitor:
+random loss predicts no ordering. DOES distinguish the framework from random loss.
 
-What supports valence: high positive Spearman ρ (deeply integrated → retained).
-What refutes valence: ρ ≈ 0 (no ordering).
+What supports the framework: high positive Spearman ρ (deeply integrated → retained).
+What refutes the framework: ρ ≈ 0 (no ordering).
 }
 

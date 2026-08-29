@@ -1,7 +1,7 @@
 # test-simulacrum-param-recovery.R — STDD parameter recovery test
 #
 # Simulacrum 1: Parameter Recovery.
-# Proves the pipeline CAN recover known valence parameters from synthetic data
+# Proves the pipeline CAN recover known the framework parameters from synthetic data
 # with ground truth, and that a null control (λ = 0) does NOT recover.
 #
 # DFT compliance:
@@ -57,7 +57,7 @@ test_that("single-run recovery: negative slope and R² > 0.3", {
   data <- generate_synthetic_population(n = 50L, seed = 42L)
   m <- .fit_reduction(data)
 
-  # valence signal: parasitism reduces plastome → negative slope
+  # the framework signal: parasitism reduces plastome → negative slope
   expect_lt(m["slope"], 0)
   # Signal detectable above noise
   expect_gt(m["r_squared"], 0.3)

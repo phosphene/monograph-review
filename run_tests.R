@@ -47,7 +47,7 @@ if (is.null(arg)) {
   filter_label <- arg
 }
 
-cat("=== Valence Foundry Test Runner ===\n")
+cat("=== The Foundry Test Runner ===\n")
 cat(sprintf("Gate: %s  (filter: %s)\n",
   if (is.null(filter_label)) "all" else filter_label,
   if (is.null(filter)) "(none)" else filter

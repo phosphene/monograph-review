@@ -22,10 +22,10 @@ region, irreversible). The cusp region is shaded; the bifurcation point
 \section{Theoretical Context}{
 
 
-Irreversibility is valence's sharpest departure from gradual reversibility.
+Irreversibility is the framework's sharpest departure from gradual reversibility.
 This visualization shows that irreversibility is \emph{quantitative} (loop
 area, not just a boolean) and that it emerges at the bifurcation (\code{a = 0}).
-The shaded region is where valence's irreversibility prediction is active.
+The shaded region is where the framework's irreversibility prediction is active.
 }
 
 \examples{

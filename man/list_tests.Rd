@@ -8,7 +8,7 @@ list_tests(discriminating_only = FALSE)
 }
 \arguments{
 \item{discriminating_only}{Logical. If TRUE, only return tests flagged as
-discriminating (i.e. that distinguish VI from competitors).}
+discriminating (i.e. that distinguish the framework from competitors).}
 }
 \value{
 data.frame with columns: name, function, data_required,

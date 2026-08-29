@@ -1,5 +1,5 @@
 ---
-uri: vi-foundry/docs/decomplection-t12
+uri: foundry/docs/decomplection-t12
 title: T12 — Genealogy Script Decomplection Report
 author: Flow
 status: complete

@@ -1,9 +1,9 @@
-# Valence-Ingression Framework — Critical Review
+# the framework under review Framework — Critical Review
 
 **Reviewer:** Ed Phillips ([@phosphene](https://github.com/phosphene))
 **Date:** August 2026
 **Status:** Living document — review of the monograph (Ritch-Frel, *The
-Valence-Ingression Framework*, v9, June 2026) and of the `valence-foundry`
+the framework under review Framework*, v9, June 2026) and of the `the foundry`
 computational artifacts that test its predictions.
 **License:** MIT
 
@@ -13,7 +13,7 @@ computational artifacts that test its predictions.
 
 This review covers two things, and it is important to keep them distinct:
 
-1. **The monograph** — Ritch-Frel's valence framework (v9). The framework proposes
+1. **The monograph** — Ritch-Frel's framework under review (v9). The framework proposes
    that organisms are problem-solving agents that commit to ecological spaces
    offering adaptive returns (*valence*), are reshaped by those spaces through
    *capacity reallocation*, and that evolution is the record of this process
@@ -28,7 +28,7 @@ This review covers two things, and it is important to keep them distinct:
    the integration-depth / capacity-reallocation sub-prediction applied to
    genome reduction — Orobanchaceae plastome PGLS, endosymbiont biphasic
    kinetics, gene-loss ordering, LTEE co-segregation, cross-kingdom parameter
-   transfer, niche-vs-Ne, and pan-genome fluidity. These are real valence
+   transfer, niche-vs-Ne, and pan-genome fluidity. These are real framework
    predictions, but they are a narrower evidentiary register than the
    monograph's NCC / *Homo*-inversion claims (see Remark R3).
 
@@ -70,7 +70,7 @@ them.
 
 ### R1 — The name is ambiguous
 
-"Valence-Ingression" requires reading the internal definitions before it
+"the framework under review" requires reading the internal definitions before it
 becomes meaningful, and the abbreviation "valence" is ambiguous within the Phosphene
 ecosystem (it collides with other uses of "valence"). Neither token is
 self-explanatory to a reader encountering the framework cold. The glossary in
@@ -100,19 +100,19 @@ the integration-depth / capacity-reallocation prediction applied to a specific
 domain (plastome and endosymbiont genome reduction, gene-loss ordering, LTEE
 function-loss co-segregation, cross-kingdom transfer). This is a legitimate and
 important sub-prediction, but a reader should not conclude that a green foundry
-"confirms valence" in its broadest form. The foundry confirms the *capacity-
+"confirms the framework" in its broadest form. The foundry confirms the *capacity-
 reallocation-by-integration-depth* mechanism in the genome-reduction domain.
 The NCC and *Homo*-inversion predictions require their own test artifacts,
 which the foundry does not currently provide.
 
-### R4 — Some oracle entries corroborate valence but do not discriminate it from competitors
+### R4 — Some oracle entries corroborate the framework but do not discriminate it from competitors
 
 The baseline oracle ([`baseline/oracle.yml`](../../baseline/oracle.yml))
 annotates each entry with `distinguishes_from_competitor`. T1 (Orobanchaceae
 PGLS), T2 (cross-family), and T7 (LTEE co-segregation) are marked
 `distinguishes_from_competitor: false`: the competing hypotheses (relaxed
 selection, stochastic loss, independent assortment) predict the same pattern.
-These results *corroborate* valence but do not *discriminate* it. The discriminating
+These results *corroborate* the framework but do not *discriminate* it. The discriminating
 evidence in the foundry is concentrated in T3 (biphasic kinetics), T4
 (niche-vs-Ne), T5 (pan-genome fluidity), T6 (gene-loss ordering), and L3
 (cross-kingdom transfer). Of these, T6 and L3 currently have no bundled data
@@ -164,10 +164,10 @@ a bug fix. Until then, T3 `skip()`s honestly with R² = 0.24 / k1-k2 = NA.
 The author's original empirical formal model
 (`archive/pre-foundry-scripts/run_formal_model.R`) — a quasibinomial GLM,
 `retention ~ dep + para`, fit to a real 8×6 plastid-gene retention matrix —
-produced the wrong sign on `dep` (−0.83, valence predicts > 0), a non-significant
+produced the wrong sign on `dep` (−0.83, the framework predicts > 0), a non-significant
 `para` (p = 0.59), and a wrong-signed cross-kingdom ρ (−0.755, oracle says
 +0.755). [`modeling-sim-viz-review.md`](modeling-sim-viz-review.md) Part I
-initially attributed this to model misspecification (additive where valence predicts
+initially attributed this to model misspecification (additive where the framework predicts
 interaction) plus quasi-separation from the autotroph row.
 
 That diagnosis was **incomplete**. The root cause is a **data-flattening bug**:
@@ -178,7 +178,7 @@ where it should use `as.vector(retention)` (gene-major: 8 values per gene). The
 
 **The fix is one character** — remove the `t()`. With correct alignment, the
 additive GLM gives `dep = +0.84` (p = 0.0008), `para` p < 0.0001, pseudo-R² =
-0.55, and cross-kingdom ρ = +0.755 — all matching valence predictions. The additive
+0.55, and cross-kingdom ρ = +0.755 — all matching the framework's prediction predictions. The additive
 specification is adequate; the interaction GLM is theoretically preferred but
 not needed for the sign in this dataset. The direct threshold-model fit (R6
 option, step function) is too rigid (R² = 0.33) and produces degenerate rankings.
@@ -199,7 +199,7 @@ foundry's data-reconciliation work and are cited by the code.
 
 ### Item 1 — Resolve the naming (framework)
 
-Adopt a self-describing name or commit to the "Valence-Ingression" expansion in
+Adopt a self-describing name or commit to the "the framework under review" expansion in
 every context; disambiguate the "valence" abbreviation. Tied to Remark R1. **Owner:**
 monograph author. **Foundry impact:** none (cosmetic); tracked here so the
 glossary's "under review" note resolves to a concrete item.
@@ -267,13 +267,13 @@ A calculation review traced every divergence to a root cause. Three were
 
 - **T4 (niche-vs-Ne) — wrong response variable + meaningless niche encoding.**
   The function regressed `Genome Size (Mb)` (the *core* genome) instead of
-  `Adjusted pan-genome` (the gene-loss/capacity proxy valence predicts), and encoded
+  `Adjusted pan-genome` (the gene-loss/capacity proxy the framework predicts), and encoded
   lifestyle as `as.numeric(factor(...))` — an arbitrary integer per category,
   not a model. The Ne `grep("Ne")` also matched the first of two duplicate Ne
-  columns. On the raw scale this *inverted* the valence prediction (Ne R² = 0.26 >
+  columns. On the raw scale this *inverted* the framework prediction (Ne R² = 0.26 >
   niche R² = 0.13). **Fix:** regress `log(Adjusted pan-genome)` on lifestyle
   (as a factor) vs `log(Ne)`, on complete cases. Result: niche R² = 0.364 >
-  Ne R² = 0.257, AIC favors niche (242 < 256) — **valence confirmed.** The residual
+  Ne R² = 0.257, AIC favors niche (242 < 256) — the framework confirmed. The residual
   drift (0.364 vs oracle 0.343) is data-version, not a bug.
 
 - **T5 (pan-genome fluidity) — Ne grep matched `Nematodes`.** `grep("Ne")`
@@ -281,7 +281,7 @@ A calculation review traced every divergence to a root cause. Three were
   `Ne` column. The "Ne model" regressed fluidity on a near-constant flag →
   R² ≈ 0, and `lifestyle_subsumes_ne = NA`. **Fix:** anchor the grep to `^Ne$`.
   Result: lifestyle R² = 0.229 > Ne R² = 0.177 — **lifestyle subsumes Ne,
-  Valence confirmed.** This entry now **passes** the regression gate.
+  the framework confirmed.** This entry now **passes** the regression gate.
 
 - **formal_model — oracle was dimensionally mismatched.** The oracle expected
   `phase1_rate: 19.0, phase2_rate: 1.0, r_squared: 0.920, bayes_factor: 6.7` —
@@ -312,12 +312,12 @@ proof (T4, T7). Do **not** loosen tolerances to hide drift.
 
 ## Mapping: oracle entries → review items → status
 
-| Oracle entry | Distinguishes valence? | Review item | Regression status |
+| Oracle entry | Distinguishes the framework? | Review item | Regression status |
 |--------------|-------------------|-------------|-------------------|
 | T1 Orobanchaceae PGLS | no (R4) | 6 | skip (drift; science holds) |
 | T2 cross-family | no (R4) | 6 | skip (drift; science holds) |
 | T3 endosymbiont biphasic | **yes** | 6 / R6 | skip (method misspecification) |
-| T4 niche-vs-Ne | **yes** | 6 | skip (drift; **valence confirmed** — niche subsumes Ne) |
+| T4 niche-vs-Ne | **yes** | 6 | skip (drift; the framework confirmed — niche subsumes Ne) |
 | T5 pan-genome fluidity | **yes** | 6 | **✅ passing** (bug fixed) |
 | T6 gene-loss ordering | **yes** | 4 | skip (no data) |
 | T7 LTEE co-segregation | no (R4) | 6 | skip (drift; science holds) |
@@ -325,7 +325,7 @@ proof (T4, T7). Do **not** loosen tolerances to hide drift.
 | L3 cross-kingdom | **yes** | 5 | skip (no data) |
 
 After the calculation review, **two discriminating entries pass** (T5,
-formal_model) and **one more confirms the valence prediction** (T4, niche subsumes
+formal_model) and **one more confirms the framework prediction** (T4, niche subsumes
 Ne). The remaining skips are: two with no data (T6, L3 — items 4–5), four with
 data-version drift where the science holds (T1, T2, T4, T7), and one method
 misspecification (T3 — see R6). The foundry's methodology is sound (unit +
@@ -353,7 +353,7 @@ After the calculation review, the regression gate has **4 passes / 7 skips**
 - **Empirical corroboration of two discriminating predictions.** T5
   (pan-genome fluidity: lifestyle subsumes Ne) and the formal threshold model
   (biphasic ODE kinetics) now **pass** the regression gate. T4 (niche-vs-Ne)
-  **confirms valence** (niche R² > Ne R², AIC favors niche) though it still skips on
+  confirms the framework (niche R² > Ne R², AIC favors niche) though it still skips on
   data-version drift.
 - **Honest reporting.** The regression gate does not pass silently; it reports
   exactly which entries diverge and why, citing the review items that own the

@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# scripts/run_pipeline.R — Execute the full valence-foundry pipeline and write results
+# scripts/run_pipeline.R — Execute the full the foundry pipeline and write results
 #
 # Runs every analysis stage against the bundled data, collects each stage's
 # `values` (A6 proof object) keyed by the baseline-oracle entry name, and

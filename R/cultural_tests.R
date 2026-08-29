@@ -1,11 +1,11 @@
-#' Cultural evolution empirical tests for VI foundry
+#' Cultural evolution empirical tests for the foundry
 #'
 #' Tests H2 (β mediation), H4 (cross-domain β), H5 (super-exponential growth),
 #' and H10 (sign reversal) using real cultural data.
 #'
 #' @section Theoretical Context:
 #'
-#' VI Prediction: β (branching factor) is a substrate property that:
+#' the framework's prediction: β (branching factor) is a substrate property that:
 #' 1. Does NOT depend on population size (H2)
 #' 2. Varies by domain, with cultural substrates > 1 (H4)
 #' 3. Produces super-exponential growth when β > 1 (H5)
@@ -39,7 +39,7 @@ NULL
 
 #' H2: Test whether β mediates the N → complexity relationship
 #'
-#' VI predicts: β predicts complexity; N does NOT predict β; N drops
+#' the framework predicts: β predicts complexity; N does NOT predict β; N drops
 #' to non-significant (or weakens) when controlling for β.
 #'
 #' @param data Data frame from load_oswalt_1973() or load_oswalt_1976().
@@ -103,7 +103,7 @@ beta_mediation_test <- function(data, seed = 42L) {
 
 #' H4: Test whether β varies by domain and crosses threshold at 1
 #'
-#' VI predicts: cultural substrates have β > 1; non-cultural have β < 1.
+#' the framework predicts: cultural substrates have β > 1; non-cultural have β < 1.
 #'
 #' @param data Data frame from load_cross_domain_beta().
 #' @return List (A6: proof object).
@@ -134,7 +134,7 @@ cross_domain_beta_test <- function(data) {
 #' H5: Test whether growth is super-exponential (β > 1 → t² growth)
 #'
 #' Fits linear, exponential, and quadratic models; compares via AIC.
-#' VI predicts: quadratic beats linear (positive acceleration).
+#' the framework predicts: quadratic beats linear (positive acceleration).
 #'
 #' @param data Data frame from load_uspto_patents().
 #' @return List (A6: proof object).
@@ -181,7 +181,7 @@ growth_curve_test <- function(data) {
 
 #' H10: Test sign reversal from Van Holstein & Foley (2024) posteriors
 #'
-#' VI predicts: Homo (β > 1) has positive DD speciation;
+#' the framework predicts: Homo (β > 1) has positive DD speciation;
 #' non-Homo (β < 1) has negative DD speciation.
 #'
 #' @param homo_gl Numeric vector. Speciation DD posterior for Homo.

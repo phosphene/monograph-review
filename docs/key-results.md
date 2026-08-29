@@ -1,6 +1,6 @@
 # Key Results — Discriminating Core
 
-## The Six Tests That Distinguish valence
+## The Six Tests That Distinguish the Framework
 
 | Test | Key result | What it rules out |
 |------|-----------|-------------------|

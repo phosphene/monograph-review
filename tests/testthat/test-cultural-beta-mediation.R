@@ -6,7 +6,7 @@
 #
 # @section Theoretical Context:
 #
-# VI Prediction: β is substrate property, not demographic. β predicts
+# the framework's prediction: β is substrate property, not demographic. β predicts
 # complexity; N does not predict β. Competitor: demographic hypothesis
 # (Henrich, Kline & Boyd) predicts N directly predicts complexity.
 #

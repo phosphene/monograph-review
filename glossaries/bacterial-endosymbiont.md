@@ -1,6 +1,6 @@
 # Bacterial / Endosymbiont Domain Glossary
 
-**Scope:** Terms used in T3–T5 of the VI monograph (§12.1.4–12.1.6), covering
+**Scope:** Terms used in T3–T5 of the framework under review (§12.1.4–12.1.6), covering
 endosymbiont genome reduction, niche breadth, effective population size, and
 pan-genome fluidity. All definitions are mechanical — oriented toward what the
 term measures, how the analysis operationalizes it, and what the oracle values
@@ -31,7 +31,7 @@ reallocate the maintenance budget to core functions. Over evolutionary time,
 this results in massive genome reduction. *Buchnera aphidicola* has a genome
 of ~640 kb (compared to ~4,600 kb for free-living *E. coli*).
 
-**Mechanism in VI terms.** The endosymbiont's ecological niche is the host
+**Mechanism in the framework's terms.** The endosymbiont's ecological niche is the host
 cell. Entry into that niche (the symbiosis event) triggers a capacity
 reallocation cascade: traits that are not needed in the host environment
 (low integration depth) are shed; traits that are essential for the symbiosis
@@ -75,11 +75,11 @@ linear or exponential function.
   the rate of mutational decay of deeply integrated functions, which is
   orders of magnitude slower).
 
-**Why biphasic kinetics distinguishes VI from its competitors (T3 oracle):**
+**Why biphasic kinetics distinguishes the framework from its competitors (T3 oracle):**
 
 | Model | Predicted shape | Biphasic? | T3 verdict |
 |-------|----------------|-----------|------------|
-| VI (threshold-gated) | Logistic/saturation — fast then slow | **Yes** | R² = 0.920, BF = 6.7 |
+| the framework (threshold-gated) | Logistic/saturation — fast then slow | **Yes** | R² = 0.920, BF = 6.7 |
 | Constant-rate (Lynch 2007) | Linear/log-linear — steady reduction proportional to Ne | **No** | Rejected by BF |
 | Accelerating (Muller's ratchet) | Exponential — faster loss over time | **No** | Rejected by BF |
 
@@ -141,10 +141,10 @@ exponential (or super-exponential) decay curve, and the decelerating logistic
 would fit worse. The data reject the ratchet's predicted shape.
 
 **The ratchet's correct domain.** Muller's ratchet operates in all finite
-asexual populations. The VI framework does not deny its existence — it denies
+asexual populations. The framework under review does not deny its existence — it denies
 that the ratchet is the *primary* driver of the genome reduction trajectory
 in endosymbionts. The biphasic shape shows that the dominant signal is
-threshold-gated capacity reallocation (VI), not mutation-accumulation
+threshold-gated capacity reallocation (the framework), not mutation-accumulation
 feedback (Muller's ratchet). The ratchet may contribute noise at the margin
 (especially in Phase 2, where the slow loss may include mutational decay of
 deeply integrated functions), but it cannot explain the sharp initial decline
@@ -164,7 +164,7 @@ because drift overwhelms selection. The predicted trajectory is linear or
 log-linear — genome size declines at a rate proportional to 1/Ne, with no
 biphasic component.
 
-**Why it predicts a different shape from VI.** In Lynch's model, there is no
+**Why it predicts a different shape from the framework.** In Lynch's model, there is no
 threshold, no "protected" vs "unprotected" class of genes. Every gene is
 subject to the same drift-mutation-selection balance; the rate of loss is
 determined by Ne, not by the functional architecture of the genome. The
@@ -173,7 +173,7 @@ proportional rate) or a linear decline (constant absolute rate) — not a
 logistic/saturation curve with two distinct phases.
 
 **Why biphasic kinetics rules it out (mechanical).** The T3 Bayes factor
-directly compares the logistic (biphasic/VI) model against the exponential
+directly compares the logistic (biphasic/the framework) model against the exponential
 (constant-rate/Lynch) model. BF = 6.7 means the logistic model is ~7× more
 likely. The temporal displacement ratio (k₁/k₂ = 19.0) quantifies the
 separation between the two phases — a constant-rate model cannot produce a
@@ -181,7 +181,7 @@ separation between the two phases — a constant-rate model cannot produce a
 
 **Where Lynch's model contributes.** The constant-rate model is not wrong
 about everything — it captures the observation that drift matters for genome
-evolution. The VI framework absorbs this: drift is a background process that
+evolution. The framework under review absorbs this: drift is a background process that
 contributes to Phase 2 loss (the slow erosion of protected traits). But
 Lynch's model cannot explain the order-of-magnitude rate difference between
 Phase 1 and Phase 2, because it has no mechanism for a threshold gate. This
@@ -196,7 +196,7 @@ T4 shows the opposite (niche R² = 0.343 vs Ne R² = 0.198).
 **Definition.** The ratio of marginal likelihoods of two competing models
 given the data. For T3, the two models are:
 
-- **Logistic (numerator):** Genome size ~ floor + (ceil - floor) / (1 + e^{rate × (age - mid)}). This is a 4-parameter saturation curve representing biphasic kinetics (VI prediction).
+- **Logistic (numerator):** Genome size ~ floor + (ceil - floor) / (1 + e^{rate × (age - mid)}). This is a 4-parameter saturation curve representing biphasic kinetics (the framework's prediction).
 - **Exponential (denominator):** Genome size ~ a × e^{-b × age}. This is a 2- or 3-parameter decay curve representing constant-rate reduction (Lynch competitor).
 
 **The computation.** The Bayes factor is approximated from the BIC (Bayesian
@@ -225,7 +225,7 @@ BF = 6.7 is positive evidence — the data favor the biphasic model over the
 constant-rate model by a factor of ~7. This is not overwhelming (the
 logistic model has 4 parameters vs 2 for the exponential, and n = 10 is
 small), but it is the discriminating result: the biphasic curve fits
-better than the constant-rate curve, consistent with VI's threshold-gated
+better than the constant-rate curve, consistent with the framework's threshold-gated
 mechanism and inconsistent with Lynch's drift-only model.
 
 **Why it is the discriminating result.** A constant-rate model can produce
@@ -282,12 +282,12 @@ prediction: niche demands determine which genes are retained, and the
 prediction is that niche breadth — the organism's position in ecological
 space — drives gene loss more than the population-genetic parameter Ne.
 
-**Why this discriminates VI from Lynch.** Lynch's drift-barrier model
+**Why this discriminates the framework from Lynch.** Lynch's drift-barrier model
 predicts that Ne is the primary determinant of genome size: larger Ne → more
 efficient purging of non-functional DNA. If Lynch were correct, Ne would
 explain more variance than niche breadth. T4 shows the opposite. This does
 not mean Ne is irrelevant (R² = 0.198 is non-zero), but it means the
-niche-driven signal (R² = 0.343) is stronger — consistent with VI's
+niche-driven signal (R² = 0.343) is stronger — consistent with the framework's
 prediction that ecological commitment (niche entry) is the primary driver of
 capacity reallocation, with drift as a secondary background process.
 
@@ -313,7 +313,7 @@ prediction is monotonic: as Ne decreases, genome size increases (or, for
 gene loss, genome reduction is slower in small Ne populations). This is a
 one-parameter model — Ne alone predicts everything.
 
-**Why VI says niche matters more than Ne.** The VI framework does not deny
+**Why the framework says niche matters more than Ne.** The framework under review does not deny
 that Ne contributes to genome evolution. It denies that Ne is the *primary*
 driver. The mechanistic argument:
 
@@ -335,11 +335,11 @@ driver. The mechanistic argument:
 **Why this matters for the endosymbiont domain.** Endosymbionts have
 extremely small Ne (they are transmitted vertically through small host
 populations). Lynch's model would predict that their small Ne *causes*
-genome reduction (drift fixes deleterious mutations). The VI framework
+genome reduction (drift fixes deleterious mutations). The framework under review
 predicts that their narrow niche *causes* genome reduction (unnecessary
 genes are shed), and the small Ne is a consequence of the endosymbiotic
 lifestyle, not the cause of the reduction. The biphasic shape (T3) and the
-niche dominance (T4) together support the VI interpretation.
+niche dominance (T4) together support the framework's interpretation.
 
 ---
 
@@ -400,12 +400,12 @@ genetic parameter Ne.
 | Commensal | Lives on/in host without causing disease | Moderately open | *Lactobacillus*, *Bifidobacterium* |
 | Free-living | Independent of host | Open | *Pseudomonas*, *Bacillus*, *E. coli* |
 
-**Why this discriminates VI from Ne-only models.** If Ne were the sole
+**Why this discriminates the framework from Ne-only models.** If Ne were the sole
 driver of gene content evolution (Lynch), the open/closed pan-genome
 distinction would be explained by Ne differences (free-living bacteria have
 larger Ne than endosymbionts). The Dewar analysis shows that the lifestyle
 signal remains after controlling for Ne — the niche-driven effect is
-independent of the drift-driven effect. This is consistent with VI's
+independent of the drift-driven effect. This is consistent with the framework's
 prediction that ecological commitment (lifestyle) determines the set of
 genes a lineage needs to maintain, and the need determines the fluidity
 of the pan-genome, not the other way around.
@@ -427,7 +427,7 @@ of the pan-genome, not the other way around.
 
 ---
 
-*Glossary built from the VI Foundry baseline oracle, empirical test code, and
+*Glossary built from the foundry baseline oracle, empirical test code, and
 formal model. All oracle values are from `baseline/oracle.yml`. All code
 references are to `R/empirical_tests.R` (empirical) and `R/formal_model.R`
 (theoretical).*

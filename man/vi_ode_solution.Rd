@@ -2,7 +2,7 @@
 % Please edit documentation in R/cultural_ode_models.R
 \name{vi_ode_solution}
 \alias{vi_ode_solution}
-\title{Analytical solution for VI ODE (generalized logistic with decay)}
+\title{Analytical solution for the framework ODE (generalized logistic with decay)}
 \usage{
 vi_ode_solution(t, r, K, delta, B0)
 }

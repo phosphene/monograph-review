@@ -1,13 +1,13 @@
-# test-unit-speculative.R — Unit tests for the speculative toy realms
+# test-unit-speculative.R — Unit tests for the speculative toy models
 #
-# Tests the speculative simulation capacity (toy realms).
+# Tests the speculative simulation capacity (toy models).
 # DFT A1: pure math, no I/O. A2: deterministic (no RNG). A6: proof objects.
 #
 # This file matches the `unit` filter (run_tests.R unit).
 
 library(testthat)
 
-context("Speculative toy realms")
+context("Speculative toy models")
 
 # === sweep_threshold ===
 
@@ -274,7 +274,7 @@ test_that("diversity_dependence_contrast: logistic DD is negative (niche-filling
   expect_equal(result$values$logistic_dd_sign, "negative")
 })
 
-test_that("diversity_dependence_contrast: contrast is positive (valence signature)", {
+test_that("diversity_dependence_contrast: contrast is positive (framework signature)", {
   result <- diversity_dependence_contrast(n_steps = 20, capacity = 30)
   expect_gt(result$values$contrast, 0)
   expect_equal(result$values$contrast_sign, "positive")
@@ -376,13 +376,13 @@ test_that("glm_transfer: model outperforms sign-only at low noise", {
   expect_gt(result$values$model_advantage, 0)
 })
 
-test_that("glm_transfer: dep coefficient is positive (valence signature)", {
+test_that("glm_transfer: dep coefficient is positive (framework signature)", {
   d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
   result <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   expect_gt(result$values$dep_coefficient, 0)
 })
 
-test_that("glm_transfer: para coefficient is negative (valence signature)", {
+test_that("glm_transfer: para coefficient is negative (framework signature)", {
   d <- valence.foundry:::generate_transfer_data(noise_sd = 0.05, seed = 42L)
   result <- glm_transfer(d$plant_data, d$bird_data, seed = 42L)
   expect_lt(result$values$para_coefficient, 0)

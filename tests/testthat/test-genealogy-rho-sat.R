@@ -92,7 +92,7 @@ test_that("ρ_sat is not a fixed constant ~0.35", {
   skip_on_cran()
 
   # This test documents the finding that ρ_sat varies with N and δ_range.
-  # The valence paper's claim of ρ_sat ≈ 0.35 as a universal constant is
+  # The the manuscript's claim of ρ_sat ≈ 0.35 as a universal constant is
   # NOT supported by the Wright-Fisher simulation.
 
   out_small <- generate_drift_selection(

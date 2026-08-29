@@ -325,7 +325,7 @@ p4_echolocation_centrality <- function(symbols, centralities, sym_to_prot, seed 
 
 #' P5: C4 syndrome — integration-depth signature from the C4 literature
 #'
-#' Does the C4 photosynthesis syndrome show the VI integration-depth signature?
+#' Does the C4 photosynthesis syndrome show the framework integration-depth signature?
 #' Christin & Osborne (2014, New Phytol) provide (a) a hierarchical
 #' deconstruction of the C4 syndrome into phenotypic levels (Table 1: Niche >
 #' Physiology > Function > Character > Characteristic > Component) and
@@ -334,11 +334,11 @@ p4_echolocation_centrality <- function(symbols, centralities, sym_to_prot, seed 
 #' "vary among C4 lineages" and are "assembled using one of numerous possible
 #' sets" of components, with components "repeatedly co-opted."
 #'
-#' VI prediction: the shared/invariant elements sit HIGHER in the integration
+#' the framework's prediction: the shared/invariant elements sit HIGHER in the integration
 #' hierarchy (function converges = protected attractor), the varying elements
 #' sit LOWER (mechanism diverges = modular substrate). Both the hierarchy and
 #' the shared/varying coding come from the independent C4 literature, not from
-#' VI — the test is whether they align.
+#' the framework — the test is whether they align.
 #'
 #' @param syndrome Data frame with columns: level, integration_depth (higher =
 #'   more integrated), invariant (0/1: shared across origins per Christin &
@@ -386,7 +386,7 @@ p5_c4_integration_depth <- function(syndrome, seed = 42L) {
     metadata = list(
       seed = seed, test = "p5_c4_integration_depth",
       source = "Christin & Osborne 2014 New Phytol Table 1 + text",
-      a_priori = "hierarchy and shared/varying coding from C4 literature, not VI",
+      a_priori = "hierarchy and shared/varying coding from C4 literature, not the framework",
       prediction = "function converges (invariant, high integration); mechanism diverges (varying, low integration)"
     )
   )
