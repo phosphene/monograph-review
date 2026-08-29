@@ -58,22 +58,25 @@ The monograph under review proposes the following natural statement about animal
 from the empirical work; it was not presupposed.
 
 > When an animal is displaced from its homeorhetic trajectory — by exercise, injury, infection,
-> anesthesia, or any perturbation that moves it from its preferred state — its return is not a
-> one-shot exponential. Resolved at adequate temporal resolution, the recovery separates into two
-> distinct tempos: a fast tempo, which completes first and appears even in animals lacking a
-> nervous system, and a slow tempo that follows. The ratio of the two tempos is not a universal
-> constant; it is set by the animal's integration structure — conserved within an evolutionary
-> grade, differing between grades.
+> or anesthesia — its return is a multiscale relaxation: a recovery composed of multiple
+> superimposed decay rates rather than a single mono-exponential return. High-resolution temporal
+> tracking resolves this recovery into two distinct phases: a rapid, tissue-autonomous phase that
+> appears even in animals lacking a nervous system, and a prolonged phase that follows. The ratio
+> of the two recovery timescales (τ₁/τ₂) is not a universal constant: it remains invariant within
+> an evolutionary grade and shifts across major transitions in organization. What the two phases
+> are, physically — tissue-autonomous versus systemically integrated processes — is a labeled,
+> sourced hypothesis under test, outside the empirical spine.
 
-The empirical core is forced by the measurement: non-single-exponential recovery; two tempos
-that appear at resolution; a fast tempo present aneurally; a negative control (sleep slow-wave
-activity stays single) showing the claim is specific, not vacuous. Classical scaffolding carries
-that core: homeorhetic trajectory (Waddington 1957); fast and slow as tempo and mode in
-Simpson's sense (1944), anchored by the fast-slow continuum of life history (Stearns 1983;
-Wikelski et al. 2003; Réale et al. 2010); integration structure (Olson & Miller 1958; Cheverud
-1996); evolutionary grade (Huxley 1958; Simpson 1944). The mechanistic reading — what the fast
-tempo might be, physically — is a labeled, sourced, under-test hypothesis, explicitly outside
-the empirical spine.
+The empirical core is forced by the measurement: multiscale (non-mono-exponential) recovery;
+two distinct phases that appear at high temporal resolution; a rapid phase present in the absence
+of a nervous system (tissue-autonomous, in the cell-autonomous lineage of developmental
+genetics); a negative control (sleep slow-wave activity stays mono-exponential) showing the claim
+is specific, not vacuous. Classical scaffolding carries that core: homeorhetic trajectory
+(Waddington 1957); recovery timescales τ₁, τ₂ as the within-organism kinetic structure, with
+fast and slow as tempo and mode in Simpson's sense (1944) reserved for grade-level divergence
+and anchored by the fast-slow continuum of life history (Stearns 1983; Wikelski et al. 2003;
+Réale et al. 2010); integration structure (Olson & Miller 1958; Cheverud 1996); evolutionary
+grade (Huxley 1958; Simpson 1944).
 
 ## The systems of study
 
