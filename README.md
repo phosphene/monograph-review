@@ -63,7 +63,8 @@ of empirical science.
   needs belongs to no research program, so the L3 competitor is paraphrased in plain language —
   "independence of the two kingdoms predicts no transfer" — and the consciousness-research usage
   ("a biological substrate as the basis for human experience or cognition") is a vague analogy
-  misapplied, mentionable only under derision, never adopted.
+  misapplied from cell biology; it may be mentioned only as "used as an analogy within some
+  areas of armchair consciousness research" — kept at a distance, never adopted.
 - **Observation as the production of conditions (Wisdom).** Observations are the foundation of
   scientific method because they are the conditions in which statements can be made — and those
   conditions can be reproduced. The reproduction of the conditions is itself observation: to
