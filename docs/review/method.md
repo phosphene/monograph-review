@@ -82,6 +82,12 @@ picture of empirical science.
   usages and criticisms of other research programs live in a lower namespace within the project
   file system and are merely linked and indexed in the top-level README. This document is the
   home of those notes for the monograph review.
+- **Self-specifying top level (Ed Phil #80721).** The top-level README is the place to practice
+  proper public science discipline: everything is based on the use of top-level names or fully
+  qualified namespaced names; every mathematical notation has a place; every formalism has a
+  place; everything is clearly located within its own domain; the README is fully
+  self-specifying — it makes public science sense in public language on its own, with no
+  reliance on unstated context or on the lower namespace for meaning.
 - **Austerity of vocabulary.** No private models, no private metaphors, no terms imported from
   another domain. Every word is a resident of classical evolutionary science or is forced by the
   measurement itself; every model has a named public source. An import is a category error.

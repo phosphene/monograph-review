@@ -72,6 +72,20 @@ each validated against known truth before use:
   without refitting; the strongest test of the claim's generality because it controls for
   kingdom-specific confounds.
 
+**Notation and conventions.** Every symbol used in this document has a fixed meaning, stated
+once here so the README is self-specifying in its use of mathematical notation:
+
+| Symbol | Meaning |
+|--------|---------|
+| τ₁, τ₂ | the two recovery timescales — the fast and slow decay constants of the two-phase fit |
+| ΔAICc | difference in corrected Akaike information criterion between competing model fits |
+| BF | Bayes factor — the evidence ratio between the two models compared |
+| β | regression coefficient (PGLS slope), in the reported units (kb per level for T1) |
+| R² | coefficient of determination — the share of variance explained by the model |
+| ρ | Spearman's rank correlation coefficient |
+| λ | phylogenetic signal — the strength of shared-evolutionary-history correlation in the PGLS residuals |
+| p | attained significance level of the stated test |
+
 ## Data sets
 
 All data are bundled in the repository (`data/`) with provenance documented in YAML
@@ -87,8 +101,8 @@ All data are bundled in the repository (`data/`) with provenance documented in Y
 
 ## Implementation and reproduction
 
-The review is implemented as a standard R package (`valence.foundry`), organized so that every
-inferential step is a named, pure function with a declared contract. This is the operational
+The review is implemented as a standard R package, `valence.foundry` (the "foundry" for short),
+organized so that every inferential step is a named, pure function with a declared contract. This is the operational
 enforcement of the review's method — inference as code, and code as the record. (The method
 commitments themselves are documented separately; see the index below.)
 
@@ -153,6 +167,10 @@ The repository ships a complete review trail — every claim traced to its root 
 algorithm surveyed with its prediction and competitor, every finding recorded as a numbered
 Remark or Review Item that the code cites directly. All working notes, methodological
 commitments, and commentary live in the lower namespace below; the top level only indexes them.
+
+**Convention.** Findings are recorded as numbered Remarks (R1, R2, …) and Review Items (1–6);
+the test suite and pipeline cite them by number so that a divergence points at a specific,
+written finding rather than an opaque message.
 
 **Method and working notes**
 
