@@ -24,8 +24,16 @@ not aspiration.*
   the monograph review
 - **Tests:** 39 test files under `tests/testthat/`
 - **CI:** GitHub Actions — 7 gates (`run_tests.R`), container
-  `rocker/tidyverse:4.5.3`. **No local R on the agent host — CI is the
-  runner.** Never claim a test passes without a CI green.
+  `rocker/tidyverse:4.5.3`.
+- **Local R IS available** (found 2026-08-29): R 4.5.3 via miniforge at
+  `~/.openclaw/tools/miniforge3/bin/R` (also `/data/R/miniforge`).
+  `export PATH=~/.openclaw/tools/miniforge3/bin:$PATH` before R calls.
+  Install `minpack.lm` once (required for `fit_biexp`; without it 12 unit
+  tests fail on the base-R fallback optimizer). Package is NOT installed —
+  `R CMD INSTALL .` after checking out, then `Rscript run_tests.R <gate>`.
+  CI remains authoritative; local runs catch things CI documents as green
+  but that the committed package would actually fail (see the NAMESPACE
+  fix below).
 - **Standards:** public scientific language only; no private models/
   metaphors; no claim exceeds its stated-and-tested conditions
   (see `docs/standards/`, `docs/review/review-evaluation-standard.md`).
@@ -36,8 +44,17 @@ not aspiration.*
   (docs, code comments, tests, archive). Zero "vintage", zero "VI"
   framework-acronym, zero private brand terms in authored text. Two
   bibliographic citations of the real Vintage imprint remain as data only.
-- **Green gates:** unit suite, coverage ≥ 80% enforced, lint (non-blocking),
-  integration, simulacra, CI/CD container verification — all complete/green.
+- **Green gates (local, 2026-08-29, after NAMESPACE fix):** unit 671 pass,
+  simulacra 266 pass, integration 13 pass, regression 15 pass. Full suite
+  8417 passed / 0 failed / 11 skipped. CI gates: unit, coverage ≥ 80%,
+  lint (non-blocking), integration, simulacra, regression, container check.
+- **Latent bug found + fixed (2026-08-29):** committed `NAMESPACE` was stale —
+  missing the 5 P-series exports (`p1_buchnera_two_component` …
+  `p5_c4_integration_depth`) that `pipeline.yml` declares. The integration
+  gate's manifest-conformance test would have failed in CI. Fixed by
+  `roxygen2::roxygenise()` (commit `725a674`); ~140 orphaned `vi_*.Rd`
+  removed. If docs are ever edited, re-run roxygenise or the same drift
+  recurs.
 - **Partially passing:** the calculation gate — 2 entries pass (T5,
   formal_model), T4 confirms the framework (niche subsumes Ne). **7 skips:**
   - T6 + L3 — **no bundled data** (Review Items 4–5)
