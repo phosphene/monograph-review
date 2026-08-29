@@ -41,12 +41,16 @@ of empirical science.
   leaves the positive claim underdetermined. Claims are therefore stated by what they are;
   explicit negation is reserved for reporting what happened to a rejected null, never as the
   primary form of a claim.
-- **Qualified naming (Hickey–Tellman).** Every name must carry sufficient semantic meaningfulness
-  as a name. An abstract term sufficient unto its abstraction — within mathematics or within a
-  research program — is never a top-level claim on its own: it must be tied to the research
-  program from which it draws its meaning. Such a term may appear inside a paragraph that names
-  its program, but any name exposed at top level — a hypothesis, a thesis, metadata — must be
-  fully qualified, its research-program namespace stated as part of the name.
+- **Qualified naming (Hickey–Tellman, from Frege).** Every name must carry sufficient semantic
+  meaningfulness as a name. Genealogy: the triadic model of the name — sign, referent, sense —
+  derives from Frege's theory of sense and reference (*Über Sinn und Bedeutung*, 1892);
+  Tellman's naming chapter (*Elements of Clojure*, 2019) and Hickey's Clojure design practice
+  restate it for software; this review extends it to research programs. An abstract term
+  sufficient unto its abstraction — within mathematics or within a research program — is never a
+  top-level claim on its own: it must be tied to the research program from which it draws its
+  meaning. Such a term may appear inside a paragraph that names its program, but any name exposed
+  at top level — a hypothesis, a thesis, metadata — must be fully qualified, its research-program
+  namespace stated as part of the name.
 - **Observation as the production of conditions (Wisdom).** Observations are the foundation of
   scientific method because they are the conditions in which statements can be made — and those
   conditions can be reproduced. The reproduction of the conditions is itself observation: to
