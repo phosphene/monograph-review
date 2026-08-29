@@ -10,13 +10,14 @@ These documents are authored by **Ed Phillips**
 with the standards in [`docs/standards/`](../standards/). The review is
 conducted under the Phosphene standards and ethos — public scientific language
 only, no private models or metaphors, no claim exceeds its stated-and-tested
-conditions — as stated in the root [`README`](../../README.md) and in
+conditions — as stated in the review [`method.md`](method.md) and in
 [`review-evaluation-standard.md`](review-evaluation-standard.md).
 
 ## Contents
 
 | Document | What it is |
 |----------|-----------|
+| [`method.md`](method.md) | The commitments the review proceeds under (Braithwaite–Wisdom picture of empirical science), the qualified-naming discipline (Frege → Hickey–Tellman), and the boundary rule for names with its worked cases. Working notes, below the public top level. |
 | [`manuscript-review.md`](manuscript-review.md) | Critical review of the manuscript (Ritch-Frel, v9) and the computational artifacts. Numbered **Remarks** (R1…) and **Review Items** (1–6). The code cites these directly. |
 | [`review-evaluation-standard.md`](review-evaluation-standard.md) | The review's evaluation contract (Ed Phillips, 2026-08-28): the review must support three vertices — **mathematics, software, data** — and evaluate each for **well-formedness, coherence, reproducibility**. Operational form of claim-evidence conformance: no claim exceeds its stated-and-tested conditions. |
 | [`calculation-review.md`](calculation-review.md) | Literate walkthrough of the calculation audit: for each oracle entry, the prediction, the broken output, the root-cause diagnosis, and the fix. The analysis-level companion to the review. |
