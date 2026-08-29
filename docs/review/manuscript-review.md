@@ -47,7 +47,7 @@ as far as this review can establish, the only mechanism-level explanation in
 the current literature for why *Homo* exhibits positively diversity-dependent
 speciation. That alone justifies taking the framework seriously.
 
-The framework's weakest point is empirical: several of its load-bearing
+The framework's weakest point is empirical: several of its central
 predictions have not been tested against data, and where the foundry *can* test
 the §12 results, the bundled data does not yet reproduce the manuscript's
 reported values. This is not a defect of the framework — it is a
