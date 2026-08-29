@@ -121,7 +121,7 @@ cat("in an essential operon → it can't be lost regardless of mismatch),\n")
 cat("then the main effect is the correct test, not the interaction.\n\n")
 
 cat("CONCLUSION: The 'failed' interaction test actually SUPPORTS a more\n")
-cat("precise version of the valence prediction. Integration provides\n")
+cat("precise version of the the framework prediction. Integration provides\n")
 cat("categorical (structural) protection against loss, not proportional\n")
 cat("(rate-modulated) protection. This is informational momentum\n")
 cat("operating as a binary threshold (in essential operon? → protected)\n")

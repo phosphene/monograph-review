@@ -218,7 +218,7 @@ cat(sprintf("Best model: %s (AIC = %.1f)\n", aic_table$Model[1], aic_table$AIC[1
 cat(sprintf("Worst model ΔAIC: %.1f (%s)\n",
             max(aic_table$deltaAIC), aic_table$Model[which.max(aic_table$deltaAIC)]))
 cat(sprintf("Genera analyzed: %d\n", nrow(genus_means)))
-cat(sprintf("valence prediction (decelerating best): %s\n",
+cat(sprintf("the framework prediction (decelerating best): %s\n",
             ifelse(aic_table$Model[1] %in% c("Decelerating", "Exponential"),
                    "SUPPORTED", "NOT SUPPORTED")))
 cat("=============================\n")
