@@ -1,124 +1,103 @@
 # Monograph Review: Computational Test Infrastructure (`valence.foundry`)
 
-**Production-grade computational artifacts for evaluating the claims of the manuscript under review — *A Trajectory Account of Adaptive Evolution from Homo to the Wider Animal Kingdom* (Ritch-Frel, 2026).**
+**A complete, reproducible computational pipeline for evaluating the quantitative claims of a manuscript on trait loss and niche commitment — implemented in R, with every claim expressed as a testable function and every result traceable to its computational environment.**
 
 ---
 
 ## What This Is
 
-This repository contains the complete computational pipeline for testing the manuscript's claims: a theory of adaptive evolution that predicts organisms committing to specific ecological niches undergo ordered capacity reallocation, losing traits in proportion to their integration depth (how deeply a trait is embedded in the organism's functional architecture) rather than at random.
+The manuscript under review advances a specific thesis about evolution: when a lineage commits to a new niche — symbiosis, parasitism, or a culturally embedded existence — it does not lose traits at random or merely because selection on them has relaxed. Trait loss is *ordered*, and the ordering is governed by the relationship between each trait and the niche the lineage has entered.
 
-The artifacts here do not merely reproduce numbers from the manuscript. They constitute the proof machinery: every claim is a pure, testable function with contract enforcement; every statistical method is validated against synthetic data with known ground truth; and every result is traceable to its computational environment.
+The mathematical form of that claim is sharp. If ρ is the within-system correlation between a trait's metabolic dependency and whether it is retained, and θ is niche dependency, the manuscript predicts a **step function**:
 
-The package serves three audiences:
+```
+ρ(θ) = ρ_sat · H(θ − θ*)
+```
 
-- **Researchers** evaluating the framework's empirical support
-- **Reviewers** checking whether the statistical methods are sound
-- **Replicators** reproducing the results on different data or platforms
+Zero-dependency traits are lost as if at random; any trait with non-zero connection to the new niche is retained; there is no gradient above the step. This signature distinguishes the thesis from its two standard competitors — relaxed selection and Muller's ratchet — both of which predict gradual or random loss rather than a step at the point of niche entry. The claim is substrate-independent: the same step should appear in bacterial endosymbionts, parasitic plants, island birds, and grammatical features across languages.
+
+This repository is the computational machinery for testing that claim. It does three things, in a specific order:
+
+1. **Formalizes the thesis as code.** Every claim is a pure, testable function with contract enforcement. There is no prose that cannot be traced to a function, and no function that cannot be traced to a claim (via numbered Remarks and Review Items that the test suite cites directly).
+2. **Validates the methods against known truth.** Every statistical procedure — PGLS, exact permutation, biphasic model selection, cross-kingdom transfer — is first exercised on synthetic data with known ground truth, verifying parameter recovery and null control before it is ever pointed at real data.
+3. **Reproduces the manuscript's reported results.** The repository bundles its data, pins a baseline oracle of every reported value, and re-runs the full pipeline against it under CI, so a result is only a result when it reproduces within numerical tolerance.
+
+The code is an R package (`valence.foundry`). The testing strategy, the CI gates, and the reproducibility contract are described below.
 
 ---
 
-## The Standards Under Which This Review Is Conducted
+## Method
 
-This review operates under the Phosphene standards and ethos, stated in
-public scientific language:
+This review is conducted under a small set of methodological commitments, all of which are standard practice in the empirical sciences and each of which has a named place in the literature.
 
-- **Public language only.** No private models, no private metaphors, no
-  private acronyms. Every model and metaphor used here is already in the
-  published literature, with a named genealogy. Under scientific review,
-  nothing is coined.
-- **No claim exceeds its stated-and-tested conditions.** A claim is either
-  supported by conditions that are stated and tested, or it is not
-  advanced (or is advanced only as proposed/untested). There is no third
-  state. A claim that exceeds its tested conditions is *overclaiming* —
-  an inferential error.
-- **The review's responsibility (three vertices × three properties).**
-  The review evaluates the manuscript's **mathematics, software, and
-  data** — each for **well-formedness, coherence, and reproducibility**.
-  A result is rely-on-able only when all three vertices pass all three
-  properties. See
-  [`docs/review/review-evaluation-standard.md`](docs/review/review-evaluation-standard.md).
-- **Underwriting, not discovery.** The authors propose claims; the review
-  team and platform team assess them. We underwrite the reliability of the
-  inferential claims and predictive apparatus of the research program — we
-  do not ourselves discover. A claim that has not passed underwriting is
-  not refuted; it is not yet covered, and remains under test.
+**Claim-evidence conformance.** No claim exceeds its stated-and-tested conditions. A claim is either supported by conditions that are stated and tested, or it is not advanced (or is advanced only as proposed, explicitly marked untested). There is no third state. A claim that exceeds its tested conditions is an inferential error. This is the single standard under which the review is conducted; everything else in this section is an operational consequence of it.
+
+**Complementarity as a realist axiom under test (Bohr).** The patterns reported here come from research programs that do not commute — different systems, different measures, different founding assumptions, no shared apparatus. They do not need to commute. The observation is naked: each apparatus registers something definite, and that registration does not carry any one theory's vocabulary. The representation is theory-laden: models, metrics, and instruments are built to their own frameworks. The strategy is never to fight over representations but to hold the naked observations side by side and let the pattern show itself. Anyone who re-runs the pipeline and re-represents the observations in their own vocabulary is welcome to; the conclusions they draw are theirs. *(Bohr, "Light and Life," 1932; genealogy in [`docs/review/bohr-complementarity-lineage.md`](docs/review/bohr-complementarity-lineage.md).)*
+
+**Family-kinds discipline (boundary-challenged concepts).** The cross-domain concepts here — ordered loss, integration depth, niche commitment, substrate independence — are family-resemblance categories: present in many instances, not essential in all. They are defined operationally within each domain (a fitted biphasic model, a PGLS slope, a permutation ordering, a cross-kingdom transfer), and the cross-domain pattern is the family resemblance. A non-instantiating case is a *boundary probe*, not a refutation: it measures the domain of validity of the pattern rather than contradicting it. *(Wittgenstein 1953 → Beckner 1959 → Sokal & Sneath 1963 → … → Kull 2016; genealogy in [`docs/review/family-kinds-genealogy.md`](docs/review/family-kinds-genealogy.md).)*
+
+These commitments are enforced operationally rather than asserted. The remainder of this README describes how.
+
+---
+
+## The Technical Implementation
+
+### Inferential reasoning as code
+
+The pipeline is organized so that each inferential step is a named, pure function with a declared contract:
+
+- **Three-pillar separation.** Every analysis is decomposed into (A) data preparation — a pure function that validates inputs and outputs; (B) model fitting — seed-locked and deterministic given the same inputs; (C) result extraction — a pure function returning structured data. I/O is isolated to thin `main()` wrappers that never run under `source()`, only under `Rscript`.
+- **Structured results (A6).** Functions that do work return a list of `values` and `metadata` (seed, sample size, convergence status, elapsed time). A function returning a bare number provides no evidence of what happened; a structured result lets a reviewer trace every number back to its computational conditions.
+- **Manifest conformance (A3).** The pipeline is declared as a YAML manifest (`pipeline.yml`); a test verifies the actual pipeline matches it, so an added stage that is not declared fails CI.
+
+### The means of empiricism
+
+Testing probabilistic inference is the hard part, and the repository solves it with stochastic test-driven development (STDD):
+
+- **Deterministic math** (log-likelihoods, matrix transforms, exact permutation enumeration) is tested with exact assertions: same input → same output, always.
+- **Stochastic transitions** (sampling, bootstrap, permutation when exhaustive is infeasible) are tested under controlled seeds with three classes of assertion:
+  - **Parameter recovery** — generate synthetic data from known parameters (θ*), run the pipeline, verify the recovered estimates (θ̂) fall within the credible interval of θ*. If the pipeline can recover known signal, it can be trusted to detect unknown signal.
+  - **Null control** — generate synthetic data with no signal, run the pipeline, verify it does *not* recover. This tests specificity: the pipeline must not produce false positives.
+  - **Distributional verification** — for conjugate models, compare empirical draws to analytical distributions (Kolmogorov–Smirnov).
+
+The **simulacrum** is the bridge from synthetic to real data: a controlled environment with known test data where the pipeline is verified to produce correct results *before* it is pointed at data where the right answer is unknown. On real data you do not know the answer — that is why you are running the analysis — so the simulacrum is the only place a known baseline exists.
+
+The **baseline oracle** (`baseline/oracle.yml`) records every manuscript-reported value as ground truth: the prediction, the competing hypothesis, the expected values with numerical tolerance, whether the result supports the thesis, and whether it distinguishes the thesis from the named competitor. The regression gate compares pipeline output to the oracle; divergence means either a code regression (fix it) or a genuine method improvement (update the oracle, with proof).
+
+### Code as R code
+
+All of the above is implemented as a standard R package:
+
+- **Package layout.** `R/` (pure functional library), `tests/testthat/` (the gate suites), `baseline/` (oracle), `data/` (bundled datasets with provenance), `inst/simulacra/` (synthetic data generators), `vignettes/` (literate analyses), `docs/` (review + standards), plus the Docker simulacrum stack and CI.
+- **Test pyramid.** Unit tests (pure math, contracts, deterministic — 0 ms, no filesystem) at the base; simulacra (parameter recovery + null control) and integration (real data through the full pipeline, oracle comparison) above; E2E via Docker at the top.
+- **CI gates.** Seven gates, each depending on the previous: lint → unit (with ≥ 80% coverage enforced) → simulacra → integration → regression → `R CMD check` → Pages. A gate result is only a result once CI is green.
 
 ---
 
 ## How to Reproduce
 
-Local R is available (see [Development Environment](docs/development-environment.md) for the non-standard R location, first-time setup, and current gate results).
+Local R is available (see [Development Environment](docs/development-environment.md) for the R location, first-time setup, and current gate results).
 
 ```bash
 # Clone and enter
-git clone [https://github.com/phosphene/monograph-review](https://github.com/phosphene/monograph-review).git
+git clone https://github.com/phosphene/monograph-review.git
 cd monograph-review
 
-# Set up local R (miniforge R 4.5.3 + minpack.lm) — see docs/development-environment.md
-export PATH="$HOME/.openclaw/tools/miniforge3/bin:$PATH"
+# Install the package (see docs/development-environment.md for the R setup)
 R CMD INSTALL --no-docs --no-multiarch --with-keep-source .
 
 # Run all gates (unit → simulacra → integration → regression)
 make all
 
 # Or run individual gates
-make unit          # Pure unit tests — mathematical correctness
+make unit          # Pure unit tests — mathematical correctness + contracts
 make integration   # Full pipeline on real data
 make regression    # Compare all results to the baseline oracle
 ```
 
-> Note: the suite's canonical runner is `run_tests.R` (`Rscript run_tests.R <gate>`).
-> This repo does not currently carry a `renv` lockfile; CI pins its environment via
-> the `rocker/tidyverse:4.5.3` container and `setup-r-deps` action. Local runs use
-> the miniforge R plus `minpack.lm`. See [Development Environment](docs/development-environment.md).
-
----
-
-## Methodological Note
-
-The empirical posture of this repository follows two linked
-intellectual lines, both public and both traced in the
-[genealogies](#genealogies):
-
-**Complementarity as a realist axiom under test (Bohr).**
-The patterns reported here come from research programs that do not
-commute — different systems, different measures, different founding
-assumptions, no shared apparatus. They do not need to commute. The
-*observation* is naked: each apparatus registers something definite,
-and that registration does not carry any one theory's vocabulary. The
-*representation* is theory-laden: models, metrics, and instruments are
-built to their own frameworks. The strategy is therefore never to fight
-over representations, but to hold the naked observations side by side
-and let the pattern show itself. Anyone who re-runs the pipeline and
-re-represents the observations in their own vocabulary is welcome to;
-the conclusions they draw are theirs.
-
-**The family-kinds discipline (boundary-challenged concepts).** The
-cross-domain concepts here — adaptive-returns seeking, conserved core,
-ordered loss, substrate independence — are *family-resemblance*
-categories: present in many instances, not essential in all. They are
-defined operationally within each domain (a fitted biphasic model, a PGLS
-slope, a permutation ordering, a cross-kingdom transfer), and the
-cross-domain pattern is the family resemblance. A non-instantiating case
-is a *boundary probe*, not a refutation: it measures the domain of
-validity of the pattern rather than contradicting it. See
-[`docs/review/family-kinds-genealogy.md`](docs/review/family-kinds-genealogy.md).
-
-**Claim-evidence conformance.** Because the concepts are
-boundary-challenged, no claim here exceeds its stated-and-tested
-conditions: every claim is reproducible (CI gates, baseline oracle,
-seed-locked fits), every citation points at a real passage, and the
-representation is openly theory-laden while the observation is left naked
-for anyone to verify.
-
-The standard is enforced operationally in the relaxation fitter — see
-[`docs/review/fit-biexp-numerical-challenges.md`](docs/review/fit-biexp-numerical-challenges.md),
-the rigorous revisit of `fit_biexp` and its `biphasic` consumer. The
-fitter reports a two-timescale structure only when the data forces it
-(guarded rule: AIC agreement, rate ratio, same sign, amplitude floor),
-and treats a degenerate sample as a boundary probe rather than a
-forced conclusion. Reproducible via `scripts/validate_fit_biexp.py`.
+> The canonical runner is `run_tests.R` (`Rscript run_tests.R <gate>`).
+> CI pins its environment via the `rocker/tidyverse:4.5.3` container; local runs
+> use the miniforge R plus `minpack.lm`. See [Development Environment](docs/development-environment.md).
 
 ---
 
@@ -126,14 +105,14 @@ forced conclusion. Reproducible via `scripts/validate_fit_biexp.py`.
 
 Every value below is the manuscript-reported result, stored as ground truth in [`baseline/oracle.yml`](baseline/oracle.yml). The pipeline must reproduce these within numerical tolerance (0.001).
 
-| Test | What It Measures | Key Value | Distinguishes the framework from competitors? |
+| Test | What It Measures | Key Value | Distinguishes the thesis from competitors? |
 |------|-----------------|-----------|-----------------------------------|
 | T1: Orobanchaceae PGLS | Plastome genome size vs parasitism depth | β = −23.5 kb/level, R² = 0.652, p < 10⁻⁹ | No — relaxed selection predicts the same gradient |
 | T3: Endosymbiont biphasic | Genome reduction kinetics shape | R² = 0.920, BF = 6.7 (logistic vs exponential) | Yes — constant-rate and ratchet predict different shapes |
 | T6: Gene-loss ordering | Functional dependency vs retention order | ρ = 0.955, exact permutation p = 0.0083 | Yes — random loss predicts no ordering |
 | L3: Cross-kingdom transfer | Plant parameters predict bird morphology | ρ = 0.755, p = 0.031 | Yes — substrate independence predicts no transfer |
 
-**Live visualizations:** [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/) — simulacra parameter recovery, baseline oracle, key results, and four speculative toy models (threshold gate, irreversibility, Homo inversion, cross-kingdom transfer), all with literate context.
+**Live visualizations:** [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/) — simulacra parameter recovery, baseline oracle, key results, and four exploratory simulation models (threshold gate, irreversibility, the *Homo* inversion, cross-kingdom transfer), all with literate context.
 
 ---
 
@@ -145,7 +124,7 @@ The repository ships a complete review trail — every claim traced to its root 
 
 | Document | What it is |
 |----------|-----------|
-| [Manuscript review](docs/review/manuscript-review.md) | Critical review of the manuscript (Ritch-Frel, v9) and the foundry artifacts. Numbered **Remarks** (R1–R7) and **Review Items** (1–6). The code cites these directly. |
+| [Manuscript review](docs/review/manuscript-review.md) | Critical review of the manuscript (v9) and the foundry artifacts. Numbered **Remarks** (R1–R7) and **Review Items** (1–6). The code cites these directly. |
 | [Calculation review](docs/review/calculation-review.md) | Literate walkthrough of the calculation audit: for each oracle entry, the prediction, the broken output, the root-cause diagnosis, and the fix. |
 | [Math review](docs/review/math-review.md) | Audit of the mathematics vs. the implementation vs. the claims (seven issues ranked by severity; two severe). All seven resolved by the three-phase refactoring. |
 | [Refactoring plan](docs/review/refactoring-plan.md) | Execution plan for the math-review issues: proposed refactoring, blast radius, risk, and three-phase ordering (safest-first). Status: COMPLETE. |
@@ -155,24 +134,24 @@ The repository ships a complete review trail — every claim traced to its root 
 | Document | What it is |
 |----------|-----------|
 | [Family-kinds genealogy](docs/review/family-kinds-genealogy.md) | The definitory-apparatus lineage: Wittgenstein (family resemblance, 1953) → Beckner (polytypic classes, 1959) → Sokal & Sneath (operational polythetic groups, 1963) → Mayr → Ghiselin → Paterson → Templeton → de Queiroz → Pigliucci → Kunz → Kull (semiotic species, 2016). Why boundary-challenged concepts are handled as family-resemblance categories and non-instantiating cases as boundary probes. |
-| [Complementarity lineage](docs/review/bohr-complementarity-lineage.md) | The epistemology: Bohr (Light and Life, 1932) → Delbrück → Elsasser/Pattee/Rosen/Stent. Observation is naked, representation is theory-laden, programs need not commute. The realist axiom under test. |
-| [fit_biexp numerical challenges](docs/review/fit-biexp-numerical-challenges.md) | The operational enforcement of claim-evidence conformance in the relaxation fitter: the ill-conditioning, the seed-fragile mono/bi boundary, the biphasic-flag bug and its guarded fix, and the degenerate-sampling/noise boundaries as boundary probes. Reproducible via `scripts/validate_fit_biexp.py`. |
+| [Complementarity lineage](docs/review/bohr-complementarity-lineage.md) | The epistemology: Bohr (Light and Life, 1932) → Delbrück → Elsasser/Pattee/Rosen/Stent. Observation is naked, representation is theory-laden, programs need not commute. |
+| [fit_biexp numerical challenges](docs/review/fit-biexp-numerical-challenges.md) | The operational enforcement of claim-evidence conformance in the relaxation fitter: the ill-conditioning, the seed-fragile mono/bi boundary, the biphasic-flag guard, and the degenerate-sampling/noise boundaries as boundary probes. Reproducible via `scripts/validate_fit_biexp.py`. |
 
 ### Build history and synthesis
 
 | Document | What it is |
 |----------|-----------|
-| [Phased breakdown](docs/review/foundry-phased-breakdown.md) | Phase-by-phase breakdown of the foundry build, current gate status, and the open data-reconciliation work (items 4–6). |
-| [Algorithms & findings](docs/review/algorithms-and-findings.md) | Formal literate survey of every algorithm, its prediction, its competitor, and a plain-language reading of the current result. The synthesis of what the foundry establishes, what it does not, and what that means for the framework. |
+| [Phased breakdown](docs/review/foundry-phased-breakdown.md) | Phase-by-phase breakdown of the build, current gate status, and the open data-reconciliation work (items 4–6). |
+| [Algorithms & findings](docs/review/algorithms-and-findings.md) | Formal literate survey of every algorithm, its prediction, its competitor, and a plain-language reading of the current result. The synthesis of what the foundry establishes, what it does not, and what that means for the thesis. |
 
 ### Modeling, data, and the empirical frontier
 
 | Document | What it is |
 |----------|-----------|
 | [Modeling, sim & viz review](docs/review/modeling-sim-viz-review.md) | Review of the author's existing modeling (finds the original empirical GLM was broken by a data-flattening bug; the foundry hid this with a theoretical simulation). Evaluation of the sim/viz infrastructure (three latent viz bugs found and fixed). Proposal for a speculative simulation capacity. |
-| [Formal model reproduction](docs/review/formal-model-reproduction.md) | Deep-dive reproduction of the broken GLM. **Root cause:** `as.vector(t(retention))` misaligns dep and retention. **Fix:** remove one `t()`. The corrected additive GLM gives dep = +0.84 (p = 0.0008), para p < 0.0001, cross-kingdom ρ = +0.755 — all matching the framework's prediction. Recorded as **Remark R7**. |
-| [Empirical-testing expansion plan](docs/review/empirical-testing-expansion-plan.md) | Proposal for moving the three "testable but not yet tested" modules (Homo inversion, cusp irreversibility, cross-kingdom transfer) toward tested. Honest about the data boundary. |
-| [Toy models plan](docs/review/toy-models-plan.md) | Execution plan for the speculative simulation capacity: four phased toy models that make the framework's predictions explorable without claiming empirical test. Status: COMPLETE — all 4 models built, tested, and documented. |
+| [Formal model reproduction](docs/review/formal-model-reproduction.md) | Deep-dive reproduction of the broken GLM. **Root cause:** `as.vector(t(retention))` misaligns dep and retention. **Fix:** remove one `t()`. The corrected additive GLM gives dep = +0.84 (p = 0.0008), para p < 0.0001, cross-kingdom ρ = +0.755 — all matching the thesis's prediction. Recorded as **Remark R7**. |
+| [Empirical-testing expansion plan](docs/review/empirical-testing-expansion-plan.md) | Proposal for moving the three "testable but not yet tested" modules (the *Homo* inversion, cusp irreversibility, cross-kingdom transfer) toward tested. Honest about the data boundary. |
+| [Exploratory models plan](docs/review/toy-models-plan.md) | Execution plan for the speculative simulation capacity: four phased exploratory models that make the thesis's predictions explorable without claiming empirical test. Status: COMPLETE — all 4 models built, tested, and documented. |
 
 ---
 
@@ -180,27 +159,23 @@ The repository ships a complete review trail — every claim traced to its root 
 
 ### Framework Terms
 
-**The framework under review** — The manuscript's hypothesis: organisms
-enter ecological spaces offering adaptive returns, are reshaped by those
-spaces, and this commitment process directs evolutionary trajectory more
-fundamentally than selection alone. (The manuscript's working name for the
-framework is under review — see Remark R1 in the review file — because it
-requires reading internal definitions before it becomes meaningful. This
-repository refers to the hypothesis in plain descriptive terms.)
+**Niche commitment** — The thesis's core claim: when a lineage enters a niche, the environment begins providing what the lineage's traits once supplied, and the traits erode. The erosion is not random and not merely a relaxation of selection; it is ordered by the relationship between each trait and the niche.
 
-**Integration depth** — A trait's position in the functional architecture of an organism. Traits that participate in many developmental pathways (e.g., ribosomal RNA genes) have high integration depth; traits serving a single function (e.g., NADH dehydrogenase in non-photosynthetic parasites) have low integration depth. The framework predicts that high-integration-depth traits resist loss during capacity reallocation.
+**Integration depth** — A trait's position in the functional architecture of an organism. Traits that participate in many developmental pathways (e.g., ribosomal RNA genes) have high integration depth; traits serving a single function (e.g., NADH dehydrogenase in non-photosynthetic parasites) have low integration depth. The thesis predicts that high-integration-depth traits resist loss during capacity reallocation.
+
+**Step function / threshold gate** — The distinguishing signature of the thesis: final retention is a step function of integration depth, with protected traits at 1.0 and unprotected traits at 0. The gate is at the zero-vs-nonzero boundary of dependency, not at some intermediate threshold. This is the prediction that relaxed selection and Muller's ratchet do not make.
 
 **Capacity reallocation** — The process by which an organism shedding traits (due to niche commitment) preferentially loses low-integration-depth functions first, reallocating the saved maintenance budget to the remaining high-integration-depth functions. This produces an ordered pattern of trait loss, not random loss.
 
-**Substrate shift** — The transition point where an organism's primary adaptive challenges move from one ecological substrate (e.g., photosynthesis) to another (e.g., parasitism). The framework predicts this shift is autocatalytic — innovations in the new substrate generate further innovations faster than they are lost.
+**Substrate independence** — The thesis's claim that the step function holds across substrates — bacteria, plants, animals, language — because the underlying principle (ordered loss by niche relationship) does not depend on the kingdom. Tested most strongly by cross-kingdom parameter transfer: parameters estimated on one kingdom applied to another without refitting.
 
-**Homo inversion** — The observation that the Homo lineage shows positively diversity-dependent speciation (more species over time), which is the inverse of the standard pattern in most clades (negatively diversity-dependent, or niche-filling). The framework explains this via the cultural substrate's autocatalytic dynamics.
+**The *Homo* inversion** — The observation that the *Homo* lineage shows positively diversity-dependent speciation (more species over time), the inverse of the standard pattern in most clades (negatively diversity-dependent, or niche-filling). The thesis explains this via the cultural substrate's autocatalytic dynamics.
 
 ### Statistical Methods
 
-**PGLS (Phylogenetic Generalized Least Squares)** — A regression method that corrects for the non-independence of species due to shared evolutionary history. Without PGLS, correlations between traits across species can appear significant simply because closely related species share traits by descent, not because of a real functional relationship. PGLS uses a phylogenetic tree and a parameter (λ, lambda) that measures the strength of phylogenetic signal in the residuals. When λ = 1, traits evolve under Brownian motion; when λ = 0, traits are independent of phylogeny (equivalent to ordinary least squares).
+**PGLS (Phylogenetic Generalized Least Squares)** — A regression method that corrects for the non-independence of species due to shared evolutionary history. Without PGLS, correlations between traits across species can appear significant simply because closely related species share traits by descent, not because of a real functional relationship. PGLS uses a phylogenetic tree and a parameter (λ) that measures the strength of phylogenetic signal in the residuals.
 
-**Exact permutation test** — A non-parametric significance test that enumerates all possible orderings of the data to compute a p-value. For 6 items, there are 720 permutations (6! = 720), which is small enough to compute exactly. The p-value is the proportion of permutations that produce a test statistic at least as extreme as the observed one. This is preferred over asymptotic approximations when sample sizes are small.
+**Exact permutation test** — A non-parametric significance test that enumerates all possible orderings of the data to compute a p-value. For 6 items, there are 720 permutations (6! = 720), small enough to compute exactly. The p-value is the proportion of permutations that produce a test statistic at least as extreme as the observed one. Preferred over asymptotic approximations when sample sizes are small.
 
 **Biphasic kinetics** — A pattern of change with two distinct rates: a fast phase followed by a slow phase. In genome reduction, this means rapid initial gene loss (Phase 1, unprotected traits) followed by slow loss (Phase 2, protected traits). The mathematical signature is a logistic (saturation) curve, distinguishable from a linear (constant-rate) or exponential (accelerating) curve via model selection (ΔAICc).
 
@@ -210,58 +185,40 @@ repository refers to the hypothesis in plain descriptive terms.)
 
 ### Software Engineering Terms
 
-**Three-pillar separation (MPI Handoff Blueprint)** — A code organization principle from the Phosphene R standards. Every analysis is decomposed into three pillars: (A) data preparation — pure function, validates inputs and outputs; (B) model fitting — seed-locked, deterministic given the same inputs; (C) result extraction — pure function, returns structured data. Input/output operations (file reading, writing) are isolated to thin wrapper functions called `main()`, which never runs when the file is `source()`d — only when executed via `Rscript`.
+**Three-pillar separation** — Every analysis is decomposed into three pillars: (A) data preparation — pure function, validates inputs and outputs; (B) model fitting — seed-locked, deterministic given the same inputs; (C) result extraction — pure function, returns structured data. I/O is isolated to thin wrapper functions called `main()`, which never runs when the file is `source()`d — only when executed via `Rscript`.
 
 **DFT axioms (Design For Testability)** — Six principles adapted from production software engineering for scientific code:
 
-- **A1 — Pure IO separation**: Statistical logic (estimation, inference, hypothesis testing) never touches the filesystem, network, or databases. I/O is isolated to thin loader functions. This makes the mathematical core testable in zero milliseconds with inline data.
+- **A1 — Pure IO separation**: Statistical logic never touches the filesystem, network, or databases. I/O is isolated to thin loader functions, making the mathematical core testable in zero milliseconds with inline data.
 - **A2 — Determinism**: No `set.seed()` hidden inside logic functions. The random seed is injected by the caller, making every stochastic operation reproducible. Cross-platform reproducibility requires specifying the RNG algorithm (`Mersenne-Twister`) and normal inversion method (`Inversion`) explicitly.
-- **A3 — Manifest conformance**: The analysis pipeline is declared as a YAML manifest (`pipeline.yml`). Every stage lists its inputs, outputs, and the function that executes it. Tests verify the actual pipeline matches the manifest — if someone adds a stage without updating the manifest, the test fails.
-- **A4 — Documentation**: Every source file declares its testability contract in a `@dft` roxygen2 block, stating which axioms it satisfies.
-- **A5 — Real in-process fakes**: Instead of mocking `read.csv()` with a mock that records "you called read.csv," a `FakeDataLoader` returns real dataframes from in-memory fixtures. The fake executes real behavior — it returns data your logic can actually process.
-- **A6 — Check-result**: Functions that do work return a structured result: a list containing `values` (the results) and `metadata` (seed, sample size, convergence status, elapsed time). A function returning `invisible(NULL)` provides no evidence of what happened.
+- **A3 — Manifest conformance**: The analysis pipeline is declared as a YAML manifest (`pipeline.yml`); tests verify the actual pipeline matches the manifest.
+- **A4 — Documentation**: Every source file declares its testability contract in a `@dft` roxygen2 block.
+- **A5 — Real in-process fakes**: Instead of mocking `read.csv()` with a stub, a `FakeDataLoader` returns real dataframes from in-memory fixtures — data your logic can actually process.
+- **A6 — Check-result**: Functions that do work return a structured result: `values` + `metadata` (seed, sample size, convergence status, elapsed time).
 
-**STDD (Stochastic Test-Driven Development)** — Standard test-driven development breaks on probabilistic code: `expect_equal(mcmc_draw, 1.234)` is meaningless because the output varies with seed, data, and platform. STDD solves this by decoupling deterministic math from stochastic transitions:
+**STDD (Stochastic Test-Driven Development)** — Standard TDD breaks on probabilistic code: `expect_equal(mcmc_draw, 1.234)` is meaningless because the output varies with seed, data, and platform. STDD decouples deterministic math from stochastic transitions: deterministic functions get exact assertions; stochastic transitions get parameter-recovery, null-control, and distributional assertions under controlled seeds.
 
-1. **Deterministic functions** (log-likelihoods, matrix transforms, exact permutation enumeration): tested with exact assertions. Same input → same output, always.
-2. **Stochastic transitions** (sampling, bootstrap, permutation when exhaustive is infeasible): tested under controlled seeds with structural and statistical assertions:
-   - **Parameter recovery**: generate synthetic data from known parameters (θ*), run the pipeline, verify the recovered estimates (θ̂) fall within the credible interval of θ*. If the pipeline can recover known signal, it can be trusted to detect unknown signal.
-   - **Null control**: generate synthetic data with no signal (random parameters), run the pipeline, verify it does NOT recover. This tests specificity — the pipeline must not produce false positives.
-   - **Distributional verification**: for conjugate models, compare empirical draws to analytical distributions using a Kolmogorov-Smirnov test (p > 0.05 means "cannot reject the hypothesis that the samples come from the same distribution").
+**Simulacrum** — A controlled environment with known test data where the pipeline is verified to produce correct results before being run against real data. The simulacrum is the only place where a known baseline exists; on real data you do not know the right answer — that is why you are running the analysis.
 
-**Simulacrum** — Borrowed from Nancy Cartwright's philosophy of science: a model that captures essential properties of the target system while being explicitly not the target system. In practice: a Dockerized environment with known test data where you verify the pipeline produces correct results before running against real data. The simulacrum is the only place where you have a known baseline. On real data, you don't know the right answer — that's why you're running the analysis.
-
-**Baseline oracle** — A YAML file ([`baseline/oracle.yml`](baseline/oracle.yml)) containing every manuscript-reported result as ground truth. Each entry includes: the prediction being tested, the competing hypothesis, the expected values (with numerical tolerance), whether the result supports the framework, whether it distinguishes the framework from the named competitor, and any caveats. The regression gate compares pipeline output to the oracle — if results diverge, either the code regressed (fix it) or the method improved (update the oracle with proof).
+**Baseline oracle** — A YAML file ([`baseline/oracle.yml`](baseline/oracle.yml)) containing every manuscript-reported result as ground truth: the prediction, the competing hypothesis, expected values (with tolerance), whether the result supports the thesis, whether it distinguishes the thesis from the competitor, and caveats. The regression gate compares pipeline output to the oracle.
 
 ### Biological Terms
 
-**Orobanchaceae** — The broomrape family, a clade of parasitic plants spanning the full gradient from autotrophic (self-feeding, full plastome) to extreme holoparasitic (entirely dependent on host, severely reduced plastome). This gradient makes it the primary test system for the framework's integration-depth predictions.
+**Orobanchaceae** — The broomrape family, a clade of parasitic plants spanning the full gradient from autotrophic (full plastome) to extreme holoparasitic (severely reduced plastome). This gradient makes it the primary test system for the integration-depth predictions.
 
-**Endosymbiont** — A bacterium living inside a host cell in a permanent, obligate symbiosis. Examples: *Buchnera* (aphid endosymbiont), *Wigglesworthia* (tsetse fly), *Carsonella* (psyllid), *Blochmannia* (ants). These bacteria undergo severe genome reduction over evolutionary time, making them a test system for the framework's biphasic kinetics prediction.
+**Endosymbiont** — A bacterium living inside a host cell in a permanent, obligate symbiosis. Examples: *Buchnera* (aphid), *Wigglesworthia* (tsetse fly), *Carsonella* (psyllid), *Blochmannia* (ants). These bacteria undergo severe genome reduction over evolutionary time, making them a test system for the biphasic-kinetics prediction.
 
-**LTEE (Long-Term Evolution Experiment)** — Richard Lenski's ongoing experiment (since 1988) tracking 12 populations of *E. coli* over 75,000+ generations. Used here to test whether metabolic function loss co-segregates with beneficial mutations (the framework's drift prediction) or is independently assorted (the competitor's pleiotropy prediction).
+**LTEE (Long-Term Evolution Experiment)** — Richard Lenski's ongoing experiment (since 1988) tracking 12 populations of *E. coli* over 75,000+ generations. Used here to test whether metabolic function loss co-segregates with beneficial mutations (the drift prediction) or is independently assorted (the competitor's pleiotropy prediction).
 
-**NCC (Neural Crest Cell)** — A population of migratory embryonic cells in vertebrates that give rise to facial morphology, pigmentation, and parts of the nervous system. NCC-derived traits are predicted by the framework to change early in domestication because they have low integration depth in the developmental architecture.
+**NCC (Neural Crest Cell)** — A population of migratory embryonic cells in vertebrates that give rise to facial morphology, pigmentation, and parts of the nervous system. NCC-derived traits are predicted to change early in domestication because they have low integration depth.
 
 ### Data Structures
 
 **Mark (simulacrum mark)** — A structured YAML entry logged during a simulacrum run, capturing: the true parameters (the vertex in parameter space being tested), the recovered parameters (where the pipeline landed), whether recovery succeeded (within credible interval), the null control result, and the random seed. Marks can be projected into 2D visualizations: true vs recovered scatter plots, recovery trajectories, parameter-space projections, and rolling recovery-rate plots.
 
-**Structured result (DFT axiom A6)** — The standard return value of every function in this package. A list with two elements: `values` (named numeric vector of the results) and `metadata` (list with seed, sample size, convergence status, elapsed time). A function returning a bare number provides no evidence of what happened; a structured result lets a reviewer trace every result back to its computational conditions.
+**Structured result (DFT axiom A6)** — The standard return value of every function in this package: `values` (named numeric vector) + `metadata` (seed, sample size, convergence status, elapsed time).
 
 ---
-
-## Standards
-
-This repository is self-sufficient. The Phosphene R engineering standards —
-including the three-pillar separation, DFT axioms, STDD specification, literate
-documentation requirements, CI/CD guide, and dependency strategy — are
-reproduced in [`docs/standards/`](docs/standards/) so that a reader or
-contributor does not need to consult external sources to understand the
-conventions used here.
-
-All standards documents are authored by **Ed Phillips**
-([@phosphene](https://github.com/phosphene)) and licensed under MIT.
 
 ## How It Is Tested
 
@@ -283,11 +240,12 @@ The testing strategy is a pyramid:
               └─────────┘
 ```
 
-- **18 test files**, **267 test cases** (`test_that` blocks)
-- **5 simulacra** — each generates synthetic data with known ground truth, runs the pipeline, verifies parameter recovery, and confirms the null control does NOT recover (specificity)
+- **38 test files** covering the full suite
+- **9 simulacra** — each generates synthetic data with known ground truth, runs the pipeline, verifies parameter recovery, and confirms the null control does NOT recover (specificity)
 - **Baseline oracle** — YAML ground truth for every manuscript value, compared within numerical tolerance
 - **5 BDD feature files** — statistical contracts in Gherkin (same seed → same output, pipeline idempotency, numerical stability, parameter recovery)
 - **Coverage gate** — minimum 80%, enforced in CI
+- **Current full-suite status** — 8,417 assertions passing, 0 failing, 11 skipped (the 11 skips are the known data-reconciliation items, tracked in the review)
 
 ---
 
@@ -303,7 +261,7 @@ Seven gates, each depends on the previous:
 | 4. Integration | Full pipeline via Docker simulacrum stack + BDD features | Integration results |
 | 5. Regression | All results match baseline oracle within tolerance | — |
 | 6. R CMD check | Package validation (no errors, warnings, or notes) | Check report |
-| 7. Pages | Verify + commit regenerated visualizations to `docs/` (served via legacy branch deployment from `main/docs`) | [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/) |
+| 7. Pages | Verify + commit regenerated visualizations to `docs/` | [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/) |
 
 ---
 
@@ -317,13 +275,13 @@ All data files are bundled in `data/` with provenance documented in [`data/READM
 
 ```
 valence.foundry/
-├── R/                    Pure functional library (12 files, 30+ exported functions)
-├── tests/                Test suite (18 files, 267 test cases)
+├── R/                    Pure functional library
+├── tests/                Test suite (38 gate files)
 ├── baseline/             Ground truth oracle (YAML — human-readable)
 ├── data/                 Bundled datasets with provenance
-├── inst/simulacra/       Synthetic data generators (5 files)
+├── inst/simulacra/       Synthetic data generators (9 files)
 ├── inst/examples/        Literate analysis reports (R Markdown)
-├── vignettes/            Package vignettes (foundry + toy models)
+├── vignettes/            Package vignettes
 ├── docs/                 GitHub Pages site + review docs + standards
 ├── compose/              Docker simulacrum stack (docker-compose)
 ├── docker/               Dockerfiles (R runtime, Verifier; Postgres via compose)
@@ -339,8 +297,8 @@ valence.foundry/
 
 ## Authors
 
-- **[Jan Ritch-Frel](https://github.com/janfrel)** — Author of the manuscript under review, *"A Trajectory Account of Adaptive Evolution from Homo to the Wider Animal Kingdom"*. Jan is also an active contributor to this codebase.
-- **[Edward Phillips](https://github.com/phosphene)** — Author and designer of the mathematics and the software implementations (the Phosphene R engineering standards, three-pillar separation, DFT axioms, STDD, and the foundry architecture itself).
+- **[Jan Ritch-Frel](https://github.com/janfrel)** — Author of the manuscript under review and an active contributor to this codebase.
+- **[Edward Phillips](https://github.com/phosphene)** — Author and designer of the mathematics and the software implementations (the R engineering standards, three-pillar separation, DFT axioms, STDD, and the foundry architecture itself).
 - **FlowBot** — Helper agent: implementation, testing, CI/CD, and review support.
 
 ## License
@@ -349,8 +307,8 @@ MIT
 
 ## Related
 
-- Manuscript under review: "A Trajectory Account of Adaptive Evolution from Homo to the Wider Animal Kingdom" (Jan Ritch-Frel, 2026)
-- Phosphene R Standards: [`docs/standards/PHOSPHENE_R_STANDARDS.md`](docs/standards/PHOSPHENE_R_STANDARDS.md)
+- Manuscript under review (Jan Ritch-Frel, 2026)
+- R engineering standards: [`docs/standards/PHOSPHENE_R_STANDARDS.md`](docs/standards/PHOSPHENE_R_STANDARDS.md)
 - Review evaluation standard: [`docs/review/review-evaluation-standard.md`](docs/review/review-evaluation-standard.md)
 - Live visualizations: [https://phosphene.github.io/monograph-review/](https://phosphene.github.io/monograph-review/)
 - Review index: [`docs/review/README.md`](docs/review/README.md) — links to all 11 review documents
