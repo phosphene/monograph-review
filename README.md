@@ -40,7 +40,7 @@ of empirical science.
   explicit negation is a weak form of specification — it contrasts rather than predicates, and
   leaves the positive claim underdetermined. Claims are therefore stated by what they are;
   explicit negation is reserved for reporting what happened to a rejected null, never as the
-  load-bearing form of a claim.
+  primary form of a claim.
 - **Observation as the production of conditions (Wisdom).** Observations are the foundation of
   scientific method because they are the conditions in which statements can be made — and those
   conditions can be reproduced. The reproduction of the conditions is itself observation: to
