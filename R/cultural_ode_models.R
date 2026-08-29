@@ -37,10 +37,14 @@ NULL
 #' @export
 valence_ode_solution <- function(t, r, K, delta, B0) {
   r_eff <- r - delta
-  if (r_eff <= 0) return(rep(B0, length(t)))
+  if (r_eff <= 0) {
+    return(rep(B0, length(t)))
+  }
   K_eff <- K * r_eff / r
   ratio <- (K_eff - B0) / B0
-  if (ratio <= 0) return(rep(K_eff, length(t)))
+  if (ratio <= 0) {
+    return(rep(K_eff, length(t)))
+  }
   K_eff / (1 + ratio * exp(-r_eff * t))
 }
 
@@ -62,7 +66,9 @@ exp_solution <- function(t, B0, r) {
 #' @export
 quadratic_solution <- function(t, B0, gamma) {
   denom <- 1 - gamma * B0 * t / 2
-  if (any(denom <= 0)) return(rep(NA_real_, length(t)))
+  if (any(denom <= 0)) {
+    return(rep(NA_real_, length(t)))
+  }
   B0 / denom
 }
 
@@ -112,7 +118,7 @@ k_eff_topology <- function(K, C, eta = 0.487) {
 #'   M(t) = ρ_eq(B0) · (exp(r_B·t) - exp(k1·t))
 #'
 #' When r_B > k1: M(t) > 0 and growing (attractor ahead of relaxation)
-#' When r_B < k1: M(t) < 0 (relaxation has overshot — not physical, 
+#' When r_B < k1: M(t) < 0 (relaxation has overshot — not physical,
 #'   means mismatch is negligible, organism tracks environment)
 #' When r_B = k1: M(t) = 0 (matched)
 #'
@@ -140,157 +146,211 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
 
     # 1. the framework ODE (generalized logistic with decay)
     # Try multiple starting points for robustness
-    fit_res <- tryCatch({
-      best_fit <- NULL
-      best_val <- Inf
-      starts <- list(
-        c(r = 0.01, K = max(B) * 100, delta = 0.001, B0 = B[1]),
-        c(r = 0.1, K = max(B) * 10, delta = 0.001, B0 = B[1]),
-        c(r = 0.05, K = max(B) * 50, delta = 0.0001, B0 = B[1])
-      )
-      for (start in starts) {
-        fit <- tryCatch({
-          stats::optim(
-            par = start,
-            fn = function(p) {
-              pred <- valence_ode_solution(t, p["r"], p["K"], p["delta"], p["B0"])
-              if (any(is.na(pred)) || any(pred <= 0)) return(Inf)
-              sum((log(B) - log(pred))^2)
+    fit_res <- tryCatch(
+      {
+        best_fit <- NULL
+        best_val <- Inf
+        starts <- list(
+          c(r = 0.01, K = max(B) * 100, delta = 0.001, B0 = B[1]),
+          c(r = 0.1, K = max(B) * 10, delta = 0.001, B0 = B[1]),
+          c(r = 0.05, K = max(B) * 50, delta = 0.0001, B0 = B[1])
+        )
+        for (start in starts) {
+          fit <- tryCatch(
+            {
+              stats::optim(
+                par = start,
+                fn = function(p) {
+                  pred <- valence_ode_solution(t, p["r"], p["K"], p["delta"], p["B0"])
+                  if (any(is.na(pred)) || any(pred <= 0)) {
+                    return(Inf)
+                  }
+                  sum((log(B) - log(pred))^2)
+                },
+                method = "L-BFGS-B",
+                lower = c(1e-10, max(B) * 1.01, 0, 1),
+                upper = c(10, 1e15, 1, max(B))
+              )
             },
-            method = "L-BFGS-B",
-            lower = c(1e-10, max(B) * 1.01, 0, 1),
-            upper = c(10, 1e15, 1, max(B))
+            error = function(e) list(par = start, value = Inf)
           )
-        }, error = function(e) list(par = start, value = Inf))
-        if (fit$value < best_val) {
-          best_fit <- fit
-          best_val <- fit$value
+          if (fit$value < best_val) {
+            best_fit <- fit
+            best_val <- fit$value
+          }
         }
-      }
-      best_fit
-    }, error = function(e) list(par = c(r=NA, K=NA, delta=NA, B0=NA), value = Inf))
+        best_fit
+      },
+      error = function(e) list(par = c(r = NA, K = NA, delta = NA, B0 = NA), value = Inf)
+    )
 
     pred_res <- if (!is.infinite(fit_res$value)) {
-      valence_ode_solution(t, fit_res$par["r"], fit_res$par["K"],
-                      fit_res$par["delta"], fit_res$par["B0"])
-    } else rep(NA, length(t))
+      valence_ode_solution(
+        t, fit_res$par["r"], fit_res$par["K"],
+        fit_res$par["delta"], fit_res$par["B0"]
+      )
+    } else {
+      rep(NA, length(t))
+    }
 
     rss <- if (!any(is.na(pred_res))) sum((B - pred_res)^2) else NA
     npar <- 4
     aic <- if (!is.na(rss)) {
       n <- length(B)
       n * log(rss / n) + 2 * npar
-    } else NA
+    } else {
+      NA
+    }
 
     # 2. Simple exponential
-    exp_fit <- tryCatch({
-      stats::optim(
-        par = c(B0 = B[1], r = 0.01),
-        fn = function(p) {
-          pred <- exp_solution(t, p["B0"], p["r"])
-          if (any(is.na(pred)) || any(pred <= 0)) return(Inf)
-          sum((log(B) - log(pred))^2)
-        },
-        method = "L-BFGS-B",
-        lower = c(1, 1e-10),
-        upper = c(max(B), 10)
-      )
-    }, error = function(e) list(par = rep(NA, 2), value = Inf))
+    exp_fit <- tryCatch(
+      {
+        stats::optim(
+          par = c(B0 = B[1], r = 0.01),
+          fn = function(p) {
+            pred <- exp_solution(t, p["B0"], p["r"])
+            if (any(is.na(pred)) || any(pred <= 0)) {
+              return(Inf)
+            }
+            sum((log(B) - log(pred))^2)
+          },
+          method = "L-BFGS-B",
+          lower = c(1, 1e-10),
+          upper = c(max(B), 10)
+        )
+      },
+      error = function(e) list(par = rep(NA, 2), value = Inf)
+    )
 
     exp_pred <- if (!is.infinite(exp_fit$value)) {
       exp_solution(t, exp_fit$par["B0"], exp_fit$par["r"])
-    } else rep(NA, length(t))
+    } else {
+      rep(NA, length(t))
+    }
 
     exp_rss <- if (!any(is.na(exp_pred))) sum((B - exp_pred)^2) else NA
     exp_npar <- 2
     exp_aic <- if (!is.na(exp_rss)) {
       n <- length(B)
       n * log(exp_rss / n) + 2 * exp_npar
-    } else NA
+    } else {
+      NA
+    }
 
     # 3. Quadratic (Gabora)
-    quad_fit <- tryCatch({
-      stats::optim(
-        par = c(B0 = B[1], gamma = 1e-6),
-        fn = function(p) {
-          pred <- quadratic_solution(t, p["B0"], p["gamma"])
-          if (any(is.na(pred)) || any(pred <= 0)) return(Inf)
-          sum((log(B) - log(pred))^2)
-        },
-        method = "L-BFGS-B",
-        lower = c(1, 1e-15),
-        upper = c(max(B), 1)
-      )
-    }, error = function(e) list(par = rep(NA, 2), value = Inf))
+    quad_fit <- tryCatch(
+      {
+        stats::optim(
+          par = c(B0 = B[1], gamma = 1e-6),
+          fn = function(p) {
+            pred <- quadratic_solution(t, p["B0"], p["gamma"])
+            if (any(is.na(pred)) || any(pred <= 0)) {
+              return(Inf)
+            }
+            sum((log(B) - log(pred))^2)
+          },
+          method = "L-BFGS-B",
+          lower = c(1, 1e-15),
+          upper = c(max(B), 1)
+        )
+      },
+      error = function(e) list(par = rep(NA, 2), value = Inf)
+    )
 
     quad_pred <- if (!is.infinite(quad_fit$value)) {
       quadratic_solution(t, quad_fit$par["B0"], quad_fit$par["gamma"])
-    } else rep(NA, length(t))
+    } else {
+      rep(NA, length(t))
+    }
 
     quad_rss <- if (!any(is.na(quad_pred))) sum((B - quad_pred)^2) else NA
     quad_npar <- 2
     quad_aic <- if (!is.na(quad_rss)) {
       n <- length(B)
       n * log(quad_rss / n) + 2 * quad_npar
-    } else NA
+    } else {
+      NA
+    }
 
     # 4. Standard logistic
-    log_fit <- tryCatch({
-      stats::optim(
-        par = c(K = max(B) * 10, r = 0.01, t0 = mean(t)),
-        fn = function(p) {
-          pred <- logistic_solution(t, p["K"], p["r"], p["t0"])
-          if (any(is.na(pred)) || any(pred <= 0)) return(Inf)
-          sum((log(B) - log(pred))^2)
-        },
-        method = "L-BFGS-B",
-        lower = c(max(B), 1e-10, 0),
-        upper = c(1e15, 10, max(t))
-      )
-    }, error = function(e) list(par = rep(NA, 3), value = Inf))
+    log_fit <- tryCatch(
+      {
+        stats::optim(
+          par = c(K = max(B) * 10, r = 0.01, t0 = mean(t)),
+          fn = function(p) {
+            pred <- logistic_solution(t, p["K"], p["r"], p["t0"])
+            if (any(is.na(pred)) || any(pred <= 0)) {
+              return(Inf)
+            }
+            sum((log(B) - log(pred))^2)
+          },
+          method = "L-BFGS-B",
+          lower = c(max(B), 1e-10, 0),
+          upper = c(1e15, 10, max(t))
+        )
+      },
+      error = function(e) list(par = rep(NA, 3), value = Inf)
+    )
 
     log_pred <- if (!is.infinite(log_fit$value)) {
       logistic_solution(t, log_fit$par["K"], log_fit$par["r"], log_fit$par["t0"])
-    } else rep(NA, length(t))
+    } else {
+      rep(NA, length(t))
+    }
 
     log_rss <- if (!any(is.na(log_pred))) sum((B - log_pred)^2) else NA
     log_npar <- 3
     log_aic <- if (!is.na(log_rss)) {
       n <- length(B)
       n * log(log_rss / n) + 2 * log_npar
-    } else NA
+    } else {
+      NA
+    }
 
     # 5. Double exponential (bi-exponential, the framework relaxation)
-    biexp_fit <- tryCatch({
-      stats::optim(
-        par = c(A1 = max(B)/2, k1 = 0.1, A2 = -max(B), k2 = 0.01, C = max(B)),
-        fn = function(p) {
-          pred <- biexp_solution(t, p["A1"], p["k1"], p["A2"], p["k2"], p["C"])
-          if (any(is.na(pred)) || any(pred <= 0)) return(Inf)
-          sum((log(B) - log(pred))^2)
-        },
-        method = "L-BFGS-B",
-        lower = c(-max(B)*10, 1e-10, -max(B)*10, 1e-10, 1),
-        upper = c(max(B)*10, 10, max(B)*10, 10, max(B)*100)
-      )
-    }, error = function(e) list(par = rep(NA, 5), value = Inf))
+    biexp_fit <- tryCatch(
+      {
+        stats::optim(
+          par = c(A1 = max(B) / 2, k1 = 0.1, A2 = -max(B), k2 = 0.01, C = max(B)),
+          fn = function(p) {
+            pred <- biexp_solution(t, p["A1"], p["k1"], p["A2"], p["k2"], p["C"])
+            if (any(is.na(pred)) || any(pred <= 0)) {
+              return(Inf)
+            }
+            sum((log(B) - log(pred))^2)
+          },
+          method = "L-BFGS-B",
+          lower = c(-max(B) * 10, 1e-10, -max(B) * 10, 1e-10, 1),
+          upper = c(max(B) * 10, 10, max(B) * 10, 10, max(B) * 100)
+        )
+      },
+      error = function(e) list(par = rep(NA, 5), value = Inf)
+    )
 
     biexp_pred <- if (!is.infinite(biexp_fit$value)) {
-      biexp_solution(t, biexp_fit$par["A1"], biexp_fit$par["k1"],
-                     biexp_fit$par["A2"], biexp_fit$par["k2"],
-                     biexp_fit$par["C"])
-    } else rep(NA, length(t))
+      biexp_solution(
+        t, biexp_fit$par["A1"], biexp_fit$par["k1"],
+        biexp_fit$par["A2"], biexp_fit$par["k2"],
+        biexp_fit$par["C"]
+      )
+    } else {
+      rep(NA, length(t))
+    }
 
     biexp_rss <- if (!any(is.na(biexp_pred))) sum((B - biexp_pred)^2) else NA
     biexp_npar <- 5
     biexp_aic <- if (!is.na(biexp_rss)) {
       n <- length(B)
       n * log(biexp_rss / n) + 2 * biexp_npar
-    } else NA
+    } else {
+      NA
+    }
 
     # Compile results
-    aics <- c(framework = aic, exp = exp_aic, quad = quad_aic,
-              logistic = log_aic, biexp = biexp_aic)
+    aics <- c(
+      framework = aic, exp = exp_aic, quad = quad_aic,
+      logistic = log_aic, biexp = biexp_aic
+    )
     aics <- aics[!is.na(aics)]
     best_model <- names(which.min(aics))
     delta_aic <- aics - min(aics, na.rm = TRUE)
@@ -307,7 +367,9 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
         aic = aic,
         r2 = if (!is.na(rss) && rss > 0) {
           1 - rss / sum((B - mean(B))^2)
-        } else NA,
+        } else {
+          NA
+        },
         # Simple exponential
         exp_r = unname(exp_fit$par["r"]),
         exp_B0 = unname(exp_fit$par["B0"]),
@@ -333,7 +395,9 @@ fit_valence_ode_models <- function(t, B, seed = 42L) {
         # Saturation
         pct_of_K = if (!is.na(fit_res$par["K"]) && fit_res$par["K"] > 0) {
           max(B) / fit_res$par["K"] * 100
-        } else NA,
+        } else {
+          NA
+        },
         n = length(B)
       ),
       metadata = list(

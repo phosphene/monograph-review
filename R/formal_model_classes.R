@@ -68,7 +68,8 @@ validate_valence_threshold_result <- function(x) {
   missing_top <- setdiff(required_top, names(x))
   if (length(missing_top) > 0) {
     stop("Missing required fields: ", paste(missing_top, collapse = ", "),
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   # Validate values
@@ -91,15 +92,18 @@ validate_valence_threshold_result <- function(x) {
   if (!is.list(meta)) {
     stop("metadata must be a list", call. = FALSE)
   }
-  required_meta <- c("params", "n_traits", "n_unprotected", "n_protected",
-                     "n_steps", "dt", "method", "converged")
+  required_meta <- c(
+    "params", "n_traits", "n_unprotected", "n_protected",
+    "n_steps", "dt", "method", "converged"
+  )
   missing_meta <- setdiff(required_meta, names(meta))
   if (length(missing_meta) > 0) {
     stop("Missing required metadata fields: ", paste(missing_meta, collapse = ", "),
-         call. = FALSE)
+      call. = FALSE
+    )
   }
   if (!is.numeric(meta$n_traits) || !is.numeric(meta$n_unprotected) ||
-      !is.numeric(meta$n_protected) || !is.numeric(meta$n_steps)) {
+        !is.numeric(meta$n_protected) || !is.numeric(meta$n_steps)) {
     stop("Count fields must be numeric", call. = FALSE)
   }
   if (!is.logical(meta$converged)) {
@@ -181,20 +185,25 @@ validate_valence_glm_fit <- function(x) {
   }
 
   # Check values
-  required_vals <- c("intercept", "dep_coefficient", "dep_p_value",
-                     "para_coefficient", "para_p_value", "pseudo_r_squared",
-                     "cross_kingdom_rho", "cross_kingdom_p", "dep_positive",
-                     "para_negative", "valence_confirmed")
+  required_vals <- c(
+    "intercept", "dep_coefficient", "dep_p_value",
+    "para_coefficient", "para_p_value", "pseudo_r_squared",
+    "cross_kingdom_rho", "cross_kingdom_p", "dep_positive",
+    "para_negative", "valence_confirmed"
+  )
   missing_vals <- setdiff(required_vals, names(x$values))
   if (length(missing_vals) > 0) {
     stop("Missing required value fields: ", paste(missing_vals, collapse = ", "),
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   # All coefficients and p-values should be numeric
-  num_fields <- c("intercept", "dep_coefficient", "dep_p_value",
-                  "para_coefficient", "para_p_value", "pseudo_r_squared",
-                  "cross_kingdom_rho", "cross_kingdom_p")
+  num_fields <- c(
+    "intercept", "dep_coefficient", "dep_p_value",
+    "para_coefficient", "para_p_value", "pseudo_r_squared",
+    "cross_kingdom_rho", "cross_kingdom_p"
+  )
   for (field in num_fields) {
     if (!is.numeric(x$values[[field]])) {
       stop(sprintf("%s must be numeric", field), call. = FALSE)
@@ -214,12 +223,15 @@ validate_valence_glm_fit <- function(x) {
   if (!is.list(meta)) {
     stop("metadata must be a list", call. = FALSE)
   }
-  required_meta <- c("n", "n_species", "n_gene_categories", "method", "seed",
-                     "para_for_transfer", "converged")
+  required_meta <- c(
+    "n", "n_species", "n_gene_categories", "method", "seed",
+    "para_for_transfer", "converged"
+  )
   missing_meta <- setdiff(required_meta, names(meta))
   if (length(missing_meta) > 0) {
     stop("Missing required metadata fields: ", paste(missing_meta, collapse = ", "),
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   # Check GLM fit is present for diagnostics
@@ -288,7 +300,8 @@ validate_valence_equilibrium <- function(x) {
   missing <- setdiff(required, names(x))
   if (length(missing) > 0) {
     stop("Missing required fields: ", paste(missing, collapse = ", "),
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   if (!is.numeric(x$value) || length(x$value) != 1) {

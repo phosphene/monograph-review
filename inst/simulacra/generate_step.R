@@ -10,8 +10,8 @@
 #' @param noise_sd Numeric. Default 0.02.
 
 generate_step_function <- function(seed = 42L, n_pre = 10L, n_post = 10L,
-                                    rho_sat = 0.35, theta_star = 0,
-                                    noise_sd = 0.02) {
+                                   rho_sat = 0.35, theta_star = 0,
+                                   noise_sd = 0.02) {
   withr::with_seed(seed, {
     theta_pre <- seq(-1, theta_star - 0.01, length.out = n_pre)
     theta_post <- seq(theta_star + 0.01, 1, length.out = n_post)

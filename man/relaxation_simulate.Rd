@@ -50,7 +50,9 @@ Falls back to the analytical solution if deSolve is unavailable.
 \examples{
 \dontrun{
 # Default analytical solution
-relaxation_simulate(times = seq(0, 100, 1), rho0 = 1.0, k1 = 0.5, k2 = 0.02,
-                    rho1 = 0.3, rho2 = 0.3)
+relaxation_simulate(
+  times = seq(0, 100, 1), rho0 = 1.0, k1 = 0.5, k2 = 0.02,
+  rho1 = 0.3, rho2 = 0.3
+)
 }
 }

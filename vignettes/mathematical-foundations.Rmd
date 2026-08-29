@@ -256,9 +256,9 @@ retentions <- sapply(lambda_vals, function(lam) {
 cat("Monotonicity check (increasing λ → decreasing retention):\n")
 for (i in seq_len(length(lambda_vals) - 1)) {
   cat(sprintf("λ=%.3f → %.3f: retention %.6f → %.6f %s\n",
-              lambda_vals[i], lambda_vals[i+1],
-              retentions[i], retentions[i+1],
-              ifelse(retentions[i+1] < retentions[i], "✓", "✗")))
+              lambda_vals[i], lambda_vals[i + 1],
+              retentions[i], retentions[i + 1],
+              ifelse(retentions[i + 1] < retentions[i], "✓", "✗")))
 }
 ```
 

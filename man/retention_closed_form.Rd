@@ -38,12 +38,14 @@ returns structured result object.
 \examples{
 \dontrun{
 # Single trait
-eq <- retention_closed_form(depth = 2, lambda = 0.15, theta = 2.5,
-                            m0 = 10, alpha = 0.05, time = 100)
+eq <- retention_closed_form(
+  depth = 2, lambda = 0.15, theta = 2.5,
+  m0 = 10, alpha = 0.05, time = 100
+)
 print(eq)
 
 # Multiple traits
-eq_vec <- retention_closed_form(c(0,1,2,3,5), 0.15, 2.5, 10, 0.05, 100)
+eq_vec <- retention_closed_form(c(0, 1, 2, 3, 5), 0.15, 2.5, 10, 0.05, 100)
 sapply(eq_vec, function(x) x$value)
 }
 }

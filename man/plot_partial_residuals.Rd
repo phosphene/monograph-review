@@ -38,7 +38,8 @@ than Ne panel. What refutes the framework: Ne panel dominates.
 loaded <- load_bobay_ochman()
 ne_col <- grep("Ne", names(loaded$data), value = TRUE)[1]
 size_col <- grep("genome_size|pan_size|Genome_Size", names(loaded$data),
-                 value = TRUE, ignore.case = TRUE)[1]
+  value = TRUE, ignore.case = TRUE
+)[1]
 d <- loaded$data[!is.na(loaded$data[[ne_col]]), ]
 mod_ne <- lm(as.numeric(d[[size_col]]) ~ as.numeric(d[[ne_col]]))
 mod_niche <- lm(as.numeric(d[[size_col]]) ~ as.numeric(factor(d$lifestyle)))

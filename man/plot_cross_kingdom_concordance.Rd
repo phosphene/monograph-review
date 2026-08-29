@@ -45,7 +45,9 @@ plant_data <- data.frame(
 )
 bird_data <- .fixture_bird_morphology
 result <- fit_plant_model(plant_data)
-plot_cross_kingdom_concordance(plant_data, bird_data,
-                                result$values["slope"])
+plot_cross_kingdom_concordance(
+  plant_data, bird_data,
+  result$values["slope"]
+)
 }
 }

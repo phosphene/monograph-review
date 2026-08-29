@@ -8,8 +8,8 @@
 #' (A2=0) — does the fitter falsely report bi-exponential?
 
 generate_biexponential <- function(seed = 42L, n = 80L,
-                                    rho_eq = 0.945,
-                                    A1 = 0.04, k1 = 17.7,
+                                   rho_eq = 0.945,
+                                   A1 = 0.04, k1 = 17.7,
                                     A2 = 0.005, k2 = 0.47,
                                     noise_sd = 0.002,
                                     t_max = 56500) {
@@ -84,8 +84,8 @@ generate_monoexponential <- function(seed = 42L, n = 80L,
 #' cross-sectional data appears mono-exponential.
 
 generate_crosssectional <- function(seed = 42L, n_longitudinal = 80L,
-                                     n_cross = 30L,
-                                     rho_eq = 0.945,
+                                    n_cross = 30L,
+                                    rho_eq = 0.945,
                                      A1 = 0.04, k1 = 17.7,
                                      A2 = 0.005, k2 = 0.47,
                                      noise_sd = 0.002,
@@ -132,8 +132,8 @@ generate_crosssectional <- function(seed = 42L, n_longitudinal = 80L,
 #' Tests whether discrete sampling produces a step-like pattern.
 
 generate_discrete_levels <- function(seed = 42L, n_levels = 5L,
-                                       n_per_level = 30L,
-                                       rho_eq = 0.5,
+                                     n_per_level = 30L,
+                                     rho_eq = 0.5,
                                        A1 = 0.3, k1 = 10,
                                        A2 = 0.1, k2 = 1,
                                        noise_sd = 0.05) {

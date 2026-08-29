@@ -115,9 +115,9 @@ diversity_dependence_sign <- function(innovation_counts, seed = 42L) {
     # is_superlinear (a power-law proxy that conflates early acceleration with
     # positive DD — logistic growth is superlinear early but negatively DD).
     if (n >= 3L) {
-      n_prev <- innovation_counts[-n]  # nolint: object_name_linter.
+      n_prev <- innovation_counts[-n] # nolint: object_name_linter.
       pc_rate <- diff(innovation_counts) / pmax(n_prev, .Machine$double.xmin)
-      dd_fit <- lm(pc_rate ~ n_prev)  # nolint: object_name_linter.
+      dd_fit <- lm(pc_rate ~ n_prev) # nolint: object_name_linter.
       dd_slope <- unname(coef(dd_fit)[2])
     } else {
       dd_slope <- NA_real_

@@ -62,7 +62,9 @@ to the threshold.
 
 \examples{
 \dontrun{
-stochastic_cdi(mu0 = 0.5, sigma0 = 0.2, cdi_init = 0.01,
-               dt = 0.01, n_steps = 1000, threshold = 0.8, seed = 42)
+stochastic_cdi(
+  mu0 = 0.5, sigma0 = 0.2, cdi_init = 0.01,
+  dt = 0.01, n_steps = 1000, threshold = 0.8, seed = 42
+)
 }
 }

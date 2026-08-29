@@ -75,8 +75,10 @@ validate_formula_data <- function(data) {
   required <- c("system", "theta", "rho")
   missing <- setdiff(required, names(data))
   if (length(missing) > 0L) {
-    stop(sprintf("data missing required columns: %s",
-                 paste(missing, collapse = ", ")), call. = FALSE)
+    stop(sprintf(
+      "data missing required columns: %s",
+      paste(missing, collapse = ", ")
+    ), call. = FALSE)
   }
   if (!is.numeric(data$theta) || !is.numeric(data$rho)) {
     stop("theta and rho must be numeric", call. = FALSE)
@@ -155,7 +157,7 @@ fit_step_models <- function(theta, rho) {
     best_post <- rho_post0
   }
 
-  k_step <- 2  # breakpoint + plateau
+  k_step <- 2  # number of breakpoint-and-plateau parameters
   aic_step <- n * log(best_rss / n) + 2 * k_step
 
   # --- Sigmoid model: ρ = ρ_sat / (1 + exp(-k(θ - x0))) ---
@@ -177,7 +179,7 @@ fit_step_models <- function(theta, rho) {
       }
     }
   }
-  k_sig <- 3  # k, x0, rho_sat
+  k_sig <- 3 # k, x0, rho_sat
   aic_sig <- n * log(best_sig_rss / n) + 2 * k_sig
 
   # --- Logistic model: ρ = ρ_sat / (1 + exp(-k(θ - x0))) with forced ρ_sat ---
@@ -190,7 +192,7 @@ fit_step_models <- function(theta, rho) {
       rho_sat = best_post,
       rss = best_rss,
       aic = aic_step,
-      transition_width = 0  # step = infinite slope
+      transition_width = 0 # step = infinite slope
     ),
     sigmoid = list(
       k = best_sig_k,
@@ -435,7 +437,7 @@ step_cdi_comparison <- function(data, seed = 42L) {
       n <- length(y)
       aic_step <- n * log(rss_step / n) + 2 * k_step
 
-      # Exponential: CDI = 1 - exp(-r * t)
+      # Exponential model: CDI equals 1 minus exp(-r*t)
       pos <- y > 0.001
       if (sum(pos) < 3) next
       m_exp <- tryCatch(
@@ -449,7 +451,7 @@ step_cdi_comparison <- function(data, seed = 42L) {
       rss_exp <- sum((y - pred_exp)^2)
       aic_exp <- n * log(rss_exp / n) + 2 * 2
 
-      # Logistic: CDI = 1 / (1 + exp(-k*(t - x0)))
+      # Logistic model: CDI equals 1 over (1 + exp(-k*(t - x0)))
       best_log_rss <- Inf
       best_log_k <- 1
       best_log_x0 <- bp
@@ -473,8 +475,14 @@ step_cdi_comparison <- function(data, seed = 42L) {
 
       best_model <- "step"
       best_aic <- aic_step
-      if (aic_exp < best_aic) { best_model <- "exponential"; best_aic <- aic_exp }
-      if (aic_log < best_aic) { best_model <- "logistic"; best_aic <- aic_log }
+      if (aic_exp < best_aic) {
+        best_model <- "exponential"
+        best_aic <- aic_exp
+      }
+      if (aic_log < best_aic) {
+        best_model <- "logistic"
+        best_aic <- aic_log
+      }
 
       per_system[[sys]] <- list(
         system = sys,
@@ -507,7 +515,7 @@ step_cdi_comparison <- function(data, seed = 42L) {
         mean_delta_aic_step_exp = mean(vapply(per_system, function(p) {
           p$delta_aic_step_exp
         }, numeric(1))),
-        mean_step_width = 0  # step width is always 0 by definition
+        mean_step_width = 0 # step width is always 0 by definition
       ),
       metadata = list(
         seed = seed,
@@ -593,7 +601,7 @@ step_option_collapse <- function(data, seed = 42L) {
       trig <- unique(d$trigger_year)[1]
       peak_cap <- max(d$capacity, na.rm = TRUE)
       if (!is.finite(peak_cap) || peak_cap <= 0) next
-      d$opt_val <- d$capacity / peak_cap  # option value ∝ remaining capacity
+      d$opt_val <- d$capacity / peak_cap # option value ∝ remaining capacity
       peak_yr <- d$year[which.max(d$capacity)]
       d$t <- d$year - peak_yr
       d <- d[d$t >= 0, ]
@@ -745,8 +753,10 @@ generative_sign_reversal <- function(data, seed = 42L) {
     required <- c("system", "diversity", "speciation_rate")
     missing <- setdiff(required, names(data))
     if (length(missing) > 0L) {
-      stop(sprintf("data missing required columns: %s",
-                   paste(missing, collapse = ", ")), call. = FALSE)
+      stop(sprintf(
+        "data missing required columns: %s",
+        paste(missing, collapse = ", ")
+      ), call. = FALSE)
     }
 
     systems <- unique(data$system)

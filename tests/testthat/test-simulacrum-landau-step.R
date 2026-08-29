@@ -37,8 +37,10 @@ landau_to_theta_rho <- function(landau) {
 # ---- Test 1: Landau data produces a step near a ≈ 0 ----
 
 test_that("Landau: step appears near a ≈ 0 and wins over sigmoid", {
-  landau <- generate_landau(seed = 42, n_points = 200,
-                             a_range = c(-1, 1), b = 1.0, h = 0.0)
+  landau <- generate_landau(
+    seed = 42, n_points = 200,
+    a_range = c(-1, 1), b = 1.0, h = 0.0
+  )
 
   nr <- landau_to_theta_rho(landau)
   fits <- fit_step(nr$theta, nr$rho)
@@ -55,8 +57,10 @@ test_that("Landau: step appears near a ≈ 0 and wins over sigmoid", {
 # ---- Test 2: Landau rho_sat is the post-threshold plateau ----
 
 test_that("Landau: rho_sat captures post-threshold mean", {
-  landau <- generate_landau(seed = 42, n_points = 100,
-                             a_range = c(-1, 1), b = 1.0, h = 0.0)
+  landau <- generate_landau(
+    seed = 42, n_points = 100,
+    a_range = c(-1, 1), b = 1.0, h = 0.0
+  )
 
   nr <- landau_to_theta_rho(landau)
   fits <- fit_step(nr$theta, nr$rho)
@@ -74,8 +78,10 @@ test_that("Landau: rho_sat captures post-threshold mean", {
 
 test_that("Landau: step reproduces across different quartic coefficients", {
   for (b in c(0.5, 1.0, 2.0)) {
-    landau <- generate_landau(seed = 42, n_points = 100,
-                               a_range = c(-1, 1), b = b, h = 0.0)
+    landau <- generate_landau(
+      seed = 42, n_points = 100,
+      a_range = c(-1, 1), b = b, h = 0.0
+    )
     nr <- landau_to_theta_rho(landau)
     fits <- fit_step(nr$theta, nr$rho)
 
@@ -90,8 +96,10 @@ test_that("Landau: step reproduces across different quartic coefficients", {
 
 test_that("Landau: step visible at moderate resolution (n_points ≥ 50)", {
   for (n_pts in c(50, 100, 200)) {
-    landau <- generate_landau(seed = 42, n_points = n_pts,
-                               a_range = c(-1, 1), b = 1.0, h = 0.0)
+    landau <- generate_landau(
+      seed = 42, n_points = n_pts,
+      a_range = c(-1, 1), b = 1.0, h = 0.0
+    )
     nr <- landau_to_theta_rho(landau)
     fits <- fit_step(nr$theta, nr$rho)
 
@@ -104,7 +112,7 @@ test_that("Landau: step visible at moderate resolution (n_points ≥ 50)", {
 
 test_that("Landau: no meaningful step on constant |M_eq|", {
   theta <- seq(-1, 1, length.out = 100)
-  rho <- rep(0.5, 100)  # constant |M_eq|
+  rho <- rep(0.5, 100) # constant |M_eq|
 
   fits <- fit_step(theta, rho)
 
@@ -116,8 +124,10 @@ test_that("Landau: no meaningful step on constant |M_eq|", {
 # ---- Test 6: Step appears in narrow a-range around critical point ----
 
 test_that("Landau: step visible even in narrow a-range around a = 0", {
-  landau <- generate_landau(seed = 42, n_points = 200,
-                             a_range = c(-0.5, 0.5), b = 1.0, h = 0.0)
+  landau <- generate_landau(
+    seed = 42, n_points = 200,
+    a_range = c(-0.5, 0.5), b = 1.0, h = 0.0
+  )
   nr <- landau_to_theta_rho(landau)
   fits <- fit_step(nr$theta, nr$rho)
 
@@ -130,8 +140,10 @@ test_that("Landau: step visible even in narrow a-range around a = 0", {
 # ---- Test 7: External field smooths the transition ----
 
 test_that("Landau: external field h ≠ 0 smooths the transition", {
-  landau <- generate_landau(seed = 42, n_points = 100,
-                             a_range = c(-1, 1), b = 1.0, h = 0.1)
+  landau <- generate_landau(
+    seed = 42, n_points = 100,
+    a_range = c(-1, 1), b = 1.0, h = 0.1
+  )
   nr <- landau_to_theta_rho(landau)
   fits <- fit_step(nr$theta, nr$rho)
 
@@ -149,8 +161,10 @@ test_that("Landau: rho_sat is distinct from the framework formula's 0.35", {
   # post-breakpoint plateau is the discrete approximation of M = 0.
   # This is expected — the Landau model is a precursor environment
   # that produces a step-like signal, but with different parameters.
-  landau <- generate_landau(seed = 42, n_points = 100,
-                             a_range = c(-1, 1), b = 1.0, h = 0.0)
+  landau <- generate_landau(
+    seed = 42, n_points = 100,
+    a_range = c(-1, 1), b = 1.0, h = 0.0
+  )
   nr <- landau_to_theta_rho(landau)
   fits <- fit_step(nr$theta, nr$rho)
 

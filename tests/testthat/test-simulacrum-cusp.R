@@ -105,8 +105,10 @@ test_that("cusp hysteresis is detected with pure branch-following equilibrium fu
   # Control values crossing the bifurcation threshold both ways
   control_vals <- seq(-1, 1, length.out = 50)
 
-  result <- cusp_hysteresis_check(control_vals, eq_fn, seed = 42,
-                                  initial_state = 1.0)
+  result <- cusp_hysteresis_check(control_vals, eq_fn,
+    seed = 42,
+    initial_state = 1.0
+  )
 
   expect_true(validate_result(result))
   # Hysteresis should be detected — forward path (increasing b,
@@ -154,8 +156,10 @@ test_that("null control shows no hysteresis", {
   eq_fn <- make_cusp_equilibrium_fn(a = 1)
   control_vals <- seq(-2, 2, length.out = 50)
 
-  result <- cusp_hysteresis_check(control_vals, eq_fn, seed = 42,
-                                  initial_state = 0)
+  result <- cusp_hysteresis_check(control_vals, eq_fn,
+    seed = 42,
+    initial_state = 0
+  )
 
   expect_true(validate_result(result))
   expect_false(result$values[["has_hysteresis"]])
@@ -185,8 +189,10 @@ test_that("full simulacrum pipeline produces valid A6 proof object", {
   # 3. Hysteresis detection
   eq_fn <- make_cusp_equilibrium_fn(a = -1)
   control_vals <- seq(-1, 1, length.out = 50)
-  hyst_result <- cusp_hysteresis_check(control_vals, eq_fn, seed = 42,
-                                       initial_state = 1.0)
+  hyst_result <- cusp_hysteresis_check(control_vals, eq_fn,
+    seed = 42,
+    initial_state = 1.0
+  )
   hysteresis_detected <- as.logical(hyst_result$values[["has_hysteresis"]])
 
   # 4. Null control passes

@@ -41,13 +41,18 @@ What refutes the framework: linear or exponential models fit better.
 \dontrun{
 loaded <- load_endosymbionts()
 genus_means <- aggregate(cbind(genome_bp, symbiosis_age_mya) ~ genus,
-                         data = loaded$data, FUN = mean)
-x <- genus_means$symbiosis_age_mya; y <- genus_means$genome_bp
+  data = loaded$data, FUN = mean
+)
+x <- genus_means$symbiosis_age_mya
+y <- genus_means$genome_bp
 m_lin <- lm(y ~ x)
 m_exp <- nls(y ~ a * exp(-b * x), start = list(a = max(y), b = 0.005))
 m_log <- nls(y ~ fl + (cl - fl) / (1 + exp(rate * (x - mid))),
-             start = list(fl = min(y)*0.8, cl = max(y)*1.2,
-                         rate = 0.02, mid = mean(x)))
+  start = list(
+    fl = min(y) * 0.8, cl = max(y) * 1.2,
+    rate = 0.02, mid = mean(x)
+  )
+)
 plot_model_comparison(genus_means, m_lin, m_exp, m_log)
 }
 }

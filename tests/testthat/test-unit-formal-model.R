@@ -139,10 +139,10 @@ test_that("phase_transition_time increases with smaller threshold fraction", {
   gene_category = rep(c("g0", "g1", "g2", "g3"), each = 5),
   dependency_score = rep(c(0, 1, 2, 3), each = 5),
   retention = c(
-    1, 0.8, 0.5, 0.3, 0.1,  # dep=0: shed fast
-    1, 0.9, 0.7, 0.5, 0.3,  # dep=1: shed slower
-    1, 0.95, 0.85, 0.7, 0.5,  # dep=2: shed slower still
-    1, 1, 0.95, 0.9, 0.8  # dep=3: barely sheds
+    1, 0.8, 0.5, 0.3, 0.1, # dep=0: shed fast
+    1, 0.9, 0.7, 0.5, 0.3, # dep=1: shed slower
+    1, 0.95, 0.85, 0.7, 0.5, # dep=2: shed slower still
+    1, 1, 0.95, 0.9, 0.8 # dep=3: barely sheds
   ),
   stringsAsFactors = FALSE
 )
@@ -163,13 +163,13 @@ test_that("empirical_formal_model returns A6 proof object", {
 
 test_that("empirical_formal_model recovers positive dep on synthetic data", {
   result <- empirical_formal_model(.synthetic_retention, .synthetic_bird)
-  expect_gt(result$values$dep_coefficient, 0)  # the framework predicts dep > 0
+  expect_gt(result$values$dep_coefficient, 0) # the framework predicts dep > 0
   expect_true(result$values$dep_positive)
 })
 
 test_that("empirical_formal_model recovers negative para on synthetic data", {
   result <- empirical_formal_model(.synthetic_retention, .synthetic_bird)
-  expect_lt(result$values$para_coefficient, 0)  # the framework predicts para < 0
+  expect_lt(result$values$para_coefficient, 0) # the framework predicts para < 0
   expect_true(result$values$para_negative)
 })
 
@@ -199,7 +199,7 @@ test_that("empirical_formal_model confirms the framework on real retention matri
   expect_gt(result$values$cross_kingdom_rho, 0)
   expect_true(result$values$valence_confirmed)
   expect_gt(result$values$pseudo_r_squared, 0.4)
-  expect_equal(result$metadata$n, 48)                # 8 species x 6 genes
+  expect_equal(result$metadata$n, 48) # 8 species x 6 genes
 })
 
 test_that("empirical_formal_model errors on invalid data", {

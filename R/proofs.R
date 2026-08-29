@@ -30,7 +30,9 @@ NULL
 # -----------------------------------------------------------------------------
 .cusp_branch_separation <- function(b, a) {
   roots <- sort(.cusp_real_real_roots(a, b))
-  if (length(roots) < 2L) return(0)
+  if (length(roots) < 2L) {
+    return(0)
+  }
   # Outer two real roots bound the bistable branch gap.
   max(roots) - min(roots)
 }
@@ -197,8 +199,10 @@ prove_hysteresis_loop_area <- function(a = -1, control_range = c(-2, 2),
     "The roots coalesce at b = +/- b_crit (saddle-node), so the separation is 0\n",
     "at both ends and the enclosed area is finite:\n",
     "  A = int_{-b_crit}^{b_crit} (x_hi(b) - x_lo(b)) db.\n",
-    sprintf("Numeric (trapezoid) area = %.6g ;  Analytic area = %.6g.",
-            numeric_area, analytic_area)
+    sprintf(
+      "Numeric (trapezoid) area = %.6g ;  Analytic area = %.6g.",
+      numeric_area, analytic_area
+    )
   )
 
   valence_proof(
@@ -279,8 +283,10 @@ prove_dd_sign <- function(r = 1, K = 10, N_max = 50, n_grid = 100L) {
     "        = rK / (2*(N+K)^2)  > 0   for N > 0, K > 0.\n",
     "Logistic per-capita rate:\n",
     "  g(N) = r*(1 - N/K)   =>   dg/dN = -r/K < 0.\n",
-    sprintf("Numeric: min(delta f/delta N) = %.6g ; max(delta g/delta N) = %.6g.",
-            min_df, max_dg)
+    sprintf(
+      "Numeric: min(delta f/delta N) = %.6g ; max(delta g/delta N) = %.6g.",
+      min_df, max_dg
+    )
   )
 
   valence_proof(
@@ -337,8 +343,8 @@ prove_autocatalytic_growth_rate <- function(r = 1, K = 10, N_max = 5000,
 
   NN <- seq(1e-9, N_max, length.out = n_grid)
   f <- r * (0.5 + 0.5 * NN / (NN + K))
-  f0 <- r * 0.5                    # seed rate at N = 0
-  fmax_grid <- max(f)              # observed grid maximum
+  f0 <- r * 0.5 # seed rate at N = 0
+  fmax_grid <- max(f) # observed grid maximum
   bounded_above <- isTRUE(fmax_grid <= r + 1e-9)
   bounded_below <- isTRUE(min(f) >= f0 - 1e-9)
   # The rate must rise from the seed value toward the asymptote r: require it
@@ -361,8 +367,10 @@ prove_autocatalytic_growth_rate <- function(r = 1, K = 10, N_max = 5000,
     "Because 0 <= N/(N+K) < 1, we have  r/2 <= f(N) < r  for all finite N.\n",
     "Hence f is increasing (proved in prove_dd_sign) and bounded above by r;\n",
     "the ODE grows at most linearly in N, so counts remain bounded in time.\n",
-    sprintf("Numeric: f(0) = %.6g ; f(N_max) = %.6g ; grid max = %.6g (asymptote r = %.6g).",
-            f0, f[n_grid], fmax_grid, r)
+    sprintf(
+      "Numeric: f(0) = %.6g ; f(N_max) = %.6g ; grid max = %.6g (asymptote r = %.6g).",
+      f0, f[n_grid], fmax_grid, r
+    )
   )
 
   valence_proof(

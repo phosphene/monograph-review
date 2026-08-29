@@ -1,0 +1,167 @@
+{
+  "overall_percent": 83.39,
+  "per_file": [
+    {
+      "file": "R/zzz.R",
+      "total": 1,
+      "covered": 0,
+      "percent": 0
+    },
+    {
+      "file": "R/p_series_a_priori.R",
+      "total": 93,
+      "covered": 18,
+      "percent": 19.4
+    },
+    {
+      "file": "R/dynamics_classes.R",
+      "total": 173,
+      "covered": 86,
+      "percent": 49.7
+    },
+    {
+      "file": "R/formal_model_classes.R",
+      "total": 81,
+      "covered": 41,
+      "percent": 50.6
+    },
+    {
+      "file": "R/test_registry.R",
+      "total": 131,
+      "covered": 84,
+      "percent": 64.1
+    },
+    {
+      "file": "R/proofs.R",
+      "total": 73,
+      "covered": 54,
+      "percent": 74
+    },
+    {
+      "file": "R/empirical_test_classes.R",
+      "total": 213,
+      "covered": 162,
+      "percent": 76.1
+    },
+    {
+      "file": "R/formal_model_methods.R",
+      "total": 123,
+      "covered": 95,
+      "percent": 77.2
+    },
+    {
+      "file": "R/data_loaders.R",
+      "total": 67,
+      "covered": 52,
+      "percent": 77.6
+    },
+    {
+      "file": "R/contracts.R",
+      "total": 138,
+      "covered": 108,
+      "percent": 78.3
+    },
+    {
+      "file": "R/relaxation_model.R",
+      "total": 52,
+      "covered": 42,
+      "percent": 80.8
+    },
+    {
+      "file": "R/empirical_tests.R",
+      "total": 162,
+      "covered": 139,
+      "percent": 85.8
+    },
+    {
+      "file": "R/simulacra_logging.R",
+      "total": 22,
+      "covered": 19,
+      "percent": 86.4
+    },
+    {
+      "file": "R/cultural_data_loaders.R",
+      "total": 30,
+      "covered": 26,
+      "percent": 86.7
+    },
+    {
+      "file": "R/economics.R",
+      "total": 156,
+      "covered": 142,
+      "percent": 91
+    },
+    {
+      "file": "R/economics_formula.R",
+      "total": 236,
+      "covered": 218,
+      "percent": 92.4
+    },
+    {
+      "file": "R/fit_biexp.R",
+      "total": 140,
+      "covered": 130,
+      "percent": 92.9
+    },
+    {
+      "file": "R/simulacra_viz.R",
+      "total": 57,
+      "covered": 53,
+      "percent": 93
+    },
+    {
+      "file": "R/cultural_ode_models.R",
+      "total": 119,
+      "covered": 112,
+      "percent": 94.1
+    },
+    {
+      "file": "R/viz.R",
+      "total": 261,
+      "covered": 246,
+      "percent": 94.3
+    },
+    {
+      "file": "R/cultural_tests.R",
+      "total": 48,
+      "covered": 46,
+      "percent": 95.8
+    },
+    {
+      "file": "R/autocatalytic_set.R",
+      "total": 27,
+      "covered": 26,
+      "percent": 96.3
+    },
+    {
+      "file": "R/speculative.R",
+      "total": 143,
+      "covered": 141,
+      "percent": 98.6
+    },
+    {
+      "file": "R/formal_model.R",
+      "total": 98,
+      "covered": 97,
+      "percent": 99
+    },
+    {
+      "file": "R/cross_kingdom_transfer.R",
+      "total": 29,
+      "covered": 29,
+      "percent": 100
+    },
+    {
+      "file": "R/cusp_catastrophe.R",
+      "total": 25,
+      "covered": 25,
+      "percent": 100
+    },
+    {
+      "file": "R/fit_step.R",
+      "total": 46,
+      "covered": 46,
+      "percent": 100
+    }
+  ]
+}

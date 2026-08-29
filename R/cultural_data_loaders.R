@@ -27,8 +27,10 @@ load_oswalt_1973 <- function() {
   data$log_N <- log10(data$population_estimate)
   data$log_types <- log10(data$types)
   data$log_components <- log10(data$components)
-  make_result(data, "oswalt_1973",
-    "Oswalt 1973 Table 7-2: 12 societies, subsistence technology")
+  make_result(
+    data, "oswalt_1973",
+    "Oswalt 1973 Table 7-2: 12 societies, subsistence technology"
+  )
 }
 
 #' Load Oswalt (1976) Appendix — 29 societies with technounit data
@@ -48,8 +50,10 @@ load_oswalt_1976 <- function() {
   data$log_N <- log10(data$population_estimate)
   data$log_subsistants <- log10(data$subsistants)
   data$log_technounits <- log10(data$technounits)
-  make_result(data, "oswalt_1976",
-    "Oswalt 1976 Appendix: 29 societies, food-getting technology")
+  make_result(
+    data, "oswalt_1976",
+    "Oswalt 1976 Appendix: 29 societies, food-getting technology"
+  )
 }
 
 #' Load cross-domain beta comparison table
@@ -64,8 +68,10 @@ load_cross_domain_beta <- function() {
     stop("cross_domain_beta.csv not found.", call. = FALSE)
   }
   data <- utils::read.csv(data_path, stringsAsFactors = FALSE)
-  make_result(data, "cross_domain_beta",
-    "Cross-domain beta estimates: 12 domains")
+  make_result(
+    data, "cross_domain_beta",
+    "Cross-domain beta estimates: 12 domains"
+  )
 }
 
 #' Load USPTO cumulative patent data (1836-2023)
@@ -82,6 +88,8 @@ load_uspto_patents <- function() {
   data <- utils::read.csv(data_path, stringsAsFactors = FALSE)
   data$log_cumulative <- log10(data$cumulative_patents)
   data$year_centered <- data$year - mean(data$year)
-  make_result(data, "uspto_patents",
-    "USPTO utility patents 1836-2023 (Our World in Data)")
+  make_result(
+    data, "uspto_patents",
+    "USPTO utility patents 1836-2023 (Our World in Data)"
+  )
 }

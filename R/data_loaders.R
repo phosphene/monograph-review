@@ -27,7 +27,9 @@ get_data_dir <- function(file = NULL) {
   # Try installed package first — but only if it has the requested file
   path <- system.file("data", package = "valence.foundry")
   if (path != "" && dir.exists(path)) {
-    if (is.null(file)) return(path)
+    if (is.null(file)) {
+      return(path)
+    }
     if (file.exists(file.path(path, file)) || file.exists(paste0(file.path(path, file), ".gz"))) {
       return(path)
     }
@@ -37,7 +39,9 @@ get_data_dir <- function(file = NULL) {
   candidates <- c("data", file.path("..", "data"))
   for (cand in candidates) {
     if (dir.exists(cand)) {
-      if (is.null(file)) return(cand)
+      if (is.null(file)) {
+        return(cand)
+      }
       if (file.exists(file.path(cand, file)) || file.exists(paste0(file.path(cand, file), ".gz"))) {
         return(cand)
       }
@@ -60,9 +64,13 @@ get_data_dir <- function(file = NULL) {
 resolve_data_file <- function(file) {
   data_dir <- get_data_dir(file)
   p <- file.path(data_dir, file)
-  if (file.exists(p)) return(p)
+  if (file.exists(p)) {
+    return(p)
+  }
   pgz <- paste0(p, ".gz")
-  if (file.exists(pgz)) return(pgz)
+  if (file.exists(pgz)) {
+    return(pgz)
+  }
   p
 }
 

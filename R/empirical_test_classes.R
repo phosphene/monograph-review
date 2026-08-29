@@ -57,7 +57,9 @@ NULL
 #' @return character significance label.
 #' @keywords internal
 .valence_p_stars <- function(p) {
-  if (is.na(p)) return("")
+  if (is.na(p)) {
+    return("")
+  }
   if (p < 0.001) "***" else if (p < 0.01) "**" else if (p < 0.05) "*" else ""
 }
 
@@ -68,7 +70,9 @@ NULL
 #' @return "significant", "not_significant", or "n/a".
 #' @keywords internal
 .valence_status_of <- function(p, alpha = 0.05) {
-  if (is.na(p)) return("n/a")
+  if (is.na(p)) {
+    return("n/a")
+  }
   if (p < alpha) "significant" else "not_significant"
 }
 
@@ -100,16 +104,22 @@ NULL
   cat(sprintf("%s\n", cls))
   cat(sprintf("%s\n", strrep("=", nchar(cls))))
   cat(sprintf("  Test:          %s\n", x$test_name))
-  cat(sprintf("  Discriminating:%s\n",
-              ifelse(isTRUE(x$discriminating), " yes (distinguishes the framework)", " no (consistent with the framework)")))
+  cat(sprintf(
+    "  Discriminating:%s\n",
+    ifelse(isTRUE(x$discriminating), " yes (distinguishes the framework)", " no (consistent with the framework)")
+  ))
   cat(sprintf("  Status:        %s\n", x$status))
   if (!is.null(x$metadata$n)) {
     cat(sprintf("  n:             %s\n", x$metadata$n))
   }
-  cat("  Statistic:     ", if (is.na(x$statistic)) "NA" else sprintf("%.4g", x$statistic),
-      sprintf("  (p = %s %s)\n",
-              if (is.na(x$p_value)) "NA" else sprintf("%.4g", x$p_value),
-              .valence_p_stars(x$p_value)))
+  cat(
+    "  Statistic:     ", if (is.na(x$statistic)) "NA" else sprintf("%.4g", x$statistic),
+    sprintf(
+      "  (p = %s %s)\n",
+      if (is.na(x$p_value)) "NA" else sprintf("%.4g", x$p_value),
+      .valence_p_stars(x$p_value)
+    )
+  )
   if (!is.null(x$valence_prediction) && !is.na(x$valence_prediction) && nzchar(x$valence_prediction)) {
     cat(sprintf("  Prediction:    %s\n", x$valence_prediction))
   }
@@ -136,7 +146,7 @@ NULL
 #' @return valence_test_result object (unvalidated).
 #' @keywords internal
 new_valence_test_result <- function(test_name, statistic, p_value, valence_prediction,
-                               discriminating, status, values, metadata) {
+                                    discriminating, status, values, metadata) {
   structure(
     list(
       test_name = test_name,
@@ -164,8 +174,10 @@ validate_valence_test_result <- function(x) {
   if (!is.list(x) || !inherits(x, "valence_test_result")) {
     stop("valence_test_result must be a list with class 'valence_test_result'", call. = FALSE)
   }
-  required <- c("test_name", "statistic", "p_value", "valence_prediction",
-                "discriminating", "status", "values", "metadata")
+  required <- c(
+    "test_name", "statistic", "p_value", "valence_prediction",
+    "discriminating", "status", "values", "metadata"
+  )
   missing <- setdiff(required, names(x))
   if (length(missing) > 0) {
     stop("Missing required fields: ", paste(missing, collapse = ", "), call. = FALSE)
@@ -177,7 +189,7 @@ validate_valence_test_result <- function(x) {
     stop("statistic must be a single numeric (or NA)", call. = FALSE)
   }
   if (!is.numeric(x$p_value) || length(x$p_value) != 1 ||
-      (!is.na(x$p_value) && (x$p_value < 0 || x$p_value > 1))) {
+        (!is.na(x$p_value) && (x$p_value < 0 || x$p_value > 1))) {
     stop("p_value must be a single numeric in [0, 1] (or NA)", call. = FALSE)
   }
   if (!is.character(x$valence_prediction)) {
@@ -215,11 +227,13 @@ validate_valence_test_result <- function(x) {
 #' @return Validated valence_test_result object.
 #' @export
 valence_test_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                           valence_prediction = "", discriminating = FALSE,
-                           status = .valence_status_of(p_value),
-                           values = list(), metadata = list()) {
-  res <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata)
+                                valence_prediction = "", discriminating = FALSE,
+                                status = .valence_status_of(p_value),
+                                values = list(), metadata = list()) {
+  res <- new_valence_test_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata
+  )
   validate_valence_test_result(res)
 }
 
@@ -275,10 +289,12 @@ as.data.frame.valence_test_result <- function(x, row.names = NULL, optional = FA
 #' @return valence_pgls_result object (unvalidated).
 #' @keywords internal
 new_valence_pgls_result <- function(test_name, statistic, p_value, valence_prediction,
-                               discriminating, status, values, metadata,
-                               beta, r_squared, aic, n) {
-  obj <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata)
+                                    discriminating, status, values, metadata,
+                                    beta, r_squared, aic, n) {
+  obj <- new_valence_test_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata
+  )
   obj$beta <- .valence_or_na(beta)
   obj$r_squared <- .valence_or_na(r_squared)
   obj$aic <- .valence_or_na(aic)
@@ -317,14 +333,16 @@ validate_valence_pgls_result <- function(x) {
 #' @return Validated valence_pgls_result object.
 #' @export
 valence_pgls_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                           valence_prediction = "", discriminating = FALSE,
-                           status = .valence_status_of(p_value),
-                           values = list(), metadata = list(),
-                           beta = NA_real_, r_squared = NA_real_,
-                           aic = NA_real_, n = NA_real_) {
-  res <- new_valence_pgls_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata,
-                            beta, r_squared, aic, n)
+                                valence_prediction = "", discriminating = FALSE,
+                                status = .valence_status_of(p_value),
+                                values = list(), metadata = list(),
+                                beta = NA_real_, r_squared = NA_real_,
+                                aic = NA_real_, n = NA_real_) {
+  res <- new_valence_pgls_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata,
+    beta, r_squared, aic, n
+  )
   validate_valence_pgls_result(res)
 }
 
@@ -388,10 +406,12 @@ as.data.frame.valence_pgls_result <- function(x, row.names = NULL, optional = FA
 #' @return valence_niche_ne_result object (unvalidated).
 #' @keywords internal
 new_valence_niche_ne_result <- function(test_name, statistic, p_value, valence_prediction,
-                                   discriminating, status, values, metadata,
-                                   niche_r_squared, ne_r_squared, delta_aic) {
-  obj <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata)
+                                        discriminating, status, values, metadata,
+                                        niche_r_squared, ne_r_squared, delta_aic) {
+  obj <- new_valence_test_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata
+  )
   obj$niche_r_squared <- .valence_or_na(niche_r_squared)
   obj$ne_r_squared <- .valence_or_na(ne_r_squared)
   obj$delta_aic <- .valence_or_na(delta_aic)
@@ -426,14 +446,16 @@ validate_valence_niche_ne_result <- function(x) {
 #' @return Validated valence_niche_ne_result object.
 #' @export
 valence_niche_ne_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               valence_prediction = "", discriminating = FALSE,
-                               status = .valence_status_of(p_value),
-                               values = list(), metadata = list(),
-                               niche_r_squared = NA_real_, ne_r_squared = NA_real_,
-                               delta_aic = NA_real_) {
-  res <- new_valence_niche_ne_result(test_name, statistic, p_value, valence_prediction,
-                                discriminating, status, values, metadata,
-                                niche_r_squared, ne_r_squared, delta_aic)
+                                    valence_prediction = "", discriminating = FALSE,
+                                    status = .valence_status_of(p_value),
+                                    values = list(), metadata = list(),
+                                    niche_r_squared = NA_real_, ne_r_squared = NA_real_,
+                                    delta_aic = NA_real_) {
+  res <- new_valence_niche_ne_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata,
+    niche_r_squared, ne_r_squared, delta_aic
+  )
   validate_valence_niche_ne_result(res)
 }
 
@@ -495,13 +517,15 @@ as.data.frame.valence_niche_ne_result <- function(x, row.names = NULL, optional 
 #' @return valence_fluidity_result object (unvalidated).
 #' @keywords internal
 new_valence_fluidity_result <- function(test_name, statistic, p_value, valence_prediction,
-                                   discriminating, status, values, metadata,
-                                   lifestyle_r_squared, ne_r_squared, p_value2) {
-  obj <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata)
+                                        discriminating, status, values, metadata,
+                                        lifestyle_r_squared, ne_r_squared, p_value2) {
+  obj <- new_valence_test_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata
+  )
   obj$lifestyle_r_squared <- .valence_or_na(lifestyle_r_squared)
   obj$ne_r_squared <- .valence_or_na(ne_r_squared)
-  obj$p_value <- .valence_or_na(p_value2)  # class-level p_value
+  obj$p_value <- .valence_or_na(p_value2) # class-level p_value
   class(obj) <- c("valence_fluidity_result", "valence_test_result")
   obj
 }
@@ -530,14 +554,16 @@ validate_valence_fluidity_result <- function(x) {
 #' @return Validated valence_fluidity_result object.
 #' @export
 valence_fluidity_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               valence_prediction = "", discriminating = FALSE,
-                               status = .valence_status_of(p_value),
-                               values = list(), metadata = list(),
-                               lifestyle_r_squared = NA_real_, ne_r_squared = NA_real_,
-                               p_value2 = NA_real_) {
-  res <- new_valence_fluidity_result(test_name, statistic, p_value, valence_prediction,
-                                discriminating, status, values, metadata,
-                                lifestyle_r_squared, ne_r_squared, p_value2)
+                                    valence_prediction = "", discriminating = FALSE,
+                                    status = .valence_status_of(p_value),
+                                    values = list(), metadata = list(),
+                                    lifestyle_r_squared = NA_real_, ne_r_squared = NA_real_,
+                                    p_value2 = NA_real_) {
+  res <- new_valence_fluidity_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata,
+    lifestyle_r_squared, ne_r_squared, p_value2
+  )
   validate_valence_fluidity_result(res)
 }
 
@@ -597,10 +623,12 @@ as.data.frame.valence_fluidity_result <- function(x, row.names = NULL, optional 
 #' @return valence_ordering_result object (unvalidated).
 #' @keywords internal
 new_valence_ordering_result <- function(test_name, statistic, p_value, valence_prediction,
-                                   discriminating, status, values, metadata,
-                                   rho, p_value2, n_permutations) {
-  obj <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata)
+                                        discriminating, status, values, metadata,
+                                        rho, p_value2, n_permutations) {
+  obj <- new_valence_test_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata
+  )
   obj$rho <- .valence_or_na(rho)
   obj$p_value <- .valence_or_na(p_value2)
   obj$n_permutations <- .valence_or_na(n_permutations)
@@ -632,14 +660,16 @@ validate_valence_ordering_result <- function(x) {
 #' @return Validated valence_ordering_result object.
 #' @export
 valence_ordering_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               valence_prediction = "", discriminating = FALSE,
-                               status = .valence_status_of(p_value),
-                               values = list(), metadata = list(),
-                               rho = NA_real_, p_value2 = NA_real_,
-                               n_permutations = NA_real_) {
-  res <- new_valence_ordering_result(test_name, statistic, p_value, valence_prediction,
-                                discriminating, status, values, metadata,
-                                rho, p_value2, n_permutations)
+                                    valence_prediction = "", discriminating = FALSE,
+                                    status = .valence_status_of(p_value),
+                                    values = list(), metadata = list(),
+                                    rho = NA_real_, p_value2 = NA_real_,
+                                    n_permutations = NA_real_) {
+  res <- new_valence_ordering_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata,
+    rho, p_value2, n_permutations
+  )
   validate_valence_ordering_result(res)
 }
 
@@ -699,10 +729,12 @@ as.data.frame.valence_ordering_result <- function(x, row.names = NULL, optional 
 #' @return valence_transfer_result object (unvalidated).
 #' @keywords internal
 new_valence_transfer_result <- function(test_name, statistic, p_value, valence_prediction,
-                                   discriminating, status, values, metadata,
-                                   rho, p_value2, n_null_draws) {
-  obj <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata)
+                                        discriminating, status, values, metadata,
+                                        rho, p_value2, n_null_draws) {
+  obj <- new_valence_test_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata
+  )
   obj$rho <- .valence_or_na(rho)
   obj$p_value <- .valence_or_na(p_value2)
   obj$n_null_draws <- .valence_or_na(n_null_draws)
@@ -734,14 +766,16 @@ validate_valence_transfer_result <- function(x) {
 #' @return Validated valence_transfer_result object.
 #' @export
 valence_transfer_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                               valence_prediction = "", discriminating = FALSE,
-                               status = .valence_status_of(p_value),
-                               values = list(), metadata = list(),
-                               rho = NA_real_, p_value2 = NA_real_,
-                               n_null_draws = NA_real_) {
-  res <- new_valence_transfer_result(test_name, statistic, p_value, valence_prediction,
-                                discriminating, status, values, metadata,
-                                rho, p_value2, n_null_draws)
+                                    valence_prediction = "", discriminating = FALSE,
+                                    status = .valence_status_of(p_value),
+                                    values = list(), metadata = list(),
+                                    rho = NA_real_, p_value2 = NA_real_,
+                                    n_null_draws = NA_real_) {
+  res <- new_valence_transfer_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata,
+    rho, p_value2, n_null_draws
+  )
   validate_valence_transfer_result(res)
 }
 
@@ -801,11 +835,13 @@ as.data.frame.valence_transfer_result <- function(x, row.names = NULL, optional 
 #' @return valence_cosegregation_result object (unvalidated).
 #' @keywords internal
 new_valence_cosegregation_result <- function(test_name, statistic, p_value,
-                                        valence_prediction, discriminating, status,
-                                        values, metadata, observed_pct,
-                                        expected_pct, depletion_ratio) {
-  obj <- new_valence_test_result(test_name, statistic, p_value, valence_prediction,
-                            discriminating, status, values, metadata)
+                                             valence_prediction, discriminating, status,
+                                             values, metadata, observed_pct,
+                                             expected_pct, depletion_ratio) {
+  obj <- new_valence_test_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata
+  )
   obj$observed_pct <- .valence_or_na(observed_pct)
   obj$expected_pct <- .valence_or_na(expected_pct)
   obj$depletion_ratio <- .valence_or_na(depletion_ratio)
@@ -840,14 +876,16 @@ validate_valence_cosegregation_result <- function(x) {
 #' @return Validated valence_cosegregation_result object.
 #' @export
 valence_cosegregation_result <- function(test_name, statistic = NA_real_, p_value = NA_real_,
-                                    valence_prediction = "", discriminating = FALSE,
-                                    status = .valence_status_of(p_value),
-                                    values = list(), metadata = list(),
-                                    observed_pct = NA_real_, expected_pct = NA_real_,
-                                    depletion_ratio = NA_real_) {
-  res <- new_valence_cosegregation_result(test_name, statistic, p_value, valence_prediction,
-                                     discriminating, status, values, metadata,
-                                     observed_pct, expected_pct, depletion_ratio)
+                                         valence_prediction = "", discriminating = FALSE,
+                                         status = .valence_status_of(p_value),
+                                         values = list(), metadata = list(),
+                                         observed_pct = NA_real_, expected_pct = NA_real_,
+                                         depletion_ratio = NA_real_) {
+  res <- new_valence_cosegregation_result(
+    test_name, statistic, p_value, valence_prediction,
+    discriminating, status, values, metadata,
+    observed_pct, expected_pct, depletion_ratio
+  )
   validate_valence_cosegregation_result(res)
 }
 

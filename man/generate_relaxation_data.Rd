@@ -46,10 +46,12 @@ power analysis and parameter recovery studies.
 }
 \examples{
 \dontrun{
-dat <- generate_relaxation_data(seq(0, 10, 0.1), rho0 = 1.0,
-                                 k1 = 0.5, k2 = 0.02,
-                                 rho1 = 0.3, rho2 = 0.3,
-                                 noise_sd = 0.01, seed = 42)
+dat <- generate_relaxation_data(seq(0, 10, 0.1),
+  rho0 = 1.0,
+  k1 = 0.5, k2 = 0.02,
+  rho1 = 0.3, rho2 = 0.3,
+  noise_sd = 0.01, seed = 42
+)
 head(dat$data)
 }
 }
