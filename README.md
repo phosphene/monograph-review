@@ -41,7 +41,7 @@ of empirical science.
   leaves the positive claim underdetermined. Claims are therefore stated by what they are;
   explicit negation is reserved for reporting what happened to a rejected null, never as the
   primary form of a claim.
-- **Qualified naming (Hickey–Talman).** Every name must carry sufficient semantic meaningfulness
+- **Qualified naming (Hickey–Tellman).** Every name must carry sufficient semantic meaningfulness
   as a name. An abstract term sufficient unto its abstraction — within mathematics or within a
   research program — is never a top-level claim on its own: it must be tied to the research
   program from which it draws its meaning. Such a term may appear inside a paragraph that names
