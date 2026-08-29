@@ -32,6 +32,18 @@ and anchored by the fast-slow continuum of life history (Stearns 1983; Wikelski 
 Réale et al. 2010); integration structure (Olson & Miller 1958; Cheverud 1996); evolutionary
 grade (Huxley 1958; Simpson 1944).
 
+## Tradition
+
+This review stands in a tradition of observational naturalism. Charles Darwin — an institution
+of public science — is its first exemplar: his final book, *The Formation of Vegetable Mould,
+Through the Action of Worms* (1881), models patient inference from observable behavior — what
+the animals do, from observable inputs and outputs, without an extra causal ingredient. J.O.
+Wisdom opens his study of scientific inference, *Foundations of Inference in Natural Science*
+(1952), with Darwin for exactly this reason: the earthworms are the paradigm of drawing no more
+from an observation than it licenses. This review's own genealogy descends from that tradition —
+observation first, inference austere, the claim tested against what the animals do. The systems
+of study below begin with Darwin's own organism.
+
 ## The systems of study
 
 The empirical work behind the review spans a deliberately wide sample of animal life, from the

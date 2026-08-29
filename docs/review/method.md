@@ -88,6 +88,18 @@ picture of empirical science.
   place; everything is clearly located within its own domain; the README is fully
   self-specifying — it makes public science sense in public language on its own, with no
   reliance on unstated context or on the lower namespace for meaning.
+- **Public institution, common namespace (Ed Phil #80724, #80730).** A figure who is an
+  institution of public science — Darwin is the worked case — is itself a common namespace:
+  his name, his world, and his thinking are fully available to the top level without further
+  qualification. Any mention of Darwin is public science. This is the clean case of the
+  boundary rule: the breadth of his user distribution is maximal, so his names stand
+  unqualified. The review's tradition is public and belongs at the top level: Darwin's
+  earthworms (The Formation of Vegetable Mould, Through the Action of Worms, 1881) as the
+  paradigm of inference from observable inputs and outputs, and J.O. Wisdom's study of
+  scientific inference, Foundations of Inference in Natural Science (1952), which opens with
+  Darwin for exactly this reason. Wisdom's work is also a good use of a top-level namespace:
+  a plain title that names its subject simply. The genealogy is stated briefly and publicly
+  in the top-level README; the working detail stays here.
 - **Austerity of vocabulary.** No private models, no private metaphors, no terms imported from
   another domain. Every word is a resident of classical evolutionary science or is forced by the
   measurement itself; every model has a named public source. An import is a category error.
