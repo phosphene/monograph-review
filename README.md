@@ -198,32 +198,36 @@ oracle; the pipeline must reproduce it within numerical tolerance (0.001).
 
 The repository ships a complete review trail — every claim traced to its root cause, every
 algorithm surveyed with its prediction and competitor, every finding recorded as a numbered
-Remark or Review Item that the code cites directly. All documents are in [`docs/review/`](docs/review/).
+Remark or Review Item that the code cites directly. Index of the review documentation
+(all documents live in [`docs/review/`](docs/review/)):
 
-### Critical review
+**Standards**
 
-| Document | What it is |
-|----------|-----------|
-| [Manuscript review](docs/review/manuscript-review.md) | Critical review of the manuscript (v9) and the foundry artifacts. Numbered Remarks (R1–R7) and Review Items (1–6). |
-| [Calculation review](docs/review/calculation-review.md) | Literate walkthrough of the calculation audit: prediction, broken output, root-cause diagnosis, fix. |
-| [Math review](docs/review/math-review.md) | Audit of the mathematics vs. the implementation vs. the claims (seven issues; two severe; all resolved by the three-phase refactoring). |
-| [Refactoring plan](docs/review/refactoring-plan.md) | Execution plan for the math-review issues. Status: COMPLETE. |
+1. [Review evaluation standard](docs/review/review-evaluation-standard.md) — the contract this review upholds: vertices (mathematics, software, data) and properties (well-formedness, coherence, reproducibility).
+2. [Review index](docs/review/README.md) — full index of all review documentation.
 
-### Genealogies
+**Critical review**
 
-| Document | What it is |
-|----------|-----------|
-| [Family-kinds genealogy](docs/review/family-kinds-genealogy.md) | The definitory-apparatus lineage: Wittgenstein (1953) → Beckner (1959) → Sokal & Sneath (1963) → … → Kull (2016). |
-| [Complementarity lineage](docs/review/bohr-complementarity-lineage.md) | Bohr (Light and Life, 1932) → Delbrück → Elsasser/Pattee/Rosen/Stent. |
-| [fit_biexp numerical challenges](docs/review/fit-biexp-numerical-challenges.md) | The operational enforcement of claim-evidence conformance in the relaxation fitter. |
+3. [Manuscript review](docs/review/manuscript-review.md) — critical review of the manuscript (v9) and the foundry artifacts. Numbered Remarks (R1–R7) and Review Items (1–6).
+4. [Calculation review](docs/review/calculation-review.md) — literate walkthrough of the calculation audit: prediction, broken output, root-cause diagnosis, fix.
+5. [Math review](docs/review/math-review.md) — audit of the mathematics vs. the implementation vs. the claims (seven issues; two severe; all resolved by the three-phase refactoring).
+6. [Refactoring plan](docs/review/refactoring-plan.md) — execution plan for the math-review issues. Status: COMPLETE.
 
-### Empirical frontier
+**Genealogies**
 
-| Document | What it is |
-|----------|-----------|
-| [Algorithms & findings](docs/review/algorithms-and-findings.md) | Formal literate survey of every algorithm, its prediction, its competitor, and a plain-language reading of the current result. |
-| [Formal model reproduction](docs/review/formal-model-reproduction.md) | Deep-dive reproduction of the broken GLM. Root cause: `as.vector(t(retention))` misaligns dep and retention. Fix: remove one `t()`. Recorded as Remark R7. |
-| [Empirical-testing expansion plan](docs/review/empirical-testing-expansion-plan.md) | Proposal for moving the three "testable but not yet tested" modules toward tested. Honest about the data boundary. |
+7. [Family-kinds genealogy](docs/review/family-kinds-genealogy.md) — the definitory-apparatus lineage: Wittgenstein (1953) → Beckner (1959) → Sokal & Sneath (1963) → … → Kull (2016).
+8. [Complementarity lineage](docs/review/bohr-complementarity-lineage.md) — Bohr (Light and Life, 1932) → Delbrück → Elsasser/Pattee/Rosen/Stent.
+9. [fit_biexp numerical challenges](docs/review/fit-biexp-numerical-challenges.md) — the operational enforcement of claim-evidence conformance in the relaxation fitter.
+
+**Empirical frontier**
+
+10. [Algorithms & findings](docs/review/algorithms-and-findings.md) — formal literate survey of every algorithm, its prediction, its competitor, and a plain-language reading of the current result.
+11. [Formal model reproduction](docs/review/formal-model-reproduction.md) — deep-dive reproduction of the broken GLM. Root cause: `as.vector(t(retention))` misaligns dep and retention. Fix: remove one `t()`. Recorded as Remark R7.
+12. [Empirical-testing expansion plan](docs/review/empirical-testing-expansion-plan.md) — proposal for moving the three "testable but not yet tested" modules toward tested. Honest about the data boundary.
+13. [Modeling, simulation & viz review](docs/review/modeling-sim-viz-review.md) — review of the author's existing modeling; evaluation of the sim/viz infrastructure; proposal for a speculative simulation capacity.
+14. [Exploratory models plan](docs/review/toy-models-plan.md) — execution plan for the speculative simulation capacity: four phased exploratory models. Status: COMPLETE.
+15. [Foundry phased breakdown](docs/review/foundry-phased-breakdown.md) — phase-by-phase breakdown of the build, current gate status, and the open data-reconciliation work.
+16. [Session handoff](docs/review/session-handoff.md) — current state and forward agenda for continuing software work.
 
 ## Repository structure
 
@@ -249,9 +253,9 @@ valence.foundry/
 
 ## Authors
 
-- **Jan Ritch-Frel** — Author of the manuscript under review and an active contributor to this codebase.
-- **Edward Phillips** — Author and designer of the mathematics and the software implementations (the R engineering standards, three-pillar separation, DFT axioms, STDD, and the foundry architecture itself).
-- **FlowBot** — Helper agent: implementation, testing, CI/CD, and review support.
+- **[Jan Ritch-Frel](https://github.com/janfrel)** — Author of the manuscript under review and an active contributor to this codebase.
+- **[Edward Phillips](https://github.com/phosphene)** — Author and designer of the mathematics and the software implementations (the R engineering standards, three-pillar separation, DFT axioms, STDD, and the foundry architecture itself).
+- **[FlowBot](https://github.com/FlowFeel)** — Helper agent: implementation, testing, CI/CD, and review support.
 
 ## License
 
