@@ -4,12 +4,12 @@
 
 **Organism:** *Sodalis glossinidius* — endosymbiont of tsetse fly
 **NCBI RefSeq:** GCF_000010085.1
-**Genome status:** 4,3 Mb genome, 51% coding capacity, 1,183 annotated pseudogenes
+**Genome status:** 4.3 Mb genome, 51% coding capacity, 1,183 annotated pseudogenes
 **Evolutionary context:** Transitional symbiont — early-stage genome reduction from free-living Enterobacteriaceae ancestor toward obligate mutualism
 
 ## Why Sodalis, not LTEE
 
-The LTEE (*E. coli* K-12 in glucose minimal medium, 60K generations) is a **free-living adaptation** system, not a genome reduction system. Gene loss is driven by neutral drift + hitchhiking, not by dependency-ordered reallocation toward a simpler niche. Ten integration measures tested across 40 statistical tests — all null.
+The LTEE (*E. coli* K-12 in glucose minimal medium, 60K generations) is a **free-living adaptation** system, not a genome reduction system. Gene loss is driven by neutral drift + hitchhiking, not by dependency-ordered reallocation toward a simpler niche. Ten integration measures tested across 40 statistical tests — all null on integration-depth *ordering* (see the review: T7 v2 finds a robust negative timing correlation, ρ = −0.28, p = 0.029, but reads it as the LTEE lacking the two-phase niche-transition structure — it confirms the bi-exponential *form*, not the integration-depth *ordering*; the ordering is confirmed where it can be measured: plants ρ = 0.955, birds ρ = 0.755, endosymbionts).
 
 Sodalis meets the framework's preconditions:
 1. **Partner-defined niche** — tsetse fly host provides nutrients, stable environment

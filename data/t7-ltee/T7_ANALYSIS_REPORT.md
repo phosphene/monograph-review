@@ -19,7 +19,9 @@
   - 1,061 nonessential (dep ≤ 0.01)
 - **LTEE metagenomic data:** Good et al. 2017, population m1 (Ara-1, non-mutator)
   - 5,172 mutations tracked across 120 timepoints (gen 0-60,000, every 500 gen)
-  - 271 LoF mutations (indel + sv + nonsense) across 193 genes
+  - 228 LoF mutations (indel + sv + nonsense) across 192 genes — as
+    curated in `ltee_lof_mutations.tsv` (79 indel, 94 nonsense, 55 sv; the
+    earlier "271/193" figure was not reproducible from the bundled data)
   - 4,699 total mutations across 2,478 genes
 - **Gene mapping:** iJO1366 uses b-numbers (b1234); LTEE uses gene names (mutT, dnaE)
   - 31% of mutations mapped to b-numbers (gene name → b-number via iJO1366 annotation)
