@@ -51,6 +51,14 @@ of empirical science.
   meaning. Such a term may appear inside a paragraph that names its program, but any name exposed
   at top level — a hypothesis, a thesis, metadata — must be fully qualified, its research-program
   namespace stated as part of the name.
+- **Boundary rule for names.** How much qualification a name requires scales with the breadth of
+  its usage. A word that has entered common usage — its namespace is the language itself, wide
+  open — may stand unqualified (e.g., evolutionary science). A term bounded within a research
+  program is namespaced to that program. And a term whose users are a peculiar subset —
+  especially one preponderantly overrepresented in frontier-model training data — carries a
+  statistical shadow this review does not endorse: it is refused top-level public use without
+  full qualification, and may be refused entirely (worked case: "substrate", used only as
+  "the manuscript's substrate-independence view (the two kingdoms treated as independent)").
 - **Observation as the production of conditions (Wisdom).** Observations are the foundation of
   scientific method because they are the conditions in which statements can be made — and those
   conditions can be reproduced. The reproduction of the conditions is itself observation: to
