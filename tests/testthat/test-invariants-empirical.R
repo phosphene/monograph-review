@@ -48,21 +48,24 @@ context("Empirical test invariants")
 
     # Response: y = intercept + true_beta*x + phylogenetic_signal + noise.
     # Simulate the phylogenetic signal along the tree with Brownian motion
-    # (ape::rTraitCont) rather than MASS::mvrnorm on vcv(tree, corr=TRUE):
-    # the correlation matrix of a coalescent tree is numerically singular,
-    # and mvrnorm fails on it deterministically ("Sigma not positive
-    # definite"), which silently zeroed recovery on every iteration.
+    # (ape::rTraitCont) rather than drawing it from the tree's covariance
+    # matrix: for a coalescent tree that matrix is numerically singular, and
+    # a multivariate normal draw on it fails deterministically (not positive
+    # definite), which silently zeroed recovery on every iteration.
     intercept <- 150
     phylo_error <- as.numeric(ape::rTraitCont(tree, model = "BM",
                                               sigma = 1)) * sqrt(lambda)
     residual_error <- rnorm(n, 0, sigma)
     y <- intercept + true_beta * x + phylo_error + residual_error
 
-    data.frame(
-      species = tree$tip.label,
-      plastome_size_kb = y,
-      parasitism_score = x,
-      stringsAsFactors = FALSE
+    list(
+      data = data.frame(
+        species = tree$tip.label,
+        plastome_size_kb = y,
+        parasitism_score = x,
+        stringsAsFactors = FALSE
+      ),
+      tree = tree
     )
   })
 }
