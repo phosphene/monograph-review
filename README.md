@@ -157,9 +157,34 @@ make regression     # compare all results to the baseline oracle
 ```
 
 The canonical runner is `run_tests.R` (`Rscript run_tests.R <gate>`). CI pins its environment via
-the `rocker/tidyverse:4.5.3` container; local runs use the miniforge R plus `minpack.lm`. Seven
-CI gates, each depending on the previous: lint → unit (coverage ≥ 80%) → simulacra → integration
-→ regression → `R CMD check` → Pages. A gate result is only a result once CI is green.
+`rocker/tidyverse:4.5.3`; local runs use the miniforge R plus `minpack.lm`. Eight CI gates, each
+depending on the previous: lint → unit (coverage ≥ 80%) → simulacra → integration → regression
+→ `R CMD check` → Pages → summary. A gate result is only a result once CI is green.
+
+## Calibration program (self-calibration)
+
+The foundry turns its own instrument back on itself through a ticketed work program
+(11 tickets, C1–C8 + E1–E3) stated in hypothetico-axiomatic form — each ticket is a hypothesis
+about our own method, a formalization, and the observable consequences that establish or refute it.
+One commit per ticket, suite green before push; a ticket is done only when its exit gate is green.
+
+Status (2026-08-30):
+- **E1 — coverage gate (DONE, PR #22).** Unit coverage lifted above the ≥80% gate on all four
+  previously under-covered modules and held for the whole package: `p_series_a_priori.R` 19.4% →
+  100%, `dynamics_classes.R` 49.7% → 96.0%, `formal_model_classes.R` 50.6% → 91.4%,
+  `test_registry.R` 64.1% → 94.7%; overall 83.98% → **93.25%**. 201 contract-test assertions added
+  (constructor → validator → helper round-trips, degenerate/NA-fallback branches, registry public
+  API) on synthetic fixtures — behavior contracts, not coverage-hacking. Two real robustness bugs
+  surfaced and fixed: `p3_plastid_erosion_order` crashed on constant dependency score (now NA
+  fallback), and the autocatalytic validator rejected its own documented `"inconclusive"` fallback.
+- **E2 — revive the property-based invariants suite (DONE, merged).** `test-invariants-empirical.R`
+  re-enabled after fixing a return-contract drift in the PGLS synthetic generator (documented
+  `list(data, tree)` vs bare data.frame → every validation died) plus a seed-locked monotone DGM
+  for the transfer invariant and lint cleanup. Full suite green. Two vignette contract drifts that
+  were failing `R CMD check` were also fixed (`as_valence_autocatalytic_result` counts,
+  `retention_at_time` return shape), closing the check gate.
+- **Next:** C6 (Monte Carlo error / replication-count discipline), then C1 → C2 → C5 → C4 → C7 →
+  C3 → C8 → E3.
 
 ## Key results
 
