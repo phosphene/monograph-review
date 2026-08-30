@@ -242,7 +242,7 @@ depth <- 1.5  # unprotected
 theta <- 3.0
 
 retentions <- sapply(lambda_vals, function(lam) {
-  retention_at_time(depth, lam, theta, m0 = 20.0, alpha = 0.05, time = 100.0)$value
+  retention_at_time(depth, lam, theta, m0 = 20.0, alpha = 0.05, time = 100.0)
 })
 
 cat("Monotonicity check (increasing λ → decreasing retention):\n")

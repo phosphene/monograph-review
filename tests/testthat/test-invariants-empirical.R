@@ -1,5 +1,18 @@
 # test-invariants-empirical.R — Property-based invariants for empirical tests
 # DFT A2: Statistical invariants that hold regardless of data (as long as valid)
+#
+# E2 revival (2026-08-30): re-enabled from .disabled. Two contract drifts
+# repaired against current signatures:
+#   - transfer_test now fits a gene-categories loss-rank model (fit_plant_model
+#     -> validate_gene_categories), so invariants 4/7 plant_data moved from the
+#     old retention-matrix format (species/gene_category/.../retention) to
+#     category + dependency_score + *_loss_rank.
+#   - validate_endosymbiont_data now requires a species column; invariant 10
+#     generates both species (validator) and genus (aggregation target), with
+#     a declining-genome DGM so the fitted model is well-specified (R² >= 0
+#     robustly, not by chance on uniform data).
+# Executed by the covr::package_coverage() step in the unit gate (runs the
+# whole suite), like the sibling invariants-dynamics / invariants-formal-model.
 
 library(testthat)
 
@@ -19,26 +32,41 @@ context("Empirical test invariants")
 #'
 #' @return List with data and tree.
 .generate_pgls_synthetic <- function(n = 50, true_beta = -10, sigma = 20,
-                                      lambda = 0.7, seed = 42L) {
+                                     lambda = 0.7, seed = 42L) {
   withr::with_seed(seed, {
-    # Generate phylogeny (simple star phylogeny with some structure)
-    tree <- ape::rtree(n)
+    # Coalescent (ultrametric) tree: the standard for PGLS simulation, and
+    # well-behaved for ML-lambda estimation (rtree's random branch lengths
+    # can flake caper's optimiser).
+    tree <- ape::rcoal(n)
 
-    # Generate predictor with variance
-    x <- rnorm(n, mean = 2, sd = 1)
+    # Validator contract: the plastome and parasitism columns must be
+    # non-negative, so the predictor is drawn strictly positive and the
+    # response kept safely above zero so every iteration is valid (this
+    # file was authored disabled and never run against the current
+    # contracts — see E2).
+    x <- runif(n, 1, 3)
 
-    # Generate response: y = intercept + beta*x + phylogenetic_signal
-    intercept <- 100
-    phylo_error <- MASS::mvrnorm(1, rep(0, n),
-                                  ape::vcv(tree, corr = TRUE) * lambda)
+    # Response is an intercept plus the true negative effect of the
+    # predictor plus phylogenetic signal plus residual noise. The
+    # phylogenetic signal is simulated along the tree by Brownian motion
+    # rather than drawn from the tree's covariance matrix: for a
+    # coalescent tree that matrix is numerically singular, and a
+    # multivariate normal draw on it fails deterministically, which
+    # silently zeroed recovery on every iteration.
+    intercept <- 150
+    phylo_error <- as.numeric(ape::rTraitCont(tree, model = "BM",
+                                              sigma = 1)) * sqrt(lambda)
     residual_error <- rnorm(n, 0, sigma)
     y <- intercept + true_beta * x + phylo_error + residual_error
 
-    data.frame(
-      species = tree$tip.label,
-      plastome_size_kb = y,
-      parasitism_score = x,
-      stringsAsFactors = FALSE
+    list(
+      data = data.frame(
+        species = tree$tip.label,
+        plastome_size_kb = y,
+        parasitism_score = x,
+        stringsAsFactors = FALSE
+      ),
+      tree = tree
     )
   })
 }
@@ -55,7 +83,8 @@ context("Empirical test invariants")
       species = paste0("sp_", seq_len(n)),
       genome_bp = runif(n, 1e6, 10e9),
       Ne = runif(n, 1e3, 1e7),
-      lifestyle = sample(c("free-living", "commensal", "obligate"), n, replace = TRUE),
+      lifestyle = sample(c("free-living", "commensal", "obligate"),
+                         n, replace = TRUE),
       stringsAsFactors = FALSE
     )
   })
@@ -112,7 +141,11 @@ test_that("Invariant: PGLS recovers negative beta for known negative data", {
 
     result <- tryCatch(
       pgls_orobanchaceae(syn$data, syn$tree, lambda = "ML", seed = 42L + i),
-      error = function(e) NULL
+      error = function(e) {
+        message("PGLS invariant iteration ", i, " error: ",
+                conditionMessage(e))
+        NULL
+      }
     )
 
     if (!is.null(result)) {
@@ -197,14 +230,20 @@ test_that("Invariant: Transfer test bird_rho always in [-1,1]", {
   all_in_range <- logical(n_iter)
 
   for (i in seq_len(n_iter)) {
-    plant_data <- data.frame(
-      species = paste0("sp_", 1:8),
-      gene_category = rep(c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"), each = 8),
-      parasitism_score = rep(c(0, 1, 2, 3), times = 12),
-      dependency_score = rep(c(0, 1, 1, 2, 3, 5), each = 8),
-      retention = runif(48, 0, 1),
-      stringsAsFactors = FALSE
-    )
+    # Non-degenerate, seed-locked plant DGM: dependency_score rises with
+    # category, and lineage_loss_rank is a monotone (positive-sign)
+    # function of it plus tiny noise. Guarantees a nonzero plant slope, so
+    # predicted bird ranks are never all-tied (which would make Spearman's
+    # rho NA). The prior sample(6) could hit a near-zero slope and return
+    # NA on iteration 10 of 50.
+    plant_data <- withr::with_seed(42L + i, {
+      data.frame(
+        category = c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"),
+        dependency_score = c(0, 1, 1, 2, 3, 5),
+        lineage_loss_rank = seq_len(6) + rnorm(6, 0, 0.1),
+        stringsAsFactors = FALSE
+      )
+    })
 
     bird_data <- .generate_transfer_bird_data(n_bird = 8, seed = 42L + i)
 
@@ -254,7 +293,8 @@ test_that("Invariant: Co-segregation depletion_ratio is non-negative", {
 })
 
 # ============================================================================
-# Invariant 6: Transfer test null distribution has mean ρ ≈ 0 under random slopes
+# Invariant 6: Transfer test null distribution has mean rho approx 0
+# under random slopes
 # ============================================================================
 
 test_that("Invariant: Null distribution mean ρ ≈ 0 for random slopes", {
@@ -283,7 +323,7 @@ test_that("Invariant: Null distribution mean ρ ≈ 0 for random slopes", {
 })
 
 # ============================================================================
-# Invariant 7: Sign concordance (if plant slope > 0 and bird ρ > 0, sign preserved)
+# Invariant 7: Sign concordance (plant slope and bird rho share sign)
 # ============================================================================
 
 test_that("Invariant: Sign preservation when both positive", {
@@ -291,14 +331,9 @@ test_that("Invariant: Sign preservation when both positive", {
 
   # Create plant data with clearly positive dependency effect
   plant_data <- data.frame(
-    species = rep(paste0("sp_", 1:8), each = 6),
-    gene_category = rep(c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"), times = 8),
-    parasitism_score = rep(rep(c(0, 2, 4), each = 16), 2),
-    dependency_score = rep(c(0, 1, 1, 2, 3, 5), times = 16),
-    retention = c(
-      # Strong positive correlation: high dep → high retention
-      rep(c(0.9, 0.85, 0.8, 0.7, 0.5, 0.3), 8) + rnorm(48, 0, 0.05)
-    ),
+    category = c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"),
+    dependency_score = c(0, 1, 1, 2, 3, 5),
+    lineage_loss_rank = c(1, 2, 3, 4, 5, 6),  # high dep -> lost later
     stringsAsFactors = FALSE
   )
 
@@ -326,7 +361,7 @@ test_that("Invariant: Sign preservation when both positive", {
 # Invariant 8: Pseudo-R² ∈ [0,1] for any GLM on valid binomial data
 # ============================================================================
 
-test_that("Invariant: Pseudo-R² for quasibinomial GLM in [0,1] for well-specified models", {
+test_that("Invariant: Pseudo-R2 for quasibinomial GLM in [0,1]", {
   # Note: Quasibinomial pseudo-R² can be negative for poorly specified models
   # We only require it's in [0,1] for well-behaved data
 
@@ -399,11 +434,15 @@ test_that("Invariant: Biphasic r_squared is non-negative", {
   for (i in seq_len(n_iter)) {
     # Generate plausible endosymbiont data
     n_genus <- 20L
+    # Endosymbiont genome reduction: genome size declines with symbiosis age,
+    # so the fitted model is well-specified and R² is robustly non-negative.
+    age <- sort(runif(n_genus, 50, 500))
     data <- data.frame(
+      species = paste0("species_", seq_len(n_genus)),
       genus = paste0("genus_", seq_len(n_genus)),
-      genome_bp = runif(n_genus, 0.5e6, 5e9),
-      aa_pathways_retained = sample(1:100, n_genus, replace = TRUE),
-      symbiosis_age_mya = runif(n_genus, 50, 500),
+      symbiosis_age_mya = age,
+      genome_bp = 5e9 * exp(-0.0015 * age) + rnorm(n_genus, 0, 2e8),
+      aa_pathways_retained = pmax(1, round(100 * exp(-0.0005 * age))),
       stringsAsFactors = FALSE
     )
 
