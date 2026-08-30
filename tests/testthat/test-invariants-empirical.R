@@ -1,5 +1,18 @@
 # test-invariants-empirical.R — Property-based invariants for empirical tests
 # DFT A2: Statistical invariants that hold regardless of data (as long as valid)
+#
+# E2 revival (2026-08-30): re-enabled from .disabled. Two contract drifts
+# repaired against current signatures:
+#   - transfer_test now fits a gene-categories loss-rank model (fit_plant_model
+#     -> validate_gene_categories), so invariants 4/7 plant_data moved from the
+#     old retention-matrix format (species/gene_category/.../retention) to
+#     category + dependency_score + *_loss_rank.
+#   - validate_endosymbiont_data now requires a species column; invariant 10
+#     generates both species (validator) and genus (aggregation target), with
+#     a declining-genome DGM so the fitted model is well-specified (R² >= 0
+#     robustly, not by chance on uniform data).
+# Executed by the covr::package_coverage() step in the unit gate (runs the
+# whole suite), like the sibling invariants-dynamics / invariants-formal-model.
 
 library(testthat)
 
@@ -198,11 +211,9 @@ test_that("Invariant: Transfer test bird_rho always in [-1,1]", {
 
   for (i in seq_len(n_iter)) {
     plant_data <- data.frame(
-      species = paste0("sp_", 1:8),
-      gene_category = rep(c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"), each = 8),
-      parasitism_score = rep(c(0, 1, 2, 3), times = 12),
-      dependency_score = rep(c(0, 1, 1, 2, 3, 5), each = 8),
-      retention = runif(48, 0, 1),
+      category = c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"),
+      dependency_score = c(0, 1, 1, 2, 3, 5),
+      lineage_loss_rank = sample(6),
       stringsAsFactors = FALSE
     )
 
@@ -291,14 +302,9 @@ test_that("Invariant: Sign preservation when both positive", {
 
   # Create plant data with clearly positive dependency effect
   plant_data <- data.frame(
-    species = rep(paste0("sp_", 1:8), each = 6),
-    gene_category = rep(c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"), times = 8),
-    parasitism_score = rep(rep(c(0, 2, 4), each = 16), 2),
-    dependency_score = rep(c(0, 1, 1, 2, 3, 5), times = 16),
-    retention = c(
-      # Strong positive correlation: high dep → high retention
-      rep(c(0.9, 0.85, 0.8, 0.7, 0.5, 0.3), 8) + rnorm(48, 0, 0.05)
-    ),
+    category = c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"),
+    dependency_score = c(0, 1, 1, 2, 3, 5),
+    lineage_loss_rank = c(1, 2, 3, 4, 5, 6), # high dep -> lost later (higher rank)
     stringsAsFactors = FALSE
   )
 
@@ -399,11 +405,15 @@ test_that("Invariant: Biphasic r_squared is non-negative", {
   for (i in seq_len(n_iter)) {
     # Generate plausible endosymbiont data
     n_genus <- 20L
+    # Endosymbiont genome reduction: genome size declines with symbiosis age,
+    # so the fitted model is well-specified and R² is robustly non-negative.
+    age <- sort(runif(n_genus, 50, 500))
     data <- data.frame(
+      species = paste0("species_", seq_len(n_genus)),
       genus = paste0("genus_", seq_len(n_genus)),
-      genome_bp = runif(n_genus, 0.5e6, 5e9),
-      aa_pathways_retained = sample(1:100, n_genus, replace = TRUE),
-      symbiosis_age_mya = runif(n_genus, 50, 500),
+      symbiosis_age_mya = age,
+      genome_bp = 5e9 * exp(-0.0015 * age) + rnorm(n_genus, 0, 2e8),
+      aa_pathways_retained = pmax(1, round(100 * exp(-0.0005 * age))),
       stringsAsFactors = FALSE
     )
 
