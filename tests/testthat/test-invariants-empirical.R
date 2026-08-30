@@ -34,14 +34,21 @@ context("Empirical test invariants")
 .generate_pgls_synthetic <- function(n = 50, true_beta = -10, sigma = 20,
                                      lambda = 0.7, seed = 42L) {
   withr::with_seed(seed, {
-    # Generate phylogeny (simple star phylogeny with some structure)
-    tree <- ape::rtree(n)
+    # Coalescent (ultrametric) tree: the standard for PGLS simulation, and
+    # well-behaved for ML-lambda estimation (rtree's random branch lengths
+    # can flake caper's optimiser).
+    tree <- ape::rcoal(n)
 
-    # Generate predictor with variance
-    x <- rnorm(n, mean = 2, sd = 1)
+    # Validator contract (validate_plastome_data): parasitism_score and
+    # plastome_size_kb must be non-negative. Draw the predictor strictly
+    # positive and keep the response safely above zero so every iteration
+    # is valid (this file was authored disabled and never run against the
+    # current contracts — see E2).
+    x <- runif(n, 1, 3)
 
-    # Generate response: y = intercept + beta*x + phylogenetic_signal
-    intercept <- 100
+    # Response: y = intercept + true_beta*x + phylogenetic_signal + noise,
+    # with intercept large enough that y never goes negative.
+    intercept <- 150
     phylo_error <- MASS::mvrnorm(1, rep(0, n),
                                  ape::vcv(tree, corr = TRUE) * lambda)
     residual_error <- rnorm(n, 0, sigma)
