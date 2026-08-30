@@ -47,11 +47,11 @@ context("Empirical test invariants")
     x <- runif(n, 1, 3)
 
     # Response: y = intercept + true_beta*x + phylogenetic_signal + noise.
-    # Simulate the phylogenetic signal along the tree with Brownian motion
-    # (ape::rTraitCont) rather than drawing it from the tree's covariance
-    # matrix: for a coalescent tree that matrix is numerically singular, and
-    # a multivariate normal draw on it fails deterministically (not positive
-    # definite), which silently zeroed recovery on every iteration.
+    # The phylogenetic signal is simulated along the tree by Brownian
+    # motion rather than drawn from the tree's covariance matrix: for a
+    # coalescent tree that matrix is numerically singular, and a
+    # multivariate normal draw on it fails deterministically, which
+    # silently zeroed recovery on every iteration.
     intercept <- 150
     phylo_error <- as.numeric(ape::rTraitCont(tree, model = "BM",
                                               sigma = 1)) * sqrt(lambda)
@@ -228,12 +228,20 @@ test_that("Invariant: Transfer test bird_rho always in [-1,1]", {
   all_in_range <- logical(n_iter)
 
   for (i in seq_len(n_iter)) {
-    plant_data <- data.frame(
-      category = c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"),
-      dependency_score = c(0, 1, 1, 2, 3, 5),
-      lineage_loss_rank = sample(6),
-      stringsAsFactors = FALSE
-    )
+    # Non-degenerate, seed-locked plant DGM: dependency_score rises with
+    # category, and lineage_loss_rank is a monotone (positive-sign)
+    # function of it plus tiny noise. Guarantees a nonzero plant slope, so
+    # predicted bird ranks are never all-tied (which would make Spearman's
+    # rho NA). The prior sample(6) could hit a near-zero slope and return
+    # NA on iteration 10 of 50.
+    plant_data <- withr::with_seed(42L + i, {
+      data.frame(
+        category = c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"),
+        dependency_score = c(0, 1, 1, 2, 3, 5),
+        lineage_loss_rank = seq_len(6) + rnorm(6, 0, 0.1),
+        stringsAsFactors = FALSE
+      )
+    })
 
     bird_data <- .generate_transfer_bird_data(n_bird = 8, seed = 42L + i)
 
