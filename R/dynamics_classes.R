@@ -172,8 +172,8 @@ validate_valence_autocatalytic_result <- function(x) {
     )
   }
   if (!is.character(vals$diversity_dependence_sign) ||
-        !(vals$diversity_dependence_sign %in% c("positive", "negative"))) {
-    stop("diversity_dependence_sign must be 'positive' or 'negative'",
+        !(vals$diversity_dependence_sign %in% c("positive", "negative", "inconclusive"))) {
+    stop("diversity_dependence_sign must be 'positive', 'negative', or 'inconclusive'",
       call. = FALSE
     )
   }
