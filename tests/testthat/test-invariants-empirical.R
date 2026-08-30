@@ -32,7 +32,7 @@ context("Empirical test invariants")
 #'
 #' @return List with data and tree.
 .generate_pgls_synthetic <- function(n = 50, true_beta = -10, sigma = 20,
-                                      lambda = 0.7, seed = 42L) {
+                                     lambda = 0.7, seed = 42L) {
   withr::with_seed(seed, {
     # Generate phylogeny (simple star phylogeny with some structure)
     tree <- ape::rtree(n)
@@ -43,7 +43,7 @@ context("Empirical test invariants")
     # Generate response: y = intercept + beta*x + phylogenetic_signal
     intercept <- 100
     phylo_error <- MASS::mvrnorm(1, rep(0, n),
-                                  ape::vcv(tree, corr = TRUE) * lambda)
+                                 ape::vcv(tree, corr = TRUE) * lambda)
     residual_error <- rnorm(n, 0, sigma)
     y <- intercept + true_beta * x + phylo_error + residual_error
 
