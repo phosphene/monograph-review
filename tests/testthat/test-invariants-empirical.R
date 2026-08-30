@@ -39,16 +39,17 @@ context("Empirical test invariants")
     # can flake caper's optimiser).
     tree <- ape::rcoal(n)
 
-    # Validator contract (validate_plastome_data): parasitism_score and
-    # plastome_size_kb must be non-negative. Draw the predictor strictly
-    # positive and keep the response safely above zero so every iteration
-    # is valid (this file was authored disabled and never run against the
-    # current contracts — see E2).
+    # Validator contract: the plastome and parasitism columns must be
+    # non-negative, so the predictor is drawn strictly positive and the
+    # response kept safely above zero so every iteration is valid (this
+    # file was authored disabled and never run against the current
+    # contracts — see E2).
     x <- runif(n, 1, 3)
 
-    # Response: y = intercept + true_beta*x + phylogenetic_signal + noise.
-    # The phylogenetic signal is simulated along the tree by Brownian
-    # motion rather than drawn from the tree's covariance matrix: for a
+    # Response is an intercept plus the true negative effect of the
+    # predictor plus phylogenetic signal plus residual noise. The
+    # phylogenetic signal is simulated along the tree by Brownian motion
+    # rather than drawn from the tree's covariance matrix: for a
     # coalescent tree that matrix is numerically singular, and a
     # multivariate normal draw on it fails deterministically, which
     # silently zeroed recovery on every iteration.
@@ -82,7 +83,8 @@ context("Empirical test invariants")
       species = paste0("sp_", seq_len(n)),
       genome_bp = runif(n, 1e6, 10e9),
       Ne = runif(n, 1e3, 1e7),
-      lifestyle = sample(c("free-living", "commensal", "obligate"), n, replace = TRUE),
+      lifestyle = sample(c("free-living", "commensal", "obligate"),
+                         n, replace = TRUE),
       stringsAsFactors = FALSE
     )
   })
@@ -291,7 +293,8 @@ test_that("Invariant: Co-segregation depletion_ratio is non-negative", {
 })
 
 # ============================================================================
-# Invariant 6: Transfer test null distribution has mean ρ ≈ 0 under random slopes
+# Invariant 6: Transfer test null distribution has mean rho approx 0
+# under random slopes
 # ============================================================================
 
 test_that("Invariant: Null distribution mean ρ ≈ 0 for random slopes", {
@@ -320,7 +323,7 @@ test_that("Invariant: Null distribution mean ρ ≈ 0 for random slopes", {
 })
 
 # ============================================================================
-# Invariant 7: Sign concordance (if plant slope > 0 and bird ρ > 0, sign preserved)
+# Invariant 7: Sign concordance (plant slope and bird rho share sign)
 # ============================================================================
 
 test_that("Invariant: Sign preservation when both positive", {
@@ -330,7 +333,7 @@ test_that("Invariant: Sign preservation when both positive", {
   plant_data <- data.frame(
     category = c("ndh", "rpo", "psa", "psb", "atp", "rpl_rps"),
     dependency_score = c(0, 1, 1, 2, 3, 5),
-    lineage_loss_rank = c(1, 2, 3, 4, 5, 6), # high dep -> lost later (higher rank)
+    lineage_loss_rank = c(1, 2, 3, 4, 5, 6),  # high dep -> lost later
     stringsAsFactors = FALSE
   )
 
@@ -358,7 +361,7 @@ test_that("Invariant: Sign preservation when both positive", {
 # Invariant 8: Pseudo-R² ∈ [0,1] for any GLM on valid binomial data
 # ============================================================================
 
-test_that("Invariant: Pseudo-R² for quasibinomial GLM in [0,1] for well-specified models", {
+test_that("Invariant: Pseudo-R2 for quasibinomial GLM in [0,1]", {
   # Note: Quasibinomial pseudo-R² can be negative for poorly specified models
   # We only require it's in [0,1] for well-behaved data
 
