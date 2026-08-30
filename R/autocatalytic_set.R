@@ -125,6 +125,7 @@ diversity_dependence_sign <- function(innovation_counts, seed = 42L) {
 
     result <- list(
       values = list(
+        innovation_counts = innovation_counts,
         growth_direction = ifelse(slope > 0, "positive", "negative"),
         growth_slope = slope,
         growth_r_squared = r2,
