@@ -46,11 +46,15 @@ context("Empirical test invariants")
     # current contracts — see E2).
     x <- runif(n, 1, 3)
 
-    # Response: y = intercept + true_beta*x + phylogenetic_signal + noise,
-    # with intercept large enough that y never goes negative.
+    # Response: y = intercept + true_beta*x + phylogenetic_signal + noise.
+    # Simulate the phylogenetic signal along the tree with Brownian motion
+    # (ape::rTraitCont) rather than MASS::mvrnorm on vcv(tree, corr=TRUE):
+    # the correlation matrix of a coalescent tree is numerically singular,
+    # and mvrnorm fails on it deterministically ("Sigma not positive
+    # definite"), which silently zeroed recovery on every iteration.
     intercept <- 150
-    phylo_error <- MASS::mvrnorm(1, rep(0, n),
-                                 ape::vcv(tree, corr = TRUE) * lambda)
+    phylo_error <- as.numeric(ape::rTraitCont(tree, model = "BM",
+                                              sigma = 1)) * sqrt(lambda)
     residual_error <- rnorm(n, 0, sigma)
     y <- intercept + true_beta * x + phylo_error + residual_error
 
@@ -132,7 +136,11 @@ test_that("Invariant: PGLS recovers negative beta for known negative data", {
 
     result <- tryCatch(
       pgls_orobanchaceae(syn$data, syn$tree, lambda = "ML", seed = 42L + i),
-      error = function(e) NULL
+      error = function(e) {
+        message("PGLS invariant iteration ", i, " error: ",
+                conditionMessage(e))
+        NULL
+      }
     )
 
     if (!is.null(result)) {
