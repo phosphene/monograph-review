@@ -5,7 +5,7 @@ title: "Foundry Software Session Handoff — current state, next actions"
 owner: edphos
 created: 2026-08-29
 status: living
-branch: fix/t15-boundary-probe
+branch: fix/e1-coverage-gate
 ---
 
 # Foundry Software Session Handoff
@@ -19,11 +19,11 @@ not aspiration.*
 ## Where the work lives
 
 - **Repo:** `phosphene/monograph-review` (GitHub)
-- **Branch:** `fix/t15-boundary-probe` (pushed; work continues here)
+- **Branch:** `fix/e1-coverage-gate` (E1, PR #22); E2 merged to `main` via PR #21
 - **Package:** `valence.foundry` — R package, production-grade artifacts for
   the monograph review
-- **Tests:** 39 test files under `tests/testthat/`
-- **CI:** GitHub Actions — 7 gates (`run_tests.R`), container
+- **Tests:** 44 test files under `tests/testthat/` (E1 added 4 contract-test files: 201 assertions)
+- **CI:** GitHub Actions — 8 gates (`run_tests.R`), container
   `rocker/tidyverse:4.5.3`.
 - **Local R IS available** (found 2026-08-29): R 4.5.3 via miniforge at
   `~/.openclaw/tools/miniforge3/bin/R` (also `/data/R/miniforge`).
@@ -38,23 +38,35 @@ not aspiration.*
   metaphors; no claim exceeds its stated-and-tested conditions
   (see `docs/standards/`, `docs/review/review-evaluation-standard.md`).
 
-## Current state (verified 2026-08-29)
+## Current state (verified 2026-08-30)
 
-- Language scrub complete: all private terms removed from the corpus
+- **Language scrub complete:** all private terms removed from the corpus
   (docs, code comments, tests, archive). Zero "vintage", zero "VI"
   framework-acronym, zero private brand terms in authored text. Two
   bibliographic citations of the real Vintage imprint remain as data only.
-- **Green gates (local, 2026-08-29, after NAMESPACE fix):** unit 671 pass,
-  simulacra 266 pass, integration 13 pass, regression 15 pass. Full suite
-  8417 passed / 0 failed / 11 skipped. CI gates: unit, coverage ≥ 80%,
-  lint (non-blocking), integration, simulacra, regression, container check.
-- **Latent bug found + fixed (2026-08-29):** committed `NAMESPACE` was stale —
-  missing the 5 P-series exports (`p1_buchnera_two_component` …
-  `p5_c4_integration_depth`) that `pipeline.yml` declares. The integration
-  gate's manifest-conformance test would have failed in CI. Fixed by
-  `roxygen2::roxygenise()` (commit `725a674`); ~140 orphaned `vi_*.Rd`
-  removed. If docs are ever edited, re-run roxygenise or the same drift
-  recurs.
+- **E2 — invariants suite revived (DONE, merged PR #21, `ce7b6bc`).**
+  `test-invariants-empirical.R` re-enabled after fixing a return-contract drift in the
+  PGLS synthetic generator (documented `list(data, tree)` vs a bare data.frame → every call
+  died in validation) plus a seed-locked monotone DGM for the transfer invariant and full lint
+  cleanup (commented-code + five pre-existing line-length lints). Two vignette contract drifts
+  that were failing `R CMD check` were also fixed (`as_valence_autocatalytic_result` counts;
+  `retention_at_time` return shape), closing the check gate.
+- **E1 — coverage gate (DONE, PR #22).** Four contract-test files (201 assertions) lift the
+  under-covered modules past the ≥80% gate: `p_series_a_priori.R` 19.4% → 100%,
+  `dynamics_classes.R` 49.7% → 96.0%, `formal_model_classes.R` 50.6% → 91.4%,
+  `test_registry.R` 64.1% → 94.7%; overall 83.98% → **93.25%**. Two real robustness bugs
+  surfaced and fixed: `p3_plastid_erosion_order` crashed on constant dependency score (now NA
+  fallback), and the autocatalytic validator rejected its own documented `"inconclusive"`
+  fallback.
+- **Green gates (local, 2026-08-30, CI-matching R 4.5.3):** full suite green (exit 0), all
+  eight CI gates green on the E1 head. CI gates: lint, unit (coverage ≥ 80%), simulacra,
+  integration, regression, R CMD check, Pages, summary.
+- **Coverage:** 93.25% overall; every shipped module ≥ 80% except the package load hook
+  (`zzz.R`), which is a pre-existing non-ticket 0% (`.onLoad`).
+- **Latent bug fixed earlier (2026-08-29):** committed `NAMESPACE` was stale — missing the 5
+  P-series exports (`p1_buchnera_two_component` … `p5_c4_integration_depth`) that
+  `pipeline.yml` declares. Fixed by `roxygen2::roxygenise()` (commit `725a674`); ~140 orphaned
+  `vi_*.Rd` removed. If docs are ever edited, re-run roxygenise or the same drift recurs.
 - **Partially passing:** the calculation gate — 2 entries pass (T5,
   formal_model), T4 confirms the framework (niche subsumes Ne). **7 skips:**
   - T6 + L3 — **no bundled data** (Review Items 4–5)
@@ -62,6 +74,12 @@ not aspiration.*
   - T3 — **method misspecification** (Remark R6)
 
 ## The forward agenda (the actual code work)
+
+### Self-calibration program — next ticket
+
+**C6 — Monte Carlo error and replication-count discipline** is next (then C1 → C2 → C5 →
+C4 → C7 → C3 → C8 → E3). E1 (coverage gate) and E2 (invariants revive) are done; see
+README's calibration-program status block.
 
 ### A. The three "testable but not yet tested" modules
 (from `empirical-testing-expansion-plan.md` — phases 1–4, commit-structure and
@@ -89,7 +107,7 @@ three phases, safest-first.
 
 ## How to pick up (first 30 minutes of a session)
 
-1. `git fetch && git checkout fix/t15-boundary-probe` in the review repo.
+1. `git fetch && git checkout main` in the review repo.
 2. Read `docs/review/README.md` (map), then
    `docs/review/foundry-phased-breakdown.md` (gate status) — the two orienting
    docs.

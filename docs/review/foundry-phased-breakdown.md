@@ -13,25 +13,24 @@ tracked here is the review's items 4–6.
 
 ## At a glance
 
-Verified locally (R 4.5.3, miniforge, 2026-08-29, after the NAMESPACE fix —
-see [`development-environment.md`](../development-environment.md)).
+Verified locally (R 4.5.3, miniforge, 2026-08-30 — CI-matching container; after the E1 coverage
+work and the E2 invariants revival, see [`session-handoff.md`](session-handoff.md)).
 
-| Gate | Files | Cases | Status |
-|------|------:|------:|--------|
-| Unit (`make unit`) | 14 | 671 pass / 1 skip | ✅ green |
-| Simulacra (`make simulacra`) | 9 | 266 pass | ✅ green |
-| Integration (`make integration`) | 1 | 13 pass / 1 skip | ✅ green |
-| Regression (`make regression`) | 1 | 15 pass / 7 skips | ⚠️ items 4–6 |
-| **Full suite** | **38** | **8417 pass / 0 fail / 11 skip** | ✅ no failures |
+| Gate | Files | Status |
+|------|------:|--------|
+| Unit (`make unit`) | 19 | ✅ green, coverage ≥ 80% enforced |
+| Simulacra (`make simulacra`) | 9 | ✅ green |
+| Integration (`make integration`) | 1 | ✅ green (1 Postgres skip) |
+| Regression (`make regression`) | 1 | ⚠️ items 4–6 (7 skips) |
+| **Full suite** | **44** | ✅ no failures |
 
-Coverage gate (CI, `unit` job): ≥ 80%, enforced. Lint (`lintr`): non-blocking
-advisory in CI. R CMD check (`check` job): `error_on = "error"`.
+Coverage gate (CI, `unit` job): ≥ 80%, enforced. **Overall coverage 93.25%** (was 83.98% before
+E1). Lint (`lintr`): enforced. R CMD check (`check` job): `error_on = "error"` — green after the
+E2 vignette contract fixes.
 
-The 11 skips are not failures: 1 integration skip is the Postgres round-trip
-(requires `RUN_DB_INTEGRATION=true` / the Docker stack); 7 regression skips are
-2 missing datasets (items 4–5), 4 data-version drift where the science holds
-(item 6), and 1 method misspecification (T3, R6); the remaining skips are a
-plot-render and a pipeline stage exercised elsewhere.
+Calibration program: **E1** (coverage gate — 4 under-covered modules lifted past 80%: `p_series_a_priori`
+100%, `dynamics_classes` 96.0%, `formal_model_classes` 91.4%, `test_registry` 94.7%) and **E2**
+(invariants suite revived + vignette contract fixes) are **DONE**. Next ticket: **C6**.
 
 ---
 

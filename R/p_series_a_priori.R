@@ -252,8 +252,19 @@ p3_plastid_erosion_order <- function(scores, seed = 42L) {
   sp_rhos <- sp_rhos[!is.na(sp_rhos)]
 
   # Pooled: dependency_score vs retention across all species (species as covariate)
-  m <- glm(retention ~ dependency_score + parasitism_score, data = d, family = binomial)
-  p_dep <- summary(m)$coefficients["dependency_score", "Pr(>|z|)"]
+  m <- tryCatch(
+    glm(retention ~ dependency_score + parasitism_score, data = d, family = binomial),
+    error = function(e) NULL
+  )
+  p_dep <- NA_real_
+  beta_dep <- NA_real_
+  if (!is.null(m)) {
+    cf <- summary(m)$coefficients
+    if ("dependency_score" %in% rownames(cf)) {
+      beta_dep <- unname(coef(m)["dependency_score"])
+      p_dep <- cf["dependency_score", "Pr(>|z|)"]
+    }
+  }
 
   # Erosion order: within core categories, does dependency order the parasitism at which loss occurs?
   # (retention drops from 1 to 0 as parasitism deepens)
@@ -262,7 +273,7 @@ p3_plastid_erosion_order <- function(scores, seed = 42L) {
     values = list(
       mean_species_rho = if (length(sp_rhos)) mean(sp_rhos) else NA,
       n_species_with_signal = length(sp_rhos),
-      beta_dependency = unname(coef(m)["dependency_score"]),
+      beta_dependency = beta_dep,
       p_dependency = p_dep,
       n = nrow(d),
       n_species = length(unique(d$species))
