@@ -241,6 +241,7 @@ make_page <- function(title, body_html, timestamp, repo_url, pages_url) {
     "<a href=\"key-results.html\">Key Results</a>",
     "<a href=\"toy-models.html\">Toy Models</a>",
     "<a href=\"formula-analysis.html\">Formula Analysis</a>",
+    "<a href=\"review/cross-filter-dashboard.html\">D3 Dashboard</a>",
     "</div>\n",
     body_html,
     "<div class=\"footer\">",
