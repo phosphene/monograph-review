@@ -2,14 +2,13 @@
 
 An open, reproducible review apparatus for a scientific monograph on animal recovery dynamics.
 The repository is a model open-science test bench: the manuscript's claims are re-derived from
-its mathematics, its software, and its data, and every reported value is re-verified by the
-pipeline under continuous integration. Nothing is asserted that cannot be reproduced from the
-code and data shipped here.
+its mathematics, its software, and its data, and every reported value is verified by the
+pipeline under continuous integration. Assertions claim to reproducibility.
 
-## The claim under test
+## Proposed
 
-The monograph under review proposes the following statement about animal life. It emerges from
-the empirical work; it was not presupposed.
+The monograph under review proposes the following statement about animal life as supported by 
+empirical test.
 
 > When an animal is displaced from its homeorhetic trajectory — by exercise, injury, infection,
 > or anesthesia — its return is a multiscale relaxation: a recovery composed of multiple
@@ -21,8 +20,8 @@ the empirical work; it was not presupposed.
 > tissue-autonomous versus systemically integrated processes — is a labeled, sourced hypothesis
 > under test, outside the empirical spine.
 
-The empirical core is forced by the measurement: multiscale (non-mono-exponential) recovery;
-two distinct phases that appear at high temporal resolution; a rapid phase present in aneural
+An empirical attempt at some measurement: multiscale (non-mono-exponential) recovery;
+two distinct phases appear at temporal resolutions; a rapid phase present in aneural
 animals (tissue-autonomous, in the cell-autonomous lineage of developmental genetics); a
 negative control (sleep slow-wave activity recovers as a single exponential) showing the claim
 is specific, not vacuous. Classical scaffolding carries that core: homeorhetic trajectory
@@ -34,23 +33,22 @@ grade (Huxley 1958; Simpson 1944).
 
 ## Tradition
 
-This review stands in a tradition of observational naturalism. Charles Darwin — an institution
-of public science — is its first exemplar: his final book, *The Formation of Vegetable Mould,
+This review stands in a tradition of observational naturalism. Charles Darwin is an exemplar: his final book, *The Formation of Vegetable Mould,
 Through the Action of Worms* (1881), models patient inference from observable behavior — what
-the animals do, from observable inputs and outputs, without an extra causal ingredient. J.O.
+the animals do, from observable inputs and outputs. J.O.
 Wisdom opens his study of scientific inference, *Foundations of Inference in Natural Science*
-(1952), with Darwin for exactly this reason: the earthworms are the paradigm of drawing no more
-from an observation than it licenses. This review's own genealogy descends from that tradition —
-observation first, inference austere, the claim tested against what the animals do. The systems
-of study below begin with Darwin's own organism.
+(1952), with Darwin for exactly this reason: the earthworm study is a model of drawing no more
+from an observation than it licenses. Our genealogy descends from that tradition —
+observation first, austerity of inference, all claims tested against data. The systems
+of study below fittingly begin with Darwin's worms.
 
 ## The systems of study
 
 The empirical work behind the review spans a deliberately wide sample of animal life, from the
 invertebrate to the vertebrate, from the sessile to the highly mobile:
 
-- **Earthworms** (*Lumbricus terrestris*) — Darwin's own study organism; the model of austere
-  inference from observable behavior.
+- **Earthworms** (*Lumbricus terrestris*) — Darwin's own study organism; a model of
+  inference from observable behaviors.
 - **Nematodes, fruit flies, and other laboratory invertebrates** — short-generation systems in
   which recovery dynamics can be observed across the whole life course.
 - **Zebrafish** (*Danio rerio*) — a vertebrate model with a resolved developmental sequence and
@@ -58,9 +56,9 @@ invertebrate to the vertebrate, from the sessile to the highly mobile:
 - **Domesticated mammals** — dogs, horses, and the laboratory mouse (*Mus musculus*); lineage
   records provide the comparative frame for integration structure.
 - **Sleep states in humans and songbirds (e.g., the zebra finch)** — the negative control: slow-
-  wave activity recovers as a single tempo, showing the two-tempo claim is specific, not vacuous.
+  wave activity recovers as a single tempo.
 
-These are naturalist names in the classical sense: the systems are studied as living animals,
+Naturalist names in the classical sense: the systems are studied as living animals,
 not as abstracted data sources. The data sets derived from them are described below.
 
 ## Mathematical methods
