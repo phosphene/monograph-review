@@ -4,8 +4,6 @@
 
 library(testthat)
 
-context("Bi-exponential relaxation fitter")
-
 
 # ---- Test 1: Bi-exponential wins on bi-exponential data ----
 
@@ -270,4 +268,132 @@ test_that("fit_biexp: bi selection rate falls as noise rises", {
   low_noise <- count_at(0.001)
   high_noise <- count_at(0.05)
   expect_lt(high_noise, low_noise)
+})
+
+
+# ==============================================================================
+# REGISTER GAP TESTS (2026-09-03) — see jury-register-combined.md
+#
+# The 64-panelist jury + combined register (E10/O12) identified five gaps in
+# the bi-exponential analysis chain. Four are closed by the current
+# implementation (regression-pinned below); four remain open and are declared
+# as skipped tests tied to the register. When the implementation closes a gap,
+# the skip flips to an active assertion.
+#
+# Closed by implementation (regression pins):
+#   G4 label-swap protection  — convention fix: k1 >= k2 enforced post-fit
+#   G6 raw-scale degradation  — always fit on normalised time (scale-invariant
+#                               model selection/convergence)
+#   G7 scale-blind start grid — exponential peeling gives data-derived starts
+#                               on any time scale
+# Open (skipped, register-tied):
+#   G1 n-floor degeneracy     — 6 params on 6 points overfits (E10)
+#   G2 competitor models      — switch-train/power-law/stretched-exp absent
+#                               from the model comparison (E10/O12)
+#   G3 ΔAIC uncertainty       — single fit, no bootstrap/CI (O12)
+#   G5 rate-proportionality   — rate ∝ remaining untested (O12)
+# ==============================================================================
+
+
+# ---- G4 (closed): convention fix holds at near-degenerate timescales ----
+
+test_that("fit_biexp: k1 >= k2 convention holds at near-degenerate timescales", {
+  # k1 ~ k2 is exactly where the optimizer finds the mirror-image basin;
+  # the convention fix must relabel so fast/slow is unambiguous.
+  for (s in 1:10) {
+    d <- .make_biexp_data(n = 120, seed = s, k1 = 1.1, k2 = 1.0, noise_sd = 1e-4)
+    fits <- fit_biexp(d$t, d$rho)
+    if (fits$biexponential$converged) {
+      c <- fits$biexponential$coefficients
+      expect_gte(c$k1, c$k2)
+    }
+  }
+})
+
+
+# ---- G6 (closed): raw path at extreme timescale matches normalized path ----
+
+test_that("fit_biexp: raw and normalized agree at extreme timescale", {
+  # Rates rescaled so both phases are visible on [0, 56500] (k1*t_max ~ 20,
+  # k2*t_max ~ 2). The fit is always performed on normalised time, so model
+  # selection and convergence must be identical for both reporting scales.
+  k1 <- 20 / 56500
+  k2 <- 2 / 56500
+  d <- .make_biexp_data(n = 100, t_max = 56500, k1 = k1, k2 = k2,
+                        noise_sd = 0.001)
+  fits_norm <- fit_biexp(d$t, d$rho, normalize_t = TRUE)
+  fits_raw <- fit_biexp(d$t, d$rho, normalize_t = FALSE)
+
+  expect_equal(fits_norm$best_model, "biexponential")
+  expect_equal(fits_raw$best_model, "biexponential")
+  expect_true(fits_norm$biexponential$converged)
+  expect_true(fits_raw$biexponential$converged)
+  # Halflife is a raw-time quantity: identical under both reporting scales
+  expect_equal(fits_norm$metadata$k1_halflife,
+               fits_raw$metadata$k1_halflife,
+               tolerance = 0.05)
+  expect_equal(fits_norm$metadata$k2_halflife,
+               fits_raw$metadata$k2_halflife,
+               tolerance = 0.05)
+})
+
+
+# ---- G7 (closed): peeling recovers true fast rate on the raw path ----
+
+test_that("fit_biexp: peeling start recovers fast rate without scale-aware grid", {
+  # t_max = 56500 with true k1 = 20/56500: the old scale-blind grid
+  # (k1 in {1..20}) could not start near the true rate on the raw scale;
+  # peeling must put the optimizer in the correct basin regardless.
+  k1 <- 20 / 56500
+  k2 <- 2 / 56500
+  d <- .make_biexp_data(n = 100, t_max = 56500, k1 = k1, k2 = k2,
+                        noise_sd = 1e-6)
+  fits <- fit_biexp(d$t, d$rho, normalize_t = FALSE)
+  expect_true(fits$biexponential$converged)
+  expect_equal(fits$biexponential$coefficients$k1, k1, tolerance = 0.25)
+  expect_equal(fits$biexponential$coefficients$k2, k2, tolerance = 0.25)
+})
+
+
+# ---- G1 (open): n-floor rejects degenerate 6-param-on-6-point fits ----
+
+test_that("G1: n-floor rejects degenerate 6-param-on-6-point fits", {
+  skip("GAP-E10: n-floor not enforced — 6 params on 6 points overfits (ΔAIC ~36); floor should be n >= 3*params")
+  t <- seq(0, 5, length.out = 6)
+  rho <- 0.05 + 0.03 * exp(-2 * t) + 0.01 * exp(-0.3 * t) + rnorm(6, 0, 1e-4)
+  fits <- fit_biexp(t, rho)
+  expect_false(fits$biexponential$converged) # must not report a degenerate win
+})
+
+
+# ---- G2 (open): competitor models participate in model comparison ----
+
+test_that("G2: competitor models participate in model comparison", {
+  skip("GAP-E10/O12: only bi/mono/linear compared — switch-train, power law, stretched exponential absent")
+  d <- .make_biexp_data(n = 80, noise_sd = 0.001)
+  fits <- fit_biexp(d$t, d$rho)
+  expect_true("switch_train" %in% names(fits)) # competitor AICs reported
+  expect_true("power_law" %in% names(fits))
+  expect_true("stretched_exp" %in% names(fits))
+})
+
+
+# ---- G3 (open): ΔAIC carries uncertainty ----
+
+test_that("G3: ΔAIC carries uncertainty (bootstrap/CI)", {
+  skip("GAP-O12: single fit, no bootstrap — the headline ΔAIC has no error bar")
+  d <- .make_biexp_data(n = 80, noise_sd = 0.002)
+  fits <- fit_biexp(d$t, d$rho)
+  expect_true(!is.null(fits$delta_aic_bi_mono_ci))
+  expect_length(fits$delta_aic_bi_mono_ci, 2)
+})
+
+
+# ---- G5 (open): rate-proportionality consequence is tested ----
+
+test_that("G5: rate-proportionality consequence is tested", {
+  skip("GAP-O12: rate ∝ remaining (the simplest two-rate consequence, 1/4 LTEE pops) not implemented")
+  d <- .make_biexp_data(n = 80, noise_sd = 0.001)
+  fits <- fit_biexp(d$t, d$rho)
+  expect_true(!is.null(fits$rate_proportionality))
 })
