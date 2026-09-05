@@ -1,0 +1,40 @@
+{
+  "experiment": {
+    "id": "WC_2026_001",
+    "title": "Earthworm Recovery Dynamics Under Controlled Conditions",
+    "species": {
+      "scientific_name": "Lumbricus terrestris",
+      "common_name": "Common Earthworm",
+      "collection_site": "South Beach, Miami, FL"
+    },
+    "parameters": {
+      "temperature_celsius": 20.0,
+      "humidity_percent": 75.0,
+      "light_cycle_hours": 12,
+      "soil_type": "Loam"
+    },
+    "duration_seconds": 1.5,
+    "observation_interval_seconds": 0.125,
+    "replicates": 3,
+    "created_date": "2026-09-04T12:00:00Z",
+    "analyst": "Ed Phil",
+    "instrument": {
+      "type": "Spectrophotometer",
+      "model": "UV-Vis-2000",
+      "calibration_date": "2026-08-15"
+    }
+  },
+  "analysis_config": {
+    "slaving_method": "implicit_rosenbrock",
+    "tolerance_rtol": 1e-8,
+    "tolerance_atol": 1e-8,
+    "fallback_to_polynomial": true,
+    "max_condition_number_warning": 1e7
+  },
+  "quality_control": {
+    "data_validation": "strict",
+    "na_handling": "impute_or_reject",
+    "outlier_detection": "mad_based",
+    "retention_threshold": 0.01
+  }
+}

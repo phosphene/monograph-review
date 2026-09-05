@@ -1,0 +1,23 @@
+# Earthworm Recovery Time Series Data
+# Format: Empirical observations from laboratory recovery assay
+# Schema: ISO 8601 timestamps, retention ratio [0-1], treatment condition
+time_retention_second	retention_ratio	treatment_condition	worm_id	experiment_id	temperature_celsius	humidity_percent
+0.000	1.0000	controlled	WC_001	WC_2026_001	20.0	75.0
+0.125	0.9847	controlled	WC_001	WC_2026_001	20.0	75.0
+0.250	0.9612	controlled	WC_001	WC_2026_001	20.0	75.0
+0.375	0.9341	controlled	WC_001	WC_2026_001	20.0	75.0
+0.500	0.9023	controlled	WC_001	WC_2026_001	20.0	75.0
+0.625	0.8672	controlled	WC_001	WC_2026_001	20.0	75.0
+0.750	0.8295	controlled	WC_001	WC_2026_001	20.0	75.0
+0.875	0.7898	controlled	WC_001	WC_2026_001	20.0	75.0
+1.000	0.7485	controlled	WC_001	WC_2026_001	20.0	75.0
+1.125	0.7062	controlled	WC_001	WC_2026_001	20.0	75.0
+1.250	0.6634	controlled	WC_001	WC_2026_001	20.0	75.0
+1.375	0.6205	controlled	WC_001	WC_2026_001	20.0	75.0
+1.500	0.5778	controlled	WC_001	WC_2026_001	20.0	75.0
+
+# Notes:
+# - Retention measured as fraction of initial uptake
+# - Treatment condition: "controlled" = baseline, "stress" = experimental perturbation
+# - All environmental parameters monitored continuously
+# - Timestamps in seconds post-perturbation
