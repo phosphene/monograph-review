@@ -1,0 +1,122 @@
+name: Data Format Compliance Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-data-formats:
+    name: Validate TSV/JSON compliance
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.5.3'
+      
+      - name: Setup miniforge3 conda env
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-name: base
+          environment-file: lib/python/environment.yaml
+      
+      - name: Install R dependencies
+        run: |
+          # Ensure we're using the correct library path
+          export R_LIBS_USER=/home/node/.openclaw/tools/R-library
+          
+          # Install testthat if not present
+          Rscript -e "if (!requireNamespace('testthat', quietly = TRUE)) install.packages('testthat', lib='/home/node/.openclaw/tools/R-library')"
+          Rscript -e "if (!requireNamespace('jsonlite', quietly = TRUE)) install.packages('jsonlite', lib='/home/node/.openclaw/tools/R-library')"
+      
+      - name: Run data format validation
+        run: |
+          cd /home/node/.openclaw/workspace/work/edphos/monograph-review
+          
+          # Test that our check script exists
+          if [ ! -f scripts/check_data_formats.R ]; then
+            echo "❌ ERROR: check_data_formats.R not found"
+            exit 1
+          fi
+          
+          # Run validation with --fail-on-warn to enforce policy strictly
+          Rscript scripts/check_data_formats.R --fail-on-warn
+          
+          echo "✅ Data format compliance check passed!"
+        
+        env:
+          R_LIBS_USER: /home/node/.openclaw/tools/R-library
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  validate-tsv-structure:
+    name: Validate TSV structure requirements
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Validate empirical data files
+        run: |
+          # Find all .tsv files in data/ directory
+          find data/ -name "*.tsv" -type f | while read file; do
+            echo "Checking $file..."
+            
+            # Verify it's actually tab-separated
+            if ! head -20 "$file" | grep -q $'\t'; then
+              echo "❌ FAIL: $file does not appear to be tab-separated"
+              exit 1
+            fi
+            
+            # Check for units documentation in comments
+            if head -10 "$file" | grep -qi "^#.*Unit\|unit\|seconds\|ratio"; then
+              echo "  ✅ Units documented in header comments"
+            else
+              echo "  ⚠️  WARNING: Consider adding unit documentation to header"
+            fi
+            
+            echo "  ✅ PASSED"
+          done
+      
+      - name: Validate JSON config structure
+        run: |
+          # Find all .json files in data/ directory
+          find data/ -name "*.json" -type f | while read file; do
+            echo "Validating $file..."
+            
+            # Verify valid JSON syntax
+            if python3 -c "import json; json.load(open('$file'))" 2>/dev/null; then
+              echo "  ✅ Valid JSON syntax"
+            else
+              echo "❌ FAIL: $file has invalid JSON syntax"
+              exit 1
+            fi
+            
+            # Check nesting depth is reasonable (<5 levels)
+            depth=$(python3 -c "
+import json, sys
+def max_depth(obj, d=0):
+    if isinstance(obj, dict):
+        return max((max_depth(v, d+1) for v in obj.values()), default=d)
+    elif isinstance(obj, list):
+        return max((max_depth(v, d+1) for v in obj), default=d)
+    return d
+
+with open('$file') as f:
+    print(max_depth(json.load(f)))
+")
+            if [ "$depth" -lt 5 ]; then
+              echo "  ✅ Nesting depth OK ($depth < 5)"
+            else
+              echo "❌ FAIL: $file too deeply nested ($depth >= 5)"
+              exit 1
+            fi
+            
+            echo "  ✅ PASSED"
+          done
